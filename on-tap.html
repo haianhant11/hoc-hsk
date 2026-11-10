@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="vi">
+<head><base href="/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:,">
+<title>Ôn tập — Hải Anh Ant</title>
+<link rel="stylesheet" href="assets/theme.css">
+</head>
+<body>
+<div class="app">
+<header class="site-header">
+<a class="brand" href="./"><span class="brand-mark">海英</span><span>Học HSK — Hải Anh Ant<small>Thư viện tiếng Trung theo giáo trình</small></span></a>
+<nav class="site-nav" aria-label="Điều hướng chính"><a href="on-tap" aria-current="page">Ôn tập <span class="srs-badge" data-srs-badge hidden></span></a><a href="./#khoa-hoc">Các khóa học</a><a href="/bang-xep-hang">Bảng xếp hạng</a></nav><span class="streak-slot" data-streak-slot></span>
+</header>
+<main class="srs-wrap">
+<div class="srs-head"><h1>Ôn tập</h1><p class="srs-sub">Ôn lại đúng những từ và kỹ năng bạn còn yếu. Lịch ôn đơn giản: nhớ đúng thì giãn dần 1 → 3 → 7 → 14 → 30 ngày, chưa nhớ thì gặp lại sau khoảng 10 phút.</p></div>
+<div id="srsMain">
+<section class="srs-stats" aria-label="Thống kê ôn tập">
+<div class="srs-stat"><span class="srs-stat-label">Đến hạn</span><strong class="srs-stat-value" id="statDue">0</strong></div>
+<div class="srs-stat"><span class="srs-stat-label">Đang học</span><strong class="srs-stat-value" id="statLearning">0</strong></div>
+<div class="srs-stat"><span class="srs-stat-label">Tổng số từ</span><strong class="srs-stat-value" id="statTotal">0</strong></div>
+</section>
+<section class="srs-block srs-panel" id="srsTodayBlock">
+<h2>Ôn hôm nay</h2>
+<div class="srs-start-row">
+<button class="pw-go" id="srsStart" type="button">Ôn ngay</button>
+<button class="game-other" id="srsMore" type="button" hidden>Ôn thêm 10 từ</button>
+<span class="srs-start-hint" id="srsStartHint"></span>
+</div>
+<div id="srsToday"></div>
+</section>
+<section class="srs-block srs-panel">
+<h2>Sổ từ</h2>
+<div class="srs-filters">
+<input class="srs-search" id="fSearch" type="search" placeholder="Tìm chữ Hán, pinyin hoặc nghĩa…" aria-label="Tìm trong Sổ từ">
+<select id="fCourse" aria-label="Lọc theo khóa học"><option value="">Mọi khóa học</option><option value="hsk3">HSK 3</option><option value="hsk4-thuong">HSK 4 thượng</option><option value="hsk4-ha">HSK 4 hạ</option></select>
+<select id="fSkill" aria-label="Lọc theo loại lỗi"><option value="">Mọi loại lỗi</option><option value="pinyin">Pinyin</option><option value="tone">Thanh điệu</option><option value="meaning">Nghĩa</option><option value="hanzi">Chữ Hán</option></select>
+<select id="fStatus" aria-label="Lọc theo trạng thái"><option value="">Mọi trạng thái</option><option value="due">Đến hạn</option><option value="active">Đang ôn</option><option value="suspended">Tạm ngưng</option></select>
+</div>
+<div id="srsBook"></div>
+</section>
+<section class="srs-block srs-data">
+<h2>Dữ liệu ôn tập</h2>
+<p class="srs-note">Dữ liệu được lưu trên trình duyệt này, chưa đồng bộ giữa thiết bị. Hãy xuất bản sao lưu nếu bạn muốn giữ lại khi đổi máy hoặc xóa dữ liệu trình duyệt.</p>
+<div class="srs-data-row">
+<button class="game-other" id="srsExport" type="button">Xuất bản sao lưu (JSON)</button>
+<button class="game-other" id="srsImportBtn" type="button">Nhập bản sao lưu</button>
+<input type="file" id="srsImportFile" accept="application/json,.json" hidden>
+</div>
+<div class="srs-danger-zone">
+<p class="srs-note">Khu vực nguy hiểm: xóa sẽ gỡ toàn bộ từ và lịch ôn trên trình duyệt này, không khôi phục được nếu chưa có bản sao lưu.</p>
+<button class="game-other srs-danger" id="srsClear" type="button">Xóa toàn bộ dữ liệu ôn tập</button>
+</div>
+<p class="srs-note" id="srsDataMsg" role="status"></p>
+<p class="srs-note" id="srsStorageWarn" hidden>Trình duyệt đang chặn lưu dữ liệu (ví dụ: chế độ riêng tư) nên lịch ôn có thể mất khi đóng trang.</p>
+</section>
+</div>
+<section id="srsSession" hidden></section>
+</main>
+<footer class="attrib"><p class="attrib-note">Trang được biên soạn với mục đích học tập cá nhân.</p></footer>
+</div>
+<nav class="site-mnav" aria-label="Điều hướng dưới đáy"><a href="on-tap" class="active" aria-current="page"><span class="han">复</span>Ôn tập <span class="srs-badge" data-srs-badge hidden></span></a><a href="./#khoa-hoc"><span class="han">课</span>Khóa học</a><a href="bang-xep-hang"><span class="han">榜</span>Bảng xếp hạng</a></nav>
+<script src="assets/srs.js"></script>
+<script src="assets/streak.js"></script>
+<script src="assets/leaderboard.js"></script>
+<script src="assets/srs-page.js"></script>
+</body></html>
