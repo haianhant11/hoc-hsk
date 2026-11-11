@@ -535,7 +535,7 @@
       var me = state.me;
       var gap = gapText();
       meEl.innerHTML = '<h2>Thứ hạng của bạn</h2>' +
-        '<div class="lb-me-row"><span class="lb-me-name">' + esc(p.name) + '</span>' +
+        '<div class="lb-me-row"><span class="lb-me-name">' + esc(state.me && state.me.name ? state.me.name : p.name) + '</span>' +
         '<span class="lb-me-points">' + (me ? me.points : '…') + ' điểm</span>' +
         '<span class="lb-me-rank">' + rankText(me) + '</span></div>' +
         (gap ? '<p class="lb-me-gap">' + esc(gap) + '</p>' : '') +
