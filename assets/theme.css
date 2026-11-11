@@ -1773,7 +1773,7 @@ body:has(.site-mnav) .app{padding-bottom:84px}
 /* ----- Khung cảnh Trời Mây Thiên Đình (Celestial Palace & Sea of Clouds) ----- */
 .lb3d-arena{
   position:relative;
-  height:430px;
+  height:460px;
   border-radius:18px;
   perspective:1100px;
   user-select:none;
@@ -1837,7 +1837,7 @@ body:has(.site-mnav) .app{padding-bottom:84px}
 .lb3d-unit{
   position:absolute;
   left:50%;
-  bottom:32px;
+  bottom:24px;
   width:186px;
   margin-left:-93px;
   display:flex;
@@ -2089,12 +2089,12 @@ body:has(.site-mnav) .app{padding-bottom:84px}
     padding:16px 12px 18px;
   }
   .lb3d-arena{
-    height:375px;
+    height:395px;
   }
   .lb3d-unit{
     width:144px;
     margin-left:-72px;
-    bottom:22px;
+    bottom:16px;
   }
   .lb3d-char-wrap{height:132px}
   .lb3d-unit.rank-1 .lb3d-char-wrap{height:144px}

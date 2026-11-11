@@ -691,7 +691,7 @@
 
         var x = sinA * rx;
         var z = cosA * rz;
-        var y = -cosA * 14;
+        var y = -(1 - cosA) * 8;
         var scale = 0.84 + (cosA + 1) * 0.12;
         var pillarYaw = sinA * 18;
         var zIdx = Math.round(25 + cosA * 15);
