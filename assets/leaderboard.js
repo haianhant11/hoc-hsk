@@ -261,25 +261,18 @@
           '<div class="lb3d-header">' +
             '<div class="lb3d-title-wrap">' +
               '<span class="seal-stamp">三甲金榜</span>' +
-              '<div>' +
-                '<h3 class="lb3d-heading">Điện Vinh Danh Top 3 · Bục Xoay 3D</h3>' +
-                '<p class="lb3d-sub">Kéo ngang hoặc bấm vào Trạng nguyên · Bảng nhãn · Thám hoa để xoay bục 3D</p>' +
-              '</div>' +
+              '<h3 class="lb3d-heading">Điện Vinh Danh Top 3</h3>' +
             '</div>' +
-            '<div class="lb3d-controls" role="group" aria-label="Điều khiển bục 3D">' +
-              '<button class="lb3d-ctrl active" data-lb3d="spin" type="button">⟳ Xoay vòng 3D</button>' +
+            '<div class="lb3d-controls" role="group" aria-label="Chọn ngôi vị">' +
+              '<button class="lb3d-ctrl active" data-lb3d="spin" type="button">⟳ Tự xoay</button>' +
               '<button class="lb3d-ctrl" data-lb3d="0" type="button"><span class="han">状</span> Hạng 1</button>' +
               '<button class="lb3d-ctrl" data-lb3d="1" type="button"><span class="han">榜</span> Hạng 2</button>' +
               '<button class="lb3d-ctrl" data-lb3d="2" type="button"><span class="han">探</span> Hạng 3</button>' +
             '</div>' +
           '</div>' +
           '<div class="lb3d-arena" id="lb3dArena">' +
-            '<div class="lb3d-sky-glow" aria-hidden="true"></div>' +
-            '<div class="lb3d-turntable" id="lb3dTurntable" aria-hidden="true">' +
-              '<div class="lb3d-ring lb3d-ring-outer"></div>' +
-              '<div class="lb3d-ring lb3d-ring-mid"></div>' +
-              '<div class="lb3d-ring lb3d-ring-inner"><span class="han">金榜题名</span></div>' +
-            '</div>' +
+            '<div class="lb3d-celestial-bg" aria-hidden="true"></div>' +
+            '<div class="lb3d-cloud-layer lb3d-cloud-back" aria-hidden="true"></div>' +
             '<div class="lb3d-units" id="lb3dUnits">' +
               PODIUM_META.map(function (m, idx) {
                 return (
@@ -289,7 +282,7 @@
                     '</div>' +
                     '<div class="lb3d-char-wrap">' +
                       '<div class="lb3d-char-halo"></div>' +
-                      '<img class="lb3d-char-img" src="' + m.img + '" alt="' + m.title + ' 3D">' +
+                      '<img class="lb3d-char-img" src="' + m.img + '" alt="' + m.title + '">' +
                     '</div>' +
                     '<div class="lb3d-pillar lb3d-pillar-' + m.rank + '">' +
                       '<div class="lb3d-pillar-top"></div>' +
@@ -307,6 +300,7 @@
                 );
               }).join('') +
             '</div>' +
+            '<div class="lb3d-cloud-layer lb3d-cloud-front" aria-hidden="true"></div>' +
           '</div>' +
         '</div>';
 
@@ -426,12 +420,6 @@
         }
       }
 
-      var turntable = document.getElementById('lb3dTurntable');
-      if (turntable) {
-        var deg = (podiumAnim.theta * 180 / Math.PI) % 360;
-        turntable.style.transform = 'translateX(-50%) rotateX(72deg) rotateZ(' + deg.toFixed(1) + 'deg)';
-      }
-
       var w = arena.clientWidth || 720;
       var rx = Math.min(230, Math.max(96, w * 0.285));
       var rz = Math.min(115, Math.max(60, w * 0.14));
@@ -476,8 +464,8 @@
     if (window.HaiYing3D && typeof HaiYing3D.say === 'function') {
       setTimeout(function () {
         HaiYing3D.say(
-          'Điện Vinh Danh 3D',
-          'Chào mừng bạn tới <strong>Bảng xếp hạng 三甲</strong>! Hoàn thành bài tập, trò chơi và <strong>Tập viết chữ Hán ít nét sai</strong> để tích điểm leo lên bục xoay 3D nhé!',
+          'Bảng xếp hạng',
+          'Chào mừng bạn tới <strong>Điện Vinh Danh 三甲</strong>! Hoàn thành bài tập, trò chơi và <strong>Tập viết chữ Hán ít nét sai</strong> để tích điểm vinh danh nhé!',
           'cheer',
           12000
         );
@@ -533,7 +521,7 @@
       var p = profile();
       if (!p) {
         meEl.innerHTML = '<h2>Thứ hạng của bạn</h2>' +
-          '<p class="lb-me-note">Tham gia ngay để ghi danh lên Bục Vinh Danh 3D. Chưa tham gia cũng không sao cả!</p>' +
+          '<p class="lb-me-note">Tham gia ngay để được xếp hạng. Chưa tham gia cũng không sao cả</p>' +
           '<form class="lb-join" id="lbJoinForm" novalidate>' +
           '<label for="lbName">Tên hiển thị của bạn</label>' +
           '<div class="lb-join-row"><input id="lbName" type="text" maxlength="40" autocomplete="name" placeholder="Ví dụ: Nguyễn Văn A">' +
