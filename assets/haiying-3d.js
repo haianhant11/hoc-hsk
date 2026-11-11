@@ -13,15 +13,15 @@
   widget.setAttribute("aria-label", "Người hướng dẫn 3D Hải Anh (海英)");
   widget.innerHTML =
     '<div class="hy3d-bubble" id="hy3dBubble" role="status" aria-live="polite">' +
-      '<button class="hy3d-close" id="hy3dClose" type="button" aria-label="Thu gọn lời nhắc">×</button>' +
-      '<div class="hy3d-tag" id="hy3dTag"><span class="han">海英</span> · Hướng dẫn</div>' +
-      '<div class="hy3d-text" id="hy3dText">Xin chào! Mình là <strong>海英 (Hải Anh)</strong>. Chạm vào mình bất kỳ lúc nào để xem mẹo học nhé!</div>' +
+    '<button class="hy3d-close" id="hy3dClose" type="button" aria-label="Thu gọn lời nhắc">×</button>' +
+    '<div class="hy3d-tag" id="hy3dTag"><span class="han">海英</span> · Hướng dẫn</div>' +
+    '<div class="hy3d-text" id="hy3dText">Mình là <strong>海英 (Hải Anh)</strong>. Chạm vào mình bất kỳ lúc nào để xem mẹo học nhé!</div>' +
     '</div>' +
     '<div class="hy3d-stage" id="hy3dStage" title="Chạm vào Hải Anh để xem mẹo học">' +
-      '<div class="hy3d-figure" id="hy3dFigure">' +
-        '<canvas class="hy3d-canvas" id="hy3dCanvas" width="300" height="480"></canvas>' +
-      '</div>' +
-      '<div class="hy3d-pedestal-label"><span class="han">海英</span></div>' +
+    '<div class="hy3d-figure" id="hy3dFigure">' +
+    '<canvas class="hy3d-canvas" id="hy3dCanvas" width="300" height="480"></canvas>' +
+    '</div>' +
+    '<div class="hy3d-pedestal-label"><span class="han">海英</span></div>' +
     '</div>';
 
   function mountWidget() {
@@ -125,8 +125,8 @@
         say(
           "Nhắc ôn tập",
           "Hôm nay bạn có <strong>" + due + " từ</strong> cần ôn" +
-            (sCount > 0 ? " (chuỗi <strong>" + sCount + " ngày</strong>)" : "") +
-            ". Ghé mục <strong>Ôn tập</strong> hoặc chọn khóa học bên dưới nhé!",
+          (sCount > 0 ? " (chuỗi <strong>" + sCount + " ngày</strong>)" : "") +
+          ". Ghé mục <strong>Ôn tập</strong> hoặc chọn khóa học bên dưới nhé!",
           "wave",
           12000
         );
@@ -140,12 +140,12 @@
       } else {
         say(
           "",
-          "Xin chào! Mình là <strong>海英 (Hải Anh)</strong>. Chọn khóa học HSK bên dưới để mình dẫn bạn học từng bài nhé!",
+          "Mình là <strong>海英 (Hải Anh)</strong>. Chọn khóa học HSK bên dưới để mình dẫn bạn học từng bài nhé!",
           "wave",
           11000
         );
       }
-    } catch (e) {}
+    } catch (e) { }
   }
 
   /* ---------- 3. Real-Time 3D Pixar Character Canvas ---------- */
