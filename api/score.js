@@ -18,15 +18,16 @@ module.exports = async function handler(req, res) {
   if (points === null) { send(res, 400, { error: 'invalid_result' }); return; }
   try {
     let rows;
+    const dbType = POLICY[b.activityType].dbType || b.activityType;
     if (POLICY[b.activityType].mode === 'capped') {
       rows = await rpc('award_capped', {
-        p_player: b.playerId, p_event: b.eventId, p_type: b.activityType,
+        p_player: b.playerId, p_event: b.eventId, p_type: dbType,
         p_activity: b.activityId, p_points: points,
         p_group: b.activityId, p_cap: POLICY[b.activityType].dailyCap
       });
     } else {
       rows = await rpc('award_best', {
-        p_player: b.playerId, p_event: b.eventId, p_type: b.activityType,
+        p_player: b.playerId, p_event: b.eventId, p_type: dbType,
         p_activity: b.activityId, p_points: points
       });
     }

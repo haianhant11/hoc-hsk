@@ -9,6 +9,7 @@ const POLICY = {
   practice: { max: 30, mode: 'best' },
   quiz: { max: 30, mode: 'best' },
   srs: { max: 30, mode: 'best' },
+  write: { max: 3, mode: 'best', dbType: 'practice' },
   game: { max: 20, mode: 'capped', dailyCap: 40 }
 };
 
