@@ -25,10 +25,10 @@ async function rest(path) {
   return r.json();
 }
 
-function send(res, status, obj) {
+function send(res, status, obj, cacheControl) {
   res.status(status);
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
-  res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('Cache-Control', cacheControl || 'no-store');
   res.json(obj);
 }
 
