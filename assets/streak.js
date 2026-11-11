@@ -1,7 +1,8 @@
 /* ===== Chuỗi ngày học (streak): module riêng, dùng chung mọi trang =====
-   Ngày tính theo lịch Asia/Ho_Chi_Minh. Một ngày được tính khi hoàn thành một trong:
-   ôn 5 từ khác nhau trong SRS (hoặc ôn hết hàng chờ nếu hôm đó chỉ có 1–4 từ đến hạn),
-   một lượt luyện tập trả lời ít nhất 5 câu, hoặc một ván game trả lời đúng ít nhất 5 từ khác nhau.
+   Ngày tính theo lịch Asia/Ho_Chi_Minh. Một ngày được tính ngay khi người học tham gia
+   bất kỳ hoạt động học tập nào: học từng từ / tập viết chữ Hán / xem thứ tự nét,
+   làm câu trắc nghiệm bài khóa, luyện tập (Flashcard, Nghe chép, Điền từ),
+   chơi trò chơi (Từ rơi, Cá chép, Pháo đài Pinyin, Thanh điệu), hoặc ôn tập SRS.
    Dữ liệu lưu trên trình duyệt (localStorage), đồng bộ giữa các tab qua sự kiện storage. */
 (function () {
   'use strict';
@@ -103,12 +104,13 @@
     if (p.srsWords.indexOf(id) < 0) {
       p.srsWords.push(id);
       save();
-      if (p.srsWords.length >= 5) qualify();
     }
+    qualify();
   }
-  function noteSrsQueueCleared(n) { if (n >= 1 && n <= 4) qualify(); }
-  function notePractice(answered) { if (answered >= 5) qualify(); }
-  function noteGame(correctDistinct) { if (correctDistinct >= 5) qualify(); }
+  function noteSrsQueueCleared(n) { if (n >= 1) qualify(); }
+  function notePractice(answered) { if (answered === undefined || answered >= 1) qualify(); }
+  function noteGame(correctDistinct) { if (correctDistinct === undefined || correctDistinct >= 1) qualify(); }
+  function noteStudy() { qualify(); }
 
   /* ---------- Widget + popover + toast ---------- */
   function statusText(st) {
@@ -191,7 +193,7 @@
   window.Streak = {
     state: state, todayKey: todayKey, qualify: qualify,
     noteSrsWord: noteSrsWord, noteSrsQueueCleared: noteSrsQueueCleared,
-    notePractice: notePractice, noteGame: noteGame, paint: paint,
+    notePractice: notePractice, noteGame: noteGame, noteStudy: noteStudy, paint: paint,
     exportData: function () { return { days: load().days.slice() }; },
     importData: function (days) {
       if (!Array.isArray(days)) return;

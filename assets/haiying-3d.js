@@ -96,10 +96,10 @@
     state.mood = mood || "wave";
     state.waveBoost = 2.4;
     if (mood === "cheer" || mood === "jump") {
-      state.jumpVel = 260;
+      state.jumpVel = 220;
       spawnBurst(14);
     } else if (mood === "wave") {
-      state.jumpVel = 120;
+      state.jumpVel = 110;
       spawnBurst(6);
     }
   }
@@ -248,22 +248,22 @@
       // Soft ground shadow under the auspicious cloud
       var shadowScale = Math.max(0.6, 1 - (state.jumpY - floatY) * 0.005);
       ctx.save();
-      ctx.translate(150, 456);
+      ctx.translate(150, 464);
       ctx.scale(shadowScale, 0.22 * shadowScale);
-      var grad = ctx.createRadialGradient(0, 0, 8, 0, 0, 96);
+      var grad = ctx.createRadialGradient(0, 0, 8, 0, 0, 92);
       grad.addColorStop(0, "rgba(25, 59, 57, 0.26)");
       grad.addColorStop(1, "rgba(25, 59, 57, 0)");
       ctx.fillStyle = grad;
       ctx.beginPath();
-      ctx.arc(0, 0, 96, 0, Math.PI * 2);
+      ctx.arc(0, 0, 92, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
 
-      // Draw crisp, seamless 3D Pixar Character
-      var dstW = 236;
-      var dstH = 452;
+      // Draw crisp, seamless 3D Pixar Character (with 64px top headroom so jumps never clip)
+      var dstW = 208;
+      var dstH = 398;
       ctx.save();
-      ctx.translate(150 + state.lookX * 4, 454 + floatY);
+      ctx.translate(150 + state.lookX * 4, 462 + floatY);
       ctx.rotate(swayRot);
       ctx.scale(breatheX, breatheY);
       ctx.drawImage(img, -dstW / 2, -dstH, dstW, dstH);

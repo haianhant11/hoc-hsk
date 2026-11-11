@@ -1803,7 +1803,7 @@ body:has(.site-mnav) .app{padding-bottom:84px}
 .lb3d-crown{
   position:relative;
   z-index:4;
-  margin-bottom:4px;
+  margin-bottom:10px;
   padding:4px 12px;
   border-radius:999px;
   font-size:.76rem;
