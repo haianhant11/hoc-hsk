@@ -357,7 +357,7 @@
       } else {
         // Đã đăng ký
         slot.innerHTML =
-          '<button class="user-btn user-joined" type="button" data-user-btn aria-haspopup="dialog" aria-expanded="false" aria-label="Hồ sơ: ' + esc(p.name) + '">' +
+          '<button class="user-btn user-joined" type="button" data-user-btn aria-haspopup="dialog" aria-expanded="false" title="' + esc(p.name) + '" aria-label="Hồ sơ: ' + esc(p.name) + '">' +
             '<span class="user-avatar" aria-hidden="true">🧑‍🎓</span>' +
             '<span class="user-name">' + esc(p.name) + '</span>' +
             '<span class="user-pts">' + pts + 'đ</span>' +

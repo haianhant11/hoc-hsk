@@ -832,7 +832,7 @@ a.home-back{text-decoration:none}
 .user-btn.user-unjoined:hover{border-color:var(--ok);background:rgba(46,125,107,.15);color:var(--ink)}
 .user-bonus{background:var(--ok);color:#fff;padding:2px 7px;border-radius:999px;font-size:.74rem;font-weight:800;letter-spacing:.02em;margin-left:2px;box-shadow:0 1px 3px rgba(46,125,107,.3)}
 .user-avatar{font-size:1.05rem;line-height:1}
-.user-name{max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}
+.user-name{max-width:min(280px,38vw);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}
 .user-pts{background:rgba(52,163,137,.14);color:#1b6354;border:1px solid rgba(52,163,137,.28);padding:2px 7px;border-radius:999px;font-size:.76rem;font-weight:800}
 
 /* Popover người dùng chung */
@@ -875,6 +875,7 @@ a.home-back{text-decoration:none}
 
 @media(max-width:720px){
   .user-btn{padding:6px 10px;min-height:38px}
+  .user-name{max-width:min(160px,36vw)}
   .user-pop{width:min(300px,88vw)}
 }
 
