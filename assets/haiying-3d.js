@@ -320,7 +320,7 @@
     var activeCard = null;
     document.addEventListener("mousemove", function (e) {
       var card = e.target.closest
-        ? e.target.closest(".level-card, .gz-card, .vocab-card, .grammar-card, .srs-stat")
+        ? e.target.closest(".level-card, .gz-card, .srs-stat")
         : null;
       if (activeCard && activeCard !== card) {
         activeCard.style.transform = "";

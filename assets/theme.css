@@ -493,16 +493,16 @@ a.home-back{text-decoration:none}
 .cn-han{font-family:var(--font-han);font-size:1.45rem;font-weight:800;color:var(--ink);line-height:1.25}
 .cn-slots{display:flex;gap:3px;justify-content:center;margin-top:5px}
 .cn-slot{width:18px;height:22px;border:1.5px dashed var(--line-2);border-radius:5px;font-size:.85rem;font-weight:700;display:flex;align-items:center;justify-content:center;color:var(--ink)}
-.cn-slot.cur{border-color:var(--verm);box-shadow:0 0 0 2px rgba(165,68,50,.18)}
-.cn-slot.done{border-style:solid;border-color:var(--gold);background:rgba(185,138,47,.12)}
+.cn-slot.cur{border-color:var(--ok);box-shadow:0 0 0 2px rgba(46,125,107,.18)}
+.cn-slot.done{border-style:solid;border-color:var(--ok);background:rgba(46,125,107,.12)}
 .cn-part{position:absolute;left:0;top:0;width:7px;height:7px;margin:-3.5px;border-radius:50%;z-index:5}
 .cn-cannon{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);width:88px;z-index:3}
 .cn-cannon svg{width:100%;display:block}
-.cn-bullet{position:absolute;left:0;top:0;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(185,138,47,.9);z-index:4}
-.cn-float{position:absolute;transform:translate(-50%,0);font-weight:800;color:var(--verm);animation:cnFloat .9s ease-out forwards;z-index:6}
+.cn-bullet{position:absolute;left:0;top:0;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px rgba(46,125,107,.6);z-index:4}
+.cn-float{position:absolute;transform:translate(-50%,0);font-weight:800;color:var(--ok);animation:cnFloat .9s ease-out forwards;z-index:6}
 @keyframes cnFloat{to{transform:translate(-50%,-48px);opacity:0}}
 @keyframes cnShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
-.cn-flash{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);background:var(--surface);border:2px solid var(--gold);border-radius:16px;padding:14px 18px;text-align:center;z-index:6;box-shadow:var(--shadow)}
+.cn-flash{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);background:var(--surface);border:2px solid var(--ok);border-radius:16px;padding:14px 18px;text-align:center;z-index:6;box-shadow:var(--shadow)}
 .cn-count{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);font-size:4.2rem;font-weight:800;color:var(--ink);z-index:5;pointer-events:none;text-shadow:0 2px 0 var(--surface)}
 .cn-count.pop{animation:cnPop .3s ease}
 @keyframes cnPop{from{transform:translate(-50%,-50%) scale(1.4);opacity:.4}to{transform:translate(-50%,-50%) scale(1);opacity:1}}
@@ -1244,16 +1244,20 @@ body:has(.site-mnav) .app{padding-bottom:84px}
 }
 .panel{animation:panelFadeIn .26s ease both}
 
-/* Thẻ 3D có cạnh đáy nổi & nghiêng theo chuột */
-.level-card,.vocab-card,.grammar-card,.gz-card,.info-card,.lesson-text-card,.srs-stat,.dictation-shell,.scene-wrap,.lesson-head{
+/* Thẻ 3D có cạnh đáy nổi & nghiêng theo chuột (loại trừ thẻ Từ vựng và Ngữ pháp để dễ đọc) */
+.level-card,.gz-card,.info-card,.lesson-text-card,.srs-stat,.dictation-shell,.scene-wrap,.lesson-head{
   border:1.5px solid #DEDAC8;
   box-shadow:0 5px 0 #E2DEC9,0 10px 24px rgba(25,59,57,.06);
   transition:transform .2s cubic-bezier(.22,.8,.26,1),box-shadow .2s ease,border-color .2s ease;
   will-change:transform;
 }
-.level-card:hover,.vocab-card:hover,.grammar-card:hover,.gz-card:hover,.srs-stat:hover{
+.level-card:hover,.gz-card:hover,.srs-stat:hover{
   border-color:#CBB889;
   box-shadow:0 8px 0 #D6C79F,0 18px 34px rgba(25,59,57,.11);
+}
+.vocab-card,.grammar-card{
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
 }
 
 /* Nút bấm 3D EdTech Tactile (nổi khối sáng, nhấn xuống nảy tay) */
@@ -1313,17 +1317,11 @@ body:has(.site-mnav) .app{padding-bottom:84px}
 
 .gz-card{
   position:relative;
-  background:linear-gradient(180deg,#FFFEFA 0%,#FAF5E8 100%);
-}
-.gz-card::before{
-  content:"";
-  position:absolute;
-  top:0;left:0;right:0;height:4px;
-  background:linear-gradient(90deg,var(--verm),var(--gold),var(--ok));
+  background:var(--surface);
 }
 .gz-art{
-  background:linear-gradient(180deg,#F5F8F4 0%,#FAF3E3 100%);
-  border-bottom:1px solid #E5DFCE;
+  background:var(--selected);
+  border-bottom:1px solid var(--line);
 }
 .gz-art svg{transition:transform .3s ease}
 .gz-card:hover .gz-art svg{transform:scale(1.05)}
@@ -1448,22 +1446,22 @@ body:has(.site-mnav) .app{padding-bottom:84px}
 .cn-lantern i{
   width:2px;
   height:10px;
-  background:#B98A2F;
+  background:var(--ok);
   display:block;
 }
 .cn-lantern span{
   width:30px;
   height:26px;
   border-radius:12px;
-  background:radial-gradient(circle at 50% 40%,#FF7A59,#C83E2B 75%);
-  border:1.5px solid #F3C85F;
-  color:#FFF9E6;
+  background:var(--ok);
+  border:1.5px solid var(--ink);
+  color:#FFFFFF;
   font-family:var(--font-han);
   font-size:.75rem;
   font-weight:800;
   display:grid;
   place-items:center;
-  box-shadow:0 4px 10px rgba(200,62,43,.28);
+  box-shadow:0 3px 8px rgba(25,59,57,.14);
 }
 .cn-wall{
   position:absolute;
@@ -1473,24 +1471,22 @@ body:has(.site-mnav) .app{padding-bottom:84px}
   border-top:1px solid var(--line);
 }
 .cn-inner{
-  background:linear-gradient(180deg,#FFFEFA 0%,#FAF1DC 100%);
-  border:2px solid #D4A238;
-  border-left:4px solid #C84B31;
-  border-right:4px solid #C84B31;
+  background:#FFFFFF;
+  border:1.5px solid var(--ok);
   border-radius:12px;
-  box-shadow:0 4px 0 #D8C394,0 8px 16px rgba(25,59,57,.12);
+  box-shadow:0 3px 0 rgba(46,125,107,.2),0 6px 14px rgba(25,59,57,.07);
 }
 .cn-bullet{
-  width:13px;height:13px;
-  background:radial-gradient(circle,#FFFDF0 15%,#FFB300 55%,#D84315 100%);
-  box-shadow:0 0 12px 3px rgba(255,160,0,.75);
+  width:12px;height:12px;
+  background:var(--ok);
+  box-shadow:0 0 8px 2px rgba(46,125,107,.45);
 }
 .cn-key{
-  box-shadow:0 3px 0 #D5C8A8;
+  box-shadow:0 2px 0 var(--line-2);
   transition:transform .12s ease,box-shadow .12s ease;
 }
-.cn-key:hover{transform:translateY(-1px);box-shadow:0 4px 0 #C4B48C}
-.cn-key:active{transform:translateY(2px);box-shadow:0 1px 0 #C4B48C}
+.cn-key:hover{transform:translateY(-1px);box-shadow:0 3px 0 var(--line-2)}
+.cn-key:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line-2)}
 
 /* ----- GAME 3: CÁ CHÉP VƯỢT VŨ MÔN (Thác ngọc bích tươi sáng) ----- */
 @keyframes waterFlow{
