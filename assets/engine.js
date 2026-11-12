@@ -5,7 +5,7 @@
 let lessons=[];
 
 const sourceUrl='https://tieng-trung-ha-hang.vercel.app/hsk3-index.html';
-let activeLesson=0,activeTab='vocab',lastPractice='guess',currentGame=null,pinyinVisible=true,flashDeck=[],flashIndex=0,dictationIndex=0,dictationScore=0,dictationResults=[],dictationAttempts=[],dictationRevealed=false,fillIndex=0,fillScore=0,fillResults=[],fillAttempts=[],fillRevealed=false,game=null,gameRaf=0,gameTimer=0,tower=null,towerTimer=0,strokeRun=0,strokePlaying=false,strokeSkip=false;
+let activeLesson=0,activeTab='vocab',lastPractice='guess',currentGame=null,pinyinVisible=true,flashDeck=[],flashIndex=0,dictationIndex=0,dictationScore=0,dictationResults=[],dictationAttempts=[],dictationRevealed=false,fillIndex=0,fillScore=0,fillResults=[],fillAttempts=[],fillRevealed=false,game=null,gameRaf=0,gameTimer=0,tower=null,towerRaf=0,towerTimer=0,strokeRun=0,strokePlaying=false,strokeSkip=false;
 const $=s=>document.querySelector(s);const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function speak(text){if(!('speechSynthesis'in window))return; stopAllOrigAudio(false);speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='zh-CN';u.rate=.78;const vs=speechSynthesis.getVoices();u.voice=vs.find(v=>/^zh(-|_)?CN/i.test(v.lang))||vs.find(v=>/^zh/i.test(v.lang))||null;speechSynthesis.speak(u)}
 const origAudios=new Set();
@@ -439,16 +439,215 @@ function towerLesson(){return activeLesson%2===1}
 
 
 
-function stopTower(){if(towerTimer)clearTimeout(towerTimer);towerTimer=0;tower=null}
-function renderTowerStart(){guessPanel.innerHTML=`<div class="dictation-shell"><div class="game-start"><span class="level-badge">Game cá chép hóa rồng</span><h3 class="game-title">Cá Chép Vượt Vũ Môn</h3><div class="game-rules"><p><strong>Cách chơi:</strong> mỗi câu trả lời đúng giúp cá chép vượt lên 1 ghềnh — thác có 12 ghềnh, tới Long môn là hóa rồng, thắng ván. Câu hỏi luân phiên 3 dạng: chọn chữ Hán theo nghĩa, chọn nghĩa theo chữ Hán, chọn pinyin.</p><p><strong>Rớt thác:</strong> trả lời sai là bị cuốn thẳng về chân thác; rớt 3 lần trong một ván là thua ván. Từ làm bạn rớt sẽ được gom lại để ôn ở cuối ván.</p><p><strong>Điểm:</strong> +10 điểm cho mỗi ghềnh vượt được, hóa rồng thưởng thêm +50 điểm.</p></div><button class="action game-play" id="towerPlay">Vượt vũ môn</button><button class="game-other" data-gallery-back>Chọn game khác</button><p class="game-note">Chơi trên máy tính: bấm phím 1–4 để chọn đáp án cho nhanh.</p></div></div>`}
-function startTower(){const l=lessons[activeLesson];stopTower();stopCannon();stopTone();tower={score:0,floor:0,bestFloor:0,falls:0,correctCount:0,won:false,over:false,missed:[],deck:shuffleArr(l.vocab.map((_,i)=>i)),di:0,lastIdx:-1,qCount:0,round:null,msg:'',msgBad:false};nextTowerQ()}
+function stopTower(){if(towerRaf)cancelAnimationFrame(towerRaf);towerRaf=0;if(towerTimer)clearTimeout(towerTimer);towerTimer=0;tower=null}
+function cpLongMenSVG(){return `<svg viewBox="0 0 180 42" role="img" aria-label="Cổng Long Môn"><path d="M12 16 Q90 2 168 16 L160 22 Q90 9 20 22 Z" fill="#193B39" stroke="#2E7D6B" stroke-width="1.4"/><path d="M28 22 H152 V27 H28 Z" fill="#2E7D6B"/><rect x="36" y="26" width="7" height="15" rx="2" fill="#193B39"/><rect x="137" y="26" width="7" height="15" rx="2" fill="#193B39"/><rect x="64" y="11" width="52" height="20" rx="6" fill="#FFFFFF" stroke="#2E7D6B" stroke-width="1.8"/><text x="90" y="25" text-anchor="middle" font-size="12" font-weight="900" fill="#193B39" font-family="serif">龙门</text></svg>`}
+function cpCarpSVG(stage){
+  const mid=stage>=4,high=stage>=8;
+  const body=high?'#1A5E4F':'#2E7D6B',fin=mid?'#E7CB6E':'#8CC5BA',stroke=high?'#FFE58F':'#FFFFFF';
+  return `<svg viewBox="0 0 64 72" class="cp-carp-svg${high?' is-high':mid?' is-mid':''}" role="img" aria-label="Cá chép"><g class="cp-fins"><path d="M16 32 Q4 38 6 48 Q14 44 20 39 Z" fill="${fin}"/><path d="M48 32 Q60 38 58 48 Q50 44 44 39 Z" fill="${fin}"/></g><path class="cp-tail" d="M32 52 L20 68 Q32 61 44 68 Z" fill="${fin}" stroke="${stroke}" stroke-width="1"/><path d="M32 8 C43 18 46 34 39 48 C35 54 32 57 32 57 C32 57 29 54 25 48 C18 34 21 18 32 8Z" fill="${body}" stroke="${stroke}" stroke-width="1.6"/><path d="M32 14 C36 22 37 32 32 45 C27 32 28 22 32 14Z" fill="${fin}" opacity=".55"/>${mid?'<path d="M27 28 Q32 32 37 28 M26 36 Q32 40 38 36" stroke="#FFFFFF" stroke-width="1.4" fill="none" opacity=".7"/>':''}<circle cx="26" cy="19" r="3" fill="#fff"/><circle cx="38" cy="19" r="3" fill="#fff"/><circle cx="26" cy="18.5" r="1.5" fill="#193B39"/><circle cx="38" cy="18.5" r="1.5" fill="#193B39"/>${high?'<path d="M23 11 Q16 5 12 9 M41 11 Q48 5 52 9" stroke="#E7CB6E" stroke-width="2" fill="none" stroke-linecap="round"/>':''}</svg>`;
+}
+function cpDragonSVG(){
+  return `<svg viewBox="0 0 120 120" class="cp-dragon-svg" role="img" aria-label="Cá chép hóa rồng"><circle cx="60" cy="60" r="48" fill="rgba(46,125,107,.16)"/><circle cx="60" cy="60" r="35" fill="rgba(231,203,110,.28)"/><path d="M38 92 Q22 72 44 54 Q66 36 52 22 Q74 28 70 50 Q86 64 74 84 Q60 98 38 92 Z" fill="#2E7D6B" stroke="#E7CB6E" stroke-width="2.5"/><path d="M44 26 L34 12 M62 20 L66 6 M74 28 L88 18" stroke="#E7CB6E" stroke-width="3" stroke-linecap="round"/><circle cx="54" cy="28" r="3.5" fill="#FFFDF5"/><circle cx="54" cy="28" r="1.6" fill="#193B39"/><path d="M44 36 Q30 34 22 42 M72 40 Q86 38 94 46" stroke="#FFE58F" stroke-width="2.2" fill="none" stroke-linecap="round"/><text x="60" y="72" text-anchor="middle" font-size="22" font-weight="900" fill="#FFFDF5" font-family="serif">龙</text></svg>`;
+}
+function renderTowerStart(){guessPanel.innerHTML=`<div class="dictation-shell"><div class="game-start"><span class="level-badge">Game vượt thác 4 làn</span><h3 class="game-title">Cá Chép Vượt Vũ Môn</h3><div class="game-rules"><p><strong>Cách chơi:</strong> Bốn viên ngọc đáp án trôi theo dòng thác qua 4 làn nước. Lái chú Cá Chép chạm vào đúng viên ngọc khớp với từ mục tiêu để vượt <strong>10 ghềnh thác</strong> tới Long Môn hóa rồng!</p><p><strong>Điều khiển cực mượt:</strong> Chạm trực tiếp vào viên ngọc trên thác (hoặc bấm phím <code>1–4</code>) để cá phóng tới ăn ngay; hoặc dùng phím mũi tên <code>←</code> <code>→</code> lái cá vào đúng làn.</p><p><strong>Tiến hóa &amp; Combo:</strong> Trả lời đúng liên tiếp để tăng Combo (×2, ×3) và nâng cấp vây vàng — vảy rồng cho cá chép. Hóa rồng ở ghềnh 10 thưởng lớn <strong>+50 điểm</strong>!</p></div><button class="action game-play" id="towerPlay">Xuất phát vượt thác</button><button class="game-other" data-gallery-back>Chọn game khác</button></div></div>`}
 function towerField(type){return type==='vi2han'?'word':type==='han2vi'?'meaning':'pinyin'}
-function nextTowerQ(){if(!tower||tower.over)return;const hv=$('#homeView');if(hv&&!hv.hidden){stopTower();return}const l=lessons[activeLesson];if(tower.di>=tower.deck.length){tower.deck=shuffleArr(l.vocab.map((_,i)=>i));tower.di=0;if(tower.deck.length>1&&tower.deck[0]===tower.lastIdx)tower.deck.push(tower.deck.shift())}const idx=tower.deck[tower.di++];tower.lastIdx=idx;const types=['vi2han','han2vi','han2py'];const type=types[tower.qCount%3];tower.qCount++;const f=towerField(type);const others=shuffleArr(l.vocab.map((_,i)=>i).filter(i=>i!==idx&&l.vocab[i][f]!==l.vocab[idx][f]));const opts=shuffleArr([idx,...others.slice(0,3)]);tower.round={idx,type,opts,done:false};renderTowerPlay()}
-function renderTowerPlay(){const l=lessons[activeLesson],t=tower,r=t.round,v=l.vocab[r.idx];const dots=[];for(let f=0;f<=12;f++){dots.push(`<div class="cp-dot${f<t.floor?' done':''}${f===t.floor?' cur':''}" style="bottom:${(f/12*100).toFixed(1)}%"></div>`)}const typeLabel=r.type==='vi2han'?'Chọn chữ Hán đúng với nghĩa này':r.type==='han2vi'?'Chọn nghĩa tiếng Việt của từ này':'Chọn pinyin đúng của từ này';const prompt=r.type==='vi2han'?esc(v.meaning):esc(v.word);const ansTxt=oi=>r.type==='vi2han'?`<span class="ans-han">${esc(l.vocab[oi].word)}</span>`:r.type==='han2vi'?esc(l.vocab[oi].meaning):esc(l.vocab[oi].pinyin);guessPanel.innerHTML=`<div class="dictation-shell"><div class="cn-bar"><div class="cn-top"><div class="cn-stats"><div class="cn-stat"><span class="cn-stat-label">Điểm</span><strong class="cn-stat-value">${t.score}</strong></div><div class="cn-stat"><span class="cn-stat-label">Ghềnh</span><strong class="cn-stat-value">${t.floor}/12</strong></div><div class="cn-stat"><span class="cn-stat-label">Cuốn</span><strong class="cn-stat-value">${t.falls}/3</strong></div></div><div class="cn-actions"><button class="cn-btn cn-btn-icon" id="towerRestart" aria-label="Chơi lại">${ICON_RESTART}</button>${spkBtnHTML()}<button class="cn-btn cn-btn-icon" data-gallery-back aria-label="Chọn game">${ICON_GRID}</button></div></div><div class="cn-track"><div class="cn-fill" style="width:${(t.floor/12*100).toFixed(1)}%"></div></div></div><div class="tower-wrap"><div class="cp-rail" aria-hidden="true"><div class="cp-stream"><div class="cp-stream-flow"></div></div><div class="cp-foam"></div>${dots.join('')}<div class="cp-gate"><svg viewBox="0 0 84 52" role="img" aria-label="Long môn"><path d="M4 18 Q42 2 80 18 L74 23 Q42 10 10 23 Z" fill="#B98A2F"/><path d="M12 25 Q42 15 72 25 L68 29 Q42 20 16 29 Z" fill="#A54432"/><rect x="18" y="27" width="6" height="22" rx="2" fill="#A54432"/><rect x="60" y="27" width="6" height="22" rx="2" fill="#A54432"/><rect x="28" y="16" width="28" height="13" rx="3" fill="#193B39" stroke="#E7CB6E" stroke-width="1.5"/><text x="42" y="25.5" text-anchor="middle" font-size="9" font-weight="800" fill="#FFF7DC">龙门</text></svg></div><div class="cp-carp${t.won?' won':''}" style="bottom:calc(${(t.floor/12*100).toFixed(1)}% - 24px)"><svg viewBox="0 0 56 56" role="img" aria-label="Cá chép"><circle cx="28" cy="28" r="22" fill="rgba(231,203,110,.22)" class="cp-ripple"/><path d="M28 5 C36 14 39 25 34 35 C31 41 28 46 28 51 C28 46 25 41 22 35 C17 25 20 14 28 5Z" fill="#C8452C" stroke="#F7DC94" stroke-width="1.2"/><path d="M28 11 C32 18 33 26 28 35 C23 26 24 18 28 11Z" fill="#E9963E" opacity=".65"/><circle cx="24" cy="15" r="2.2" fill="#fff"/><circle cx="32" cy="15" r="2.2" fill="#fff"/><circle cx="24" cy="14.5" r="1.1" fill="#193B39"/><circle cx="32" cy="14.5" r="1.1" fill="#193B39"/><path d="M21 26 Q12 31 10 39 M35 26 Q44 31 46 39" stroke="#E7CB6E" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M28 48 L21 54 M28 48 L35 54" stroke="#E7CB6E" stroke-width="2.4" stroke-linecap="round"/></svg></div></div><div class="tower-main"><div class="tower-qcard" id="towerQcard"><span class="level-badge">${typeLabel}</span><div class="tower-qprompt${r.type==='vi2han'?'':' han'}">${prompt}</div></div><div class="game-answers">${r.opts.map((oi,k)=>`<button class="game-answer" data-tower-answer="${oi}"><span class="ans-num">${k+1}</span><span>${ansTxt(oi)}</span></button>`).join('')}</div><p class="tower-msg${t.msgBad?' bad':''}">${t.msg||''}</p></div></div></div>`}
-function towerAnswer(idx){if(!tower||tower.over||!tower.round||tower.round.done)return;markStreak();const t=tower,r=t.round;const btn=document.querySelector(`[data-tower-answer="${idx}"]`);r.done=true;document.querySelectorAll('[data-tower-answer]').forEach(b=>b.disabled=true);if(idx===r.idx){(t.correctSet=t.correctSet||new Set()).add(r.idx);if(btn)btn.classList.add('right');sfx('ding');towerTimer=setTimeout(()=>{if(tower!==t||t.over)return;t.floor++;t.score+=10;t.correctCount++;t.bestFloor=Math.max(t.bestFloor,t.floor);t.won=t.floor>=12;if(t.won)t.score+=50;t.msgBad=false;t.msg=t.won?'':t.floor===8?'Ghềnh 8 rồi — sắp tới Long môn, cố lên!':t.floor===4?'Đã tới ghềnh 4 — bơi đều lắm, cố lên!':'Đúng rồi! Vượt lên ghềnh '+t.floor+'.';renderTowerPlay();towerTimer=setTimeout(()=>{if(tower!==t||t.over)return;if(t.won)towerEnd(true);else nextTowerQ()},t.won?900:450)},300)}else{if(btn)btn.classList.add('wrong');sfx('buzz');const qc=$('#towerQcard');if(qc)qc.classList.add('shake');towerTimer=setTimeout(()=>{if(tower!==t||t.over)return;t.falls++;if(!t.missed.includes(r.idx))t.missed.push(r.idx);srsRecord(r.idx,r.type==='vi2han'?'hanzi':r.type==='han2py'?'pinyin':'meaning','wrong',r);t.floor=0;t.msg='Sai rồi — bị cuốn về chân thác!';t.msgBad=true;renderTowerPlay();towerTimer=setTimeout(()=>{if(tower!==t||t.over)return;if(t.falls>=3)towerEnd(false);else nextTowerQ()},600)},350)}}
-function towerEnd(win){if(!tower)return;if(typeof Streak!=="undefined"&&tower.correctSet)Streak.noteGame(tower.correctSet.size);if(window.LB&&tower.correctSet)LB.award('game','game-tower',tower.correctSet.size,tower.correctSet.size+(tower.missed?tower.missed.length:0));sfx(win?'win':'lose');tower.over=true;if(towerTimer)clearTimeout(towerTimer);towerTimer=0;const t=tower,l=lessons[activeLesson];const missedHtml=t.missed.length?`<div class="game-missed"><h4>Từ đã làm bạn rớt thác — ôn lại ngay nhé</h4><div class="game-missed-list">${t.missed.map(i=>{const v=l.vocab[i];return `<div class="game-missed-item"><img src="${vocabPhoto(i)}" alt=""><div><div class="han">${esc(v.word)}${v.star?' <span class="vocab-beyond">Vượt cấp</span>':''}</div><div class="pinyin">${esc(v.pinyin)}</div><div>${esc(v.meaning)}</div></div></div>`}).join('')}</div></div>`:'<p class="game-perfect">Cả ván không sai câu nào — cá chép bơi quá đỉnh!</p>';guessPanel.innerHTML=`<div class="dictation-shell"><div class="score-card"><span class="level-badge">${win?'Cá chép hóa rồng!':'Kết thúc ván'}</span><h3>Cá Chép Vượt Vũ Môn · Bài ${l.num}</h3><div class="score">${t.score} điểm</div><p>${win?'Bạn đã vượt <strong>Long môn</strong> — cá chép hóa rồng!':'Ghềnh cao nhất đã vượt: <strong>'+t.bestFloor+'/12</strong>'} · Số lần bị cuốn: <strong>${t.falls}</strong><br>Cách tính điểm: 10 điểm × ${t.correctCount} ghềnh vượt được${win?' + 50 điểm thưởng hóa rồng':''}</p>${missedHtml}${srsCtaHTML()}<button class="action game-play" id="towerPlay">Vượt lại</button><button class="game-other" data-gallery-back>Chọn game khác</button></div></div>`}
-document.addEventListener('click',e=>{const _b=e.target.closest?e.target.closest('button'):null;const _id=_b?_b.id:e.target.id;if(_id==='towerPlay'){startTower();return}if(_id==='towerRestart'){startTower();return}if(_id==='towerQuit'){stopTower();renderGuess();return}const tb2=e.target.closest('[data-tower-answer]');if(tb2&&!tb2.disabled)towerAnswer(+tb2.dataset.towerAnswer)});
-document.addEventListener('keydown',e=>{if(!tower||tower.over||activeTab!=='guess')return;if(e.target.closest&&e.target.closest('input,textarea'))return;const map={'1':0,'2':1,'3':2,'4':3};if(e.key in map){const btns=document.querySelectorAll('[data-tower-answer]');const b=btns[map[e.key]];if(b&&!b.disabled)towerAnswer(+b.dataset.towerAnswer)}});
+function startTower(){
+  const l=lessons[activeLesson];stopGame();stopCannon();stopTone();stopTower();
+  tower={score:0,stage:0,maxStage:10,bestStage:0,lives:3,streak:0,bestStreak:0,falls:0,correctCount:0,won:false,over:false,paused:false,lane:1,deck:shuffleArr(l.vocab.map((_,i)=>i)),di:0,lastIdx:-1,qCount:0,missed:[],correctSet:new Set(),round:null};
+  guessPanel.innerHTML=`<div class="dictation-shell"><div class="cn-bar"><div class="cn-top"><div class="cn-stats"><div class="cn-stat"><span class="cn-stat-label">Điểm</span><strong class="cn-stat-value" id="cpScore">0</strong></div><div class="cn-stat"><span class="cn-stat-label">Combo</span><strong class="cn-stat-value" id="cpCombo">×1</strong></div><div class="cn-stat"><span class="cn-stat-label">Ghềnh</span><strong class="cn-stat-value" id="cpStage">0/10</strong></div><div class="cn-stat"><span class="cn-stat-label">Mạng</span><span class="cn-stat-value" id="cpLives" aria-label="Số mạng còn lại">${heartsHTML(3)}</span></div></div><div class="cn-actions"><button class="cn-btn cn-btn-pause" id="cpPause">${ICON_PAUSE}<span>Tạm dừng</span></button><button class="cn-btn cn-btn-icon" id="cpRestart" aria-label="Chơi lại">${ICON_RESTART}</button>${spkBtnHTML()}<button class="cn-btn cn-btn-icon" data-gallery-back aria-label="Chọn game">${ICON_GRID}</button></div></div><div class="cn-track"><div class="cn-fill" id="cpFill" style="width:0%"></div></div></div><div class="cp-stage" id="cpStageBox"><div class="cp-water-streams" aria-hidden="true"><span></span><span></span><span></span><span></span></div><div class="cp-top-gate" id="cpGateWrap">${cpLongMenSVG()}<div class="cp-prompt-banner" id="cpPromptBanner"></div></div><div class="cp-lanes" id="cpLanes"></div><div class="cp-carp-hero" id="cpCarpHero">${cpCarpSVG(0)}</div><div class="cp-dragon-win" id="cpDragonWin" hidden>${cpDragonSVG()}<div class="cp-dragon-txt">HÓA RỒNG! +50đ</div></div><div class="game-veil" id="cpVeil" hidden><p>Đã tạm dừng</p><button class="action" id="cpResume">Chơi tiếp</button><button class="game-quit" data-gallery-back>Dừng hẳn</button></div></div><p class="game-note">Chạm vào viên ngọc đáp án (hoặc bấm 1–4 / ← → + Space) để cá phóng lên ăn ngọc.</p></div>`;
+  updateCpCarpPos();
+  nextTowerQ();
+}
+function updateTowerHud(){
+  if(!tower)return;
+  const s=$('#cpScore'),cb=$('#cpCombo'),st=$('#cpStage'),lv=$('#cpLives'),fl=$('#cpFill'),gw=$('#cpGateWrap');
+  const mult=tower.streak>=6?3:tower.streak>=3?2:1;
+  if(s)s.textContent=tower.score;
+  if(cb)cb.textContent='×'+mult;
+  if(st)st.textContent=tower.stage+'/'+tower.maxStage;
+  if(lv)lv.innerHTML=heartsHTML(tower.lives);
+  if(fl)fl.style.width=(tower.stage/tower.maxStage*100)+'%';
+  if(gw)gw.style.setProperty('--cp-glow',(0.2+tower.stage/tower.maxStage*0.8).toFixed(2));
+}
+function updateCpCarpPos(){
+  if(!tower)return;
+  const hero=$('#cpCarpHero');if(!hero)return;
+  hero.style.left=(tower.lane*25+12.5)+'%';
+  const lanes=document.querySelectorAll('.cp-lane-col');
+  lanes.forEach((el,i)=>el.classList.toggle('is-active',i===tower.lane));
+}
+function nextTowerQ(){
+  if(!tower||tower.over)return;
+  const hv=$('#homeView');if(hv&&!hv.hidden){stopTower();return}
+  const l=lessons[activeLesson];
+  if(tower.di>=tower.deck.length){
+    tower.deck=shuffleArr(l.vocab.map((_,i)=>i));tower.di=0;
+    if(tower.deck.length>1&&tower.deck[0]===tower.lastIdx)tower.deck.push(tower.deck.shift());
+  }
+  const idx=tower.deck[tower.di++];tower.lastIdx=idx;
+  const types=['vi2han','han2vi','han2py'];const type=types[tower.qCount%3];tower.qCount++;
+  const f=towerField(type);
+  const others=shuffleArr(l.vocab.map((_,i)=>i).filter(i=>i!==idx&&l.vocab[i][f]!==l.vocab[idx][f]));
+  const opts=shuffleArr([idx,...others.slice(0,3)]);
+  const dur=Math.max(6800,11200-tower.stage*420);
+  tower.round={idx,type,opts,elapsed:0,dur,last:0,done:false};
+
+  const v=l.vocab[idx];
+  const typeLabel=type==='vi2han'?'Chọn chữ Hán':type==='han2vi'?'Chọn nghĩa Việt':'Chọn Pinyin';
+  const promptText=type==='vi2han'?esc(v.meaning):esc(v.word);
+  const banner=$('#cpPromptBanner');
+  if(banner){
+    banner.innerHTML=`<span class="cp-qtype">${typeLabel}</span><strong class="cp-qword${type==='vi2han'?'':' han'}">${promptText}</strong><button type="button" class="cp-spk-btn" id="cpSpeak" aria-label="Nghe phát âm">🔊</button>`;
+  }
+  const lanesEl=$('#cpLanes');
+  if(lanesEl){
+    lanesEl.innerHTML=[0,1,2,3].map(k=>{
+      const oi=opts[k];
+      const txt=oi==null?'':(type==='vi2han'?`<span class="cp-han-ans">${esc(l.vocab[oi].word)}</span>`:type==='han2vi'?esc(l.vocab[oi].meaning):esc(l.vocab[oi].pinyin));
+      return `<div class="cp-lane-col${k===tower.lane?' is-active':''}" data-cp-lane-hit="${k}"><div class="cp-stone" data-cp-stone="${k}"><span class="cp-key-num">${k+1}</span><div class="cp-stone-txt">${txt}</div></div></div>`;
+    }).join('');
+  }
+  const hero=$('#cpCarpHero');
+  if(hero){hero.classList.remove('is-lunging','is-hurt');hero.innerHTML=cpCarpSVG(tower.stage)}
+  updateCpCarpPos();
+  updateTowerHud();
+  if(!sfxMuted&&type!=='vi2han')speak(v.word);
+  towerTick();
+}
+function towerTick(){
+  if(towerRaf)cancelAnimationFrame(towerRaf);
+  if(!tower||!tower.round||tower.round.done)return;
+  tower.round.last=performance.now();
+  const step=now=>{
+    if(!tower||tower.over||!tower.round||tower.round.done)return;
+    const hv=$('#homeView');if(hv&&!hv.hidden){stopTower();return}
+    const dt=Math.min(60,now-tower.round.last);tower.round.last=now;
+    if(!tower.paused){
+      tower.round.elapsed+=dt;
+      const lanesEl=$('#cpLanes');if(!lanesEl){towerRaf=0;return}
+      const stones=lanesEl.querySelectorAll('.cp-stone');
+      const firstH=stones[0]?stones[0].offsetHeight:64;
+      const maxY=Math.max(40,lanesEl.clientHeight-firstH-82);
+      const p=Math.min(1,tower.round.elapsed/tower.round.dur);
+      const y=p*maxY;
+      for(let i=0;i<stones.length;i++)stones[i].style.transform=`translate3d(0,${y.toFixed(1)}px,0)`;
+      if(p>=1){towerAnswerLane(tower.lane,true);return}
+    }
+    towerRaf=requestAnimationFrame(step);
+  };
+  towerRaf=requestAnimationFrame(step);
+}
+function spawnCpBubbles(laneIdx,txt,good){
+  const stageBox=$('#cpStageBox');if(!stageBox)return;
+  const stones=document.querySelectorAll('.cp-stone');
+  const st=stones[laneIdx];
+  const sr=stageBox.getBoundingClientRect();
+  const r=st?st.getBoundingClientRect():null;
+  const cx=r?(r.left-sr.left+r.width/2):((laneIdx*0.25+0.125)*sr.width);
+  const cy=r?(r.top-sr.top+r.height/2):(sr.height*0.6);
+  const fl=document.createElement('div');
+  fl.className='cp-float'+(good?' good':' bad');fl.textContent=txt;
+  fl.style.left=cx+'px';fl.style.top=Math.max(84,cy-12)+'px';
+  stageBox.appendChild(fl);setTimeout(()=>fl.remove(),900);
+  if(good){
+    for(let i=0;i<10;i++){
+      const b=document.createElement('span');b.className='cp-bubble';
+      const ang=Math.random()*Math.PI*2,dist=18+Math.random()*36;
+      b.style.left=cx+'px';b.style.top=cy+'px';
+      b.style.setProperty('--bx',(Math.cos(ang)*dist).toFixed(1)+'px');
+      b.style.setProperty('--by',(Math.sin(ang)*dist-16).toFixed(1)+'px');
+      stageBox.appendChild(b);setTimeout(()=>b.remove(),650);
+    }
+  }
+}
+function towerAnswerLane(laneIdx,fromDrift){
+  if(!tower||tower.over||tower.paused||!tower.round||tower.round.done)return;
+  markStreak();
+  const t=tower,r=t.round;r.done=true;
+  if(towerRaf){cancelAnimationFrame(towerRaf);towerRaf=0}
+  t.lane=laneIdx;updateCpCarpPos();
+  const hero=$('#cpCarpHero'),stageBox=$('#cpStageBox');
+  const stones=document.querySelectorAll('.cp-stone');
+  const chosen=r.opts[laneIdx];
+  const ok=chosen===r.idx;
+  const chosenStone=stones[laneIdx];
+
+  if(ok){
+    if(hero){hero.classList.remove('is-lunging');void hero.offsetWidth;hero.classList.add('is-lunging')}
+    if(chosenStone)chosenStone.classList.add('is-correct');
+    (t.correctSet=t.correctSet||new Set()).add(r.idx);
+    t.streak++;t.bestStreak=Math.max(t.bestStreak,t.streak);
+    const mult=t.streak>=6?3:t.streak>=3?2:1;
+    const pts=10*mult;
+    t.score+=pts;t.stage++;t.correctCount++;t.bestStage=Math.max(t.bestStage,t.stage);
+    sfx('ding');
+    spawnCpBubbles(laneIdx,'+'+pts+(mult>1?' ×'+mult:''),true);
+    updateTowerHud();
+    if(t.stage>=t.maxStage){
+      t.won=true;t.score+=50;updateTowerHud();
+      const dw=$('#cpDragonWin');if(dw)dw.hidden=false;
+      if(hero)hero.style.opacity='0';
+      sfx('win');
+      towerTimer=setTimeout(()=>{if(tower===t&&!t.over)towerEnd(true)},1750);
+    }else{
+      towerTimer=setTimeout(()=>{if(tower===t&&!t.over)nextTowerQ()},540);
+    }
+  }else{
+    if(chosenStone)chosenStone.classList.add('is-wrong');
+    const rightLane=r.opts.indexOf(r.idx);
+    if(rightLane>=0&&stones[rightLane])stones[rightLane].classList.add('is-reveal');
+    if(hero){hero.classList.remove('is-hurt');void hero.offsetWidth;hero.classList.add('is-hurt')}
+    if(stageBox){stageBox.classList.remove('shake');void stageBox.offsetWidth;stageBox.classList.add('shake')}
+    sfx('buzz');
+    t.lives--;t.falls++;t.streak=0;
+    if(!t.missed.includes(r.idx))t.missed.push(r.idx);
+    srsRecord(r.idx,r.type==='vi2han'?'hanzi':r.type==='han2py'?'pinyin':'meaning','wrong',r);
+    spawnCpBubbles(laneIdx,fromDrift?'Trôi qua!':'Sai rồi!',false);
+    updateTowerHud();
+    towerTimer=setTimeout(()=>{
+      if(tower!==t||t.over)return;
+      if(t.lives<=0)towerEnd(false);else nextTowerQ();
+    },950);
+  }
+}
+function towerEnd(win){
+  if(!tower)return;
+  if(typeof Streak!=="undefined"&&tower.correctSet)Streak.noteGame(tower.correctSet.size);
+  if(window.LB&&tower.correctSet)LB.award('game','game-tower',tower.correctSet.size,tower.correctSet.size+(tower.missed?tower.missed.length:0));
+  if(!win)sfx('lose');
+  tower.over=true;
+  if(towerRaf){cancelAnimationFrame(towerRaf);towerRaf=0}
+  if(towerTimer){clearTimeout(towerTimer);towerTimer=0}
+  const t=tower,l=lessons[activeLesson];
+  const missedHtml=t.missed.length?`<div class="game-missed"><h4>Từ cần ôn lại sau chuyến vượt thác</h4><div class="game-missed-list">${t.missed.map(i=>{const v=l.vocab[i];return `<div class="game-missed-item"><img src="${vocabPhoto(i)}" alt=""><div><div class="han">${esc(v.word)}${v.star?' <span class="vocab-beyond">Vượt cấp</span>':''}</div><div class="pinyin">${esc(v.pinyin)}</div><div>${esc(v.meaning)}</div></div></div>`}).join('')}</div></div>`:'<p class="game-perfect">Không trượt một ghềnh nào — Thần Long giáng thế!</p>';
+  guessPanel.innerHTML=`<div class="dictation-shell"><div class="score-card"><span class="level-badge">${win?'Cá chép hóa rồng!':'Kết thúc ván'}</span><h3>Cá Chép Vượt Vũ Môn · Bài ${l.num}</h3><div class="score">${t.score} điểm</div><p>${win?'Bạn đã vượt <strong>Long Môn</strong> — Cá chép chính thức hóa Rồng Ngọc!':'Ghềnh đã vượt: <strong>'+t.bestStage+'/'+t.maxStage+'</strong>'} · Chuỗi cao nhất: <strong>${t.bestStreak}</strong>${win?' (gồm +50đ thưởng Hóa Rồng)':''}</p>${missedHtml}${srsCtaHTML()}<button class="action game-play" id="towerPlay">Vượt thác lại</button><button class="game-other" data-gallery-back>Chọn game khác</button></div></div>`;
+  tower=null;
+}
+document.addEventListener('click',e=>{
+  const _b=e.target.closest?e.target.closest('button'):null;const _id=_b?_b.id:e.target.id;
+  if(_id==='towerPlay'||_id==='cpRestart'){startTower();return}
+  if(_id==='cpPause'&&tower&&!tower.over){tower.paused=true;const v=$('#cpVeil');if(v)v.hidden=false;return}
+  if(_id==='cpResume'&&tower){tower.paused=false;const v=$('#cpVeil');if(v)v.hidden=true;return}
+  if(_id==='cpSpeak'&&tower&&tower.round){const v=lessons[activeLesson].vocab[tower.round.idx];if(v)speak(v.word);return}
+  if(_id==='towerQuit'){stopTower();renderGuess();return}
+  const st=e.target.closest('[data-cp-stone]');
+  if(st&&tower&&!tower.over&&!tower.paused){towerAnswerLane(+st.dataset.cpStone,false);return}
+  const lh=e.target.closest('[data-cp-lane-hit]');
+  if(lh&&tower&&!tower.over&&!tower.paused){
+    const k=+lh.dataset.cpLaneHit;
+    if(tower.lane===k)towerAnswerLane(k,false);
+    else{tower.lane=k;updateCpCarpPos();}
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(!tower||tower.over||tower.paused||activeTab!=='guess')return;
+  if(e.target.closest&&e.target.closest('input,textarea'))return;
+  if(e.key==='ArrowLeft'||e.key==='a'||e.key==='A'){e.preventDefault();tower.lane=Math.max(0,tower.lane-1);updateCpCarpPos();return}
+  if(e.key==='ArrowRight'||e.key==='d'||e.key==='D'){e.preventDefault();tower.lane=Math.min(3,tower.lane+1);updateCpCarpPos();return}
+  if(e.key===' '||e.key==='ArrowUp'||e.key==='Enter'){e.preventDefault();towerAnswerLane(tower.lane,false);return}
+  const map={'1':0,'2':1,'3':2,'4':3};
+  if(e.key in map){e.preventDefault();towerAnswerLane(map[e.key],false);}
+});
 function renderFlash(){const l=lessons[activeLesson],v=flashDeck[flashIndex];flashTitle.textContent=`Bài ${l.num} · Chạm thẻ để lật`;flashCount.textContent=`${flashIndex+1} / ${flashDeck.length}`;flashCard.classList.remove('flipped');strokeRun++;strokePlaying=false;flashStroke.disabled=false;flashStroke.textContent='Bút thuận';flashCard.innerHTML=`<div class="flash-front"><div class="word">${esc(v.word)}</div></div><div class="flash-back"><div class="word">${esc(v.word)}</div><div class="pinyin">${esc(v.pinyin)}</div><p class="meaning">${esc(v.meaning)}</p><p class="han">${esc(v.example)}</p><p class="example-pinyin pinyin">${esc(v.examplePinyin)}</p><p class="vi">${esc(v.exampleVi)}</p></div>`;flashStroke.style.display='';}
 let auIdx=-1,auLessonNum=null;function auReset(){auIdx=-1;auLessonNum=null}function selectLesson(i){activeLesson=i;currentGame=null;resetVocabState(lessons[i].num);stopAllOrigAudio(true);auReset();renderAll();pushRoute();window.scrollTo({top:document.querySelector('.layout').offsetTop-10,behavior:'smooth'})}
 let cannon=null,cannonRaf=0,toneG=null;
@@ -461,9 +660,9 @@ function heartsHTML(n){const full='<svg viewBox="0 0 22 22" aria-hidden="true"><
 
 function cannonArtSVG(){return `<svg viewBox="0 0 120 84" role="img" aria-label="Pháo đài Pinyin"><rect width="120" height="84" fill="#EEF4F1"/><circle cx="96" cy="20" r="10" fill="#B9DFD5" opacity=".7"/><path d="M0 72 L120 72 L120 84 L0 84 Z" fill="#D5E3DE"/><g><rect x="14" y="12" width="36" height="28" rx="7" fill="#FFFFFF" stroke="#2E7D6B" stroke-width="1.5"/><text x="32" y="31" text-anchor="middle" font-size="16" font-weight="800" fill="#193B39">学</text></g><g><path d="M44 68 L76 68 L70 52 L50 52 Z" fill="#EDF1E8" stroke="#193B39" stroke-width="1.2"/><g transform="rotate(20 60 54)"><rect x="54" y="24" width="12" height="32" rx="6" fill="#193B39" stroke="#2E7D6B" stroke-width="1.5"/><rect x="52" y="21" width="16" height="6" rx="3" fill="#2E7D6B"/></g><circle cx="48" cy="66" r="6" fill="#2E7D6B" stroke="#193B39" stroke-width="1.5"/><circle cx="72" cy="66" r="6" fill="#2E7D6B" stroke="#193B39" stroke-width="1.5"/></g><circle cx="75" cy="32" r="3.5" fill="#2E7D6B"/><circle cx="84" cy="23" r="2.5" fill="#34A389"/><circle cx="67" cy="22" r="2" fill="#193B39"/></svg>`}
 function rainArtSVG(){return `<svg viewBox="0 0 120 84" role="img" aria-label="Từ rơi"><rect width="120" height="84" fill="#EEF4F1"/><path d="M0 72 Q60 62 120 72 L120 84 L0 84 Z" fill="#A54432" opacity=".85"/><rect x="8" y="69" width="104" height="4" rx="2" fill="#E7CB6E"/><g><line x1="29" y1="0" x2="29" y2="10" stroke="#A54432" stroke-width="1.5"/><rect x="14" y="8" width="30" height="30" rx="8" fill="#FFFDF4" stroke="#2E7D6B" stroke-width="1.5"/><text x="29" y="29" text-anchor="middle" font-size="16" font-weight="800" fill="#193B39">词</text></g><g><line x1="63" y1="0" x2="63" y2="24" stroke="#B98A2F" stroke-width="1.5"/><rect x="48" y="22" width="30" height="30" rx="8" fill="#FFF8E1" stroke="#B98A2F" stroke-width="1.8"/><text x="63" y="43" text-anchor="middle" font-size="16" font-weight="800" fill="#A54432">语</text></g><g><line x1="95" y1="0" x2="95" y2="12" stroke="#A54432" stroke-width="1.5"/><rect x="80" y="10" width="30" height="30" rx="8" fill="#FFFDF4" stroke="#2E7D6B" stroke-width="1.5"/><text x="95" y="31" text-anchor="middle" font-size="16" font-weight="800" fill="#193B39">雨</text></g></svg>`}
-function carpArtSVG(){return `<svg viewBox="0 0 120 84" role="img" aria-label="Cá chép hóa rồng"><rect width="120" height="84" fill="#EEF4F1"/><rect x="48" y="20" width="24" height="54" rx="6" fill="#8CC5BA" opacity=".55"/><path d="M34 15 Q60 4 86 15 L82 20 Q60 11 38 20 Z" fill="#B98A2F"/><rect x="42" y="19" width="4" height="14" fill="#A54432"/><rect x="74" y="19" width="4" height="14" fill="#A54432"/><circle cx="60" cy="21" r="4" fill="#A54432"/><path d="M60 33 C68 41 70 50 65 58 C62 62 60 66 60 70 C60 66 58 62 55 58 C50 50 52 41 60 33Z" fill="#C8452C" stroke="#F7DC94" stroke-width="1"/><circle cx="60" cy="41" r="2" fill="#fff"/><path d="M44 66 q16 -8 32 0 M38 74 q22 -8 44 0" stroke="#2E7D6B" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`}
+function carpArtSVG(){return `<svg viewBox="0 0 120 84" role="img" aria-label="Cá chép hóa rồng"><rect width="120" height="84" fill="#EEF4F1"/><rect x="44" y="20" width="32" height="54" rx="8" fill="#B9DFD5" opacity=".7"/><path d="M30 16 Q60 4 90 16 L85 21 Q60 11 35 21 Z" fill="#193B39"/><rect x="38" y="20" width="5" height="15" fill="#2E7D6B"/><rect x="77" y="20" width="5" height="15" fill="#2E7D6B"/><rect x="49" y="14" width="22" height="11" rx="3" fill="#FFFFFF" stroke="#2E7D6B" stroke-width="1.2"/><text x="60" y="22.5" text-anchor="middle" font-size="7.5" font-weight="800" fill="#193B39">龙门</text><path d="M60 33 C68 41 70 50 65 58 C62 62 60 66 60 70 C60 66 58 62 55 58 C50 50 52 41 60 33Z" fill="#2E7D6B" stroke="#E7CB6E" stroke-width="1.4"/><circle cx="60" cy="41" r="2" fill="#fff"/><path d="M44 66 q16 -8 32 0 M38 74 q22 -8 44 0" stroke="#2E7D6B" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`}
 function toneArtSVG(){return `<svg viewBox="0 0 120 84" role="img" aria-label="Luyện thanh điệu"><rect width="120" height="84" fill="#F7EFE0"/><circle cx="60" cy="42" r="32" fill="#FFFDF7" stroke="#E7CB6E" stroke-width="1.5"/><g stroke-width="2.8" stroke-linecap="round" fill="none"><path d="M16 26 H38" stroke="#A54432"/><path d="M16 46 L38 32" stroke="#B98A2F"/><path d="M82 32 L90 42 L104 28" stroke="#2E7D6B"/><path d="M82 50 L104 64" stroke="#193B39"/></g><text x="60" y="49" text-anchor="middle" font-size="22" font-weight="800" fill="#193B39">音</text></svg>`}
-function gameCardsHTML(){const l=lessons[activeLesson];return `<div class="dictation-shell"><div class="gz-head"><span class="level-badge">Khu trò chơi</span><h3 class="game-title">Trò chơi · Bài ${l.num}</h3><p class="gz-sub">Chọn một game để chơi. Điểm chỉ tính trong ván này — tải lại trang là chơi lại từ đầu.</p></div><div class="gz-grid"><article class="gz-card"><div class="gz-art">${cannonArtSVG()}</div><div class="gz-cn">炮火拼音</div><h4>Pháo đài Pinyin</h4><p class="gz-desc">Gõ đúng pinyin để pháo bắn hạ hết từ trong bài.</p><button class="action gz-play" data-game="cannon">Chơi ngay</button></article><article class="gz-card"><div class="gz-art">${rainArtSVG()}</div><div class="gz-cn">词语雨</div><h4>Từ rơi</h4><p class="gz-desc">Từ rơi từ trên xuống, chạm đúng nghĩa tiếng Việt trước khi chạm đất.</p><button class="action gz-play" data-game="fall">Chơi ngay</button></article><article class="gz-card"><div class="gz-art">${carpArtSVG()}</div><div class="gz-cn">鲤鱼跃龙门</div><h4>Cá chép hóa rồng</h4><p class="gz-desc">Trả lời đúng để cá chép vượt từng ghềnh thác tới Long môn.</p><button class="action gz-play" data-game="carp">Chơi ngay</button></article><article class="gz-card"><div class="gz-art">${toneArtSVG()}</div><div class="gz-cn">声调</div><h4>Luyện thanh điệu</h4><p class="gz-desc">Nghe từ rồi chọn đúng pinyin có dấu thanh. 10 câu một ván.</p><button class="action gz-play" data-game="tone">Chơi ngay</button></article></div></div>`}
+function gameCardsHTML(){const l=lessons[activeLesson];return `<div class="dictation-shell"><div class="gz-head"><span class="level-badge">Khu trò chơi</span><h3 class="game-title">Trò chơi · Bài ${l.num}</h3><p class="gz-sub">Chọn một game để chơi. Điểm chỉ tính trong ván này — tải lại trang là chơi lại từ đầu.</p></div><div class="gz-grid"><article class="gz-card"><div class="gz-art">${cannonArtSVG()}</div><div class="gz-cn">炮火拼音</div><h4>Pháo đài Pinyin</h4><p class="gz-desc">Gõ đúng pinyin để pháo bắn hạ hết từ trong bài.</p><button class="action gz-play" data-game="cannon">Chơi ngay</button></article><article class="gz-card"><div class="gz-art">${rainArtSVG()}</div><div class="gz-cn">词语雨</div><h4>Từ rơi</h4><p class="gz-desc">Từ rơi từ trên xuống, chạm đúng nghĩa tiếng Việt trước khi chạm đất.</p><button class="action gz-play" data-game="fall">Chơi ngay</button></article><article class="gz-card"><div class="gz-art">${carpArtSVG()}</div><div class="gz-cn">鲤鱼跃龙门</div><h4>Cá chép hóa rồng</h4><p class="gz-desc">Lái cá chép bơi vượt 10 ghềnh thác, chọn đúng đá ngọc để hóa rồng.</p><button class="action gz-play" data-game="carp">Chơi ngay</button></article><article class="gz-card"><div class="gz-art">${toneArtSVG()}</div><div class="gz-cn">声调</div><h4>Luyện thanh điệu</h4><p class="gz-desc">Nghe từ rồi chọn đúng pinyin có dấu thanh. 10 câu một ván.</p><button class="action gz-play" data-game="tone">Chơi ngay</button></article></div></div>`}
 function flashArtSVG(){return `<svg viewBox="0 0 120 84" role="img" aria-label="Flashcard"><rect width="120" height="84" fill="#e9eff6"/><rect x="36" y="12" width="52" height="56" rx="6" fill="#d9a441" transform="rotate(6 60 40)"/><rect x="28" y="14" width="52" height="56" rx="6" fill="#ffffff" stroke="#173f63" stroke-width="2"/><rect x="38" y="26" width="32" height="5" rx="2.5" fill="#173f63"/><rect x="38" y="38" width="32" height="5" rx="2.5" fill="#c8452c"/><rect x="38" y="50" width="20" height="5" rx="2.5" fill="#9aa8b5"/></svg>`} function dictArtSVG(){return `<svg viewBox="0 0 120 84" role="img" aria-label="Nghe chép"><rect width="120" height="84" fill="#e2f0ec"/><path d="M36 58 V44 a24 24 0 0 1 48 0 V58" fill="none" stroke="#2e7d6b" stroke-width="5" stroke-linecap="round"/><rect x="30" y="54" width="12" height="16" rx="5" fill="#2e7d6b"/><rect x="78" y="54" width="12" height="16" rx="5" fill="#2e7d6b"/><rect x="52" y="64" width="16" height="5" rx="2.5" fill="#d9a441"/></svg>`} function fillArtSVG(){return `<svg viewBox="0 0 120 84" role="img" aria-label="Điền từ"><rect width="120" height="84" fill="#fbe9e4"/><rect x="18" y="38" width="24" height="6" rx="3" fill="#173f63"/><rect x="48" y="32" width="28" height="14" rx="3" fill="#ffffff" stroke="#c8452c" stroke-width="2" stroke-dasharray="4 3"/><rect x="82" y="38" width="20" height="6" rx="3" fill="#173f63"/><rect x="52" y="54" width="40" height="5" rx="2.5" fill="#9aa8b5"/></svg>`} function practiceCardsHTML(){const l=lessons[activeLesson];return `<div class="dictation-shell"><div class="gz-head"><span class="level-badge">Luyện tập</span><h3 class="game-title">Luyện tập · Bài ${l.num}</h3><p class="gz-sub">Chọn một dạng để luyện từ vựng và câu của bài.</p></div><div class="gz-grid"><article class="gz-card"><div class="gz-art">${flashArtSVG()}</div><div class="gz-cn">闪卡</div><h4>Flashcard</h4><p class="gz-desc">Lật thẻ để nhớ chữ Hán, pinyin và nghĩa của từ.</p><button class="action gz-play" data-flashcard>Luyện ngay</button></article><article class="gz-card"><div class="gz-art">${dictArtSVG()}</div><div class="gz-cn">听写</div><h4>Nghe chép</h4><p class="gz-desc">Nghe câu rồi chép lại đúng chữ Hán.</p><button class="action gz-play" data-tab="quiz">Luyện ngay</button></article><article class="gz-card"><div class="gz-art">${fillArtSVG()}</div><div class="gz-cn">填空</div><h4>Điền từ</h4><p class="gz-desc">Điền từ đúng vào chỗ trống trong câu.</p><button class="action gz-play" data-tab="fill">Luyện ngay</button></article></div></div>`} function renderPracticeZone(){practicePanel.innerHTML=practiceCardsHTML()} function renderGallery(){stopGame();stopTower();stopCannon();stopTone();guessPanel.innerHTML=gameCardsHTML()}
 function renderFallIntro(){stopGame();stopTower();stopCannon();stopTone();guessPanel.innerHTML=`<div class="dictation-shell"><div class="game-start"><span class="level-badge">Game từ rơi</span><h3 class="game-title">Từ Rơi Bắt Nghĩa</h3><div class="game-rules"><p><strong>Cách chơi:</strong> từ vựng của bài sẽ rơi từ trên xuống — chạm <strong>đúng nghĩa tiếng Việt</strong> trong 4 đáp án trước khi từ chạm đất. Mỗi từ trong bài rơi đúng 1 lần — bắt hết cả bài mà còn mạng là thắng.</p><p><strong>Mạng:</strong> chọn sai hoặc để từ rơi mất sẽ mất 1 mạng — bạn có 3 mạng. Chọn sai vẫn được chọn lại cho tới khi từ chạm đất, nhưng lượt đó không còn điểm.</p><p><strong>Combo:</strong> đúng liên tiếp để nhân điểm ×2 (chuỗi 3) · ×3 (chuỗi 6) · ×5 (chuỗi 10). Từ vàng ★ xuất hiện bất ngờ cho gấp 3 điểm!</p></div><button class="action game-play" id="gamePlay">Chơi ngay</button><button class="game-other" data-gallery-back>Chọn game khác</button><p class="game-note">Chơi trên máy tính: bấm phím 1–4 để chọn đáp án cho nhanh.</p></div></div>`}
 
