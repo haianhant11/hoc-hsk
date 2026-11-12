@@ -449,7 +449,8 @@
   }
 
   function initHeaderGuidance() {
-    // Nếu người dùng chưa tham gia, hiển thị lời mời thân thiện từ Hải Anh 3D trên trang chủ
+    // Nếu người dùng chưa tham gia, hiển thị lời mời thân thiện từ Hải Anh 3D trên trang chủ (trừ màn hình điện thoại)
+    if (window.matchMedia && window.matchMedia('(max-width: 760px)').matches) return;
     var loc = (typeof window !== 'undefined' && window.location && window.location.pathname) ? window.location.pathname : '';
     var isHome = loc.endsWith('/') || loc.endsWith('index.html') || loc === '';
     if (isHome && !profile()) {
@@ -822,14 +823,47 @@
           '<span class="lb-me-points">' + (me && typeof me.points === 'number' ? me.points : '…') + ' điểm</span>' +
           '<span class="lb-me-rank">' + rankText(me) + '</span>' +
         '</div>' +
+        '<div class="user-rename-panel" id="lbMeRenamePanel" hidden>' +
+          '<label class="user-pop-lbl" for="lbMeRenameInput">Nhập tên mới:</label>' +
+          '<div class="user-rename-row">' +
+            '<input id="lbMeRenameInput" class="user-pop-input" type="text" maxlength="40" value="' + esc(p.name) + '">' +
+            '<button class="user-rename-save" type="button" id="lbMeRenameSave">Lưu</button>' +
+            '<button class="user-rename-cancel" type="button" id="lbMeRenameCancel">Hủy</button>' +
+          '</div>' +
+        '</div>' +
         (gap ? '<p class="lb-me-gap">' + esc(gap) + '</p>' : '') +
         '<p class="lb-me-note">Điểm được cộng tự động khi bạn hoàn thành bài luyện tập, trắc nghiệm, các ván game và tập viết chữ Hán ít nét sai (+1 đến +3 điểm/từ).</p>';
 
       var renameBtn = document.getElementById('lbMeRenameBtn');
+      var renamePanel = document.getElementById('lbMeRenamePanel');
+      var renameInput = document.getElementById('lbMeRenameInput');
+      var renameSave = document.getElementById('lbMeRenameSave');
+      var renameCancel = document.getElementById('lbMeRenameCancel');
       if (renameBtn) {
         renameBtn.addEventListener('click', function () {
           var userBtn = document.querySelector('[data-user-btn]');
-          if (userBtn) userBtn.click();
+          if (userBtn && userBtn.offsetParent !== null) {
+            userBtn.click();
+          } else if (renamePanel) {
+            renamePanel.hidden = !renamePanel.hidden;
+            if (!renamePanel.hidden && renameInput) renameInput.focus();
+          }
+        });
+      }
+      if (renameCancel && renamePanel) {
+        renameCancel.addEventListener('click', function () { renamePanel.hidden = true; });
+      }
+      if (renameSave && renameInput) {
+        renameSave.addEventListener('click', function () {
+          var newName = cleanName(renameInput.value);
+          if (newName.length < 2) return;
+          renameSave.disabled = true;
+          renameSave.textContent = 'Đang lưu…';
+          joinUser(newName, function () {
+            renameSave.disabled = false;
+            renameSave.textContent = 'Lưu';
+            if (renamePanel) renamePanel.hidden = true;
+          });
         });
       }
     }

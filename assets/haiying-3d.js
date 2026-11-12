@@ -118,8 +118,12 @@
     setVisible: setVisible
   };
 
+  function isMobileViewport() {
+    return !!(window.matchMedia && window.matchMedia("(max-width: 760px)").matches);
+  }
+
   function initHomeGreeting() {
-    if (document.getElementById("lessonHead")) return;
+    if (document.getElementById("lessonHead") || isMobileViewport()) return;
     try {
       var due = window.SRS && typeof SRS.dueCount === "function" ? SRS.dueCount() : 0;
       var st = window.Streak && typeof Streak.state === "function" ? Streak.state() : null;
@@ -210,7 +214,7 @@
     var lastT = performance.now();
     function render(now) {
       requestAnimationFrame(render);
-      if (widget.classList.contains("is-hidden")) return;
+      if (widget.classList.contains("is-hidden") || isMobileViewport()) return;
 
       var dt = Math.min(0.05, (now - lastT) / 1000);
       lastT = now;
