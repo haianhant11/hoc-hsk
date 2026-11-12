@@ -1150,7 +1150,7 @@ body:has(.site-mnav) .app{padding-bottom:84px}
   letter-spacing:.12em;
 }
 .hy3d-tag .han{
-  color:var(--verm)!important;
+  color:var(--ink)!important;
   font-weight:900;
 }
 
@@ -1159,21 +1159,16 @@ body:has(.site-mnav) .app{padding-bottom:84px}
   margin:14px 0 18px;
 }
 .v-srs{
-  box-shadow:0 3px 0 #D5D8C8;
-  transition:transform .14s ease,box-shadow .14s ease,border-color .14s ease;
+  box-shadow:var(--shadow);
+  transition:border-color .15s ease,background-color .15s ease;
 }
 .v-srs:hover:not(:disabled){
-  transform:translateY(-1px);
-  box-shadow:0 4px 0 #C8CCB8;
-}
-.v-srs:active:not(:disabled){
-  transform:translateY(2px);
-  box-shadow:0 1px 0 #C8CCB8;
+  border-color:var(--ink);
 }
 .v-focus-wrap .v-write{
   margin-top:20px;
-  border:1.5px solid #DEDAC8;
-  box-shadow:0 4px 0 #E2DEC9,0 8px 18px rgba(25,59,57,.05);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
 }
 .v-focus-wrap .v-nav{
   margin-top:20px;
@@ -1191,8 +1186,8 @@ body:has(.site-mnav) .app{padding-bottom:84px}
   border-radius:16px 16px 4px 16px;
   background:rgba(255,254,250,.97);
   backdrop-filter:blur(10px);
-  border:1.5px solid var(--line-2);
-  box-shadow:0 4px 0 var(--line),0 12px 28px rgba(25,59,57,.12);
+  border:1px solid var(--line-2);
+  box-shadow:0 10px 26px rgba(25,59,57,.12);
   color:var(--body);
   font-size:.84rem;
   line-height:1.48;
@@ -1247,71 +1242,49 @@ body:has(.site-mnav) .app{padding-bottom:84px}
 }
 .panel{animation:panelFadeIn .26s ease both}
 
-/* Thẻ 3D có cạnh đáy nổi & nghiêng theo chuột (loại trừ thẻ Từ vựng và Ngữ pháp để dễ đọc) */
+/* Thẻ nội dung & nút bấm thanh lịch, bỏ cạnh bóng 3D dày ở đáy */
 .level-card,.gz-card,.info-card,.lesson-text-card,.srs-stat,.dictation-shell,.scene-wrap,.lesson-head{
-  border:1.5px solid #DEDAC8;
-  box-shadow:0 5px 0 #E2DEC9,0 10px 24px rgba(25,59,57,.06);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
   transition:transform .2s cubic-bezier(.22,.8,.26,1),box-shadow .2s ease,border-color .2s ease;
-  will-change:transform;
 }
 .level-card:hover,.gz-card:hover,.srs-stat:hover{
-  border-color:#CBB889;
-  box-shadow:0 8px 0 #D6C79F,0 18px 34px rgba(25,59,57,.11);
+  border-color:var(--line-2);
+  box-shadow:0 10px 24px rgba(25,59,57,.10);
 }
 .vocab-card,.grammar-card{
   border:1px solid var(--line);
   box-shadow:var(--shadow);
 }
 
-/* Nút bấm 3D EdTech Tactile (nổi khối sáng, nhấn xuống nảy tay) */
+/* Nút bấm phẳng tinh gọn, chuyển trạng thái mượt mà */
 .action,.level-enter,.pw-go,.gz-play,.game-play,.lb-banner-cta,.pinyin-toggle,.home-back,.study-bar .srs-link,.read-btn,.scene-navbtn,.scene-listen,.game-other,.tn-listen{
-  transition:transform .14s cubic-bezier(.2,.8,.2,1),box-shadow .14s ease,background-color .14s ease,border-color .14s ease;
-  box-shadow:0 4px 0 #D5D8C8,0 6px 12px rgba(25,59,57,.06);
+  transition:box-shadow .16s ease,background-color .16s ease,border-color .16s ease,opacity .15s ease;
+  box-shadow:var(--shadow);
 }
 .action:hover,.level-enter:hover,.pw-go:hover,.gz-play:hover,.game-play:hover,.pinyin-toggle:hover,.read-btn:hover,.scene-navbtn:hover:not(:disabled),.game-other:hover,.tn-listen:hover{
-  transform:translateY(-2px);
-  box-shadow:0 6px 0 #C8CCB8,0 10px 18px rgba(25,59,57,.10);
+  box-shadow:0 4px 12px rgba(25,59,57,.12);
 }
 .action:active,.level-enter:active,.pw-go:active,.gz-play:active,.game-play:active,.pinyin-toggle:active,.read-btn:active,.scene-navbtn:active:not(:disabled),.game-other:active,.tn-listen:active{
-  transform:translateY(2px);
-  box-shadow:0 1px 0 #C8CCB8;
+  box-shadow:var(--shadow);
 }
 
-/* Nút chính màu Ngọc Bích / Chu Sa có đáy 3D đậm tương ứng */
-.level-enter,.action.primary,#vStart,.gz-play,.game-play,.pw-go,.scene-navbtn.next,.scene-auto{
-  box-shadow:0 4px 0 #0E2422,0 8px 16px rgba(25,59,57,.18);
-}
-.level-enter:hover,.action.primary:hover,#vStart:hover,.gz-play:hover,.game-play:hover,.pw-go:hover,.scene-navbtn.next:hover{
-  box-shadow:0 6px 0 #0E2422,0 12px 22px rgba(25,59,57,.22);
-}
-.level-enter:active,.action.primary:active,#vStart:active,.gz-play:active,.game-play:active,.pw-go:active,.scene-navbtn.next:active{
-  box-shadow:0 1px 0 #0E2422;
-}
-#vStart:hover,.pw-go:hover,.scene-auto.playing{
-  box-shadow:0 5px 0 #74281B,0 10px 20px rgba(165,68,50,.22);
-}
-
-/* Tab chính & nút lựa chọn trắc nghiệm 3D */
+/* Thanh Tab chính & nút lựa chọn trắc nghiệm cân đối */
 .maintabs{
-  border:1.5px solid #DEDAC8;
-  box-shadow:0 4px 0 #E2DEC9,0 8px 18px rgba(25,59,57,.05);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
 }
-.maintab{transition:transform .14s ease,background-color .14s ease,color .14s ease}
-.maintab.active{box-shadow:0 3px 0 #0E2422}
+.maintab{transition:background-color .15s ease,color .15s ease}
+.maintab.active{box-shadow:0 1px 4px rgba(25,59,57,.16)}
 
 .mcq-opt,.quiz-option{
-  border:1.5px solid #DCD8C6;
-  box-shadow:0 4px 0 #E0DCC8;
-  transition:transform .14s ease,box-shadow .14s ease,border-color .14s ease;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  transition:box-shadow .15s ease,border-color .15s ease,background-color .15s ease;
 }
 .mcq-opt:hover:not(:disabled),.quiz-option:hover:not(:disabled){
-  transform:translateY(-2px);
   border-color:var(--ink);
-  box-shadow:0 6px 0 #CFCAB2;
-}
-.mcq-opt:active:not(:disabled),.quiz-option:active:not(:disabled){
-  transform:translateY(2px);
-  box-shadow:0 1px 0 #CFCAB2;
+  box-shadow:0 4px 12px rgba(25,59,57,.08);
 }
 
 /* =====================================================================
