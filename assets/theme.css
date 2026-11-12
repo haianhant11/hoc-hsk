@@ -2322,3 +2322,1338 @@ body:has(.site-mnav) .app{padding-bottom:84px}
   .lb3d-pillar-3{height:96px}
   .lb3d-pname{font-size:.82rem;max-width:118px}
 }
+
+/* =====================================================================
+   7. TRUNG TÂM ÔN TẬP (/on-tap): ÔN TẬP TỰ CHỌN & ÔN TẬP SRS
+   ===================================================================== */
+
+.cr-page-head{
+  margin-bottom:22px;
+}
+.cr-head-top{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+.cr-mode-tabs{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+  padding:6px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:16px;
+  box-shadow:var(--shadow);
+}
+.cr-mode-tab{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 16px;
+  border-radius:12px;
+  border:1px solid transparent;
+  background:transparent;
+  color:var(--ink);
+  font:inherit;
+  text-align:left;
+  cursor:pointer;
+  transition:background-color .16s ease,color .16s ease,border-color .16s ease;
+}
+.cr-mode-tab:hover{
+  background:var(--selected);
+}
+.cr-mode-tab.active{
+  background:var(--ink);
+  color:var(--surface);
+  border-color:var(--ink);
+}
+.cr-tab-icon{
+  width:38px;
+  height:38px;
+  border-radius:10px;
+  background:rgba(46,125,107,.12);
+  display:grid;
+  place-items:center;
+  font-size:1.2rem;
+  flex:none;
+}
+.cr-mode-tab.active .cr-tab-icon{
+  background:rgba(255,254,250,.14);
+}
+.cr-tab-text{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  min-width:0;
+}
+.cr-tab-text strong{
+  font-size:1rem;
+  font-weight:800;
+  line-height:1.2;
+}
+.cr-tab-text small{
+  font-size:.82rem;
+  color:var(--muted);
+  line-height:1.3;
+}
+.cr-mode-tab.active .cr-tab-text small{
+  color:rgba(255,254,250,.82);
+}
+
+/* ----- Khối Panel & Tiêu đề từng bước ----- */
+.cr-panel{
+  margin-bottom:22px;
+}
+.cr-section-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-bottom:16px;
+}
+.cr-step-pill{
+  display:inline-flex;
+  align-items:center;
+  padding:3px 10px;
+  border-radius:999px;
+  background:rgba(46,125,107,.12);
+  color:var(--ok);
+  font-size:.76rem;
+  font-weight:800;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+.cr-section-head h2,.cr-blueprint-head h2{
+  margin:0 0 4px;
+  font-size:1.25rem;
+  color:var(--ink);
+}
+
+/* ----- Cách 1: 3 Thẻ Khóa Học Trọn Bộ ----- */
+.cr-course-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+}
+.cr-course-card{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  background:var(--bg);
+  border:1.5px solid var(--line);
+  border-radius:16px;
+  padding:16px;
+  transition:border-color .16s ease,background-color .16s ease;
+}
+.cr-course-card:hover{
+  border-color:var(--ok);
+}
+.cr-course-card.is-selected{
+  background:var(--selected);
+  border-color:var(--ok);
+}
+.cr-course-card.is-partial{
+  border-color:rgba(46,125,107,.5);
+}
+.cr-course-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:8px;
+}
+.cr-course-badge{
+  display:inline-block;
+  padding:2px 9px;
+  border-radius:999px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  color:var(--ink);
+  font-size:.76rem;
+  font-weight:800;
+}
+.cr-course-count{
+  font-size:.8rem;
+  font-weight:700;
+  color:var(--ok);
+}
+.cr-course-title{
+  margin:0 0 6px;
+  font-size:1.08rem;
+  color:var(--ink);
+  line-height:1.25;
+}
+.cr-course-desc{
+  margin:0 0 12px;
+  font-size:.86rem;
+  color:var(--muted);
+  line-height:1.45;
+  flex:1;
+}
+.cr-course-meta{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  font-size:.8rem;
+  font-weight:700;
+  color:var(--ink);
+  padding:8px 10px;
+  background:var(--surface);
+  border-radius:10px;
+  border:1px solid var(--line);
+  margin-bottom:12px;
+}
+.cr-course-actions{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+/* ----- Nút bấm đồng bộ thiết kế phẳng xanh của trang ----- */
+.cr-btn-primary{
+  border:1px solid var(--ink);
+  background:var(--ink);
+  color:var(--surface);
+  border-radius:10px;
+  padding:10px 14px;
+  font:inherit;
+  font-size:.88rem;
+  font-weight:800;
+  cursor:pointer;
+  transition:background-color .15s ease,border-color .15s ease;
+}
+.cr-btn-primary:hover:not(:disabled){
+  background:var(--ok);
+  border-color:var(--ok);
+}
+.cr-btn-ghost{
+  border:1px solid var(--line-2);
+  background:var(--surface);
+  color:var(--ink);
+  border-radius:10px;
+  padding:9px 13px;
+  font:inherit;
+  font-size:.86rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:border-color .15s ease,background-color .15s ease;
+}
+.cr-btn-ghost:hover:not(:disabled){
+  border-color:var(--ink);
+  background:var(--selected);
+}
+.cr-btn-ghost:disabled,.cr-btn-primary:disabled{
+  opacity:.48;
+  cursor:not-allowed;
+}
+
+/* ----- Cách 2: Bộ lọc & Lưới chọn bài học tự gom nhóm ----- */
+.cr-filter-bar{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-bottom:14px;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--line);
+}
+.cr-course-tabs{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+.cr-filter-tab{
+  border:1px solid var(--line);
+  background:var(--bg);
+  color:var(--ink);
+  border-radius:999px;
+  padding:7px 14px;
+  font:inherit;
+  font-size:.85rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:background-color .15s ease,color .15s ease,border-color .15s ease;
+}
+.cr-filter-tab:hover{
+  border-color:var(--ink);
+}
+.cr-filter-tab.active{
+  background:var(--ink);
+  color:var(--surface);
+  border-color:var(--ink);
+}
+.cr-quick-presets{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+.cr-preset-btn{
+  border:1px dashed var(--line-2);
+  background:var(--surface);
+  color:var(--ink);
+  border-radius:8px;
+  padding:5px 10px;
+  font:inherit;
+  font-size:.78rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:border-color .15s ease,background-color .15s ease;
+}
+.cr-preset-btn:hover{
+  border-style:solid;
+  border-color:var(--ok);
+  background:var(--selected);
+}
+.cr-preset-btn.is-clear{
+  color:var(--verm);
+}
+.cr-preset-btn.is-clear:hover{
+  border-color:var(--verm);
+  background:rgba(165,68,50,.06);
+}
+
+.cr-lesson-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+}
+.cr-lesson-card{
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  text-align:left;
+  background:var(--surface);
+  border:1.5px solid var(--line);
+  border-radius:13px;
+  padding:12px 13px;
+  font:inherit;
+  color:var(--ink);
+  cursor:pointer;
+  transition:border-color .15s ease,background-color .15s ease;
+}
+.cr-lesson-card:hover{
+  border-color:var(--ok);
+}
+.cr-lesson-card.is-selected{
+  background:var(--selected);
+  border-color:var(--ok);
+}
+.cr-lesson-card-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:5px;
+}
+.cr-lesson-tag{
+  font-size:.76rem;
+  font-weight:800;
+  color:var(--ok);
+  background:rgba(46,125,107,.10);
+  padding:2px 8px;
+  border-radius:999px;
+}
+.cr-lesson-check{
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  border:1.5px solid var(--line-2);
+  background:var(--surface);
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  font-size:.78rem;
+  font-weight:900;
+  flex:none;
+}
+.cr-lesson-card.is-selected .cr-lesson-check{
+  background:var(--ok);
+  border-color:var(--ok);
+  color:#fff;
+}
+.cr-lesson-han{
+  font-size:1.05rem;
+  font-weight:800;
+  color:var(--ink);
+  margin-bottom:2px;
+  line-height:1.3;
+}
+.cr-lesson-theme{
+  font-size:.82rem;
+  color:var(--muted);
+  line-height:1.35;
+  margin-bottom:8px;
+  flex:1;
+}
+.cr-lesson-foot{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:.75rem;
+  font-weight:700;
+  color:var(--muted);
+  border-top:1px dashed var(--line);
+  padding-top:6px;
+}
+
+/* ----- Khối 3: Blueprint Đề Chuẩn & Hộp Khởi Động ----- */
+.cr-blueprint-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin:14px 0 18px;
+}
+.cr-bp-item{
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.cr-bp-part{
+  font-size:.74rem;
+  font-weight:800;
+  color:var(--ok);
+  text-transform:uppercase;
+  letter-spacing:.03em;
+}
+.cr-bp-item strong{
+  font-size:.94rem;
+  color:var(--ink);
+}
+.cr-bp-item p{
+  margin:0;
+  font-size:.8rem;
+  color:var(--muted);
+  line-height:1.4;
+}
+
+.cr-launch-box{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+  padding:16px 18px;
+  border-radius:14px;
+  background:var(--selected);
+  border:1.5px solid var(--ok);
+}
+.cr-launch-box.is-warn{
+  background:rgba(165,68,50,.05);
+  border-color:rgba(165,68,50,.38);
+}
+.cr-launch-info{
+  flex:1;
+  min-width:240px;
+}
+.cr-launch-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:8px;
+  font-size:.92rem;
+}
+.cr-pool-badge{
+  font-size:.8rem;
+  font-weight:700;
+  color:var(--ok);
+  background:var(--surface);
+  border:1px solid rgba(46,125,107,.3);
+  padding:2px 9px;
+  border-radius:999px;
+}
+.cr-warn-badge{
+  font-size:.82rem;
+  font-weight:700;
+  color:var(--verm);
+}
+.cr-sel-chips{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+.cr-sel-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:3px 9px;
+  border-radius:999px;
+  background:var(--surface);
+  border:1px solid var(--line-2);
+  font-size:.8rem;
+  color:var(--ink);
+}
+.cr-sel-remove{
+  border:none;
+  background:transparent;
+  color:var(--muted);
+  font-size:.95rem;
+  font-weight:800;
+  line-height:1;
+  padding:0 2px;
+  cursor:pointer;
+}
+.cr-sel-remove:hover{
+  color:var(--verm);
+}
+.cr-sel-empty{
+  font-size:.85rem;
+  color:var(--muted);
+}
+.cr-btn-start{
+  border:1px solid var(--ink);
+  background:var(--ink);
+  color:var(--surface);
+  border-radius:12px;
+  padding:13px 22px;
+  font:inherit;
+  font-size:.98rem;
+  font-weight:800;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:background-color .15s ease,border-color .15s ease;
+}
+.cr-btn-start:hover:not(:disabled){
+  background:var(--ok);
+  border-color:var(--ok);
+}
+.cr-btn-start:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+/* =====================================================================
+   MÀN HÌNH LÀM ĐỀ ÔN TẬP (#crExam)
+   ===================================================================== */
+.cr-exam-topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+  padding:16px 20px;
+  margin-bottom:14px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:16px;
+  box-shadow:var(--shadow);
+}
+.cr-scope-pill{
+  display:inline-block;
+  padding:2px 9px;
+  border-radius:999px;
+  background:rgba(46,125,107,.12);
+  color:var(--ok);
+  font-size:.75rem;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.03em;
+  margin-bottom:3px;
+}
+.cr-exam-scope-title{
+  margin:0;
+  font-size:1.12rem;
+  color:var(--ink);
+}
+.cr-exam-metrics{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.cr-metric-chip{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:6px 12px;
+  border-radius:10px;
+  background:var(--bg);
+  border:1px solid var(--line);
+  font-size:.75rem;
+  color:var(--muted);
+}
+.cr-metric-chip strong{
+  font-size:.96rem;
+  color:var(--ink);
+  font-variant-numeric:tabular-nums;
+}
+.cr-metric-chip.is-score{
+  background:var(--selected);
+  border-color:rgba(46,125,107,.35);
+}
+.cr-metric-chip.is-score strong{
+  color:var(--ok);
+}
+.cr-exam-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.cr-layout-switch{
+  display:inline-flex;
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:3px;
+}
+.cr-layout-btn{
+  border:none;
+  background:transparent;
+  color:var(--muted);
+  border-radius:7px;
+  padding:6px 10px;
+  font:inherit;
+  font-size:.8rem;
+  font-weight:700;
+  cursor:pointer;
+}
+.cr-layout-btn.active{
+  background:var(--surface);
+  color:var(--ink);
+  box-shadow:0 1px 3px rgba(25,59,57,.08);
+}
+.cr-btn-submit{
+  border:1px solid var(--ok);
+  background:var(--ok);
+  color:#fff;
+  border-radius:10px;
+  padding:9px 15px;
+  font:inherit;
+  font-size:.88rem;
+  font-weight:800;
+  cursor:pointer;
+  transition:background-color .15s ease;
+}
+.cr-btn-submit:hover{
+  background:var(--ink);
+  border-color:var(--ink);
+}
+.cr-btn-submit.is-lg{
+  padding:13px 24px;
+  font-size:1rem;
+  border-radius:12px;
+}
+
+/* ----- Bản đồ 20 câu hỏi theo 4 Phần ----- */
+.cr-qmap-panel{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+  padding:14px 16px;
+  margin-bottom:16px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:16px;
+}
+.cr-qmap-group{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.cr-qmap-label{
+  font-size:.75rem;
+  font-weight:800;
+  color:var(--muted);
+}
+.cr-qmap-dots{
+  display:flex;
+  gap:5px;
+  flex-wrap:wrap;
+}
+.cr-qdot{
+  width:30px;
+  height:30px;
+  border-radius:8px;
+  border:1px solid var(--line-2);
+  background:var(--bg);
+  color:var(--ink);
+  font:inherit;
+  font-size:.8rem;
+  font-weight:800;
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+  padding:0;
+}
+.cr-qdot:hover{
+  border-color:var(--ink);
+}
+.cr-qdot.is-current{
+  border:2px solid var(--ink);
+  background:var(--surface);
+}
+.cr-qdot.is-ok{
+  background:var(--ok);
+  border-color:var(--ok);
+  color:#fff;
+}
+.cr-qdot.is-bad{
+  background:var(--verm);
+  border-color:var(--verm);
+  color:#fff;
+}
+
+/* ----- Thẻ Câu Hỏi (Question Card) ----- */
+.cr-section-banner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 16px;
+  border-radius:12px;
+  background:var(--ink);
+  color:var(--surface);
+  font-size:.9rem;
+  margin-bottom:12px;
+}
+.cr-section-banner.is-sheet-banner{
+  margin-top:20px;
+}
+.cr-section-banner span{
+  font-size:.78rem;
+  color:rgba(255,254,250,.8);
+  font-weight:700;
+}
+.cr-q-card{
+  background:var(--surface);
+  border:1.5px solid var(--line);
+  border-radius:16px;
+  padding:20px 22px;
+  margin-bottom:14px;
+  box-shadow:var(--shadow);
+}
+.cr-q-card.is-card-ok{
+  border-color:rgba(46,125,107,.55);
+}
+.cr-q-card.is-card-bad{
+  border-color:rgba(165,68,50,.48);
+}
+.cr-q-card-head{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:10px;
+}
+.cr-q-num{
+  padding:3px 10px;
+  border-radius:999px;
+  background:var(--ink);
+  color:var(--surface);
+  font-size:.78rem;
+  font-weight:800;
+}
+.cr-q-type{
+  padding:3px 10px;
+  border-radius:999px;
+  background:var(--selected);
+  color:var(--ok);
+  font-size:.78rem;
+  font-weight:800;
+}
+.cr-q-source{
+  margin-left:auto;
+  font-size:.8rem;
+  font-weight:700;
+  color:var(--muted);
+  background:var(--bg);
+  border:1px solid var(--line);
+  padding:2px 9px;
+  border-radius:999px;
+}
+.cr-q-prompt-tag{
+  margin:0 0 10px;
+  font-size:.9rem;
+  color:var(--muted);
+  font-weight:600;
+}
+.cr-q-focus{
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:14px 16px;
+  margin-bottom:14px;
+}
+.cr-q-han-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.cr-q-big-han{
+  font-size:2.1rem;
+  font-weight:800;
+  color:var(--ink);
+  line-height:1.15;
+}
+.cr-q-pos{
+  padding:2px 8px;
+  border-radius:6px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  font-size:.78rem;
+  font-weight:700;
+  color:var(--muted);
+}
+.cr-q-vi-main{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.cr-q-vi-text{
+  font-size:1.25rem;
+  font-weight:800;
+  color:var(--ink);
+}
+.cr-q-vi-inline{
+  font-size:1.05rem;
+  font-weight:700;
+  color:var(--ink);
+}
+.cr-q-context{
+  margin-top:8px;
+  padding-top:8px;
+  border-top:1px dashed var(--line);
+  font-size:.92rem;
+  color:var(--ink);
+}
+.cr-q-context span{
+  color:var(--muted);
+  font-size:.84rem;
+}
+.cr-q-sentence{
+  font-size:1.35rem;
+  font-weight:700;
+  color:var(--ink);
+  line-height:1.55;
+}
+.cr-q-py{
+  margin-top:4px;
+  font-size:.9rem;
+  color:var(--muted);
+}
+.cr-q-hintvi{
+  margin-top:8px;
+  font-size:.9rem;
+  color:var(--muted);
+}
+.cr-scene-tag{
+  display:inline-block;
+  margin-bottom:6px;
+  font-size:.8rem;
+  font-weight:700;
+  color:var(--ok);
+}
+.cr-blank{
+  display:inline-block;
+  min-width:54px;
+  padding:0 8px;
+  margin:0 3px;
+  border-bottom:2px solid var(--ok);
+  color:var(--ok);
+  text-align:center;
+}
+.cr-blank.is-filled.ok{
+  background:rgba(46,125,107,.14);
+  border-radius:6px;
+  color:var(--ok);
+}
+.cr-blank.is-filled.bad{
+  background:rgba(165,68,50,.12);
+  border-bottom-color:var(--verm);
+  border-radius:6px;
+  color:var(--verm);
+}
+
+.cr-audio-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  border:1px solid var(--line-2);
+  background:var(--surface);
+  color:var(--ink);
+  border-radius:999px;
+  padding:6px 12px;
+  font:inherit;
+  font-size:.82rem;
+  font-weight:700;
+  cursor:pointer;
+}
+.cr-audio-btn:hover{
+  border-color:var(--ok);
+  background:var(--selected);
+}
+.cr-audio-btn.is-primary{
+  background:var(--ink);
+  border-color:var(--ink);
+  color:var(--surface);
+}
+.cr-audio-btn.is-primary:hover{
+  background:var(--ok);
+  border-color:var(--ok);
+}
+.cr-audio-btn.is-sm{
+  padding:4px 10px;
+  font-size:.76rem;
+}
+
+/* ----- Lưới 4 đáp án A/B/C/D ----- */
+.cr-opts-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.cr-opts-grid.is-single-col{
+  grid-template-columns:1fr;
+}
+.cr-opt-btn{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-align:left;
+  padding:12px 14px;
+  border-radius:12px;
+  border:1.5px solid var(--line-2);
+  background:var(--surface);
+  color:var(--ink);
+  font:inherit;
+  font-size:1rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:border-color .14s ease,background-color .14s ease;
+}
+.cr-opt-btn:hover:not(:disabled){
+  border-color:var(--ok);
+  background:var(--selected);
+}
+.cr-opt-letter{
+  width:28px;
+  height:28px;
+  border-radius:8px;
+  background:var(--bg);
+  border:1px solid var(--line);
+  display:grid;
+  place-items:center;
+  font-size:.82rem;
+  font-weight:800;
+  color:var(--ink);
+  flex:none;
+}
+.cr-opt-stack{
+  display:flex;
+  flex-direction:column;
+  gap:1px;
+}
+.cr-opt-text.han{
+  font-size:1.18rem;
+}
+.cr-opt-py{
+  font-size:.78rem;
+  color:var(--muted);
+  font-weight:600;
+}
+.cr-opt-btn.is-right{
+  background:#E8F6F1;
+  border-color:var(--ok);
+  color:var(--ink);
+}
+.cr-opt-btn.is-right .cr-opt-letter{
+  background:var(--ok);
+  border-color:var(--ok);
+  color:#fff;
+}
+.cr-opt-btn.is-wrong{
+  background:#FDF1EF;
+  border-color:var(--verm);
+  color:var(--verm);
+}
+.cr-opt-btn.is-wrong .cr-opt-letter{
+  background:var(--verm);
+  border-color:var(--verm);
+  color:#fff;
+}
+.cr-opt-btn:disabled{
+  cursor:default;
+}
+
+/* ----- Câu Ngữ pháp & Câu Nghe chép ----- */
+.cr-gmode-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:8px;
+}
+.cr-greq-pill{
+  font-size:.82rem;
+  color:var(--ok);
+  background:var(--surface);
+  border:1px solid rgba(46,125,107,.3);
+  padding:3px 10px;
+  border-radius:999px;
+}
+.cr-gmode-toggle{
+  display:inline-flex;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:2px;
+}
+.cr-gmode-btn{
+  border:none;
+  background:transparent;
+  color:var(--muted);
+  padding:4px 9px;
+  border-radius:6px;
+  font:inherit;
+  font-size:.76rem;
+  font-weight:700;
+  cursor:pointer;
+}
+.cr-gmode-btn.active{
+  background:var(--ink);
+  color:var(--surface);
+}
+.cr-text-input{
+  width:100%;
+  box-sizing:border-box;
+  padding:12px 14px;
+  border-radius:11px;
+  border:1.5px solid var(--line-2);
+  background:var(--surface);
+  color:var(--ink);
+  font:inherit;
+  font-size:1.15rem;
+}
+.cr-text-input:focus{
+  outline:none;
+  border-color:var(--ok);
+}
+.cr-dict-audio-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.cr-hint-toggle{
+  border:none;
+  background:transparent;
+  color:var(--ok);
+  font:inherit;
+  font-size:.84rem;
+  font-weight:700;
+  text-decoration:underline;
+  cursor:pointer;
+  margin-left:auto;
+}
+.cr-dict-focus{
+  margin-top:8px;
+  font-size:.86rem;
+  color:var(--muted);
+}
+.cr-dict-input-row{
+  display:flex;
+  gap:8px;
+  align-items:stretch;
+  margin-bottom:10px;
+}
+.cr-clear-input{
+  border:1px solid var(--line-2);
+  background:var(--bg);
+  color:var(--muted);
+  border-radius:10px;
+  padding:0 12px;
+  font:inherit;
+  font-size:.82rem;
+  font-weight:700;
+  cursor:pointer;
+}
+.cr-dict-tiles-wrap{
+  background:var(--bg);
+  border:1px dashed var(--line-2);
+  border-radius:12px;
+  padding:10px 12px;
+}
+.cr-tiles-label{
+  display:block;
+  font-size:.78rem;
+  font-weight:700;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+.cr-dict-tiles{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+.cr-word-tile{
+  border:1px solid var(--line-2);
+  background:var(--surface);
+  color:var(--ink);
+  border-radius:9px;
+  padding:6px 12px;
+  font-size:1.08rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:border-color .14s ease,background-color .14s ease;
+}
+.cr-word-tile:hover:not(:disabled){
+  border-color:var(--ok);
+  background:var(--selected);
+}
+.cr-word-tile.is-used{
+  background:var(--selected);
+  border-color:var(--ok);
+  color:var(--ok);
+}
+.cr-q-card-actions{
+  margin-top:12px;
+  display:flex;
+  justify-content:flex-end;
+}
+.cr-btn-check{
+  border:1px solid var(--ink);
+  background:var(--ink);
+  color:var(--surface);
+  border-radius:10px;
+  padding:9px 18px;
+  font:inherit;
+  font-size:.88rem;
+  font-weight:800;
+  cursor:pointer;
+}
+.cr-btn-check:hover{
+  background:var(--ok);
+  border-color:var(--ok);
+}
+
+/* ----- Hộp Phản Hồi Đáp Án & Lời Giải ----- */
+.cr-feedback-box{
+  margin-top:14px;
+  padding:13px 16px;
+  border-radius:12px;
+  border:1px solid var(--line);
+}
+.cr-feedback-box.is-ok{
+  background:#EEF7F3;
+  border-color:rgba(46,125,107,.4);
+}
+.cr-feedback-box.is-bad{
+  background:#FDF3F1;
+  border-color:rgba(165,68,50,.38);
+}
+.cr-fb-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:6px;
+}
+.cr-fb-status{
+  font-weight:800;
+  font-size:.94rem;
+}
+.cr-fb-status.ok{color:var(--ok)}
+.cr-fb-status.bad{color:var(--verm)}
+.cr-fb-explain,.cr-fb-msg{
+  font-size:.9rem;
+  color:var(--ink);
+  line-height:1.5;
+}
+.cr-fb-ruby{
+  font-size:1.35rem;
+  font-weight:800;
+  color:var(--ink);
+  margin:4px 0;
+}
+.cr-fb-vi{
+  font-size:.9rem;
+  color:var(--ink);
+}
+.cr-fb-user{
+  margin-top:4px;
+  font-size:.85rem;
+  color:var(--verm);
+}
+
+.cr-single-nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:14px;
+}
+.cr-single-pos{
+  font-size:.9rem;
+  color:var(--muted);
+}
+.cr-sheet-footer{
+  margin-top:20px;
+  text-align:center;
+}
+
+/* =====================================================================
+   MÀN HÌNH KẾT QUẢ TỔNG KẾT (#crResult)
+   ===================================================================== */
+.cr-summary-card{
+  padding:24px;
+}
+.cr-summary-hero{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  flex-wrap:wrap;
+  padding-bottom:20px;
+  border-bottom:1px solid var(--line);
+}
+.cr-score-circle{
+  width:118px;
+  height:118px;
+  border-radius:50%;
+  background:var(--selected);
+  border:3px solid var(--ok);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  flex:none;
+}
+.cr-score-num{
+  font-size:2.3rem;
+  font-weight:900;
+  color:var(--ink);
+  line-height:1;
+}
+.cr-score-den{
+  font-size:.8rem;
+  font-weight:700;
+  color:var(--ok);
+  margin-top:3px;
+}
+.cr-summary-text{
+  flex:1;
+  min-width:240px;
+}
+.cr-summary-text h2{
+  margin:4px 0 6px;
+  font-size:1.4rem;
+  color:var(--ink);
+}
+.cr-summary-pills{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+.cr-summary-pills span{
+  padding:4px 11px;
+  border-radius:999px;
+  background:var(--bg);
+  border:1px solid var(--line);
+  font-size:.82rem;
+  color:var(--ink);
+}
+.cr-summary-breakdown{
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  gap:22px;
+  margin:20px 0;
+}
+.cr-breakdown-col h3{
+  margin:0 0 12px;
+  font-size:1rem;
+  color:var(--ink);
+}
+.cr-stat-row{
+  margin-bottom:10px;
+}
+.cr-stat-row-top{
+  display:flex;
+  justify-content:space-between;
+  font-size:.84rem;
+  margin-bottom:4px;
+}
+.cr-progress-track{
+  height:8px;
+  border-radius:999px;
+  background:var(--bg);
+  border:1px solid var(--line);
+  overflow:hidden;
+}
+.cr-progress-fill{
+  height:100%;
+  background:var(--ok);
+  border-radius:999px;
+}
+.cr-lesson-stat-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+}
+.cr-lesson-stat-chip{
+  padding:9px 12px;
+  border-radius:10px;
+  background:var(--bg);
+  border:1px solid var(--line);
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  font-size:.82rem;
+}
+.cr-lesson-stat-chip.is-good{
+  background:var(--selected);
+  border-color:rgba(46,125,107,.4);
+}
+.cr-lesson-stat-chip.is-low{
+  background:#FDF3F1;
+  border-color:rgba(165,68,50,.35);
+}
+.cr-summary-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  padding-top:16px;
+  border-top:1px solid var(--line);
+}
+.cr-review-heading{
+  margin:24px 0 12px;
+  font-size:1.25rem;
+  color:var(--ink);
+}
+
+@media (max-width:860px){
+  .cr-course-grid,.cr-lesson-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .cr-blueprint-grid,.cr-qmap-panel{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .cr-summary-breakdown{
+    grid-template-columns:1fr;
+  }
+}
+@media (max-width:600px){
+  .cr-mode-tabs,.cr-course-grid,.cr-lesson-grid,.cr-blueprint-grid,.cr-qmap-panel,.cr-opts-grid,.cr-lesson-stat-grid{
+    grid-template-columns:1fr;
+  }
+  .cr-launch-box{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .cr-btn-start{
+    width:100%;
+    text-align:center;
+  }
+  .cr-q-card{
+    padding:16px;
+  }
+}

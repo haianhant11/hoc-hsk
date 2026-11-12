@@ -15,7 +15,34 @@
 <nav class="site-nav" aria-label="Điều hướng chính"><a href="on-tap" aria-current="page">Ôn tập <span class="srs-badge" data-srs-badge hidden></span></a><a href="./#khoa-hoc">Các khóa học</a><a href="/bang-xep-hang">Bảng xếp hạng</a></nav><div class="header-actions"><span class="user-slot" data-user-slot></span><span class="streak-slot" data-streak-slot></span></div>
 </header>
 <main class="srs-wrap">
-<div class="srs-head"><h1>Ôn tập</h1><p class="srs-sub">Ôn lại đúng những từ và kỹ năng bạn còn yếu. Lịch ôn đơn giản: nhớ đúng thì giãn dần 1 → 3 → 7 → 14 → 30 ngày, chưa nhớ thì gặp lại sau khoảng 10 phút.</p></div>
+<div class="srs-head cr-page-head">
+  <div class="cr-head-top">
+    <div>
+      <h1>Trung tâm Ôn tập</h1>
+      <p class="srs-sub" id="reviewModeSub">Luyện đề tổng hợp ngẫu nhiên theo khóa học hoặc tự gom nhóm bài học bất kỳ (tối thiểu 2 bài), kết hợp ôn từ ngắt quãng SRS.</p>
+    </div>
+  </div>
+  <div class="cr-mode-tabs" role="tablist" aria-label="Chọn chế độ ôn tập">
+    <button class="cr-mode-tab active" id="modeCustomBtn" type="button" role="tab" aria-selected="true" aria-controls="customReviewView">
+      <span class="cr-tab-icon">📝</span>
+      <span class="cr-tab-text">
+        <strong>Ôn tập Tự chọn</strong>
+        <small>Random đề chuẩn từ các bài đã chọn</small>
+      </span>
+    </button>
+    <button class="cr-mode-tab" id="modeSrsBtn" type="button" role="tab" aria-selected="false" aria-controls="srsView">
+      <span class="cr-tab-icon">🧠</span>
+      <span class="cr-tab-text">
+        <strong>Ôn tập SRS <span class="srs-badge" data-srs-badge hidden></span></strong>
+        <small>Lặp lại ngắt quãng từ &amp; kỹ năng yếu</small>
+      </span>
+    </button>
+  </div>
+</div>
+
+<section id="customReviewView" role="tabpanel" aria-labelledby="modeCustomBtn"></section>
+
+<section id="srsView" role="tabpanel" aria-labelledby="modeSrsBtn" hidden>
 <div id="srsMain">
 <section class="srs-stats" aria-label="Thống kê ôn tập">
 <div class="srs-stat"><span class="srs-stat-label">Đến hạn</span><strong class="srs-stat-value" id="statDue">0</strong></div>
@@ -58,13 +85,24 @@
 </section>
 </div>
 <section id="srsSession" hidden></section>
+</section>
 </main>
 <footer class="attrib"><p class="attrib-note">Trang được biên soạn với mục đích học tập cá nhân.</p></footer>
 </div>
 <nav class="site-mnav" aria-label="Điều hướng dưới đáy"><a href="on-tap" class="active" aria-current="page"><span class="han">复</span>Ôn tập <span class="srs-badge" data-srs-badge hidden></span></a><a href="./#khoa-hoc"><span class="han">课</span>Khóa học</a><a href="bang-xep-hang"><span class="han">榜</span>Bảng xếp hạng</a></nav>
+<script src="assets/data/hsk3.js"></script>
+<script src="assets/data/hsk3-dictpy.js"></script>
+<script src="assets/data/hsk3-textquiz.js"></script>
+<script src="assets/data/hsk4-shang.js"></script>
+<script src="assets/data/hsk4-dictpy.js"></script>
+<script src="assets/data/hsk4-textquiz.js"></script>
+<script src="assets/data/hsk4-xia.js"></script>
+<script src="assets/data/hsk4x-dictpy.js"></script>
+<script src="assets/data/hsk4-textquiz-xia.js"></script>
 <script src="assets/srs.js"></script>
 <script src="assets/streak.js"></script>
 <script src="assets/leaderboard.js"></script>
 <script src="assets/haiying-3d.js"></script>
 <script src="assets/srs-page.js"></script>
+<script src="assets/custom-review.js"></script>
 </body></html>
