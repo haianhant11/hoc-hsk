@@ -14,7 +14,7 @@
   widget.innerHTML =
     '<div class="hy3d-bubble" id="hy3dBubble" role="status" aria-live="polite">' +
     '<button class="hy3d-close" id="hy3dClose" type="button" aria-label="Thu gọn lời nhắc">×</button>' +
-    '<div class="hy3d-tag" id="hy3dTag"><span class="han">海英</span> · Hướng dẫn</div>' +
+    '<div class="hy3d-tag" id="hy3dTag"><span class="han hy3d-brand">海英</span> · Hướng dẫn</div>' +
     '<div class="hy3d-text" id="hy3dText">Mình là <strong>海英 (Hải Anh)</strong>. Chạm vào mình bất kỳ lúc nào để xem mẹo học nhé!</div>' +
     '</div>' +
     '<div class="hy3d-stage" id="hy3dStage" title="Chạm vào Hải Anh để xem mẹo học">' +
@@ -77,11 +77,14 @@
     }
   }
 
-  function say(tag, html, mood, durationMs) {
+  function say(tag, html, mood, durationMs, noPrefix) {
     var b = document.getElementById("hy3dBubble");
     var tEl = document.getElementById("hy3dTag");
     var txEl = document.getElementById("hy3dText");
-    if (tEl) tEl.innerHTML = tag ? ('<span class="han">海英</span> · ' + tag) : '<span class="han">海英</span>';
+    if (tEl) {
+      if (noPrefix && tag) tEl.innerHTML = tag;
+      else tEl.innerHTML = tag ? ('<span class="han hy3d-brand">海英</span> · ' + tag) : '<span class="han hy3d-brand">海英</span>';
+    }
     if (txEl && html) txEl.innerHTML = html;
     if (b) b.classList.remove("is-collapsed");
     react(mood || "wave");

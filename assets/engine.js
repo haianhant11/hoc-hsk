@@ -705,7 +705,7 @@ function syncHaiYingTab(){
       const groups=vocabGroupsCur(),idxs=groups[vFocus.g]||[],v=l.vocab[idxs[vFocus.w]];
       if(v)HaiYing3D.say(`Từ ${vFocus.w+1}/${idxs.length} · ${esc(v.word)}`,`<strong>${esc(v.word)}</strong> (${esc(v.pinyin)}) — <strong>“${esc(v.meaning)}”</strong>. Bấm <strong>Tập viết</strong> để mình chấm nét chữ cho nhé!`,'teach');
     }else{
-      HaiYing3D.say(`Bài ${l.num} · ${esc(l.theme)}`,`Bài này có <strong>${l.vocab.length} từ vựng</strong> và <strong>${l.grammar.length} ngữ pháp</strong>. Chạm vào mình bất kỳ lúc nào để xem mẹo học nhé!`,'wave');
+      HaiYing3D.say(`Bài ${l.num} · ${esc(l.theme)}`,`Bài này có <strong>${l.vocab.length} từ vựng</strong> và <strong>${l.grammar.length} ngữ pháp</strong>. Chạm vào mình bất kỳ lúc nào để xem mẹo học nhé!`,'wave',11000,true);
     }
   }else if(activeTab==='grammar'){
     HaiYing3D.say(`Ngữ pháp · Bài ${l.num}`,`Hãy đọc kỹ <strong>công thức</strong>, ví dụ minh họa và các <strong>lỗi thường gặp</strong> bên dưới để nắm chắc ngữ pháp trọng tâm bài ${l.num} nhé!`,'teach');
