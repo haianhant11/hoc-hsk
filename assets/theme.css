@@ -296,7 +296,10 @@ a.home-back{text-decoration:none}
 .gr-pr-tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
 .gr-pr-tab.done:not(.active){background:rgba(46,125,107,.1);color:var(--ok);border-color:rgba(46,125,107,.35)}
 .gr-pr-body{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-control);padding:12px 14px}
-.gr-pr-prompt{margin:0 0 8px !important;font-weight:700;color:var(--ink) !important;font-size:.92rem;line-height:1.45}
+.gr-pr-prompt{margin:0 0 8px !important;font-weight:400;color:var(--body) !important;font-size:.93rem;line-height:1.5}
+.gr-pr-kicker{color:var(--muted);font-size:.86rem;font-weight:500}
+.gr-pr-target{color:var(--ink);font-weight:700}
+.gr-pr-note{color:var(--muted);font-size:.84rem;font-weight:400}
 .gr-pr-meta{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
 .gr-pr-req{font-size:.8rem;color:var(--muted)}
 .gr-pr-req strong{color:var(--verm);font-family:var(--font-han)}
