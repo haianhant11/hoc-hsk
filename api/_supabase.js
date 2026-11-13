@@ -25,6 +25,19 @@ async function rest(path) {
   return r.json();
 }
 
+async function patch(path, body) {
+  const h = Object.assign({}, headers(), { Prefer: 'return=representation' });
+  const r = await fetch(process.env.SUPABASE_URL + '/rest/v1/' + path, {
+    method: 'PATCH', headers: h, body: JSON.stringify(body || {})
+  });
+  if (!r.ok) {
+    const err = new Error('patch ' + path + ' -> ' + r.status);
+    err.status = r.status;
+    throw err;
+  }
+  return r.json();
+}
+
 function send(res, status, obj, cacheControl) {
   res.status(status);
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -38,4 +51,4 @@ function guard(req, res, method) {
   return true;
 }
 
-module.exports = { configured, rpc, rest, send, guard };
+module.exports = { configured, rpc, rest, patch, send, guard };

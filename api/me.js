@@ -18,7 +18,7 @@ module.exports = async function handler(req, res) {
       id: p.id, name: p.display_name, points: p.total_points,
       rank: rk ? Number(rk.rank) : null, totalPlayers: rk ? Number(rk.total_players) : null,
       inTop10: rk ? Number(rk.rank) <= 10 : false
-    }, 'private, max-age=10, stale-while-revalidate=30');
+    }, 'no-store');
   } catch (e) {
     send(res, 502, { error: 'upstream' });
   }

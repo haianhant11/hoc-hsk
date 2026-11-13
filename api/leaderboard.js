@@ -9,7 +9,7 @@ module.exports = async function handler(req, res) {
     const rows = await rest('players?select=id,display_name,total_points&order=total_points.desc,score_reached_at.asc,id.asc&limit=10');
     send(res, 200, {
       players: rows.map((p, i) => ({ rank: i + 1, id: p.id, name: p.display_name, points: p.total_points }))
-    }, 'public, s-maxage=30, stale-while-revalidate=120');
+    }, 'public, s-maxage=10, stale-while-revalidate=20');
   } catch (e) {
     send(res, 502, { error: 'upstream' });
   }

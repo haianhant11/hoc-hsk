@@ -88,6 +88,46 @@
     return localRankInfo(found.id);
   }
 
+  function syncNameInTopCache(id, newName) {
+    if (!id || !newName) return;
+    try {
+      var top = JSON.parse(localStorage.getItem(CACHE_TOP) || 'null');
+      if (Array.isArray(top)) {
+        var changed = false;
+        for (var i = 0; i < top.length; i++) {
+          if (top[i] && top[i].id === id && top[i].name !== newName) {
+            top[i].name = newName;
+            changed = true;
+          }
+        }
+        if (changed) localStorage.setItem(CACHE_TOP, JSON.stringify(top));
+      }
+    } catch (e) {}
+  }
+
+  function localRename(playerId, name) {
+    var db = loadLocalDB();
+    var norm = name.toLowerCase();
+    var target = null;
+    for (var i = 0; i < db.players.length; i++) {
+      if (db.players[i].id === playerId) {
+        target = db.players[i];
+      } else if (db.players[i].name.toLowerCase() === norm) {
+        return { error: 'Tên này đã có người dùng, hãy chọn tên khác nhé!' };
+      }
+    }
+    if (!target) {
+      target = { id: playerId, name: name, points: 20 };
+      db.players.push(target);
+    } else {
+      target.name = name;
+    }
+    saveLocalDB(db);
+    saveProfile({ id: target.id, name: target.name });
+    syncNameInTopCache(target.id, target.name);
+    return localRankInfo(target.id);
+  }
+
   function localAward(activityType, activityId, correct, total) {
     var p = profile();
     if (!p) return;
@@ -228,7 +268,9 @@
         totalPlayers: r.totalPlayers || null,
         inTop10: !!r.inTop10
       };
+      if (r.name && r.name !== p.name) saveProfile({ id: meData.id, name: meData.name });
       setCachedMe(meData);
+      syncNameInTopCache(meData.id, meData.name);
       renderUserSlots();
       window.dispatchEvent(new CustomEvent('hoc-hsk:user-updated', { detail: meData }));
       if (typeof cb === 'function') cb(null, meData);
@@ -252,15 +294,82 @@
       saveProfile({ id: r.id, name: r.name });
       var meData = { id: r.id, name: r.name, points: r.points, rank: r.rank, totalPlayers: r.totalPlayers };
       setCachedMe(meData);
+      syncNameInTopCache(meData.id, meData.name);
       renderUserSlots();
       window.dispatchEvent(new CustomEvent('hoc-hsk:user-updated', { detail: meData }));
       if (typeof cb === 'function') cb(null, meData);
     }).catch(function () {
       var localInfo = localJoin(clean);
       setCachedMe(localInfo);
+      syncNameInTopCache(localInfo.id, localInfo.name);
       renderUserSlots();
       window.dispatchEvent(new CustomEvent('hoc-hsk:user-updated', { detail: localInfo }));
       if (typeof cb === 'function') cb(null, localInfo);
+    });
+  }
+
+  function renameUser(name, cb) {
+    var clean = cleanName(name);
+    if (clean.length < 2) return;
+    var p = profile();
+    if (!p || !p.id) { joinUser(clean, cb); return; }
+
+    function applySuccess(data) {
+      saveProfile({ id: data.id, name: data.name });
+      var meData = {
+        id: data.id,
+        name: data.name,
+        points: typeof data.points === 'number' ? data.points : 20,
+        rank: data.rank || null,
+        totalPlayers: data.totalPlayers || null,
+        inTop10: data.rank ? data.rank <= 10 : false
+      };
+      setCachedMe(meData);
+      syncNameInTopCache(meData.id, meData.name);
+      renderUserSlots();
+      window.dispatchEvent(new CustomEvent('hoc-hsk:user-updated', { detail: meData }));
+      if (typeof cb === 'function') cb(null, meData);
+    }
+
+    function applyLocalFallback() {
+      var res = localRename(p.id, clean);
+      if (res && res.error) {
+        if (typeof cb === 'function') cb(new Error(res.error));
+        return;
+      }
+      applySuccess(res);
+    }
+
+    if (String(p.id).indexOf('local-') === 0) {
+      applyLocalFallback();
+      return;
+    }
+
+    fetch('/api/rename', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ playerId: p.id, name: clean })
+    }).then(function (r) {
+      if (r.status === 409) throw new Error('Tên này đã có người dùng, hãy chọn tên khác nhé!');
+      if (r.status === 400) throw new Error('Tên không hợp lệ (2–40 ký tự).');
+      if (r.status === 404) {
+        joinUser(clean, cb);
+        return null;
+      }
+      if (r.status === 503) {
+        applyLocalFallback();
+        return null;
+      }
+      if (!r.ok) throw new Error('http ' + r.status);
+      return r.json();
+    }).then(function (data) {
+      if (data) applySuccess(data);
+    }).catch(function (err) {
+      if (err && (err.message.indexOf('Tên ') === 0)) {
+        if (typeof cb === 'function') cb(err);
+        return;
+      }
+      applyLocalFallback();
     });
   }
 
@@ -434,12 +543,20 @@
             if (newName.length < 2) return;
             renameSave.disabled = true;
             renameSave.textContent = 'Đang lưu…';
-            joinUser(newName, function () {
+            renameUser(newName, function (err, res) {
               renameSave.disabled = false;
               renameSave.textContent = 'Lưu';
+              if (err) {
+                if (window.HaiYing3D && typeof HaiYing3D.say === 'function') {
+                  HaiYing3D.say('Không đổi được tên', esc(err.message), 'warn', 6000);
+                } else {
+                  alert(err.message);
+                }
+                return;
+              }
               closeAllUserPops();
               if (window.HaiYing3D && typeof HaiYing3D.say === 'function') {
-                HaiYing3D.say('Đổi tên thành công!', 'Tên của bạn đã được cập nhật thành <strong>' + esc(newName) + '</strong>!', 'cheer', 6000);
+                HaiYing3D.say('Đổi tên thành công!', 'Tên của bạn đã được cập nhật thành <strong>' + esc(res ? res.name : newName) + '</strong>!', 'cheer', 6000);
               }
             });
           });
@@ -479,6 +596,7 @@
     localTop: function () { return localSortedPlayers().slice(0, 10); },
     localMe: function () { var p = profile(); return p ? localRankInfo(p.id) : null; },
     join: joinUser,
+    rename: renameUser,
     refreshMe: refreshMe,
     renderUserSlots: renderUserSlots
   };
@@ -859,9 +977,13 @@
           if (newName.length < 2) return;
           renameSave.disabled = true;
           renameSave.textContent = 'Đang lưu…';
-          joinUser(newName, function () {
+          renameUser(newName, function (err) {
             renameSave.disabled = false;
             renameSave.textContent = 'Lưu';
+            if (err) {
+              alert(err.message);
+              return;
+            }
             if (renamePanel) renamePanel.hidden = true;
           });
         });
@@ -918,6 +1040,10 @@
       var p = profile();
       if (p) {
         api('/api/me?id=' + encodeURIComponent(p.id)).then(function (r) {
+          if (r && r.id && r.name) {
+            saveProfile({ id: r.id, name: r.name });
+            syncNameInTopCache(r.id, r.name);
+          }
           state.me = r;
           setCachedMe(r);
           renderMe();
@@ -942,7 +1068,16 @@
     setInterval(function () { if (!document.hidden) refresh(); }, 45000);
 
     window.addEventListener('hoc-hsk:user-updated', function (e) {
-      if (e.detail) state.me = e.detail;
+      if (e.detail) {
+        state.me = e.detail;
+        if (e.detail.id && e.detail.name && Array.isArray(state.top)) {
+          for (var i = 0; i < state.top.length; i++) {
+            if (state.top[i] && state.top[i].id === e.detail.id) {
+              state.top[i].name = e.detail.name;
+            }
+          }
+        }
+      }
       renderMe();
       renderTop();
     });
