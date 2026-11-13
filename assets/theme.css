@@ -311,7 +311,7 @@ a.home-back{text-decoration:none}
 .gr-chip-clear{border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:8px;padding:4px 8px;font-size:.82rem;cursor:pointer}
 .gr-chip-clear:hover{color:var(--verm);border-color:var(--verm)}
 .gr-pr-form{display:flex;gap:8px;align-items:stretch}
-.gr-pr-input{flex:1;min-width:0;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-family:var(--font-han);font-size:1rem}
+.gr-pr-input{flex:1;min-width:0;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-family:var(--font-han-sans);font-size:1rem}
 .gr-pr-input:focus{outline:none;border-color:var(--ink)}
 .gr-pr-input:disabled{background:var(--selected);opacity:.88}
 .gr-pr-submit{padding:10px 14px;border-radius:10px;border:0;background:var(--ink);color:#fff;font-weight:800;font-size:.84rem;white-space:nowrap;cursor:pointer;transition:opacity .15s ease}
@@ -418,7 +418,7 @@ a.home-back{text-decoration:none}
 .listen-button:active{transform:translateY(1px)}
 .listen-hint{color:var(--muted);font-size:.88rem;margin:9px 0 0}
 .dictation-form{display:grid;gap:11px;margin-top:18px}
-.dictation-input{width:100%;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:14px 16px;font-family:var(--font-han);font-size:1.25rem}
+.dictation-input{width:100%;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:14px 16px;font-family:var(--font-han-sans);font-size:1.25rem}
 .dictation-input:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(25,59,57,.14)}
 .dictation-actions{display:flex;flex-wrap:wrap;gap:9px}
 .dictation-actions button{border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);padding:11px 16px;font-weight:700;min-height:44px}
