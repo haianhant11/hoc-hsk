@@ -10,6 +10,7 @@ const POLICY = {
   quiz: { max: 30, mode: 'best' },
   srs: { max: 30, mode: 'best' },
   write: { max: 3, mode: 'best', dbType: 'practice' },
+  grammar: { max: 20, mode: 'best', dbType: 'practice' },
   game: { max: 20, mode: 'capped', dailyCap: 40 }
 };
 

@@ -131,7 +131,7 @@
   function localAward(activityType, activityId, correct, total) {
     var p = profile();
     if (!p) return;
-    var maxMap = { practice: 30, quiz: 30, srs: 30, write: 3, game: 20 };
+    var maxMap = { practice: 30, quiz: 30, srs: 30, write: 3, grammar: 20, game: 20 };
     var maxPts = maxMap[activityType];
     if (!maxPts || total < 1 || correct < 0 || correct > total) return;
     var pts = Math.round(maxPts * correct / total);
