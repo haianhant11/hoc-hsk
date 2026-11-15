@@ -990,8 +990,9 @@
         try { window.Streak.qualify(); } catch (e) {}
       }
       if (window.LB && typeof window.LB.award === 'function') {
-        var pts = correctCount * 2 + (correctCount >= 16 ? 10 : 0);
-        try { window.LB.award(pts, 'custom-review'); } catch (e) {}
+        var totalQ = state.questions.length || 1;
+        var dayKey = typeof window.LB.todayKey === 'function' ? window.LB.todayKey() : 'today';
+        try { window.LB.award('srs', 'custom-review:' + dayKey, correctCount, totalQ); } catch (e) {}
       }
     }
 
@@ -2034,3 +2035,4 @@
     init();
   }
 })();
+
