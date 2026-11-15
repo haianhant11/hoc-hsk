@@ -3759,3 +3759,19 @@ body:has(.site-mnav) .app{padding-bottom:84px}
   #srsInput{min-width:0;width:100%}
   .srs-filters select{flex:1 1 calc(50% - 4px);min-width:0}
 }
+/* ---------- Modal yêu cầu nhập tên khi bấm "Vào học →" (chỉ hiện nếu chưa có tên) ---------- */
+.lb-gate-backdrop[hidden]{display:none}
+.lb-gate-backdrop{position:fixed;inset:0;z-index:1200;background:rgba(16,32,31,.52);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:16px}
+.lb-gate-card{position:relative;width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:24px 22px 22px;box-shadow:0 20px 50px rgba(16,32,31,.24);animation:grPop .22s ease}
+.lb-gate-close{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:var(--paper);color:var(--muted);font-weight:700;cursor:pointer;display:grid;place-items:center}
+.lb-gate-close:hover{color:var(--ink);border-color:var(--ink)}
+.lb-gate-badge{display:inline-block;padding:4px 10px;border-radius:999px;background:rgba(46,125,107,.12);color:var(--ok);font-weight:800;font-size:.78rem;margin-bottom:10px}
+.lb-gate-title{margin:0 0 6px;font-size:1.22rem;color:var(--ink)}
+.lb-gate-sub{margin:0 0 14px;font-size:.9rem;color:var(--muted);line-height:1.45}
+.lb-gate-form{display:flex;flex-direction:column;gap:10px}
+.lb-gate-input{width:100%;box-sizing:border-box;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);font-family:var(--font-han-sans);font-size:1rem}
+.lb-gate-input:focus{outline:none;border-color:var(--ink);background:var(--surface)}
+.lb-gate-err{margin:0;color:var(--verm);font-size:.84rem;font-weight:600}
+.lb-gate-btn{width:100%;padding:12px 16px;border-radius:12px;border:0;background:var(--ink);color:#fff;font-weight:800;font-size:.95rem;cursor:pointer;transition:opacity .15s ease}
+.lb-gate-btn:hover:not(:disabled){opacity:.92}
+.lb-gate-btn:disabled{opacity:.48;cursor:not-allowed}

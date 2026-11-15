@@ -1083,11 +1083,103 @@
     });
   }
 
+  /* Yêu cầu nhập tên trước khi bấm "Vào học →" nếu người dùng chưa có tên */
+  function initEntryNameGate() {
+    var pendingHref = '';
+    var modal = null;
+
+    function closeGate() {
+      if (modal) modal.hidden = true;
+    }
+
+    function openGate(href) {
+      pendingHref = href || '';
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'lbGateModal';
+        modal.className = 'lb-gate-backdrop';
+        modal.hidden = true;
+        modal.innerHTML =
+          '<div class="lb-gate-card" role="dialog" aria-modal="true" aria-labelledby="lbGateTitle">' +
+            '<button type="button" class="lb-gate-close" id="lbGateClose" aria-label="Đóng">✕</button>' +
+            '<div class="lb-gate-badge">✨ +20 điểm khởi đầu</div>' +
+            '<h3 id="lbGateTitle" class="lb-gate-title">Nhập tên để bắt đầu học</h3>' +
+            '<p class="lb-gate-sub">Tên của bạn dùng để lưu điểm luyện tập, đặt câu và xếp hạng cùng bạn bè.</p>' +
+            '<form id="lbGateForm" class="lb-gate-form">' +
+              '<input id="lbGateInput" class="lb-gate-input" type="text" maxlength="40" autocomplete="nickname" placeholder="Nhập tên của bạn (2–40 ký tự)…">' +
+              '<p id="lbGateErr" class="lb-gate-err" hidden></p>' +
+              '<button id="lbGateSubmit" class="lb-gate-btn" type="submit" disabled>Lưu tên &amp; Vào học →</button>' +
+            '</form>' +
+          '</div>';
+        document.body.appendChild(modal);
+
+        var closeBtn = document.getElementById('lbGateClose');
+        var form = document.getElementById('lbGateForm');
+        var input = document.getElementById('lbGateInput');
+        var submitBtn = document.getElementById('lbGateSubmit');
+        var errEl = document.getElementById('lbGateErr');
+
+        closeBtn.addEventListener('click', closeGate);
+        modal.addEventListener('click', function (ev) {
+          if (ev.target === modal) closeGate();
+        });
+        document.addEventListener('keydown', function (ev) {
+          if (ev.key === 'Escape' && modal && !modal.hidden) closeGate();
+        });
+
+        input.addEventListener('input', function () {
+          var v = cleanName(input.value);
+          submitBtn.disabled = v.length < 2;
+          if (errEl) errEl.hidden = true;
+        });
+
+        form.addEventListener('submit', function (ev) {
+          ev.preventDefault();
+          var v = cleanName(input.value);
+          if (v.length < 2) {
+            if (errEl) { errEl.textContent = 'Tên cần ít nhất 2 ký tự.'; errEl.hidden = false; }
+            input.focus();
+            return;
+          }
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Đang lưu…';
+          joinUser(v, function () {
+            if (pendingHref) {
+              window.location.href = pendingHref;
+            } else {
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Lưu tên & Vào học →';
+              closeGate();
+            }
+          });
+        });
+      }
+
+      modal.hidden = false;
+      var inp = document.getElementById('lbGateInput');
+      var btn = document.getElementById('lbGateSubmit');
+      if (btn) {
+        btn.disabled = !inp || cleanName(inp.value).length < 2;
+        btn.textContent = 'Lưu tên & Vào học →';
+      }
+      if (inp) setTimeout(function () { inp.focus(); }, 40);
+    }
+
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest ? e.target.closest('a.level-enter') : null;
+      if (!link) return;
+      if (profile()) return; // Đã nhập tên rồi → cho vào thẳng, không cản trở
+      e.preventDefault();
+      openGate(link.getAttribute('href') || link.href);
+    });
+  }
+
   /* Khởi chạy chung cho tất cả các trang */
   function initAll() {
     renderUserSlots();
     refreshMe();
     initHeaderGuidance();
+    initEntryNameGate();
     initLeaderboardPage();
   }
 
