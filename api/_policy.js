@@ -2,7 +2,7 @@
    Frontend chỉ gửi kết quả thô (số đúng / tổng số); số điểm luôn do server tính ở đây.
    - practice / quiz / srs: tối đa 30 điểm theo tỉ lệ đúng, cộng theo cơ chế "kỷ lục bài"
      (chỉ thưởng phần vượt điểm cao nhất từng đạt của chính bài đó, chống farm).
-   - game: tối đa 20 điểm/ván theo tỉ lệ đúng, trần 40 điểm cho mỗi game mỗi ngày. */
+   - game: tối đa 20 điểm/ván theo tỉ lệ đúng, trần 200 điểm cho mỗi game mỗi ngày. */
 'use strict';
 
 const POLICY = {
@@ -11,7 +11,7 @@ const POLICY = {
   srs: { max: 30, mode: 'best' },
   write: { max: 3, mode: 'best', dbType: 'practice' },
   grammar: { max: 20, mode: 'best', dbType: 'practice' },
-  game: { max: 20, mode: 'capped', dailyCap: 40 }
+  game: { max: 20, mode: 'capped', dailyCap: 200 }
 };
 
 function computePoints(activityType, correct, total) {

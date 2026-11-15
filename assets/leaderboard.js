@@ -151,7 +151,7 @@
     if (activityType === 'game') {
       var dKey = p.id + ':' + activityId + ':' + todayKey();
       var used = db.daily[dKey] || 0;
-      delta = Math.max(0, Math.min(pts, 40 - used));
+      delta = Math.max(0, Math.min(pts, 200 - used));
       db.daily[dKey] = used + delta;
     } else {
       var bKey = p.id + ':' + activityId;
