@@ -60,6 +60,18 @@
     ["Ôn tập SRS", "Những từ bạn làm sai trong bài tập sẽ tự động vào mục <strong>Ôn tập</strong> để nhắc lại đúng thời điểm!", "teach"]
   ];
 
+  var LEADERBOARD_TIPS = [
+    ["Điểm học bài", "Nghe chép, Điền từ, Trắc nghiệm mỗi bài được tối đa <strong>+30 điểm</strong> (tính theo lần cao nhất). Đặt câu ngữ pháp được <strong>+20 điểm/câu</strong>!", "teach"],
+    ["Điểm chơi game", "Mỗi ván game cộng tối đa <strong>+20 điểm</strong> theo tỉ lệ đúng (điểm trong ván chỉ để đua combo). Mỗi game tối đa <strong>200 điểm/ngày</strong>!", "cheer"],
+    ["Ôn tập &amp; Tập viết", "Hoàn thành phiên <strong>Ôn tập</strong> được tối đa <strong>+30 điểm/ngày</strong>. Tập viết đúng nét còn được cộng thêm <strong>+1 đến +3 điểm/từ</strong>!", "teach"],
+    ["Bí kíp leo Top", "Điểm được lưu tự động và xếp hạng công bằng. Giữ chuỗi học mỗi ngày để sớm lên <strong>Bục Vinh Danh</strong> nhé! 加油!", "wave"]
+  ];
+
+  function isLeaderboardPage() {
+    var loc = (window.location && window.location.pathname) || "";
+    return /bang-xep-hang/i.test(loc) || !!document.getElementById("lbList");
+  }
+
   function spawnBurst(count) {
     for (var i = 0; i < (count || 10); i++) {
       var a = Math.random() * Math.PI * 2;
@@ -186,7 +198,8 @@
         react("cheer");
         return;
       }
-      var tip = GENERAL_TIPS[state.tipIndex % GENERAL_TIPS.length];
+      var tips = isLeaderboardPage() ? LEADERBOARD_TIPS : GENERAL_TIPS;
+      var tip = tips[state.tipIndex % tips.length];
       state.tipIndex++;
       say(tip[0], tip[1], tip[2], 11000);
     });
