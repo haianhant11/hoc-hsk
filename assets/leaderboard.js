@@ -1083,17 +1083,25 @@
     });
   }
 
-  /* Yêu cầu nhập tên trước khi bấm "Vào học →" nếu người dùng chưa có tên */
+  /* Yêu cầu nhập tên trước khi bấm "Vào học →" hoặc khi mở trực tiếp trang khóa học nếu chưa có tên */
   function initEntryNameGate() {
     var pendingHref = '';
     var modal = null;
+    var forced = false;
+
+    function isCoursePage() {
+      var p = (typeof window !== 'undefined' && window.location && window.location.pathname) ? window.location.pathname : '';
+      return /\/(hsk3|hsk4-thuong|hsk4-ha)(\/|\.html|$)/i.test(p) || !!document.getElementById('vocabPanel');
+    }
 
     function closeGate() {
+      if (forced) return;
       if (modal) modal.hidden = true;
     }
 
-    function openGate(href) {
+    function openGate(href, lock) {
       pendingHref = href || '';
+      forced = !!lock;
       if (!modal) {
         modal = document.createElement('div');
         modal.id = 'lbGateModal';
@@ -1147,14 +1155,17 @@
             if (pendingHref) {
               window.location.href = pendingHref;
             } else {
+              forced = false;
               submitBtn.disabled = false;
               submitBtn.textContent = 'Lưu tên & Vào học →';
-              closeGate();
+              if (modal) modal.hidden = true;
             }
           });
         });
       }
 
+      var cb = document.getElementById('lbGateClose');
+      if (cb) cb.hidden = forced;
       modal.hidden = false;
       var inp = document.getElementById('lbGateInput');
       var btn = document.getElementById('lbGateSubmit');
@@ -1165,12 +1176,16 @@
       if (inp) setTimeout(function () { inp.focus(); }, 40);
     }
 
+    if (!profile() && isCoursePage()) {
+      openGate('', true);
+    }
+
     document.addEventListener('click', function (e) {
       var link = e.target.closest ? e.target.closest('a.level-enter') : null;
       if (!link) return;
       if (profile()) return; // Đã nhập tên rồi → cho vào thẳng, không cản trở
       e.preventDefault();
-      openGate(link.getAttribute('href') || link.href);
+      openGate(link.getAttribute('href') || link.href, false);
     });
   }
 
