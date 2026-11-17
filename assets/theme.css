@@ -3832,3 +3832,7 @@ body.hide-pinyin .kk-char rt{visibility:hidden}
   .kk-vi{font-size:.8rem}
   .kk-line.active .kk-vi{font-size:.85rem}
 }
+
+.kk-char.preview{color:var(--ok);background:rgba(46,125,107,.07);box-shadow:inset 0 -2px 0 rgba(46,125,107,.45)}
+.kk-char.missed{color:var(--verm);box-shadow:inset 0 -2px 0 rgba(165,68,50,.55)}
+.kk-missed-list{margin:10px 0 0;color:var(--body)}
