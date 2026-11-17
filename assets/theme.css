@@ -3775,39 +3775,60 @@ body:has(.site-mnav) .app{padding-bottom:84px}
 .lb-gate-btn{width:100%;padding:12px 16px;border-radius:12px;border:0;background:var(--ink);color:#fff;font-weight:800;font-size:.95rem;cursor:pointer;transition:opacity .15s ease}
 .lb-gate-btn:hover:not(:disabled){opacity:.92}
 .lb-gate-btn:disabled{opacity:.48;cursor:not-allowed}
-/* ---------- Game Karaoke đọc đuổi ---------- */
-.kk-controls{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:14px 16px;margin-bottom:14px;display:flex;flex-direction:column;gap:12px}
+/* ---------- Game Karaoke đọc đuổi (Teleprompter) ---------- */
+.kk-controls{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:12px 14px;margin-bottom:12px;display:flex;flex-direction:column;gap:10px}
 .kk-scene-tabs{margin:0}
-.kk-bar-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.kk-bar-row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .kk-speeds{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .kk-speed-lbl{font-size:.86rem;font-weight:700;color:var(--muted);margin-right:2px}
 .kk-speed-btn{padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--paper);color:var(--body);font-weight:700;font-size:.84rem;cursor:pointer}
 .kk-speed-btn:hover{border-color:var(--ink);color:var(--ink)}
 .kk-speed-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
 .kk-main-btns{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.kk-sample-btn{padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font-weight:700;font-size:.88rem;cursor:pointer}
-.kk-sample-btn:hover{background:var(--selected)}
+.kk-sample-btn,.kk-pause-btn{padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font-weight:700;font-size:.88rem;cursor:pointer}
+.kk-sample-btn:hover,.kk-pause-btn:hover{background:var(--selected)}
+.kk-pause-btn.paused{background:rgba(185,138,47,.16);border-color:rgba(185,138,47,.55);color:var(--ink)}
 .kk-start-btn{margin:0}
 .kk-notice{margin:0 0 12px;padding:12px 14px;border-radius:var(--r-control);background:rgba(165,68,50,.08);border:1px solid rgba(165,68,50,.3);color:var(--verm);font-weight:700;font-size:.9rem}
-.kk-stage{display:flex;flex-direction:column;gap:12px;max-height:460px;overflow-y:auto;padding:4px 2px}
-.kk-line{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r-card);padding:14px 16px;transition:border-color .2s ease,background .2s ease,box-shadow .2s ease}
-.kk-line.active{background:var(--selected);border-color:var(--ok);box-shadow:0 6px 18px rgba(46,125,107,.12)}
-.kk-line.passed{opacity:.82}
-.kk-speaker{font-size:.8rem;font-weight:800;color:var(--muted);margin-bottom:6px}
-.kk-han{font-family:var(--font-han);font-size:1.42rem;line-height:2.1;color:var(--ink)}
-.kk-char{padding:0 1px;border-radius:4px;transition:color .15s ease,background .15s ease}
-.kk-char rt{font-family:var(--font-ui);font-size:.72rem;color:var(--muted);font-weight:600}
-.kk-char.done{color:var(--ok);font-weight:800;background:rgba(46,125,107,.12)}
+.kk-stage{position:relative;height:56vh;min-height:330px;max-height:470px;overflow:hidden;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r-card);user-select:none}
+.kk-stage::before,.kk-stage::after{content:'';position:absolute;left:0;right:0;height:68px;z-index:3;pointer-events:none}
+.kk-stage::before{top:0;background:linear-gradient(to bottom,var(--surface) 10%,rgba(255,254,250,0))}
+.kk-stage::after{bottom:0;background:linear-gradient(to top,var(--surface) 10%,rgba(255,254,250,0))}
+.kk-read-band{position:absolute;left:10px;right:10px;top:50%;transform:translateY(-50%);min-height:132px;background:rgba(46,125,107,.07);border-top:2px solid var(--ok);border-bottom:2px solid var(--ok);border-radius:14px;z-index:1;pointer-events:none;box-shadow:0 8px 24px rgba(46,125,107,.08)}
+.kk-band-tag{position:absolute;top:-11px;left:16px;background:var(--ok);color:#fff;font-size:.68rem;font-weight:800;letter-spacing:.08em;padding:2px 8px;border-radius:999px}
+.kk-band-progress{position:absolute;left:14px;right:14px;bottom:6px;height:4px;background:rgba(46,125,107,.18);border-radius:999px;overflow:hidden}
+.kk-band-progress i{display:block;height:100%;background:var(--ok);width:0%;transition:width .08s linear}
+.kk-track{position:relative;z-index:2;padding:20px 26px;will-change:transform}
+.kk-line{text-align:center;padding:18px 12px;transition:opacity .28s ease,transform .28s ease}
+.kk-line.active{opacity:1;transform:scale(1)}
+.kk-line.near{opacity:.44;transform:scale(.93)}
+.kk-line.mid{opacity:.22;transform:scale(.88)}
+.kk-line.far{opacity:.1;transform:scale(.84)}
+.kk-speaker{font-size:.78rem;font-weight:800;color:var(--ok);letter-spacing:.03em;margin-bottom:4px}
+.kk-han{font-family:var(--font-han);font-size:1.28rem;line-height:2.05;color:var(--ink);font-weight:600;transition:font-size .22s ease}
+.kk-line.active .kk-han{font-size:1.58rem;font-weight:800}
+.kk-char{padding:0 1px;border-radius:4px;transition:color .14s ease,background .14s ease}
+.kk-char rt{font-family:var(--font-ui);font-size:.68rem;color:var(--muted);font-weight:600}
+.kk-line.active .kk-char rt{font-size:.76rem;color:var(--body)}
+.kk-char.done{color:var(--ok);font-weight:800;background:rgba(46,125,107,.14)}
 .kk-char.done rt{color:var(--ok)}
 body.hide-pinyin .kk-char rt{visibility:hidden}
-.kk-vi{font-size:.88rem;color:var(--muted);margin-top:4px;line-height:1.45}
-.kk-line-bar{height:4px;background:var(--line);border-radius:999px;overflow:hidden;margin-top:10px}
-.kk-line-bar i{display:block;height:100%;background:var(--ok);width:0%;transition:width .08s linear}
+.kk-vi{font-size:.86rem;color:var(--muted);margin-top:4px;line-height:1.4}
+.kk-line.active .kk-vi{font-size:.94rem;color:var(--body);font-weight:600}
 .kk-end-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:14px 0 8px}
 .kk-end-actions .game-play{margin:0}
 @media(max-width:640px){
-  .kk-bar-row{flex-direction:column;align-items:stretch}
+  .kk-controls{padding:10px 12px;margin-bottom:8px;gap:8px}
+  .kk-bar-row{flex-direction:column;align-items:stretch;gap:8px}
   .kk-main-btns{width:100%;display:flex}
-  .kk-main-btns button{flex:1}
-  .kk-han{font-size:1.22rem;line-height:2.05}
+  .kk-main-btns button{flex:1;padding:8px 10px;font-size:.84rem}
+  .kk-stage{height:43vh;min-height:230px;max-height:320px}
+  .kk-stage::before,.kk-stage::after{height:44px}
+  .kk-read-band{min-height:108px;left:6px;right:6px}
+  .kk-track{padding:14px 12px}
+  .kk-line{padding:12px 6px}
+  .kk-han{font-size:1.08rem;line-height:1.95}
+  .kk-line.active .kk-han{font-size:1.28rem}
+  .kk-vi{font-size:.8rem}
+  .kk-line.active .kk-vi{font-size:.85rem}
 }
