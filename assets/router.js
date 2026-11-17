@@ -2,17 +2,17 @@
    Route shape: /{course}/{lessonNum}/{tab}[/{activity|game}]
    course: hsk3 | hsk4-thuong | hsk4-ha
    tab: tu-vung | bai-khoa | ngu-phap | luyen-tap | tro-choi
-   luyen-tap activities: flashcard | nghe-chep | dien-tu
-   tro-choi games: phao-dai-pinyin | tu-roi | ca-chep-hoa-rong | luyen-thanh-dieu
+   luyen-tap activities: flashcard | nghe-chep | dien-tu | luyen-thanh-dieu
+   tro-choi games: phao-dai-pinyin | karaoke-doc-duoi | tu-roi | ca-chep-hoa-rong
    Bare course path (/{course}) is the course entry alias (first lesson + vocab).
    Loaded BEFORE engine.js; engine.js calls Router.parse / Router.url. */
 const Router = (function(){
   'use strict';
   const TAB_SLUGS = {vocab:'tu-vung', analysis:'bai-khoa', grammar:'ngu-phap', practice:'luyen-tap', guess:'tro-choi'};
   const SLUG_TABS = {'tu-vung':'vocab', 'bai-khoa':'analysis', 'ngu-phap':'grammar', 'luyen-tap':'practice', 'tro-choi':'guess'};
-  const SLUG_ACTS = {'flashcard':'flashcard', 'nghe-chep':'quiz', 'dien-tu':'fill'};
-  const GAME_SLUGS = {cannon:'phao-dai-pinyin', fall:'tu-roi', carp:'ca-chep-hoa-rong', tone:'luyen-thanh-dieu'};
-  const SLUG_GAMES = {'phao-dai-pinyin':'cannon', 'tu-roi':'fall', 'ca-chep-hoa-rong':'carp', 'luyen-thanh-dieu':'tone'};
+  const SLUG_ACTS = {'flashcard':'flashcard', 'nghe-chep':'quiz', 'dien-tu':'fill', 'luyen-thanh-dieu':'tone'};
+  const GAME_SLUGS = {cannon:'phao-dai-pinyin', karaoke:'karaoke-doc-duoi', fall:'tu-roi', carp:'ca-chep-hoa-rong'};
+  const SLUG_GAMES = {'phao-dai-pinyin':'cannon', 'karaoke-doc-duoi':'karaoke', 'tu-roi':'fall', 'ca-chep-hoa-rong':'carp'};
   function cleanParts(path){
     let p = String(path || '').replace(/\/+/g, '/');
     if(p.length > 1) p = p.replace(/\/$/, '');
