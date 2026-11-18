@@ -211,7 +211,7 @@ async function animateFocusStrokes(){
     if(typeof HanziWriter==='undefined')throw new Error('no-lib');
     for(const ch of chars){
       if(run!==vStrokeRun)return;
-      const el=document.createElement('div');stage.appendChild(el);
+      const el=document.createElement('div');el.className='v-hw-cell';stage.appendChild(el);
       const w=HanziWriter.create(el,ch,{width:size,height:size,padding:6,strokeColor:'#15334d',outlineColor:'rgba(21,51,77,.18)',delayBetweenStrokes:80,strokeAnimationSpeed:2});
       await w.animateCharacter();
     }
@@ -235,7 +235,7 @@ async function startFocusQuiz(){
   let totalMistakes=0;
   for(let ci=0;ci<chars.length;ci++){
     if(run!==vStrokeRun)return;
-    const el=document.createElement('div');stage.appendChild(el);
+    const el=document.createElement('div');el.className='v-hw-cell';stage.appendChild(el);
     let w;
     try{
       w=HanziWriter.create(el,chars[ci],{width:size,height:size,padding:6,strokeColor:'#15334d',outlineColor:'rgba(21,51,77,.18)',drawingColor:'#A54432',drawingWidth:6});

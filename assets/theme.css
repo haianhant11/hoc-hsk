@@ -743,7 +743,8 @@ a.home-back{text-decoration:none}
 .v-progress{margin:10px 0 16px}
 .v-write{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
 .v-write-stage{display:flex;gap:12px;justify-content:center;align-items:center;min-height:150px;margin:8px 0 4px}
-.v-char{font-family:var(--font-kai);font-size:3.8rem;color:var(--ink);line-height:1}
+.v-hw-cell{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23A54432' stroke-opacity='.38' stroke-width='1'%3E%3Crect x='1' y='1' width='98' height='98'/%3E%3Cpath d='M50 1V99M1 50H99M1 1L99 99M99 1L1 99'/%3E%3C/g%3E%3C/svg%3E");background-size:100% 100%}
+.v-char{display:inline-flex;align-items:center;justify-content:center;width:1.3em;height:1.3em;font-family:var(--font-kai);font-size:3.8rem;color:var(--ink);line-height:1;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23A54432' stroke-opacity='.38' stroke-width='1'%3E%3Crect x='1' y='1' width='98' height='98'/%3E%3Cpath d='M50 1V99M1 50H99M1 1L99 99M99 1L1 99'/%3E%3C/g%3E%3C/svg%3E");background-size:100% 100%}
 .v-write .game-other{margin-top:8px}
 .v-nav{display:flex;gap:12px;margin-top:16px}
 .v-nav .game-other{margin:0}
