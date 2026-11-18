@@ -243,6 +243,7 @@ a.home-back{text-decoration:none}
 .fulltext-card{font-family:var(--font-kai)}
 .fulltext-card .fulltext-scene+.fulltext-scene{margin-top:18px}
 .fulltext-card-hand{font-family:var(--font-hand)}
+.fulltext-card-hand h3{font-family:var(--font-ui)}
 .fulltext-card-hand .fulltext-line,.fulltext-card-hand .fulltext-para{font-size:1.8rem}
 .fulltext-scene-head{font-weight:800;color:var(--ink);margin-bottom:8px}
 .fulltext-line,.fulltext-para{font-size:1.7rem;line-height:1.9;margin:0 0 6px;color:var(--ink)}
