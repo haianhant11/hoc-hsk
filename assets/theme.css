@@ -788,8 +788,8 @@ a.home-back{text-decoration:none}
 }
 
 /* Nút Bắt đầu học từng từ: primary đậm như nút chính của site */
-#vStart{background:var(--ink);border-color:var(--ink);color:var(--surface)}
-#vStart:hover{background:var(--verm);border-color:var(--verm)}
+#vStart,#vBack{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+#vStart:hover,#vBack:hover{background:var(--verm);border-color:var(--verm)}
 
 /* Cổng mật mã HSK 4 (trang chủ) */
 #pwForm{display:grid;gap:10px;margin-top:4px;text-align:left}

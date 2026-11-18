@@ -189,7 +189,7 @@ function renderVocabFocus(l){
   const last=w===idxs.length-1;
   const chars=[...v.word];
   if(activeTab==='vocab')hySay(`Từ ${w+1}/${idxs.length} · ${esc(v.word)}`,`<strong>${esc(v.word)}</strong> (${esc(v.pinyin)}) nghĩa là <strong>“${esc(v.meaning)}”</strong>.${v.star?' ★ Từ vượt cấp rất hay gặp!':''} Bấm <strong>Tập viết</strong> để luyện nét chữ nhé!`,'teach');
-  vocabPanel.innerHTML=`<div class="v-focus-wrap"><button class="home-back" id="vBack">← Danh sách từ</button>`
+  vocabPanel.innerHTML=`<div class="v-focus-wrap"><button class="action" id="vBack">← Danh sách từ</button>`
     +`<div class="v-focus-head"><span class="group-title">${groups.length>1?`Nhóm ${g+1} · `:''}Bài ${l.num}</span><span class="count">Từ ${w+1}/${idxs.length}</span></div>`
     +`<div class="cn-track v-progress"><div class="cn-fill" style="width:${(w+1)/idxs.length*100}%"></div></div>`
     +`<div class="v-srs-row"><button class="v-srs${srsHas(v)?' added':''}" id="vSrsBtn" type="button"${srsHas(v)?' disabled':''}>${srsHas(v)?'Đã thêm vào Ôn tập':'Thêm vào ôn tập'}</button></div>`
