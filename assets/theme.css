@@ -787,10 +787,10 @@ a.home-back{text-decoration:none}
 
 /* Màn chi tiết (desktop rộng): ví dụ sang cột phải của thẻ, mobile xếp dọc như cũ */
 @media(min-width:901px){
-  .v-focus-wrap .vocab-card{grid-template-columns:104px minmax(0,1.15fr) minmax(0,1fr);grid-template-areas:"media body example";column-gap:18px}
+  .v-focus-wrap .vocab-card{grid-template-columns:104px fit-content(300px) minmax(0,1fr);grid-template-areas:"media body example";column-gap:18px}
   .v-focus-wrap .vocab-media{grid-area:media}
   .v-focus-wrap .vocab-body{grid-area:body}
-  .v-focus-wrap .vocab-card .example{grid-area:example;border-top:0;border-left:1px solid var(--line);margin-top:0;padding:2px 0 0 18px}
+  .v-focus-wrap .vocab-card .example{grid-area:example;border-top:0;border-left:1px solid var(--line);margin-top:0;padding:2px 0 0 18px;min-width:0}
 }
 
 /* Nút Bắt đầu học từng từ: primary đậm như nút chính của site */
