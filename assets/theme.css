@@ -743,7 +743,7 @@ a.home-back{text-decoration:none}
 .v-progress{margin:10px 0 16px}
 .v-write{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
 .v-write-stage{display:flex;gap:12px;justify-content:center;align-items:center;min-height:150px;margin:8px 0 4px}
-.v-char{font-family:var(--font-kai);font-size:3.2rem;color:var(--ink);line-height:1}
+.v-char{font-family:var(--font-kai);font-size:3.5rem;color:var(--ink);line-height:1}
 .v-write .game-other{margin-top:8px}
 .v-nav{display:flex;gap:12px;margin-top:16px}
 .v-nav .game-other{margin:0}
