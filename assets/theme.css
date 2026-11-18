@@ -239,8 +239,8 @@ a.home-back{text-decoration:none}
 .scene-ava .face{overflow:hidden}
 .scene-ava .face svg{width:100%;height:100%;display:block}
 .fulltext-card{font-family:var(--font-han-sans)}
-.fulltext-card .fulltext-scene{margin-top:18px}
-.fulltext-scene-head{font-weight:800;color:var(--ink);margin-bottom:8px;font-family:var(--font-han-sans)}
+.fulltext-card .fulltext-scene+.fulltext-scene{margin-top:18px}
+.fulltext-scene-head{font-weight:800;color:var(--ink);margin-bottom:8px;font-family:var(--font-han-sans);font-size:1.3rem}
 .fulltext-line,.fulltext-para{font-family:var(--font-han-sans);font-size:1.3rem;line-height:1.9;margin:0 0 6px;color:var(--ink)}
 .fulltext-speaker{font-weight:800}
 .scene-ava .sname{font-weight:800;margin-top:7px;color:var(--ink);font-family:var(--font-han)}
