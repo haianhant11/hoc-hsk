@@ -241,7 +241,7 @@ a.home-back{text-decoration:none}
 .fulltext-card{font-family:var(--font-han-sans)}
 .fulltext-card .fulltext-scene{margin-top:18px}
 .fulltext-scene-head{font-weight:800;color:var(--ink);margin-bottom:8px;font-family:var(--font-han-sans)}
-.fulltext-line,.fulltext-para{font-family:var(--font-han-sans);font-size:1.05rem;line-height:1.9;margin:0 0 6px;color:var(--ink)}
+.fulltext-line,.fulltext-para{font-family:var(--font-han-sans);font-size:1.2rem;line-height:1.9;margin:0 0 6px;color:var(--ink)}
 .fulltext-speaker{font-weight:800}
 .scene-ava .sname{font-weight:800;margin-top:7px;color:var(--ink);font-family:var(--font-han)}
 .scene-ava .spy{font-size:.76rem;color:var(--muted)}
