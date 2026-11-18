@@ -11,6 +11,7 @@
   --font-han:'Noto Serif SC','Noto Sans SC',serif;
   --font-han-sans:'Noto Sans SC','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
   --font-hand:'Zhi Mang Xing','Ma Shan Zheng','Kaiti SC','KaiTi',var(--font-han-sans);
+  --font-kai:'Kaiti SC','KaiTi','STKaiti',var(--font-han);
   --font-display:'Playfair Display','Noto Serif SC',serif;
   color-scheme:light;
 }
@@ -239,10 +240,12 @@ a.home-back{text-decoration:none}
 .scene-ava.active .face{background:var(--ink);color:var(--surface);border-color:var(--ink);box-shadow:0 0 0 3px var(--verm)}
 .scene-ava .face{overflow:hidden}
 .scene-ava .face svg{width:100%;height:100%;display:block}
-.fulltext-card{font-family:var(--font-hand)}
+.fulltext-card{font-family:var(--font-kai)}
 .fulltext-card .fulltext-scene+.fulltext-scene{margin-top:18px}
-.fulltext-scene-head{font-weight:800;color:var(--ink);margin-bottom:8px;font-family:var(--font-hand)}
-.fulltext-line,.fulltext-para{font-family:var(--font-hand);font-size:1.3rem;line-height:1.9;margin:0 0 6px;color:var(--ink)}
+.fulltext-card-hand{font-family:var(--font-hand)}
+.fulltext-card-hand .fulltext-line,.fulltext-card-hand .fulltext-para{font-size:1.05rem}
+.fulltext-scene-head{font-weight:800;color:var(--ink);margin-bottom:8px}
+.fulltext-line,.fulltext-para{font-size:1.3rem;line-height:1.9;margin:0 0 6px;color:var(--ink)}
 .fulltext-speaker{font-weight:800}
 .scene-ava .sname{font-weight:800;margin-top:7px;color:var(--ink);font-family:var(--font-han)}
 .scene-ava .spy{font-size:.76rem;color:var(--muted)}
