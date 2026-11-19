@@ -50,3 +50,4 @@ module.exports = async function handler(req, res) {
     send(res, 502, { error: 'upstream' });
   }
 };
+
