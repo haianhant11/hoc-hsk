@@ -249,6 +249,21 @@ a.home-back{text-decoration:none}
 .fulltext-line,.fulltext-para{font-size:1.7rem;line-height:1.9;margin:0 0 6px;color:var(--ink)}
 .fulltext-line{display:flex}
 .fulltext-speaker{font-weight:800;flex:none;min-width:4.5em}
+/* ===== Trang đọc bài khóa: giấy kem, xanh ngọc đậm, dấu triện đỏ ===== */
+.fulltext-page{background:var(--bg);border-top:3px solid var(--ink);padding:22px 24px}
+.fulltext-page-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding-bottom:16px;border-bottom:3px double var(--line-2);margin-bottom:4px}
+.fulltext-seal{flex:none;width:40px;height:40px;display:grid;place-items:center;background:var(--verm);color:var(--surface);font-family:var(--font-kai);font-size:1.3rem;font-weight:700;border-radius:9px}
+.fulltext-page-titles{flex:1;min-width:0}
+.fulltext-page .fulltext-page-title{font-family:var(--font-ui);font-size:1.3rem;line-height:1.25;color:var(--ink);margin:0}
+.fulltext-title-han{font-family:var(--font-kai)}
+.fulltext-page .fulltext-page-sub{margin:3px 0 0;color:var(--muted);font-size:.9rem}
+.fulltext-scene-tag{flex:none;font-family:var(--font-kai);font-size:.95rem;font-weight:700;color:var(--ink);background:var(--selected);border:1px solid var(--line);padding:4px 12px;border-radius:999px}
+.fulltext-page .fulltext-line{display:flex;align-items:baseline;margin:0;padding:13px 0;border-bottom:1px solid var(--line)}
+.fulltext-page .fulltext-line:last-child{border-bottom:0}
+.fulltext-page .fulltext-para{margin:0;padding:13px 0;border-bottom:1px solid var(--line)}
+.fulltext-page .fulltext-para:last-child{border-bottom:0}
+.fulltext-page .fulltext-speaker{font-size:.95rem;color:var(--verm)}
+@media(max-width:720px){.fulltext-page{padding:16px 18px}.fulltext-page .fulltext-line{flex-direction:column;gap:2px}.fulltext-page .fulltext-speaker{min-width:0}.fulltext-seal{width:34px;height:34px;font-size:1.15rem}.fulltext-page .fulltext-page-title{font-size:1.15rem}}
 .scene-ava .sname{font-weight:800;margin-top:7px;color:var(--ink);font-family:var(--font-han)}
 .scene-ava .spy{font-size:.76rem;color:var(--muted)}
 .scene-card{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:24px 26px;min-height:230px;display:flex;flex-direction:column;justify-content:center}
