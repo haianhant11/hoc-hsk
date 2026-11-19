@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&family=Playfair+Display:wght@600;700&family=Zhi+Mang+Xing&family=Ma+Shan+Zheng&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-regular.css');
 /* Thư viện Trung Hoa hiện đại — design tokens dùng chung cho cả 4 trang.
    Mọi màu trong theme này đều đi qua token dưới đây, không sửa màu rải rác. */
 :root{
@@ -11,7 +12,7 @@
   --font-han:'Noto Serif SC','Noto Sans SC',serif;
   --font-han-sans:'Noto Sans SC','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
   --font-hand:'Zhi Mang Xing','Ma Shan Zheng','Kaiti SC','KaiTi',var(--font-han-sans);
-  --font-kai:'Kaiti SC','KaiTi','STKaiti',var(--font-han);
+  --font-kai:'Kaiti SC','KaiTi','STKaiti','LXGW WenKai',var(--font-han);
   --font-display:'Playfair Display','Noto Serif SC',serif;
   color-scheme:light;
 }
