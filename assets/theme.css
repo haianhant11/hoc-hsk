@@ -733,6 +733,8 @@ a.home-back{text-decoration:none}
 .v-table{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);overflow:hidden}
 .v-row{display:grid;grid-template-columns:2.4rem minmax(5.5rem,auto) minmax(6rem,1fr) auto minmax(8rem,1.3fr);gap:14px;align-items:center;width:100%;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--line);padding:11px 16px;cursor:pointer;color:var(--body)}
 .v-row:last-child{border-bottom:0}
+body.hide-pinyin .v-row{grid-template-columns:2.4rem minmax(5.5rem,auto) auto minmax(8rem,1.3fr)}
+@media(max-width:720px){body.hide-pinyin .v-row{grid-template-columns:1.7rem minmax(4.2rem,auto) minmax(0,1fr)}}
 .v-row:hover{background:var(--selected)}
 .v-num{color:var(--muted);font-weight:700;font-size:.9rem}
 .v-han{font-family:var(--font-han);font-size:1.2rem;font-weight:700;color:var(--ink)}
