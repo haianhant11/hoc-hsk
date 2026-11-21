@@ -4,10 +4,9 @@
      1) Ôn tập Tự chọn (Luyện đề chuẩn 20 câu random từ khóa học hoặc nhóm >= 2 bài)
      2) Ôn tập SRS (Lặp lại ngắt quãng hiện có)
    - Cấu trúc cố định của 1 Đề Ôn Tập Chuẩn (20 câu · 100 điểm · 5 điểm/câu):
-     + Phần I   (Câu 1–6,  30đ): Từ vựng & Phiên âm (2 câu Chữ Hán→Nghĩa, 2 câu Nghĩa→Chữ Hán, 2 câu Pinyin & Thanh điệu)
-     + Phần II  (Câu 7–12, 30đ): Điền từ & Ngữ pháp trọng tâm (4 câu Điền từ vào chỗ trống, 2 câu Hoàn thành câu ngữ pháp)
-     + Phần III (Câu 13–17,25đ): Đọc hiểu & Tình huống Bài khóa (5 câu trắc nghiệm từ ngân hàng bài khóa)
-     + Phần IV  (Câu 18–20,15đ): Nghe chép câu Hán tự (3 câu nghe chép có ghép từ & gõ trực tiếp)
+     + Phần I   (Câu 1–9,  45đ): Từ vựng & Phiên âm (3 câu Chữ Hán→Nghĩa, 3 câu Nghĩa→Chữ Hán, 3 câu Pinyin & Thanh điệu)
+     + Phần II  (Câu 10–17,40đ): Điền từ & Ngữ pháp trọng tâm (5 câu Điền từ vào chỗ trống, 3 câu Hoàn thành câu ngữ pháp)
+     + Phần III (Câu 18–20,15đ): Nghe chép câu Hán tự (3 câu nghe chép có ghép từ & gõ trực tiếp)
    ========================================================================== */
 (function () {
   'use strict';
@@ -200,29 +199,12 @@
     var byCourse = { 'hsk3': [], 'hsk4-thuong': [], 'hsk4-ha': [] };
     var allLessons = [];
 
-    function registerLesson(courseId, courseShort, rawLesson, fillObj, quizArr, dictArr, dictPyArr) {
+    function registerLesson(courseId, courseShort, rawLesson, fillObj, dictArr, dictPyArr) {
       if (!rawLesson) return;
       var numStr = String(rawLesson.num);
       var key = courseId + ':' + numStr;
       var fillItems = (fillObj && Array.isArray(fillObj.items)) ? fillObj.items : [];
       var fillBank = (fillObj && Array.isArray(fillObj.bank)) ? fillObj.bank : [];
-      var flatQuiz = [];
-      if (Array.isArray(quizArr)) {
-        quizArr.forEach(function (scene) {
-          if (scene && Array.isArray(scene.qs)) {
-            scene.qs.forEach(function (qItem) {
-              flatQuiz.push({
-                sceneTitle: scene.title || ('Bài ' + numStr),
-                q: qItem.q,
-                py: qItem.py || '',
-                options: (qItem.options || []).slice(),
-                answer: qItem.answer,
-                explain: qItem.explain || ''
-              });
-            });
-          }
-        });
-      }
       var dicts = [];
       if (Array.isArray(dictArr)) {
         dictArr.forEach(function (d, dIdx) {
@@ -253,7 +235,6 @@
         grammar: Array.isArray(rawLesson.grammar) ? rawLesson.grammar : [],
         fillBank: fillBank,
         fillItems: fillItems,
-        textQuiz: flatQuiz,
         dictations: dicts
       };
       byKey[key] = entry;
@@ -263,30 +244,27 @@
 
     var h3 = window.lessonsHSK3 || [];
     var f3 = window.fillData3 || {};
-    var q3 = window.textQuiz3 || {};
     var d3 = window.dictations || {};
     var dp3 = (typeof dictPy3 !== 'undefined' && dictPy3) ? dictPy3 : (window.dictPy3 || {});
     h3.forEach(function (l) {
       var n = String(l.num);
-      registerLesson('hsk3', 'HSK 3', l, f3[n], q3[n], d3[n], dp3[n]);
+      registerLesson('hsk3', 'HSK 3', l, f3[n], d3[n], dp3[n]);
     });
 
     var h4s = window.lessons4 || [];
-    var q4s = window.textQuiz4 || {};
     var d4s = window.dictations4 || {};
     var dp4s = window.dictPy4 || {};
     h4s.forEach(function (l) {
       var n = String(l.num);
-      registerLesson('hsk4-thuong', 'HSK 4 Thượng', l, l.fill, q4s[n], d4s[n], dp4s[n]);
+      registerLesson('hsk4-thuong', 'HSK 4 Thượng', l, l.fill, d4s[n], dp4s[n]);
     });
 
     var h4x = window.lessons4xia || [];
-    var q4x = window.textQuizX || {};
     var d4x = window.dictationsX || {};
     var dp4x = window.dictPyX || {};
     h4x.forEach(function (l) {
       var n = String(l.num);
-      registerLesson('hsk4-ha', 'HSK 4 Hạ', l, l.fill, q4x[n], d4x[n], dp4x[n]);
+      registerLesson('hsk4-ha', 'HSK 4 Hạ', l, l.fill, d4x[n], dp4x[n]);
     });
 
     return {
@@ -434,7 +412,7 @@
     };
   }
 
-  /* ---------- Tách câu chữ Hán thành các mảnh ghép từ (Word Bank) cho Phần IV Nghe chép ---------- */
+  /* ---------- Tách câu chữ Hán thành các mảnh ghép từ (Word Bank) cho Phần III Nghe chép ---------- */
   function buildDictationTiles(hanSentence, lessonVocab, allVocabPool) {
     var cleanSent = String(hanSentence || '').replace(/[，。！？、；：“”‘’（）()《》【】…—,.!?;:'"\s]/g, '');
     if (!cleanSent) return [];
@@ -499,13 +477,13 @@
     var questions = [];
     var qNumber = 1;
 
-    /* ----- PHẦN I: TỪ VỰNG & PHIÊN ÂM (6 câu: Câu 1–6) ----- */
-    var vocabPicks = pickStratified(selectedLessons, 6, function (l) { return l.vocab || []; });
+    /* ----- PHẦN I: TỪ VỰNG & PHIÊN ÂM (9 câu: Câu 1–9) ----- */
+    var vocabPicks = pickStratified(selectedLessons, 9, function (l) { return l.vocab || []; });
 
     vocabPicks.forEach(function (pick, idx) {
       var l = pick.lesson;
       var v = pick.data;
-      var subType = idx < 2 ? 'han_to_vi' : (idx < 4 ? 'vi_to_han' : 'han_to_py');
+      var subType = idx < 3 ? 'han_to_vi' : (idx < 6 ? 'vi_to_han' : 'han_to_py');
 
       if (subType === 'han_to_vi') {
         var wrongVi = shuffle(allMeanings.filter(function (m) { return m !== v.meaning; })).slice(0, 3);
@@ -600,9 +578,9 @@
       }
     });
 
-    /* ----- PHẦN II: ĐIỀN TỪ & NGỮ PHÁP TRỌNG TÂM (6 câu: Câu 7–12) ----- */
-    // 4 câu Điền từ vào chỗ trống (type === 'bank')
-    var bankPicks = pickStratified(selectedLessons, 4, function (l) {
+    /* ----- PHẦN II: ĐIỀN TỪ & NGỮ PHÁP TRỌNG TÂM (8 câu: Câu 10–17) ----- */
+    // 5 câu Điền từ vào chỗ trống (type === 'bank')
+    var bankPicks = pickStratified(selectedLessons, 5, function (l) {
       return (l.fillItems || []).filter(function (it) { return it.type === 'bank'; });
     });
 
@@ -650,8 +628,8 @@
       });
     });
 
-    // 2 câu Hoàn thành câu Ngữ pháp (type === 'grammar')
-    var grammarPicks = pickStratified(selectedLessons, 2, function (l) {
+    // 3 câu Hoàn thành câu Ngữ pháp (type === 'grammar')
+    var grammarPicks = pickStratified(selectedLessons, 3, function (l) {
       return (l.fillItems || []).filter(function (it) { return it.type === 'grammar'; });
     });
 
@@ -694,38 +672,7 @@
       });
     });
 
-    /* ----- PHẦN III: ĐỌC HIỂU & TÌNH HUỐNG BÀI KHÓA (5 câu: Câu 13–17) ----- */
-    var quizPicks = pickStratified(selectedLessons, 5, function (l) { return l.textQuiz || []; });
-
-    quizPicks.forEach(function (pick) {
-      var l = pick.lesson;
-      var qData = pick.data;
-      questions.push({
-        num: qNumber++,
-        sectionId: 'part3',
-        sectionTitle: 'Phần III · Đọc hiểu & Tình huống Bài khóa',
-        kind: 'text_quiz',
-        typeBadge: 'Bài khóa · ' + (qData.sceneTitle || l.shortLabel),
-        lessonKey: l.key,
-        lessonLabel: l.label,
-        courseId: l.courseId,
-        lessonNum: l.num,
-        promptTag: 'Trả lời câu hỏi tình huống bài khóa:',
-        sceneTitle: qData.sceneTitle || '',
-        hanQuestion: qData.q,
-        pyQuestion: qData.py || '',
-        audioText: qData.q,
-        options: (qData.options || []).slice(),
-        isHanOptions: true,
-        answer: qData.answer,
-        userChoice: null,
-        checked: false,
-        isCorrect: false,
-        explain: qData.explain || ''
-      });
-    });
-
-    /* ----- PHẦN IV: NGHE CHÉP CÂU HÁN TỰ (3 câu: Câu 18–20) ----- */
+    /* ----- PHẦN III: NGHE CHÉP CÂU HÁN TỰ (3 câu: Câu 18–20) ----- */
     var dictPicks = pickStratified(selectedLessons, 3, function (l) { return l.dictations || []; });
 
     dictPicks.forEach(function (pick) {
@@ -736,8 +683,8 @@
 
       questions.push({
         num: qNumber++,
-        sectionId: 'part4',
-        sectionTitle: 'Phần IV · Nghe chép câu Hán tự',
+        sectionId: 'part3',
+        sectionTitle: 'Phần III · Nghe chép câu Hán tự',
         kind: 'dictation',
         typeBadge: 'Nghe chép câu · 听写句子',
         lessonKey: l.key,
@@ -900,7 +847,7 @@
   /* ---------- Chấm 1 câu hỏi ---------- */
   function evaluateQuestion(q) {
     if (!q) return false;
-    if (q.kind === 'mcq' || q.kind === 'fill_bank' || q.kind === 'text_quiz') {
+    if (q.kind === 'mcq' || q.kind === 'fill_bank') {
       if (q.userChoice == null) return false;
       q.checked = true;
       q.isCorrect = (q.userChoice === q.answer);
@@ -953,7 +900,7 @@
     stopTimer();
     state.questions.forEach(function (q) {
       if (!q.checked) {
-        if (q.kind === 'mcq' || q.kind === 'fill_bank' || q.kind === 'text_quiz') {
+        if (q.kind === 'mcq' || q.kind === 'fill_bank') {
           if (q.userChoice != null) {
             evaluateQuestion(q);
           } else {
@@ -1009,14 +956,13 @@
     state.selectedKeys.forEach(function (k) { selectedSet[k] = true; });
 
     // Tính tổng kho câu hỏi của các bài đang chọn
-    var poolStats = { vocab: 0, fill: 0, quiz: 0, dict: 0 };
+    var poolStats = { vocab: 0, fill: 0, dict: 0 };
     selectedLessons.forEach(function (l) {
       poolStats.vocab += (l.vocab || []).length;
       poolStats.fill += (l.fillItems || []).length;
-      poolStats.quiz += (l.textQuiz || []).length;
       poolStats.dict += (l.dictations || []).length;
     });
-    var totalPoolItems = poolStats.vocab + poolStats.fill + poolStats.quiz + poolStats.dict;
+    var totalPoolItems = poolStats.vocab + poolStats.fill + poolStats.dict;
 
     // 1. Khối 3 khóa học trọn bộ
     var courseCardsHtml = COURSE_META.map(function (cm) {
@@ -1026,7 +972,7 @@
       var cVocab = 0, cEx = 0;
       cLessons.forEach(function (l) {
         cVocab += (l.vocab || []).length;
-        cEx += (l.fillItems || []).length + (l.textQuiz || []).length + (l.dictations || []).length;
+        cEx += (l.fillItems || []).length + (l.dictations || []).length;
       });
 
       return (
@@ -1058,7 +1004,7 @@
 
     var lessonsGridHtml = visibleLessons.map(function (l) {
       var isSel = !!selectedSet[l.key];
-      var qCount = (l.vocab || []).length + (l.fillItems || []).length + (l.textQuiz || []).length + (l.dictations || []).length;
+      var qCount = (l.vocab || []).length + (l.fillItems || []).length + (l.dictations || []).length;
       return (
         '<button type="button" class="cr-lesson-card' + (isSel ? ' is-selected' : '') + '" data-toggle-lesson="' + esc(l.key) + '" aria-pressed="' + (isSel ? 'true' : 'false') + '">' +
           '<div class="cr-lesson-card-top">' +
@@ -1070,7 +1016,7 @@
           '<div class="cr-lesson-foot">' +
             '<span>' + (l.vocab || []).length + ' từ</span>' +
             '<span>·</span>' +
-            '<span>' + ((l.fillItems || []).length + (l.textQuiz || []).length + (l.dictations || []).length) + ' câu hỏi</span>' +
+            '<span>' + ((l.fillItems || []).length + (l.dictations || []).length) + ' câu hỏi</span>' +
           '</div>' +
         '</button>'
       );
@@ -1139,28 +1085,23 @@
             '<div>' +
               '<span class="cr-step-pill">Cấu trúc cố định của 1 Đề Ôn Tập Chuẩn</span>' +
               '<h2>20 câu hỏi tổng hợp · Thang điểm 100</h2>' +
-              '<p class="srs-note">Đề thi được thiết kế cân đối cả 4 kỹ năng cốt lõi (Từ vựng, Ngữ pháp, Đọc hiểu Bài khóa, Nghe chép câu), rút ngẫu nhiên có phân tầng đều từ các bài bạn đã chọn:</p>' +
+              '<p class="srs-note">Đề thi được thiết kế cân đối cả 3 kỹ năng cốt lõi (Từ vựng, Ngữ pháp, Nghe chép câu), rút ngẫu nhiên có phân tầng đều từ các bài bạn đã chọn:</p>' +
             '</div>' +
           '</div>' +
 
           '<div class="cr-blueprint-grid">' +
             '<div class="cr-bp-item">' +
-              '<span class="cr-bp-part">Phần I · Câu 1–6 (30đ)</span>' +
+              '<span class="cr-bp-part">Phần I · Câu 1–9 (45đ)</span>' +
               '<strong>Từ vựng &amp; Phiên âm</strong>' +
-              '<p>2 câu nhận diện nghĩa ngữ cảnh, 2 câu chọn từ chữ Hán, 2 câu chuẩn Pinyin &amp; dấu thanh.</p>' +
+              '<p>3 câu nhận diện nghĩa ngữ cảnh, 3 câu chọn từ chữ Hán, 3 câu chuẩn Pinyin &amp; dấu thanh.</p>' +
             '</div>' +
             '<div class="cr-bp-item">' +
-              '<span class="cr-bp-part">Phần II · Câu 7–12 (30đ)</span>' +
+              '<span class="cr-bp-part">Phần II · Câu 10–17 (40đ)</span>' +
               '<strong>Điền từ &amp; Ngữ pháp</strong>' +
-              '<p>4 câu chọn từ điền vào chỗ trống (＿＿) và 2 câu hoàn thành cấu trúc ngữ pháp trọng tâm.</p>' +
+              '<p>5 câu chọn từ điền vào chỗ trống (＿＿) và 3 câu hoàn thành cấu trúc ngữ pháp trọng tâm.</p>' +
             '</div>' +
             '<div class="cr-bp-item">' +
-              '<span class="cr-bp-part">Phần III · Câu 13–17 (25đ)</span>' +
-              '<strong>Đọc hiểu Bài khóa</strong>' +
-              '<p>5 câu hỏi trắc nghiệm tình huống hội thoại &amp; đoạn văn trích từ ngân hàng bài khóa.</p>' +
-            '</div>' +
-            '<div class="cr-bp-item">' +
-              '<span class="cr-bp-part">Phần IV · Câu 18–20 (15đ)</span>' +
+              '<span class="cr-bp-part">Phần III · Câu 18–20 (15đ)</span>' +
               '<strong>Nghe chép câu Hán tự</strong>' +
               '<p>3 câu nghe âm thanh chuẩn/chậm rồi gõ lại câu hoặc ghép các cụm từ Hán tự.</p>' +
             '</div>' +
@@ -1171,7 +1112,7 @@
               '<div class="cr-launch-title">' +
                 '<strong>Nhóm bài đã chọn (' + selectedLessons.length + ' bài):</strong> ' +
                 (canStart
-                  ? '<span class="cr-pool-badge">Kho nguồn: ' + totalPoolItems + ' mục (' + poolStats.vocab + ' từ · ' + poolStats.fill + ' câu điền · ' + poolStats.quiz + ' câu bài khóa · ' + poolStats.dict + ' câu nghe chép)</span>'
+                  ? '<span class="cr-pool-badge">Kho nguồn: ' + totalPoolItems + ' mục (' + poolStats.vocab + ' từ · ' + poolStats.fill + ' câu điền · ' + poolStats.dict + ' câu nghe chép)</span>'
                   : '<span class="cr-warn-badge">⚠️ Vui lòng chọn ít nhất 2 bài học để ghép thành đề tổng hợp</span>') +
               '</div>' +
               '<div class="cr-sel-chips">' + selectedChipsHtml + '</div>' +
@@ -1343,36 +1284,7 @@
         gInputArea;
     }
 
-    /* --- 4. Câu Đọc hiểu & Tình huống Bài khóa (Phần III - text_quiz) --- */
-    else if (q.kind === 'text_quiz') {
-      var tOptsHtml = q.options.map(function (opt, oIdx) {
-        var cls = 'cr-opt-btn is-han';
-        if (q.userChoice === oIdx) cls += ' is-chosen';
-        if (q.checked) {
-          if (oIdx === q.answer) cls += ' is-right';
-          else if (q.userChoice === oIdx) cls += ' is-wrong';
-        }
-        return (
-          '<button type="button" class="' + cls + '" data-q-idx="' + idx + '" data-opt-idx="' + oIdx + '"' + (q.checked ? ' disabled' : '') + '>' +
-            '<span class="cr-opt-letter">' + letterLabels[oIdx] + '</span>' +
-            '<span class="cr-opt-text han">' + esc(opt) + '</span>' +
-          '</button>'
-        );
-      }).join('');
-
-      bodyHtml =
-        '<div class="cr-q-focus">' +
-          (q.sceneTitle ? '<div class="cr-scene-tag">📖 Bối cảnh: ' + esc(q.sceneTitle) + '</div>' : '') +
-          '<div class="cr-q-han-row">' +
-            '<div class="cr-q-sentence han">' + esc(q.hanQuestion) + '</div>' +
-            '<button type="button" class="cr-audio-btn" data-speak="' + esc(q.audioText) + '">🔊 Nghe câu hỏi</button>' +
-          '</div>' +
-          (q.pyQuestion ? '<div class="cr-q-py">' + esc(q.pyQuestion) + '</div>' : '') +
-        '</div>' +
-        '<div class="cr-opts-grid">' + tOptsHtml + '</div>';
-    }
-
-    /* --- 5. Câu Nghe chép câu Hán tự (Phần IV - dictation) --- */
+    /* --- 4. Câu Nghe chép câu Hán tự (Phần III - dictation) --- */
     else if (q.kind === 'dictation') {
       var tilesHtml = (q.tiles || []).map(function (tile) {
         var isUsed = (q.usedTileIds || []).indexOf(tile.id) >= 0;
@@ -1475,12 +1387,11 @@
     var answeredCount = qs.filter(function (q) { return q.checked; }).length;
     var correctCount = qs.filter(function (q) { return q.checked && q.isCorrect; }).length;
 
-    // Nhóm câu hỏi theo 4 phần trên bản đồ câu hỏi
+    // Nhóm câu hỏi theo 3 phần trên bản đồ câu hỏi
     var sectionsMeta = [
-      { id: 'part1', short: 'Phần I · Từ vựng (1–6)', range: [0, 5] },
-      { id: 'part2', short: 'Phần II · Điền từ & Ngữ pháp (7–12)', range: [6, 11] },
-      { id: 'part3', short: 'Phần III · Bài khóa (13–17)', range: [12, 16] },
-      { id: 'part4', short: 'Phần IV · Nghe chép (18–20)', range: [17, 19] }
+      { id: 'part1', short: 'Phần I · Từ vựng (1–9)', range: [0, 8] },
+      { id: 'part2', short: 'Phần II · Điền từ & Ngữ pháp (10–17)', range: [9, 16] },
+      { id: 'part3', short: 'Phần III · Nghe chép (18–20)', range: [17, 19] }
     ];
 
     var qmapHtml = sectionsMeta.map(function (sec) {
@@ -1519,7 +1430,7 @@
           '</div>' +
         '</div>';
     } else {
-      // Chế độ hiển thị toàn bộ tờ đề 20 câu chia 4 phần
+      // Chế độ hiển thị toàn bộ tờ đề 20 câu chia 3 phần
       var lastSec = '';
       var allCardsHtml = qs.map(function (q, idx) {
         var headerBanner = '';
@@ -1567,7 +1478,7 @@
           '</div>' +
         '</div>' +
 
-        /* Bản đồ 20 câu theo 4 phần */
+        /* Bản đồ 20 câu theo 3 phần */
         '<div class="srs-panel cr-qmap-panel">' + qmapHtml + '</div>' +
 
         /* Nội dung câu hỏi */
@@ -1598,12 +1509,11 @@
       rankComment = 'Bạn đã nắm được ý chính của các bài, hãy thử random thêm một đề nữa để đạt trên 80 điểm nhé.';
     }
 
-    // Thống kê theo 4 Phần
+    // Thống kê theo 3 Phần
     var partDefs = [
       { id: 'part1', name: 'Phần I · Từ vựng & Phiên âm' },
       { id: 'part2', name: 'Phần II · Điền từ & Ngữ pháp' },
-      { id: 'part3', name: 'Phần III · Đọc hiểu Bài khóa' },
-      { id: 'part4', name: 'Phần IV · Nghe chép câu' }
+      { id: 'part3', name: 'Phần III · Nghe chép câu' }
     ];
     var partStatsHtml = partDefs.map(function (pd) {
       var pQs = qs.filter(function (q) { return q.sectionId === pd.id; });
@@ -1897,7 +1807,7 @@
         return;
       }
 
-      // [EXAM] Bấm vào mảnh ghép từ (Word Bank) ở Phần IV Nghe chép
+      // [EXAM] Bấm vào mảnh ghép từ (Word Bank) ở Phần III Nghe chép
       var tileBtn = target.closest('[data-dict-tile]');
       if (tileBtn) {
         var tQi = parseInt(tileBtn.getAttribute('data-q-idx'), 10);
