@@ -18,15 +18,19 @@
     '<div class="hy3d-text" id="hy3dText">Mình là <strong>海英 (Hải Anh)</strong>. Chạm vào mình bất kỳ lúc nào để xem mẹo học nhé!</div>' +
     '</div>' +
     '<div class="hy3d-stage" id="hy3dStage" title="Chạm vào Hải Anh để xem mẹo học">' +
+    '<button class="hy3d-hide" id="hy3dHide" type="button" aria-label="Thu gọn Hải Anh" title="Thu gọn Hải Anh">×</button>' +
     '<div class="hy3d-figure" id="hy3dFigure">' +
     '<canvas class="hy3d-canvas" id="hy3dCanvas" width="300" height="480"></canvas>' +
     '</div>' +
-    '<div class="hy3d-pedestal-label"><span class="han">海英</span></div>' +
+    '<button class="hy3d-pedestal-label" id="hy3dLabel" type="button" aria-label="Hải Anh (海英)"><span class="han">海英</span></button>' +
     '</div>';
 
   function mountWidget() {
     if (!document.body) return;
     document.body.appendChild(widget);
+    try {
+      if (localStorage.getItem(MIN_KEY) === "1") setMinimized(true, false);
+    } catch (e) { }
     initCharacterCanvas();
     initHomeGreeting();
     init3DCardTilt();
@@ -39,8 +43,10 @@
   }
 
   /* ---------- 2. State & Public API ---------- */
+  var MIN_KEY = "hoc-hsk-hy3d-min";
   var state = {
     mood: "wave",
+    minimized: false,
     jumpVel: 0,
     jumpY: 0,
     waveBoost: 1.5,
@@ -98,6 +104,10 @@
       else tEl.innerHTML = tag ? ('<span class="han hy3d-brand">海英</span> · ' + tag) : '<span class="han hy3d-brand">海英</span>';
     }
     if (txEl && html) txEl.innerHTML = html;
+    if (state.minimized) {
+      if (b) b.classList.add("is-collapsed");
+      return;
+    }
     if (b) b.classList.remove("is-collapsed");
     react(mood || "wave");
     if (state.bubbleTimer) clearTimeout(state.bubbleTimer);
@@ -124,10 +134,45 @@
     widget.classList.toggle("is-hidden", !vis);
   }
 
+  function setMinimized(min, persist) {
+    state.minimized = !!min;
+    if (!widget) return;
+    widget.classList.toggle("is-minimized", state.minimized);
+    var stageEl = document.getElementById("hy3dStage");
+    var labelEl = document.getElementById("hy3dLabel");
+    if (stageEl) {
+      stageEl.title = state.minimized ? "Bấm để hiện lại Hải Anh" : "Chạm vào Hải Anh để xem mẹo học";
+    }
+    if (labelEl) {
+      if (state.minimized) {
+        labelEl.title = "Hiện lại Hải Anh";
+        labelEl.setAttribute("aria-label", "Hiện lại Hải Anh (海英)");
+      } else {
+        labelEl.removeAttribute("title");
+        labelEl.setAttribute("aria-label", "Hải Anh (海英)");
+      }
+    }
+    if (state.minimized) {
+      var b = document.getElementById("hy3dBubble");
+      if (b) b.classList.add("is-collapsed");
+      if (state.bubbleTimer) {
+        clearTimeout(state.bubbleTimer);
+        state.bubbleTimer = null;
+      }
+    }
+    if (persist) {
+      try {
+        if (state.minimized) localStorage.setItem(MIN_KEY, "1");
+        else localStorage.removeItem(MIN_KEY);
+      } catch (e) { }
+    }
+  }
+
   window.HaiYing3D = {
     say: say,
     react: react,
-    setVisible: setVisible
+    setVisible: setVisible,
+    setMinimized: setMinimized
   };
 
   function isMobileViewport() {
@@ -173,6 +218,8 @@
     var stage = document.getElementById("hy3dStage");
     var fig = document.getElementById("hy3dFigure");
     var closeBtn = document.getElementById("hy3dClose");
+    var hideBtn = document.getElementById("hy3dHide");
+    var labelBtn = document.getElementById("hy3dLabel");
     if (!canvas || !stage) return;
 
     var ctx = canvas.getContext("2d");
@@ -184,6 +231,7 @@
     img.src = "assets/haiying-3d.png";
 
     window.addEventListener("mousemove", function (e) {
+      if (state.minimized || widget.classList.contains("is-hidden")) return;
       var rect = stage.getBoundingClientRect();
       var cx = rect.left + rect.width * 0.5;
       var cy = rect.top + rect.height * 0.45;
@@ -192,6 +240,11 @@
     }, { passive: true });
 
     stage.addEventListener("click", function () {
+      if (state.minimized) {
+        setMinimized(false, true);
+        react("cheer");
+        return;
+      }
       var b = document.getElementById("hy3dBubble");
       if (b && b.classList.contains("is-collapsed")) {
         b.classList.remove("is-collapsed");
@@ -212,8 +265,25 @@
       });
     }
 
+    if (hideBtn) {
+      hideBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        setMinimized(true, true);
+      });
+    }
+
+    if (labelBtn) {
+      labelBtn.addEventListener("click", function (e) {
+        if (state.minimized) {
+          e.stopPropagation();
+          setMinimized(false, true);
+          react("cheer");
+        }
+      });
+    }
+
     document.addEventListener("click", function (e) {
-      if (widget.classList.contains("is-hidden")) return;
+      if (state.minimized || widget.classList.contains("is-hidden")) return;
       var btn = e.target.closest ? e.target.closest(".mcq-opt, .quiz-option, #checkDictation, #fillCheck") : null;
       if (btn) {
         setTimeout(function () {
@@ -227,7 +297,7 @@
     var lastT = performance.now();
     function render(now) {
       requestAnimationFrame(render);
-      if (widget.classList.contains("is-hidden") || isMobileViewport()) return;
+      if (state.minimized || widget.classList.contains("is-hidden") || isMobileViewport()) return;
 
       var dt = Math.min(0.05, (now - lastT) / 1000);
       lastT = now;
