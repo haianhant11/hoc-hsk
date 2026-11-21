@@ -92,6 +92,16 @@ a.level-enter{text-decoration:none}
 .donate-name{margin:14px 0 2px;font-weight:800;color:var(--ink)}
 .donate-acct{margin:0;color:var(--muted);font-weight:700;font-size:.92rem}
 .donate-close{position:absolute;top:10px;right:12px;border:0;background:transparent;color:var(--muted);font-size:1.5rem;line-height:1;cursor:pointer;padding:6px}
+.kb-veil{position:fixed;inset:0;z-index:60;display:none;place-items:center;padding:20px;background:rgba(20,30,25,.55)}
+.kb-veil.open{display:grid}
+.kb-card{position:relative;width:min(420px,100%);background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 18px 50px rgba(0,0,0,.25)}
+.kb-card h3{margin:0 0 4px;font-size:1.15rem;color:var(--ink)}
+.kb-sub{margin:0 0 14px;color:var(--muted);font-size:.92rem;line-height:1.55}
+.kb-rows{display:grid;gap:8px}
+.kb-row{display:flex;gap:12px;align-items:baseline;font-size:.95rem;color:var(--body)}
+.kb-row kbd{flex:none;min-width:52px;text-align:center;font-family:var(--font-ui);font-size:.82rem;font-weight:700;color:var(--ink);background:var(--selected);border:1px solid var(--line-2);border-radius:6px;padding:3px 8px}
+.kb-close{position:absolute;top:10px;right:12px;border:0;background:transparent;color:var(--muted);font-size:1.5rem;line-height:1;cursor:pointer;padding:6px}
+.kb-note{margin:14px 0 0;color:var(--muted);font-size:.85rem;line-height:1.5}
 /* ---------- Footer nguồn đối chiếu ---------- */
 footer{max-width:900px;margin:40px auto 0;text-align:center;color:var(--muted);font-size:.84rem}
 footer a{color:var(--ink);font-weight:700}
