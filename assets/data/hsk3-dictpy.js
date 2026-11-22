@@ -24,7 +24,7 @@ const dictPy3 = {
   ],
   "11": [
     ["jīng","lǐ","tōng","zhī","dà","jiā","hòu","tiān","xià","wǔ","sān","diǎn","zài","huì","yì","shì","kāi","huì"],
-    ["kàn","lái","wǒ","yí","gè","rén","méi","bàn","fa","jiě","jué","zhè","gè","wèn","tí","zhǐ","néng","zhǎo","tóng","shì","bāng","mang"],
+    ["kàn","lái","wǒ","yí","gè","rén","méi","bàn","fǎ","jiě","jué","zhè","gè","wèn","tí","zhǐ","néng","zhǎo","tóng","shì","bāng","mang"],
     ["duì","wǒ","lái","shuō","gōng","zuò","jī","huì","zhòng","yào","jiàn","kāng","yě","tóng","yàng","zhòng","yào"],
     ["jīn","tiān","xià","wǔ","kāi","huì","nǐ","shì","qù","huì","yì","shì","hái","shì","zài","bàn","gōng","shì","cān","jiā"],
     ["qǐng","bǎ","huì","yì","de","shí","jiān","hé","dì","diǎn","fā","dào","wǒ","de","yóu","xiāng","lǐ"],
@@ -41,7 +41,7 @@ const dictPy3 = {
     ["tā","pà","cuò","guò","zhòng","yào","de","huì","yì","suǒ","yǐ","tí","qián","bàn","xiǎo","shí","dào","le","gōng","sī"],
     ["huì","yì","dì","diǎn","gǎi","dào","le","sān","lóu","qǐng","nǐ","bǎ","xīn","dì","diǎn","tōng","zhī","gěi","qí","tā","tóng","shì"],
     ["kàn","lái","tā","yǐ","jīng","xí","guàn","le","xīn","chéng","shì","de","shēng","huó","bù","xiǎng","zài","lí","kāi","le"],
-    ["yù","dào","kùn","nan","de","shí","hou","nǐ","yì","bān","zì","jǐ","xiǎng","bàn","fa","hái","shì","zhǎo","bié","rén","bāng","mang"],
+    ["yù","dào","kùn","nan","de","shí","hou","nǐ","yì","bān","zì","jǐ","xiǎng","bàn","fǎ","hái","shì","zhǎo","bié","rén","bāng","mang"],
     ["duì","wǒ","men","bù","mén","lái","shuō","jīn","tiān","bǎ","kè","hù","de","wèn","tí","jiě","jué","hǎo","shì","zuì","zhòng","yào","de"]
   ],
   "12": [
@@ -162,7 +162,7 @@ const dictPy3 = {
     ["yù","dào","nán","tí","de","shí","hou","bié","hài","pà","nǐ","kě","yǐ","xiàng","lǎo","shī","huò","zhě","yǒu","jīng","yàn","de","tóng","xué","qǐng","jiào"],
     ["qián","tiān","wǒ","yòng","shǒu","jī","chá","zī","liào","de","shí","hou","fā","xiàn","zhè","gè","wǎng","zhàn","duì","liú","xué","shēng","fēi","cháng","yǒu","yòng"],
     ["nǐ","bú","shì","yǐ","jīng","dā","ying","bà","mā","shuì","jiào","qián","bǎ","shǒu","jī","guān","jī","ma","kuài","qù","xiū","xi","ba"],
-    ["zhǐ","yǒu","píng","shí","duō","dú","shū","duō","chá","cí","diǎn","yù","dào","nán","tí","shí","cái","róng","yì","zhǎo","dào","huí","dá","de","bàn","fa"],
+    ["zhǐ","yǒu","píng","shí","duō","dú","shū","duō","chá","cí","diǎn","yù","dào","nán","tí","shí","cái","róng","yì","zhǎo","dào","huí","dá","de","bàn","fǎ"],
     ["tā","píng","shí","lián","xiǎo","shì","dōu","hěn","shǎo","zuò","cuò","gèng","bú","huì","zài","zhè","me","zhòng","yào","de","kǎo","shì","zhōng","mǎ","hu"],
     ["nà","gè","wū","zi","lǐ","dào","chù","dōu","fàng","zhe","gēn","zhōng","guó","lì","shǐ","hé","wén","huà","yǒu","guān","de","shū","jí"],
     ["zhī","dao","zì","jǐ","zǒu","cuò","le","fāng","xiàng","jiù","yīng","gāi","mǎ","shàng","tíng","xià","lái","xiàng","lù","rén","wèn","qīng","chu"],
@@ -177,7 +177,7 @@ const dictPy3 = {
     ["zhǐ","yǒu","xiān","jìng","xià","xīn","lái","tīng","bié","rén","bǎ","huà","shuō","wán","cái","néng","zhēn","zhèng","míng","bai","duì","fāng","de","yì","si"]
   ],
   "18": [
-    ["chūn","jié","shì","zhōng","guó","zuì","zhòng","yào","de","chuán","tǒng","jié","rì","dà","jiā","dà","gai","kě","yǐ","fàng","qī","bā","tiān","jià"],
+    ["chūn","jié","shì","zhōng","guó","zuì","zhòng","yào","de","chuán","tǒng","jié","rì","dà","jiā","dà","gài","kě","yǐ","fàng","qī","bā","tiān","jià"],
     ["wǒ","gāng","cái","gěi","zhāng","ā","yí","dǎ","le","gè","diàn","huà","tā","gāng","gāng","cóng","běi","jīng","chū","fā","qù","shàng","hǎi"],
     ["zhǐ","yào","nǐ","yì","zhí","jiān","chí","xià","qù","jiù","yí","dìng","néng","zài","zhè","gè","xué","qī","wán","chéng","zì","jǐ","de","mù","biāo"],
     ["cóng","nà","tiān","jiàn","miàn","qǐ","tā","men","jiù","chéng","le","hǎo","péng","you","zǒng","shì","yì","qǐ","tǎo","lùn","xué","xí","wèn","tí"],

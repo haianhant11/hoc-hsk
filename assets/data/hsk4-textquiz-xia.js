@@ -135,7 +135,7 @@ window.textQuizX = {
     },
     {
      "q": "商场年底有什么活动？",
-     "py": "Shāngchǎng niándǐ yǒu shénme huódong?",
+     "py": "Shāngchǎng niándǐ yǒu shénme huódòng?",
      "options": [
       "买一送一",
       "买二送一",
@@ -388,7 +388,7 @@ window.textQuizX = {
    "qs": [
     {
      "q": "商场做的运动鞋促销活动是：",
-     "py": "Shāngchǎng zuò de yùndòngxié cùxiāo huódong shì:",
+     "py": "Shāngchǎng zuò de yùndòngxié cùxiāo huódòng shì:",
      "options": [
       "打一折",
       "打五折",
