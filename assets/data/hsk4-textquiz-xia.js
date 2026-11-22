@@ -46,7 +46,7 @@ window.textQuizX = {
     },
     {
      "q": "对安妮来说，线上上课时，自己不用急着做的事情是：",
-     "py": "Duì Ānnī láishuō, xiànshàng shàngkèshí, zìjǐ bùyòng jí zhe zuò de shìqíng shì:",
+     "py": "Duì Ānnī láishuō, xiànshàng shàngkèshí, zìjǐ bùyòng jí zhe zuò de shìqing shì:",
      "options": [
       "写作业",
       "找资料",
@@ -92,7 +92,7 @@ window.textQuizX = {
    "qs": [
     {
      "q": "“学而不厌”是孔子什么时候说的？",
-     "py": "“Xuéérbùyàn” shì kǒngzi shénme shíhòu shuō de?",
+     "py": "“Xuéérbùyàn” shì kǒngzi shénme shíhou shuō de?",
      "options": [
       "二十多年前",
       "两百多年前",
@@ -135,7 +135,7 @@ window.textQuizX = {
     },
     {
      "q": "商场年底有什么活动？",
-     "py": "Shāngchǎng niándǐ yǒu shénme huódòng?",
+     "py": "Shāngchǎng niándǐ yǒu shénme huódong?",
      "options": [
       "买一送一",
       "买二送一",
@@ -359,7 +359,7 @@ window.textQuizX = {
    "qs": [
     {
      "q": "安妮想知道：",
-     "py": "Ānnī xiǎng zhīdào:",
+     "py": "Ānnī xiǎng zhīdao:",
      "options": [
       "红茶的价格",
       "绿茶的价格",
@@ -388,7 +388,7 @@ window.textQuizX = {
    "qs": [
     {
      "q": "商场做的运动鞋促销活动是：",
-     "py": "Shāngchǎng zuò de yùndòngxié cùxiāo huódòng shì:",
+     "py": "Shāngchǎng zuò de yùndòngxié cùxiāo huódong shì:",
      "options": [
       "打一折",
       "打五折",
@@ -608,7 +608,7 @@ window.textQuizX = {
     },
     {
      "q": "王一雪建议白家月什么时候去旅游？",
-     "py": "Wáng Yīxuě jiànyì Bái Jiāyuè shénme shíhòu qù lǚyóu?",
+     "py": "Wáng Yīxuě jiànyì Bái Jiāyuè shénme shíhou qù lǚyóu?",
      "options": [
       "明天",
       "这个周末",
@@ -654,7 +654,7 @@ window.textQuizX = {
    "qs": [
     {
      "q": "有的人为什么喜欢做计划？",
-     "py": "Yǒu de rén wèishénme xǐhuān zuò jìhuà?",
+     "py": "Yǒu de rén wèishénme xǐhuan zuò jìhuà?",
      "options": [
       "可以省钱",
       "可以省时间",
@@ -772,7 +772,7 @@ window.textQuizX = {
    "qs": [
     {
      "q": "杨同乐喜欢用什么方式锻炼？",
-     "py": "Yáng Tónglè xǐhuān yòng shénme fāngshì duànliàn?",
+     "py": "Yáng Tónglè xǐhuan yòng shénme fāngshì duànliàn?",
      "options": [
       "打球",
       "游泳",
@@ -890,7 +890,7 @@ window.textQuizX = {
    "qs": [
     {
      "q": "安妮和朋友们怎么看科技的发展？",
-     "py": "Ānnī hé péngyǒu men zěnme kàn kējì de fāzhǎn?",
+     "py": "Ānnī hé péngyou men zěnme kàn kējì de fāzhǎn?",
      "options": [
       "科技发展很快",
       "科技不影响世界",
@@ -1049,7 +1049,7 @@ window.textQuizX = {
     },
     {
      "q": "白家月看完中文版的《马可·波罗游记》之后打算做什么？",
-     "py": "Bái Jiāyuè kàn wán zhōngwénbǎn de 《 mǎkě · bōluó yóujì 》 zhīhòu dǎsuàn zuò shénme?",
+     "py": "Bái Jiāyuè kàn wán zhōngwénbǎn de 《 mǎkě · bōluó yóujì 》 zhīhòu dǎsuan zuò shénme?",
      "options": [
       "去意大利玩",
       "把它翻译给家人",
