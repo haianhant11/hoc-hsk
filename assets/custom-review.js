@@ -163,15 +163,15 @@
     return html;
   }
 
-  /* ---------- Gom toàn bộ kho dữ liệu 3 khóa học (29 bài) ---------- */
+  /* ---------- Gom toàn bộ kho dữ liệu 3 khóa học (38 bài) ---------- */
   var COURSE_META = [
     {
       id: 'hsk3',
       title: 'HSK 3 · Trọn khóa',
       shortTitle: 'HSK 3',
-      badge: 'Bài 10 – Bài 18',
-      desc: '9 bài học trọng tâm HSK 3: câu chữ 把, câu bị động 被, thời tiết, du lịch, văn hóa & công sở.',
-      lessonRange: '9 bài (Bài 10–18)',
+      badge: 'Bài 1 – Bài 18',
+      desc: 'Trọn bộ 18 bài HSK 3: bổ ngữ kết quả, xu hướng, khả năng, câu chữ 把, câu bị động 被, sinh hoạt & du lịch.',
+      lessonRange: '18 bài (Bài 1–18)',
       courseSlug: 'hsk3'
     },
     {
@@ -1062,8 +1062,8 @@
 
           '<div class="cr-filter-bar">' +
             '<div class="cr-course-tabs" role="tablist" aria-label="Lọc bài học theo khóa">' +
-              '<button type="button" class="cr-filter-tab' + (state.courseFilter === 'all' ? ' active' : '') + '" data-course-filter="all">Tất cả (29 bài)</button>' +
-              '<button type="button" class="cr-filter-tab' + (state.courseFilter === 'hsk3' ? ' active' : '') + '" data-course-filter="hsk3">HSK 3 (Bài 10–18)</button>' +
+              '<button type="button" class="cr-filter-tab' + (state.courseFilter === 'all' ? ' active' : '') + '" data-course-filter="all">Tất cả (38 bài)</button>' +
+              '<button type="button" class="cr-filter-tab' + (state.courseFilter === 'hsk3' ? ' active' : '') + '" data-course-filter="hsk3">HSK 3 (Bài 1–18)</button>' +
               '<button type="button" class="cr-filter-tab' + (state.courseFilter === 'hsk4-thuong' ? ' active' : '') + '" data-course-filter="hsk4-thuong">HSK 4 Thượng (Bài 1–10)</button>' +
               '<button type="button" class="cr-filter-tab' + (state.courseFilter === 'hsk4-ha' ? ' active' : '') + '" data-course-filter="hsk4-ha">HSK 4 Hạ (Bài 11–20)</button>' +
             '</div>' +
