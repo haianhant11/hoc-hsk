@@ -1091,7 +1091,7 @@
 
     function isCoursePage() {
       var p = (typeof window !== 'undefined' && window.location && window.location.pathname) ? window.location.pathname : '';
-      return /\/(hsk3|hsk4-thuong|hsk4-ha)(\/|\.html|$)/i.test(p) || !!document.getElementById('vocabPanel');
+      return /\/(hsk1|hsk2|hsk3|hsk4-thuong|hsk4-ha)(\/|\.html|$)/i.test(p) || !!document.getElementById('vocabPanel');
     }
 
     function closeGate() {

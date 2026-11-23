@@ -10,7 +10,7 @@
   var DAY = 86400000;
   var SKILLS = ['pinyin', 'tone', 'meaning', 'hanzi'];
   var SKILL_LABEL = { pinyin: 'Pinyin', tone: 'Thanh điệu', meaning: 'Nghĩa', hanzi: 'Chữ Hán' };
-  var COURSES = { 'hsk3': 'HSK 3', 'hsk4-thuong': 'HSK 4 thượng', 'hsk4-ha': 'HSK 4 hạ' };
+  var COURSES = { 'hsk1': 'HSK 1', 'hsk2': 'HSK 2', 'hsk3': 'HSK 3', 'hsk4-thuong': 'HSK 4 thượng', 'hsk4-ha': 'HSK 4 hạ' };
 
   var data = null;
   var saveOk = true;
