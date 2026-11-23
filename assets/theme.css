@@ -87,6 +87,7 @@ a.level-enter{text-decoration:none}
 .donate-veil.open{display:grid}
 .donate-card{position:relative;width:min(360px,100%);background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px 22px 18px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.25)}
 .donate-card h3{margin:0 0 6px;font-size:1.15rem;color:var(--ink)}
+.donate-feedback{display:block;margin:0 0 12px;padding:11px 14px;border-radius:var(--r-control);background:var(--ink);color:var(--surface);font-weight:700;font-size:.95rem;text-decoration:none;text-align:center}
 .donate-sub{margin:0 0 14px;color:var(--muted);font-size:.92rem;line-height:1.55}
 .donate-qr{width:100%;height:auto;display:block;border-radius:12px}
 .donate-name{margin:14px 0 2px;font-weight:800;color:var(--ink)}
