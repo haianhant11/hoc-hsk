@@ -63,6 +63,8 @@ body.hide-pinyin .pinyin,body.hide-pinyin .example-pinyin,body.hide-pinyin .chip
 .home-levels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
 .level-card{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);display:flex;flex-direction:column;box-shadow:var(--shadow);background-size:cover;background-position:right center;background-repeat:no-repeat}
 .level-card::before{content:"";position:absolute;inset:9px;border:1px solid rgba(185,138,47,.35);border-radius:12px;pointer-events:none}
+.level-card.art-hsk1{background-image:linear-gradient(90deg,var(--surface) 0%,var(--surface) 55%,color-mix(in srgb,var(--surface) 25%,transparent) 80%,transparent 100%),url(card-hsk1.jpg)}
+.level-card.art-hsk2{background-image:linear-gradient(90deg,var(--surface) 0%,var(--surface) 55%,color-mix(in srgb,var(--surface) 25%,transparent) 80%,transparent 100%),url(card-hsk2.jpg)}
 .level-card.art-hsk3{background-image:linear-gradient(90deg,var(--surface) 0%,var(--surface) 55%,color-mix(in srgb,var(--surface) 25%,transparent) 80%,transparent 100%),url(card-hsk3.jpg)}
 .level-card.art-hsk4-thuong{background-image:linear-gradient(90deg,var(--surface) 0%,var(--surface) 55%,color-mix(in srgb,var(--surface) 25%,transparent) 80%,transparent 100%),url(card-hsk4-thuong.jpg)}
 .level-card.art-hsk4-ha{background-image:linear-gradient(90deg,var(--surface) 0%,var(--surface) 55%,color-mix(in srgb,var(--surface) 25%,transparent) 80%,transparent 100%),url(card-hsk4-ha.jpg)}
