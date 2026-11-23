@@ -3930,3 +3930,29 @@ body.hide-pinyin .kk-char rt{visibility:hidden}
 .kk-calc[hidden]{display:none}
 .kk-calc-spin{width:16px;height:16px;flex:none;border-radius:50%;border:2px solid rgba(46,125,107,.25);border-top-color:var(--ok);animation:kk-spin .7s linear infinite}
 @keyframes kk-spin{to{transform:rotate(360deg)}}
+
+/* ===== Ôn tập tự chọn: giao diện gọn (pill bài học) ===== */
+.cr-setup-head{margin-bottom:12px}
+.cr-setup-title{margin:0 0 4px;font-size:1.2rem}
+.cr-toolbar-sub{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.cr-quick-actions{display:flex;gap:6px;flex-wrap:wrap}
+.cr-lesson-pill-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:16px}
+.cr-lesson-pill{display:flex;align-items:center;gap:8px;min-width:0;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;font:inherit;color:var(--ink);cursor:pointer;transition:border-color .15s ease,background-color .15s ease}
+.cr-lesson-pill:hover{border-color:var(--ok)}
+.cr-lesson-pill.is-selected{background:var(--selected);border-color:var(--ok)}
+.cr-lp-check{flex:none;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line-2);display:grid;place-items:center;font-size:.72rem;font-weight:900;color:var(--muted)}
+.cr-lesson-pill.is-selected .cr-lp-check{background:var(--ok);border-color:var(--ok);color:#fff}
+.cr-lp-num{flex:none;font-size:.82rem;font-weight:800;color:var(--ok)}
+.cr-lp-han{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.88rem;color:var(--muted)}
+.cr-launch-cta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#crCustomGroupSection .cr-launch-box{position:sticky;bottom:12px;z-index:5;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+#crCustomGroupSection .cr-launch-box.is-ready{background:#eef6f2}
+#crCustomGroupSection .cr-launch-box.is-warn{background:#fbf3f1}
+.cr-sel-chip small{color:var(--muted);font-weight:600}
+@media (max-width:760px){
+  .cr-lesson-pill-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #crCustomGroupSection .cr-launch-box{bottom:calc(72px + env(safe-area-inset-bottom));padding:12px}
+  .cr-launch-cta{width:100%}
+  .cr-launch-cta .cr-btn-start{flex:1}
+  .cr-sel-chips{max-height:64px;overflow:auto}
+}

@@ -724,7 +724,7 @@
   var state = {
     topMode: 'custom',            // 'custom' | 'srs'
     screen: 'setup',              // 'setup' | 'exam' | 'result'
-    courseFilter: 'all',          // 'all' | 'hsk3' | 'hsk4-thuong' | 'hsk4-ha'
+    courseFilter: String(defaultSelectedKeys[0] || 'hsk3').split(':')[0] || 'hsk3', // 'hsk3' | 'hsk4-thuong' | 'hsk4-ha' | 'all'
     selectedKeys: defaultSelectedKeys,
     activeScopeTitle: '',
     examLayout: 'single',         // 'single' (Từng câu) | 'sheet' (Toàn bộ đề 20 câu)
@@ -955,171 +955,103 @@
     var selectedSet = {};
     state.selectedKeys.forEach(function (k) { selectedSet[k] = true; });
 
-    // Tính tổng kho câu hỏi của các bài đang chọn
-    var poolStats = { vocab: 0, fill: 0, dict: 0 };
-    selectedLessons.forEach(function (l) {
-      poolStats.vocab += (l.vocab || []).length;
-      poolStats.fill += (l.fillItems || []).length;
-      poolStats.dict += (l.dictations || []).length;
-    });
-    var totalPoolItems = poolStats.vocab + poolStats.fill + poolStats.dict;
-
-    // 1. Khối 3 khóa học trọn bộ
-    var courseCardsHtml = COURSE_META.map(function (cm) {
-      var cLessons = CATALOG.byCourse[cm.id] || [];
-      var allInCourseSelected = cLessons.length > 0 && cLessons.every(function (l) { return !!selectedSet[l.key]; });
-      var someInCourseSelected = cLessons.some(function (l) { return !!selectedSet[l.key]; });
-      var cVocab = 0, cEx = 0;
-      cLessons.forEach(function (l) {
-        cVocab += (l.vocab || []).length;
-        cEx += (l.fillItems || []).length + (l.dictations || []).length;
-      });
-
-      return (
-        '<article class="cr-course-card' + (allInCourseSelected ? ' is-selected' : (someInCourseSelected ? ' is-partial' : '')) + '">' +
-          '<div class="cr-course-top">' +
-            '<span class="cr-course-badge">' + esc(cm.badge) + '</span>' +
-            '<span class="cr-course-count">' + cLessons.length + ' bài</span>' +
-          '</div>' +
-          '<h3 class="cr-course-title">' + esc(cm.title) + '</h3>' +
-          '<p class="cr-course-desc">' + esc(cm.desc) + '</p>' +
-          '<div class="cr-course-meta">' +
-            '<span>📚 ' + cVocab + ' từ vựng</span>' +
-            '<span>🎯 ' + cEx + ' câu bài tập</span>' +
-          '</div>' +
-          '<div class="cr-course-actions">' +
-            '<button class="cr-btn-primary" type="button" data-quick-course="' + esc(cm.id) + '">🎲 Làm đề khóa này</button>' +
-            '<button class="cr-btn-ghost" type="button" data-select-course="' + esc(cm.id) + '">' +
-              (allInCourseSelected ? '✓ Đã chọn cả khóa' : 'Chọn ' + cLessons.length + ' bài này') +
-            '</button>' +
-          '</div>' +
-        '</article>'
-      );
-    }).join('');
-
-    // 2. Danh sách bài học để tự gom nhóm (ít nhất 2 bài)
-    var visibleLessons = state.courseFilter === 'all'
+    var curFilter = state.courseFilter || 'hsk3';
+    var visibleLessons = curFilter === 'all'
       ? CATALOG.all
-      : (CATALOG.byCourse[state.courseFilter] || []);
+      : (CATALOG.byCourse[curFilter] || []);
 
+    // Presets thông minh theo khóa học đang xem
+    var presetsHtml = '';
+    if (curFilter === 'hsk3') {
+      presetsHtml =
+        '<button type="button" class="cr-preset-btn" data-preset="hsk3:1,hsk3:2,hsk3:3,hsk3:4,hsk3:5">Bài 1–5</button>' +
+        '<button type="button" class="cr-preset-btn" data-preset="hsk3:6,hsk3:7,hsk3:8,hsk3:9,hsk3:10">Bài 6–10</button>' +
+        '<button type="button" class="cr-preset-btn" data-preset="hsk3:11,hsk3:12,hsk3:13,hsk3:14,hsk3:15">Bài 11–15</button>' +
+        '<button type="button" class="cr-preset-btn" data-preset="hsk3:16,hsk3:17,hsk3:18">Bài 16–18</button>';
+    } else if (curFilter === 'hsk4-thuong') {
+      presetsHtml =
+        '<button type="button" class="cr-preset-btn" data-preset="hsk4-thuong:1,hsk4-thuong:2,hsk4-thuong:3,hsk4-thuong:4,hsk4-thuong:5">Bài 1–5</button>' +
+        '<button type="button" class="cr-preset-btn" data-preset="hsk4-thuong:6,hsk4-thuong:7,hsk4-thuong:8,hsk4-thuong:9,hsk4-thuong:10">Bài 6–10</button>';
+    } else if (curFilter === 'hsk4-ha') {
+      presetsHtml =
+        '<button type="button" class="cr-preset-btn" data-preset="hsk4-ha:11,hsk4-ha:12,hsk4-ha:13,hsk4-ha:14,hsk4-ha:15">Bài 11–15</button>' +
+        '<button type="button" class="cr-preset-btn" data-preset="hsk4-ha:16,hsk4-ha:17,hsk4-ha:18,hsk4-ha:19,hsk4-ha:20">Bài 16–20</button>';
+    }
+
+    // Grid danh sách bài học dạng compact pill siêu gọn
     var lessonsGridHtml = visibleLessons.map(function (l) {
       var isSel = !!selectedSet[l.key];
-      var qCount = (l.vocab || []).length + (l.fillItems || []).length + (l.dictations || []).length;
       return (
-        '<button type="button" class="cr-lesson-card' + (isSel ? ' is-selected' : '') + '" data-toggle-lesson="' + esc(l.key) + '" aria-pressed="' + (isSel ? 'true' : 'false') + '">' +
-          '<div class="cr-lesson-card-top">' +
-            '<span class="cr-lesson-tag">' + esc(l.label) + '</span>' +
-            '<span class="cr-lesson-check" aria-hidden="true">' + (isSel ? '✓' : '+') + '</span>' +
-          '</div>' +
-          '<div class="cr-lesson-han han">' + esc(l.han) + '</div>' +
-          '<div class="cr-lesson-theme">' + esc(l.theme) + '</div>' +
-          '<div class="cr-lesson-foot">' +
-            '<span>' + (l.vocab || []).length + ' từ</span>' +
-            '<span>·</span>' +
-            '<span>' + ((l.fillItems || []).length + (l.dictations || []).length) + ' câu hỏi</span>' +
-          '</div>' +
+        '<button type="button" class="cr-lesson-pill' + (isSel ? ' is-selected' : '') + '" data-toggle-lesson="' + esc(l.key) + '" aria-pressed="' + (isSel ? 'true' : 'false') + '" title="' + esc(l.label + ': ' + l.theme) + '">' +
+          '<span class="cr-lp-check" aria-hidden="true">' + (isSel ? '✓' : '+') + '</span>' +
+          '<span class="cr-lp-num">' + esc(l.shortLabel) + '</span>' +
+          '<span class="cr-lp-han han">' + esc(l.han) + '</span>' +
         '</button>'
       );
     }).join('');
 
-    // Các chip bài đang chọn
+    // Chip các bài đang chọn
     var selectedChipsHtml = selectedLessons.length
       ? selectedLessons.map(function (l) {
           return (
             '<span class="cr-sel-chip">' +
-              '<strong>' + esc(l.label) + '</strong>' +
+              '<strong>' + esc(l.shortLabel) + '</strong> <small>' + esc(l.courseShort) + '</small>' +
               '<button type="button" class="cr-sel-remove" data-remove-lesson="' + esc(l.key) + '" aria-label="Bỏ chọn ' + esc(l.label) + '">×</button>' +
             '</span>'
           );
         }).join('')
-      : '<span class="cr-sel-empty">Chưa có bài nào được chọn. Hãy chọn ít nhất 2 bài bên trên!</span>';
+      : '<span class="cr-sel-empty">Chưa chọn bài nào. Bấm chọn ít nhất 2 bài bên trên để tạo đề.</span>';
 
     var canStart = selectedLessons.length >= 2;
 
+    // Nút làm nhanh cả khóa đang xem
+    var curCourseMeta = COURSE_META.find(function (m) { return m.id === curFilter; });
+    var quickCourseBtnHtml = curCourseMeta
+      ? '<button class="cr-btn-ghost cr-quick-course-btn" type="button" data-quick-course="' + esc(curCourseMeta.id) + '">⚡ Thi cả ' + esc(curCourseMeta.shortTitle) + '</button>'
+      : '';
+
     return (
       '<div class="cr-setup">' +
-        /* Khối 1: Ôn nhanh theo khóa học */
-        '<section class="srs-block srs-panel cr-panel">' +
-          '<div class="cr-section-head">' +
-            '<div>' +
-              '<span class="cr-step-pill">Cách 1 · Ôn trọn khóa học</span>' +
-              '<h2>Chọn nhanh theo cấp độ</h2>' +
-              '<p class="srs-note">Bấm <strong>“Làm đề khóa này”</strong> để hệ thống rút ngẫu nhiên 20 câu trải đều toàn bộ các bài trong khóa.</p>' +
-            '</div>' +
-          '</div>' +
-          '<div class="cr-course-grid">' + courseCardsHtml + '</div>' +
-        '</section>' +
-
-        /* Khối 2: Tự gom nhóm bài học (ít nhất 2 bài) */
         '<section class="srs-block srs-panel cr-panel" id="crCustomGroupSection">' +
-          '<div class="cr-section-head">' +
+          '<div class="cr-setup-head">' +
             '<div>' +
-              '<span class="cr-step-pill">Cách 2 · Tự gom nhóm bài học (Tối thiểu 2 bài)</span>' +
-              '<h2>Tự chọn các bài muốn ghép chung thành 1 đề</h2>' +
-              '<p class="srs-note">Ví dụ: chọn <strong>Bài 12, 13, 14</strong> của HSK 3 (hoặc gộp bất kỳ các bài bạn vừa học xong). Mỗi lần tạo đề sẽ random một bộ 20 câu mới từ đúng các bài đã chọn.</p>' +
+              '<h2 class="cr-setup-title">Chọn bài ôn tập</h2>' +
+              '<p class="srs-note">Chọn khóa học hoặc bấm chọn nhanh các bài bạn muốn luyện đề tổng hợp (20 câu ngẫu nhiên).</p>' +
             '</div>' +
           '</div>' +
 
           '<div class="cr-filter-bar">' +
             '<div class="cr-course-tabs" role="tablist" aria-label="Lọc bài học theo khóa">' +
-              '<button type="button" class="cr-filter-tab' + (state.courseFilter === 'all' ? ' active' : '') + '" data-course-filter="all">Tất cả (38 bài)</button>' +
-              '<button type="button" class="cr-filter-tab' + (state.courseFilter === 'hsk3' ? ' active' : '') + '" data-course-filter="hsk3">HSK 3 (Bài 1–18)</button>' +
-              '<button type="button" class="cr-filter-tab' + (state.courseFilter === 'hsk4-thuong' ? ' active' : '') + '" data-course-filter="hsk4-thuong">HSK 4 Thượng (Bài 1–10)</button>' +
-              '<button type="button" class="cr-filter-tab' + (state.courseFilter === 'hsk4-ha' ? ' active' : '') + '" data-course-filter="hsk4-ha">HSK 4 Hạ (Bài 11–20)</button>' +
+              '<button type="button" class="cr-filter-tab' + (curFilter === 'hsk3' ? ' active' : '') + '" data-course-filter="hsk3">HSK 3 (18 bài)</button>' +
+              '<button type="button" class="cr-filter-tab' + (curFilter === 'hsk4-thuong' ? ' active' : '') + '" data-course-filter="hsk4-thuong">HSK 4 Thượng (10 bài)</button>' +
+              '<button type="button" class="cr-filter-tab' + (curFilter === 'hsk4-ha' ? ' active' : '') + '" data-course-filter="hsk4-ha">HSK 4 Hạ (10 bài)</button>' +
+              '<button type="button" class="cr-filter-tab' + (curFilter === 'all' ? ' active' : '') + '" data-course-filter="all">Tất cả (38 bài)</button>' +
             '</div>' +
-            '<div class="cr-quick-presets">' +
-              '<button type="button" class="cr-preset-btn" data-preset="hsk3:12,hsk3:13,hsk3:14">⚡ Mẫu HSK 3: Bài 12, 13, 14</button>' +
-              '<button type="button" class="cr-preset-btn" data-preset="hsk4-thuong:1,hsk4-thuong:2,hsk4-thuong:3">⚡ Mẫu HSK 4 Thượng: Bài 1, 2, 3</button>' +
-              '<button type="button" class="cr-preset-btn" data-preset="hsk4-ha:11,hsk4-ha:12,hsk4-ha:13">⚡ Mẫu HSK 4 Hạ: Bài 11, 12, 13</button>' +
-              '<button type="button" class="cr-preset-btn" data-select-visible="1">Chọn tất cả bài đang hiển thị</button>' +
-              '<button type="button" class="cr-preset-btn is-clear" data-clear-all="1">Bỏ chọn hết</button>' +
-            '</div>' +
-          '</div>' +
-
-          '<div class="cr-lesson-grid">' + lessonsGridHtml + '</div>' +
-        '</section>' +
-
-        /* Khối 3: Cấu trúc đề chuẩn & Bảng điều khiển Bắt đầu */
-        '<section class="srs-block srs-panel cr-panel cr-blueprint-panel">' +
-          '<div class="cr-blueprint-head">' +
-            '<div>' +
-              '<span class="cr-step-pill">Cấu trúc cố định của 1 Đề Ôn Tập Chuẩn</span>' +
-              '<h2>20 câu hỏi tổng hợp · Thang điểm 100</h2>' +
-              '<p class="srs-note">Đề thi được thiết kế cân đối cả 3 kỹ năng cốt lõi (Từ vựng, Ngữ pháp, Nghe chép câu), rút ngẫu nhiên có phân tầng đều từ các bài bạn đã chọn:</p>' +
+            '<div class="cr-toolbar-sub">' +
+              '<div class="cr-quick-actions">' +
+                '<button type="button" class="cr-preset-btn" data-select-visible="1">Chọn cả khóa này</button>' +
+                '<button type="button" class="cr-preset-btn is-clear" data-clear-all="1">Bỏ chọn hết</button>' +
+              '</div>' +
+              (presetsHtml ? '<div class="cr-quick-presets">' + presetsHtml + '</div>' : '') +
             '</div>' +
           '</div>' +
 
-          '<div class="cr-blueprint-grid">' +
-            '<div class="cr-bp-item">' +
-              '<span class="cr-bp-part">Phần I · Câu 1–9 (45đ)</span>' +
-              '<strong>Từ vựng &amp; Phiên âm</strong>' +
-              '<p>3 câu nhận diện nghĩa ngữ cảnh, 3 câu chọn từ chữ Hán, 3 câu chuẩn Pinyin &amp; dấu thanh.</p>' +
-            '</div>' +
-            '<div class="cr-bp-item">' +
-              '<span class="cr-bp-part">Phần II · Câu 10–17 (40đ)</span>' +
-              '<strong>Điền từ &amp; Ngữ pháp</strong>' +
-              '<p>5 câu chọn từ điền vào chỗ trống (＿＿) và 3 câu hoàn thành cấu trúc ngữ pháp trọng tâm.</p>' +
-            '</div>' +
-            '<div class="cr-bp-item">' +
-              '<span class="cr-bp-part">Phần III · Câu 18–20 (15đ)</span>' +
-              '<strong>Nghe chép câu Hán tự</strong>' +
-              '<p>3 câu nghe âm thanh chuẩn/chậm rồi gõ lại câu hoặc ghép các cụm từ Hán tự.</p>' +
-            '</div>' +
-          '</div>' +
+          '<div class="cr-lesson-pill-grid">' + lessonsGridHtml + '</div>' +
 
           '<div class="cr-launch-box' + (canStart ? ' is-ready' : ' is-warn') + '">' +
             '<div class="cr-launch-info">' +
               '<div class="cr-launch-title">' +
-                '<strong>Nhóm bài đã chọn (' + selectedLessons.length + ' bài):</strong> ' +
+                '<strong>Đã chọn: ' + selectedLessons.length + ' bài</strong>' +
                 (canStart
-                  ? '<span class="cr-pool-badge">Kho nguồn: ' + totalPoolItems + ' mục (' + poolStats.vocab + ' từ · ' + poolStats.fill + ' câu điền · ' + poolStats.dict + ' câu nghe chép)</span>'
-                  : '<span class="cr-warn-badge">⚠️ Vui lòng chọn ít nhất 2 bài học để ghép thành đề tổng hợp</span>') +
+                  ? '<span class="cr-pool-badge">Đề gồm 20 câu trắc nghiệm, điền từ &amp; nghe chép</span>'
+                  : '<span class="cr-warn-badge">⚠️ Chọn ít nhất 2 bài để bắt đầu</span>') +
               '</div>' +
               '<div class="cr-sel-chips">' + selectedChipsHtml + '</div>' +
             '</div>' +
             '<div class="cr-launch-cta">' +
+              quickCourseBtnHtml +
               '<button type="button" class="cr-btn-start" id="crStartExamBtn"' + (canStart ? '' : ' disabled') + '>' +
-                '🎲 Tạo đề ngẫu nhiên (' + selectedLessons.length + ' bài)' +
+                '🎲 Bắt đầu làm đề (20 câu)' +
               '</button>' +
             '</div>' +
           '</div>' +
