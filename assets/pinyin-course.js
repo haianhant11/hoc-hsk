@@ -4,6 +4,37 @@
   const $ = s => document.querySelector(s);
   const esc = s => String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+  /* Khoa tam khoa Phat am de sua loi: chi mo bang mat ma (chi luu ban bam SHA-256, khong luu mat ma goc) */
+  const PY_LOCK_HASH = '71be8726ee2e5dc940f26b2566dfbc0b434f7ef7a9eb81dad088b52cb3183525';
+  const PY_UNLOCK_KEY = 'pyUnlock';
+  const PY_UNLOCKED = (() => { try { return sessionStorage.getItem(PY_UNLOCK_KEY) === '1'; } catch (e) { return false; } })();
+  function pySha256Hex(str) {
+    if (!window.crypto || !crypto.subtle) return Promise.resolve('');
+    const data = new TextEncoder().encode(str);
+    return crypto.subtle.digest('SHA-256', data).then(buf => Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join(''));
+  }
+  function pyRenderLock(msg) {
+    const panel = document.querySelector('#pyPanel');
+    if (!panel) return;
+    panel.innerHTML = '<article class="info-card" style="text-align:center;padding:28px 18px"><h3>Khoa Phat am dang duoc sua</h3><p>Phan Thanh mau, Van mau va Thanh dieu dang duoc chinh sua lai, tam khoa de hoan thien. Nhap mat ma de mo ban thu nghiem.</p><form id="pyLockForm" style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px"><input id="pyLockPass" type="password" placeholder="Nhap mat ma" autocomplete="off" style="padding:10px 12px;border:1px solid var(--line);border-radius:10px;min-width:200px"><button class="action" type="submit">Mo khoa</button></form>' + (msg ? '<p style="color:var(--verm);margin-top:10px">' + esc(msg) + '</p>' : '') + '</article>';
+    const form = document.querySelector('#pyLockForm');
+    const input = document.querySelector('#pyLockPass');
+    if (form && input) {
+      input.focus();
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        pySha256Hex(input.value || '').then(hex => {
+          if (hex && hex === PY_LOCK_HASH) {
+            try { sessionStorage.setItem(PY_UNLOCK_KEY, '1'); } catch (err) {}
+            location.reload();
+          } else {
+            pyRenderLock('Mat ma chua dung, thu lai nhe.');
+          }
+        });
+      });
+    }
+  }
+
   let activeTab = 'initials'; // 'initials' | 'finals' | 'tones' | 'mixer'
   let activeInit = 'b';
   let activeFinal = 'a';
@@ -335,7 +366,7 @@
     }
   }
 
-  document.addEventListener('click', e => {
+  if (PY_UNLOCKED) document.addEventListener('click', e => {
     const tabBtn = e.target.closest('[data-py-tab]');
     if (tabBtn) { activeTab = tabBtn.dataset.pyTab; render(); return; }
 
@@ -403,5 +434,5 @@
     }
   });
 
-  document.addEventListener('DOMContentLoaded', render);
+  document.addEventListener('DOMContentLoaded', () => { if (PY_UNLOCKED) render(); else pyRenderLock(''); });
 })();
