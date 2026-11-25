@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="vi">
+<head><base href="/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:,">
+<title>Phát âm chuẩn Pinyin · Thanh mẫu, Vận mẫu &amp; Thanh điệu — Hải Anh Ant</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Học HSK — Hải Anh Ant">
+<meta property="og:title" content="Phát âm chuẩn Pinyin — Hải Anh Ant">
+<meta property="og:description" content="Hướng dẫn chi tiết vị trí đặt lưỡi, môi, thanh mẫu, vận mẫu, thanh điệu và bảng ghép âm nghe phát âm chuẩn.">
+<meta property="og:url" content="https://hoc-hsk.vercel.app/phat-am">
+<link rel="stylesheet" href="assets/theme.css">
+</head>
+<body>
+<div class="app">
+  <div class="study-bar">
+    <a class="home-brand" href="./" aria-label="Về trang chủ"><span class="brand-mark">海英</span><span>Trang chủ</span></a>
+    <span class="study-crumb">Phát âm chuẩn Pinyin</span>
+    <a class="srs-link" href="/on-tap">Ôn tập <span class="srs-badge" data-srs-badge hidden></span></a>
+    <div class="header-actions"><span class="user-slot" data-user-slot></span><span class="streak-slot" data-streak-slot></span></div>
+  </div>
+
+  <main class="main" style="max-width:980px;margin:18px auto 0">
+    <section class="lesson-head">
+      <div class="lesson-kicker"><span class="seal-mini">音</span> Khóa nền tảng phát âm</div>
+      <h2>Phát âm chuẩn Pinyin</h2>
+      <div class="lesson-pinyin pinyin">Shēngmǔ · Yùnmǔ · Shēngdiào</div>
+      <p>Hướng dẫn kỹ vị trí đặt lưỡi, khẩu hình môi, luồng hơi của 21 thanh mẫu, 35 vận mẫu, 4 thanh điệu và bảng ghép âm nghe audio chuẩn.</p>
+    </section>
+
+    <nav class="maintabs" aria-label="Phần học phát âm">
+      <button class="maintab active" type="button" data-py-tab="initials">Thanh mẫu (21)</button>
+      <button class="maintab" type="button" data-py-tab="finals">Vận mẫu (35)</button>
+      <button class="maintab" type="button" data-py-tab="tones">Thanh điệu (4+1)</button>
+      <button class="maintab" type="button" data-py-tab="mixer">Ghép âm &amp; Nghe</button>
+    </nav>
+
+    <section class="panel" id="pyPanel"></section>
+  </main>
+
+  <footer class="attrib"><p class="attrib-note">Trang được biên soạn với mục đích học tập cá nhân.</p></footer>
+</div>
+
+<nav class="bottom-nav" aria-label="Điều hướng phát âm">
+  <button class="active" type="button" data-py-tab="initials"><span class="han">声</span><span>Thanh mẫu</span></button>
+  <button type="button" data-py-tab="finals"><span class="han">韵</span><span>Vận mẫu</span></button>
+  <button type="button" data-py-tab="tones"><span class="han">调</span><span>Thanh điệu</span></button>
+  <button type="button" data-py-tab="mixer"><span class="han">拼</span><span>Ghép âm</span></button>
+</nav>
+
+<script src="assets/data/pinyin-guide.js"></script>
+<script src="assets/srs.js"></script>
+<script src="assets/streak.js"></script>
+<script src="assets/leaderboard.js"></script>
+<script src="assets/haiying-3d.js"></script>
+<script src="assets/pinyin-course.js"></script>
+</body></html>

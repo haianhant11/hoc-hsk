@@ -1,1 +1,77 @@
-{"cleanUrls":true,"redirects":[{"destination":"/hsk1","permanent":true,"source":"/assets/hsk1.html"},{"destination":"/hsk2","permanent":true,"source":"/assets/hsk2.html"},{"destination":"/hsk3","permanent":true,"source":"/assets/hsk3.html"},{"destination":"/hsk4-thuong","permanent":true,"source":"/assets/hsk4-thuong.html"},{"destination":"/hsk4-ha","permanent":true,"source":"/assets/hsk4-ha.html"},{"destination":"/hsk1","permanent":true,"source":"/assets/hsk1"},{"destination":"/hsk2","permanent":true,"source":"/assets/hsk2"},{"destination":"/hsk3","permanent":true,"source":"/assets/hsk3"},{"destination":"/hsk4-thuong","permanent":true,"source":"/assets/hsk4-thuong"},{"destination":"/hsk4-ha","permanent":true,"source":"/assets/hsk4-ha"}],"rewrites":[{"source":"/hsk1/:path*","destination":"/hsk1"},{"source":"/hsk2/:path*","destination":"/hsk2"},{"source":"/hsk3/:path*","destination":"/hsk3"},{"source":"/hsk4-thuong/:path*","destination":"/hsk4-thuong"},{"source":"/hsk4-ha/:path*","destination":"/hsk4-ha"}]}
+{
+    "cleanUrls": true,
+    "redirects": [
+        {
+            "destination": "/hsk1",
+            "permanent": true,
+            "source": "/assets/hsk1.html"
+        },
+        {
+            "destination": "/hsk2",
+            "permanent": true,
+            "source": "/assets/hsk2.html"
+        },
+        {
+            "destination": "/hsk3",
+            "permanent": true,
+            "source": "/assets/hsk3.html"
+        },
+        {
+            "destination": "/hsk4-thuong",
+            "permanent": true,
+            "source": "/assets/hsk4-thuong.html"
+        },
+        {
+            "destination": "/hsk4-ha",
+            "permanent": true,
+            "source": "/assets/hsk4-ha.html"
+        },
+        {
+            "destination": "/hsk1",
+            "permanent": true,
+            "source": "/assets/hsk1"
+        },
+        {
+            "destination": "/hsk2",
+            "permanent": true,
+            "source": "/assets/hsk2"
+        },
+        {
+            "destination": "/hsk3",
+            "permanent": true,
+            "source": "/assets/hsk3"
+        },
+        {
+            "destination": "/hsk4-thuong",
+            "permanent": true,
+            "source": "/assets/hsk4-thuong"
+        },
+        {
+            "destination": "/hsk4-ha",
+            "permanent": true,
+            "source": "/assets/hsk4-ha"
+        }
+    ],
+    "rewrites": [
+        {
+            "source": "/hsk1/:path*",
+            "destination": "/hsk1"
+        },
+        {
+            "source": "/hsk2/:path*",
+            "destination": "/hsk2"
+        },
+        {
+            "source": "/hsk3/:path*",
+            "destination": "/hsk3"
+        },
+        {
+            "source": "/hsk4-thuong/:path*",
+            "destination": "/hsk4-thuong"
+        },
+        {
+            "source": "/hsk4-ha/:path*",
+            "destination": "/hsk4-ha"
+        }
+    ]
+}

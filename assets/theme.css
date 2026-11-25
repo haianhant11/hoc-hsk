@@ -3956,3 +3956,55 @@ body.hide-pinyin .kk-char rt{visibility:hidden}
   .cr-launch-cta .cr-btn-start{flex:1}
   .cr-sel-chips{max-height:64px;overflow:auto}
 }
+
+/* ===== Khóa Phát âm chuẩn Pinyin (phat-am.html) ===== */
+.level-card.art-pinyin{background:linear-gradient(155deg,#FAFBF7 0%,#EEF4F0 100%)}
+.py-lead{margin:0 0 14px;color:var(--muted);font-size:.94rem;line-height:1.5}
+.py-group-card{display:flex;flex-direction:column;gap:12px}
+.py-group-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.py-group-info{flex:1;min-width:240px}
+.py-group-info h3{margin:0 0 6px}
+.py-group-tip{margin:0;color:var(--ink);font-size:.92rem;line-height:1.45}
+.py-diagram-box{width:260px;max-width:100%;flex:none}
+.py-diagram-svg,.py-tone-svg{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:12px}
+.py-item-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.py-sound-card{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.py-sound-head{display:flex;align-items:center;gap:8px}
+.py-sym{font-size:1.4rem;font-weight:900;color:var(--ink);font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.py-air-tag{font-size:.74rem;font-weight:700;padding:2px 8px;border-radius:999px;background:rgba(46,125,107,.11);color:var(--ok)}
+.py-ex-han{font-size:1.15rem;font-weight:700;color:var(--ok)}
+.py-sound-head .speak{margin-left:auto}
+.py-sound-ex{font-size:.86rem;color:var(--ink)}
+.py-sound-desc,.py-sound-warn,.py-sound-note{margin:0;font-size:.84rem;line-height:1.45;color:var(--muted)}
+.py-sound-warn strong{color:var(--verm)}
+.py-tone-hero{display:grid;grid-template-columns:minmax(260px,360px) 1fr;gap:16px;align-items:center}
+.py-tone-guide h3{margin:0 0 6px}
+.py-tone-guide p{margin:0 0 10px;font-size:.9rem;color:var(--muted)}
+.py-tone-demo-row{display:flex;gap:8px;flex-wrap:wrap}
+.py-tone-pill{border:1px solid var(--line-2);background:var(--bg);border-radius:10px;padding:6px 10px;font:inherit;font-size:.84rem;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.py-tone-pill:hover{border-color:var(--ok);background:var(--selected)}
+.py-tone-card-ex{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:6px;border-bottom:1px dashed var(--line)}
+.py-sym-sm{font-size:1.1rem;font-weight:800;color:var(--ok)}
+.py-mixer-stage{display:flex;flex-direction:column;gap:16px}
+.py-mixer-result{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:16px;border-radius:14px;border:1.5px solid var(--ok);background:var(--selected)}
+.py-mixer-result.is-bad{border-color:rgba(165,68,50,.4);background:rgba(165,68,50,.06)}
+.py-res-formula{font-size:.84rem;font-weight:700;color:var(--muted)}
+.py-res-syl{font-size:2.3rem;font-weight:900;color:var(--ink);line-height:1.15;margin:4px 0}
+.py-res-meta{font-size:.9rem;color:var(--ink)}
+.py-res-actions{display:flex;gap:8px;flex-wrap:wrap}
+.py-picker-block h4{margin:0 0 8px;font-size:.92rem;color:var(--ink)}
+.py-picker-block h4 small{font-weight:500;color:var(--muted)}
+.py-chip-grid{display:flex;gap:6px;flex-wrap:wrap}
+.py-chip{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:9px;padding:6px 11px;font:inherit;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .14s ease}
+.py-chip:hover{border-color:var(--ok)}
+.py-chip.active{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.py-chip.is-invalid{opacity:.38}
+.py-quick-syl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(115px,1fr));gap:7px}
+.py-qsyl-btn{border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:7px 9px;font:inherit;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:2px}
+.py-qsyl-btn:hover{border-color:var(--ok);background:var(--selected)}
+.py-qsyl-btn strong{font-size:.96rem;color:var(--ink)}
+.py-qsyl-btn span{font-size:.76rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:720px){
+  .py-tone-hero{grid-template-columns:1fr}
+  .py-diagram-box{width:100%}
+}
