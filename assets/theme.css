@@ -4008,3 +4008,35 @@ body.hide-pinyin .kk-char rt{visibility:hidden}
   .py-tone-hero{grid-template-columns:1fr}
   .py-diagram-box{width:100%}
 }
+
+/* ===== Bảng Thanh mẫu & Vận mẫu chuẩn HSK ===== */
+.py-matrix-wrap{overflow-x:auto;margin-bottom:14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px}
+.py-matrix{width:100%;border-collapse:collapse;min-width:540px}
+.py-matrix th,.py-matrix td{padding:7px 8px;text-align:center;border-bottom:1px solid var(--line);font-size:.86rem}
+.py-matrix thead th{font-size:.78rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.02em;background:var(--bg)}
+.py-matrix tbody th{text-align:left;font-weight:700;color:var(--ink);white-space:nowrap}
+.py-td-empty{color:var(--line-2)}
+.py-matrix-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:9px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;cursor:pointer;transition:all .14s ease}
+.py-matrix-btn strong{font-size:1.05rem;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.py-matrix-btn span{font-size:.86rem;color:var(--muted)}
+.py-matrix-btn:hover{border-color:var(--ok)}
+.py-matrix-btn.active{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.py-matrix-btn.active span{color:rgba(255,255,255,.8)}
+.py-detail-card{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.py-detail-left{flex:1;min-width:260px;display:flex;flex-direction:column;gap:8px}
+.py-detail-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.py-listen-btn{margin-left:auto}
+.py-detail-line{margin:0;font-size:.9rem;line-height:1.5;color:var(--ink)}
+.py-detail-img-box{width:230px;flex:none;text-align:center}
+.py-detail-img-box img{width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:#fff;display:block}
+.py-img-cap{display:block;margin-top:5px;font-size:.76rem;color:var(--muted)}
+.py-final-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:9px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;cursor:pointer}
+.py-final-btn strong{font-size:1rem}
+.py-final-btn span{font-size:.86rem;color:var(--muted)}
+.py-final-btn:hover{border-color:var(--ok)}
+.py-final-btn.active{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.py-final-btn.active span{color:rgba(255,255,255,.82)}
+.py-res-han{font-size:1.8rem;font-weight:700;color:var(--ok);margin-left:8px}
+@media (max-width:680px){
+  .py-detail-img-box{width:100%;max-width:260px;margin:0 auto}
+}
