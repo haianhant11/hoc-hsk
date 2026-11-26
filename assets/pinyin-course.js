@@ -192,6 +192,19 @@
     retroflex: 'https://accenthero.com/app/assets/phonemes/ZH.svg',
     dental: 'https://accenthero.com/app/assets/phonemes/Z.svg'
   };
+  /* Sơ đồ theo từng thanh mẫu (không theo nhóm): AccentHero có ảnh riêng cho
+     hầu hết các âm; khác nhau ở dây thanh (đỏ = hữu thanh, xám = vô thanh) và
+     mũi tên xanh chỉ luồng hơi mũi ở m, n. Các âm không có ảnh riêng
+     (h, j, q, x, c) dùng chung ảnh của nhóm vị trí. */
+  const PY_INIT_DIAGRAM = {
+    b: 'B', p: 'P', m: 'M', f: 'F',
+    d: 'D', t: 'T', n: 'N', l: 'L',
+    g: 'G', k: 'K', h: 'G',
+    j: 'Y', q: 'Y', x: 'Y',
+    zh: 'ZH', ch: 'CH', sh: 'SH', r: 'R',
+    z: 'Z', c: 'Z', s: 'S'
+  };
+  const PY_INIT_DIAGRAM_URL = sym => 'https://accenthero.com/app/assets/phonemes/' + (PY_INIT_DIAGRAM[sym] || 'B') + '.svg';
 
   function renderInitCell(sym) {
     if (!sym) return '<td class="py-td-empty">—</td>';
@@ -248,7 +261,7 @@
           <p class="py-sound-warn"><strong>Lỗi hay gặp:</strong> ${esc(it.mistake)}</p>
         </div>
         <div class="py-detail-img-box">
-          <img src="${PY_EXT_DIAGRAM[g.diagram] || ('assets/pinyin-diagrams/' + g.diagram + '.png')}" alt="Sơ đồ mặt cắt vị trí lưỡi cho ${esc(g.name)}" loading="lazy" onerror="this.onerror=null;this.src='assets/pinyin-diagrams/${esc(g.diagram)}.png';">
+          <img src="${PY_INIT_DIAGRAM_URL(it.sym)}" alt="Sơ đồ mặt cắt vị trí lưỡi cho ${esc(g.name)}" loading="lazy" onerror="this.onerror=null;this.src='assets/pinyin-diagrams/${esc(g.diagram)}.png';">
           <span class="py-img-cap">Phần tô đỏ là bộ phận phát âm chính · Sơ đồ: AccentHero</span>
         </div>
       </article>`;
