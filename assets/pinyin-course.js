@@ -181,6 +181,18 @@
     { pos: 'Thẳng lưỡi (đầu lưỡi trước)', diagram: 'dental', cols: { unasp: 'z', asp: 'c', nasal: '', fric: 's', voiced: '' } }
   ];
 
+  /* Sơ đồ mặt cắt rõ hơn (AccentHero, tô đỏ bộ phận phát âm chính).
+     Link chết thì onerror tự quay về ảnh PNG hiện tại trong repo. */
+  const PY_EXT_DIAGRAM = {
+    bilabial: 'https://accenthero.com/app/assets/phonemes/B.svg',
+    labiodental: 'https://accenthero.com/app/assets/phonemes/F.svg',
+    alveolar: 'https://accenthero.com/app/assets/phonemes/D.svg',
+    velar: 'https://accenthero.com/app/assets/phonemes/G.svg',
+    palatal: 'https://accenthero.com/app/assets/phonemes/Y.svg',
+    retroflex: 'https://accenthero.com/app/assets/phonemes/ZH.svg',
+    dental: 'https://accenthero.com/app/assets/phonemes/Z.svg'
+  };
+
   function renderInitCell(sym) {
     if (!sym) return '<td class="py-td-empty">—</td>';
     const found = findInitial(sym);
@@ -195,16 +207,6 @@
     const it = cur.item;
 
     return `<div class="section-intro"><h3>Bảng Thanh mẫu chuẩn HSK (21 âm)</h3><span class="count">Bấm vào ô để nghe</span></div>
-      <article class="info-card py-ref-diagram">
-        <h3>Sơ đồ tham khảo: các bộ phận phát âm</h3>
-        <p>Học thuộc sơ đồ này trước, rồi nhìn 7 sơ đồ bên dưới sẽ hiểu ngay lưỡi đặt ở đâu. Ảnh có nhãn tiếng Anh, chú thích tiếng Việt ở dưới.</p>
-        <div class="py-ref-img-box">
-          <img src="https://wstyler.ucsd.edu/talks/phonmedia/sagittal_labeled.png" alt="Sơ đồ mặt cắt các bộ phận phát âm có nhãn: môi, răng, lưỡi, ngạc" loading="lazy" onerror="this.onerror=null;this.src='assets/pinyin-diagrams/bilabial.png';var c=this.parentElement.querySelector('.py-ref-fallback-note');if(c)c.hidden=false;">
-          <p class="py-ref-fallback-note" hidden>Ảnh tham khảo không tải được, đang hiển thị sơ đồ hiện tại.</p>
-        </div>
-        <p class="py-ref-legend"><strong>Chú thích:</strong> lip = môi · teeth = răng · tongue tip = đầu lưỡi · tongue (raised) = lưỡi nâng lên · tongue (rest position) = lưỡi lúc nghỉ · alveolar ridge = lợi (nướu) trên · palate = ngạc cứng · velum = ngạc mềm · uvula = lưỡi gà · epiglottis = nắp thanh quản · larynx = thanh quản · glottis = khe thanh môn · trachea = khí quản · nasal cavity = khoang mũi</p>
-        <p class="py-ref-source">Nguồn ảnh: UCSD Phonetics Lab (sagittal_labeled.png). Nhãn gốc tiếng Anh.</p>
-      </article>
       <div class="py-matrix-wrap">
         <table class="py-matrix" aria-label="Bảng phân loại thanh mẫu tiếng Trung">
           <thead>
@@ -245,8 +247,8 @@
           <p class="py-sound-warn"><strong>Lỗi hay gặp:</strong> ${esc(it.mistake)}</p>
         </div>
         <div class="py-detail-img-box">
-          <img src="assets/pinyin-diagrams/${esc(g.diagram)}.png" alt="Sơ đồ mặt cắt vị trí lưỡi cho ${esc(g.name)}" loading="lazy">
-          <span class="py-img-cap">Sơ đồ vị trí lưỡi chuẩn IPA (${esc(g.diagram)})</span>
+          <img src="${PY_EXT_DIAGRAM[g.diagram] || ('assets/pinyin-diagrams/' + g.diagram + '.png')}" alt="Sơ đồ mặt cắt vị trí lưỡi cho ${esc(g.name)}" loading="lazy" onerror="this.onerror=null;this.src='assets/pinyin-diagrams/${esc(g.diagram)}.png';">
+          <span class="py-img-cap">Phần tô đỏ là bộ phận phát âm chính · Sơ đồ: AccentHero</span>
         </div>
       </article>`;
   }
