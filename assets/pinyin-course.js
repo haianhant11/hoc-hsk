@@ -131,7 +131,7 @@
       if (!pyAudioEl) { pyAudioEl = new Audio(); pyAudioEl.preload = 'auto'; }
       const file = m[0], start = m[1], end = m[2];
       const src = 'assets/audio/h1/' + file;
-      const stopAt = end + 0.25;
+      const stopAt = end + 0.50;
       if (pyAudioEl._pyStop) pyAudioEl.removeEventListener('timeupdate', pyAudioEl._pyStop);
       pyAudioEl._pyStop = function () {
         if (pyAudioEl.currentTime >= stopAt) { pyAudioEl.pause(); pyAudioEl.removeEventListener('timeupdate', pyAudioEl._pyStop); }
@@ -139,7 +139,7 @@
       pyAudioEl.addEventListener('timeupdate', pyAudioEl._pyStop);
       pyAudioEl.onerror = function () { if (fallbackHan) speakZh(fallbackHan, 0.72); };
       const playFrom = function () {
-        try { pyAudioEl.currentTime = Math.max(0, start - 0.05); } catch (e) {}
+        try { pyAudioEl.currentTime = Math.max(0, start - 0.40); } catch (e) {}
         pyAudioEl.play().catch(function () { if (fallbackHan) speakZh(fallbackHan, 0.72); });
       };
       if (pyAudioEl.getAttribute('src') !== src) {
@@ -207,6 +207,7 @@
     const it = cur.item;
 
     return `<div class="section-intro"><h3>Bảng Thanh mẫu chuẩn HSK (21 âm)</h3><span class="count">Bấm vào ô để nghe</span></div>
+      <div class="orig-audio-box"><div class="orig-audio-label">Nghe cả bảng thanh mẫu (21 âm, giọng gốc nhà xuất bản)</div><audio class="orig-audio" controls preload="metadata" src="assets/audio/h1/h1-phon-initials-all.mp3"></audio></div>
       <div class="py-matrix-wrap">
         <table class="py-matrix" aria-label="Bảng phân loại thanh mẫu tiếng Trung">
           <thead>

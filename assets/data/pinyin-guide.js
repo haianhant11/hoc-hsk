@@ -98,18 +98,18 @@ window.PINYIN_FINALS = [
     items: [
       { sym: 'ai', read: 'āi', han: '爱', mouth: 'Mở miệng chữ "a" rồi khép nhanh lên "i".', tip: 'Giống "ai" tiếng Việt.' },
       { sym: 'ei', read: 'ēi', han: '飞', mouth: 'Bắt đầu ở "ê" nhẹ rồi lướt lên "i".', tip: 'Giống "ây/êi" ngắn gọn.' },
+      { sym: 'ui', read: 'wēi', han: '对', mouth: 'Là dạng viết tắt của "uei": lướt từ "u" sang "êi".', tip: 'Khi đứng một mình viết là "wei", dấu thanh đặt trên chữ "i".' },
       { sym: 'ao', read: 'āo', han: '好', mouth: 'Mở miệng chữ "a" rồi thu tròn môi về "o/u".', tip: 'Giống "ao" tiếng Việt nhưng cuối âm hơi khép môi tròn hơn.' },
       { sym: 'ou', read: 'ōu', han: '欧', mouth: 'Bắt đầu từ "ô" rồi chu môi thêm về "u".', tip: 'Giống "âu" nhưng tròn môi hơn.' },
-      { sym: 'ia', read: 'yā', han: '家', mouth: 'Lướt nhanh từ "i" sang mở rộng "a".', tip: 'Đọc nhanh thành một âm tiết liền mạch ("ia").' },
-      { sym: 'ie', read: 'yē', han: '姐', mouth: 'Lướt từ "i" sang "ê" mở nhẹ.', tip: 'Đọc gần như "iê", âm cuối là "ê" ngắn.' },
-      { sym: 'iao', read: 'yāo', han: '要', mouth: 'Từ "i" lướt qua "a" rồi thu tròn về "o".', tip: 'Giống "eo/iao" liền mạch.' },
       { sym: 'iu', read: 'yōu', han: '六', mouth: 'Là dạng viết tắt của "iou": lướt từ "i" sang "ôu".', tip: 'Khi đứng một mình viết là "you", dấu thanh đặt trên chữ "u".' },
+      { sym: 'ie', read: 'yē', han: '姐', mouth: 'Lướt từ "i" sang "ê" mở nhẹ.', tip: 'Đọc gần như "iê", âm cuối là "ê" ngắn.' },
+      { sym: 'üe', read: 'yuē', han: '月', mouth: 'Chu môi phát âm "ü" rồi mở nhẹ sang "ê".', tip: 'Sau j, q, x, y bỏ hai chấm thành jue, que, xue, yue.' },
+      { sym: 'er', read: 'ér', han: '儿', mouth: 'Phát âm "ơ" đồng thời cuộn nhẹ đầu lưỡi lên phía ngạc cứng.', tip: 'Âm uốn lưỡi đặc trưng, không ghép với thanh mẫu.' },
+      { sym: 'ia', read: 'yā', han: '家', mouth: 'Lướt nhanh từ "i" sang mở rộng "a".', tip: 'Đọc nhanh thành một âm tiết liền mạch ("ia").' },
+      { sym: 'iao', read: 'yāo', han: '要', mouth: 'Từ "i" lướt qua "a" rồi thu tròn về "o".', tip: 'Giống "eo/iao" liền mạch.' },
       { sym: 'ua', read: 'wā', han: '花', mouth: 'Chu môi "u" rồi mở rộng ngay sang "a".', tip: 'Giống "oa" tiếng Việt.' },
       { sym: 'uo', read: 'wō', han: '说', mouth: 'Chu môi "u" rồi mở vừa sang "o".', tip: 'Giống "ua/uô" tròn môi.' },
-      { sym: 'uai', read: 'wāi', han: '快', mouth: 'Chu môi "u" -> mở "a" -> lướt lên "i".', tip: 'Giống "oai" tiếng Việt.' },
-      { sym: 'ui', read: 'wēi', han: '对', mouth: 'Là dạng viết tắt của "uei": lướt từ "u" sang "êi".', tip: 'Khi đứng một mình viết là "wei", dấu thanh đặt trên chữ "i".' },
-      { sym: 'üe', read: 'yuē', han: '月', mouth: 'Chu môi phát âm "ü" rồi mở nhẹ sang "ê".', tip: 'Sau j, q, x, y bỏ hai chấm thành jue, que, xue, yue.' },
-      { sym: 'er', read: 'ér', han: '儿', mouth: 'Phát âm "ơ" đồng thời cuộn nhẹ đầu lưỡi lên phía ngạc cứng.', tip: 'Âm uốn lưỡi đặc trưng, không ghép với thanh mẫu.' }
+      { sym: 'uai', read: 'wāi', han: '快', mouth: 'Chu môi "u" -> mở "a" -> lướt lên "i".', tip: 'Giống "oai" tiếng Việt.' }
     ]
   },
   {
