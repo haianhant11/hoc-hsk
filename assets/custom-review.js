@@ -1,12 +1,13 @@
 /* ==========================================================================
    ÔN TẬP TỰ CHỌN · LUYỆN ĐỀ TỔNG HỢP NGẪU NHIÊN (assets/custom-review.js)
    - Hỗ trợ 2 chế độ trên trang /on-tap:
-     1) Ôn tập Tự chọn (Luyện đề chuẩn 20 câu random từ khóa học hoặc nhóm >= 2 bài)
+     1) Ôn tập Tự chọn (Luyện đề chuẩn random từ khóa học hoặc nhóm >= 2 bài)
      2) Ôn tập SRS (Lặp lại ngắt quãng hiện có)
-   - Cấu trúc cố định của 1 Đề Ôn Tập Chuẩn (20 câu · 100 điểm · 5 điểm/câu):
-     + Phần I   (Câu 1–9,  45đ): Từ vựng & Phiên âm (3 câu Chữ Hán→Nghĩa, 3 câu Nghĩa→Chữ Hán, 3 câu Pinyin & Thanh điệu)
-     + Phần II  (Câu 10–17,40đ): Điền từ & Ngữ pháp trọng tâm (5 câu Điền từ vào chỗ trống, 3 câu Hoàn thành câu ngữ pháp)
-     + Phần III (Câu 18–20,15đ): Nghe chép câu Hán tự (3 câu nghe chép có ghép từ & gõ trực tiếp)
+   - 3 cấp độ (chọn ở màn hình thiết lập, cùng logic sinh đề, chỉ tăng số câu):
+     + 简单 (20 câu · 100 điểm): I 9 câu (3/3/3), II 8 câu (5 bank + 3 grammar), III 3 câu
+     + 中等 (30 câu · 150 điểm): I 14 câu (5/5/4), II 12 câu (7 bank + 5 grammar), III 4 câu
+     + 困难 (45 câu · 225 điểm): I 20 câu (7/7/6), II 18 câu (11 bank + 7 grammar), III 7 câu
+   - Mỗi câu 5 điểm; xếp hạng theo tỉ lệ đúng (90% / 75% / 55%).
    ========================================================================== */
 (function () {
   'use strict';
@@ -459,10 +460,23 @@
     });
   }
 
+  /* ---------- 3 cấp độ đề (cùng logic sinh đề, chỉ tăng số câu) ----------
+     hanToVi/viToHan/hanToPy: số câu Phần I theo từng dạng;
+     bank/grammar: số câu Phần II; dict: số câu Phần III. */
+  var LEVELS = {
+    jiandan:  { id: 'jiandan',  label: '简单', py: 'jiǎndān',  total: 20, hanToVi: 3, viToHan: 3, hanToPy: 3, bank: 5,  grammar: 3, dict: 3 },
+    zhongdeng:{ id: 'zhongdeng',label: '中等', py: 'zhōngděng', total: 30, hanToVi: 5, viToHan: 5, hanToPy: 4, bank: 7,  grammar: 5, dict: 4 },
+    kunnan:   { id: 'kunnan',   label: '困难', py: 'kùnnán',   total: 45, hanToVi: 7, viToHan: 7, hanToPy: 6, bank: 11, grammar: 7, dict: 7 }
+  };
+  function levelConfig(id) {
+    return LEVELS[id] || LEVELS.jiandan;
+  }
+
   /* ==========================================================================
-     SINH ĐỀ ÔN TẬP TỔNG HỢP THEO CẤU TRÚC CỐ ĐỊNH (20 CÂU · 100 ĐIỂM)
+     SINH ĐỀ ÔN TẬP TỔNG HỢP THEO CẤP ĐỘ (5 điểm/câu)
      ========================================================================== */
-  function generateExam(selectedLessons) {
+  function generateExam(selectedLessons, levelId) {
+    var cfg = levelConfig(levelId);
     var allVocab = [];
     selectedLessons.forEach(function (l) {
       (l.vocab || []).forEach(function (v) {
@@ -477,13 +491,13 @@
     var questions = [];
     var qNumber = 1;
 
-    /* ----- PHẦN I: TỪ VỰNG & PHIÊN ÂM (9 câu: Câu 1–9) ----- */
-    var vocabPicks = pickStratified(selectedLessons, 9, function (l) { return l.vocab || []; });
+    /* ----- PHẦN I: TỪ VỰNG & PHIÊN ÂM ----- */
+    var vocabPicks = pickStratified(selectedLessons, cfg.hanToVi + cfg.viToHan + cfg.hanToPy, function (l) { return l.vocab || []; });
 
     vocabPicks.forEach(function (pick, idx) {
       var l = pick.lesson;
       var v = pick.data;
-      var subType = idx < 3 ? 'han_to_vi' : (idx < 6 ? 'vi_to_han' : 'han_to_py');
+      var subType = idx < cfg.hanToVi ? 'han_to_vi' : (idx < cfg.hanToVi + cfg.viToHan ? 'vi_to_han' : 'han_to_py');
 
       if (subType === 'han_to_vi') {
         var wrongVi = shuffle(allMeanings.filter(function (m) { return m !== v.meaning; })).slice(0, 3);
@@ -578,9 +592,9 @@
       }
     });
 
-    /* ----- PHẦN II: ĐIỀN TỪ & NGỮ PHÁP TRỌNG TÂM (8 câu: Câu 10–17) ----- */
-    // 5 câu Điền từ vào chỗ trống (type === 'bank')
-    var bankPicks = pickStratified(selectedLessons, 5, function (l) {
+    /* ----- PHẦN II: ĐIỀN TỪ & NGỮ PHÁP TRỌNG TÂM ----- */
+    // Câu Điền từ vào chỗ trống (type === 'bank')
+    var bankPicks = pickStratified(selectedLessons, cfg.bank, function (l) {
       return (l.fillItems || []).filter(function (it) { return it.type === 'bank'; });
     });
 
@@ -628,8 +642,8 @@
       });
     });
 
-    // 3 câu Hoàn thành câu Ngữ pháp (type === 'grammar')
-    var grammarPicks = pickStratified(selectedLessons, 3, function (l) {
+    // Câu Hoàn thành câu Ngữ pháp (type === 'grammar')
+    var grammarPicks = pickStratified(selectedLessons, cfg.grammar, function (l) {
       return (l.fillItems || []).filter(function (it) { return it.type === 'grammar'; });
     });
 
@@ -672,8 +686,8 @@
       });
     });
 
-    /* ----- PHẦN III: NGHE CHÉP CÂU HÁN TỰ (3 câu: Câu 18–20) ----- */
-    var dictPicks = pickStratified(selectedLessons, 3, function (l) { return l.dictations || []; });
+    /* ----- PHẦN III: NGHE CHÉP CÂU HÁN TỰ ----- */
+    var dictPicks = pickStratified(selectedLessons, cfg.dict, function (l) { return l.dictations || []; });
 
     dictPicks.forEach(function (pick) {
       var l = pick.lesson;
@@ -720,14 +734,16 @@
   if (defaultSelectedKeys.length < 2) {
     defaultSelectedKeys = ['hsk3:12', 'hsk3:13', 'hsk3:14'];
   }
+  var defaultLevel = (saved && LEVELS[saved.level]) ? saved.level : 'jiandan';
 
   var state = {
     topMode: 'custom',            // 'custom' | 'srs'
     screen: 'setup',              // 'setup' | 'exam' | 'result'
     courseFilter: String(defaultSelectedKeys[0] || 'hsk3').split(':')[0] || 'hsk3', // 'hsk3' | 'hsk4-thuong' | 'hsk4-ha' | 'all'
     selectedKeys: defaultSelectedKeys,
+    level: defaultLevel,          // 'jiandan' | 'zhongdeng' | 'kunnan'
     activeScopeTitle: '',
-    examLayout: 'single',         // 'single' (Từng câu) | 'sheet' (Toàn bộ đề 20 câu)
+    examLayout: 'single',         // 'single' (Từng câu) | 'sheet' (Toàn bộ đề)
     questions: [],
     currentIndex: 0,
     startedAt: 0,
@@ -739,7 +755,8 @@
 
   function persistSelected() {
     savePrefs({
-      selectedKeys: state.selectedKeys
+      selectedKeys: state.selectedKeys,
+      level: state.level
     });
   }
 
@@ -795,7 +812,7 @@
 
       if (sub) {
         sub.textContent = isCustom
-          ? 'Chọn ôn trọn khóa học (HSK 3, HSK 4 Thượng, HSK 4 Hạ) hoặc tự gom nhóm ít nhất 2 bài bất kỳ — hệ thống sẽ random một đề tổng hợp 20 câu chuẩn theo ngân hàng đề.'
+          ? 'Chọn ôn trọn khóa học (HSK 3, HSK 4 Thượng, HSK 4 Hạ) hoặc tự gom nhóm ít nhất 2 bài bất kỳ, rồi chọn cấp độ — hệ thống sẽ random một đề tổng hợp theo ngân hàng đề.'
           : 'Ôn lại đúng những từ và kỹ năng bạn còn yếu. Lịch ôn đơn giản: nhớ đúng thì giãn dần 1 → 3 → 7 → 14 → 30 ngày, chưa nhớ thì gặp lại sau khoảng 10 phút.';
       }
       if (!skipHash && window.history && window.history.replaceState) {
@@ -834,7 +851,7 @@
     if (selected.length < 2) return;
     persistSelected();
     state.activeScopeTitle = customScopeTitle || computeScopeSummary(selected);
-    state.questions = generateExam(selected);
+    state.questions = generateExam(selected, state.level);
     state.currentIndex = 0;
     state.submitted = false;
     state.awardedExam = false;
@@ -895,7 +912,7 @@
     return true;
   }
 
-  /* ---------- Nộp bài & Chấm toàn bộ 20 câu ---------- */
+  /* ---------- Nộp bài & Chấm toàn bộ đề ---------- */
   function submitFullExam() {
     stopTimer();
     state.questions.forEach(function (q) {
@@ -1003,6 +1020,16 @@
       : '<span class="cr-sel-empty">Chưa chọn bài nào. Bấm chọn ít nhất 2 bài bên trên để tạo đề.</span>';
 
     var canStart = selectedLessons.length >= 2;
+    var curLevel = levelConfig(state.level);
+    var levelPickerHtml = Object.keys(LEVELS).map(function (lid) {
+      var lv = LEVELS[lid];
+      return (
+        '<button type="button" class="cr-level-btn' + (state.level === lid ? ' active' : '') + '" data-exam-level="' + lid + '" aria-pressed="' + (state.level === lid ? 'true' : 'false') + '">' +
+          '<span class="cr-level-han han">' + esc(lv.label) + '</span>' +
+          '<span class="cr-level-meta">' + esc(lv.py) + ' · ' + lv.total + ' câu · ' + (lv.total * 5) + ' điểm</span>' +
+        '</button>'
+      );
+    }).join('');
 
     // Nút làm nhanh cả khóa đang xem
     var curCourseMeta = COURSE_META.find(function (m) { return m.id === curFilter; });
@@ -1016,7 +1043,7 @@
           '<div class="cr-setup-head">' +
             '<div>' +
               '<h2 class="cr-setup-title">Chọn bài ôn tập</h2>' +
-              '<p class="srs-note">Chọn khóa học hoặc bấm chọn nhanh các bài bạn muốn luyện đề tổng hợp (20 câu ngẫu nhiên).</p>' +
+              '<p class="srs-note">Chọn khóa học hoặc bấm chọn nhanh các bài bạn muốn luyện đề tổng hợp, rồi chọn cấp độ bên dưới.</p>' +
             '</div>' +
           '</div>' +
 
@@ -1038,12 +1065,17 @@
 
           '<div class="cr-lesson-pill-grid">' + lessonsGridHtml + '</div>' +
 
+          '<div class="cr-level-row" role="group" aria-label="Chọn cấp độ đề">' +
+            '<span class="cr-level-label">Cấp độ đề:</span>' +
+            levelPickerHtml +
+          '</div>' +
+
           '<div class="cr-launch-box' + (canStart ? ' is-ready' : ' is-warn') + '">' +
             '<div class="cr-launch-info">' +
               '<div class="cr-launch-title">' +
                 '<strong>Đã chọn: ' + selectedLessons.length + ' bài</strong>' +
                 (canStart
-                  ? '<span class="cr-pool-badge">Đề gồm 20 câu trắc nghiệm, điền từ &amp; nghe chép</span>'
+                  ? '<span class="cr-pool-badge">Đề ' + esc(curLevel.label) + ' gồm ' + curLevel.total + ' câu trắc nghiệm, điền từ &amp; nghe chép</span>'
                   : '<span class="cr-warn-badge">⚠️ Chọn ít nhất 2 bài để bắt đầu</span>') +
               '</div>' +
               '<div class="cr-sel-chips">' + selectedChipsHtml + '</div>' +
@@ -1051,7 +1083,7 @@
             '<div class="cr-launch-cta">' +
               quickCourseBtnHtml +
               '<button type="button" class="cr-btn-start" id="crStartExamBtn"' + (canStart ? '' : ' disabled') + '>' +
-                '🎲 Bắt đầu làm đề (20 câu)' +
+                '🎲 Bắt đầu làm đề (' + curLevel.total + ' câu)' +
               '</button>' +
             '</div>' +
           '</div>' +
@@ -1065,6 +1097,7 @@
      ========================================================================== */
   function renderQuestionCard(q, idx, isSheetMode) {
     var letterLabels = ['A', 'B', 'C', 'D', 'E'];
+    var totalQ = state.questions.length || 20;
     var bodyHtml = '';
 
     /* --- 1. Câu trắc nghiệm Từ vựng / Phiên âm (Phần I) --- */
@@ -1299,7 +1332,7 @@
     return (
       '<article class="cr-q-card' + (q.checked ? (q.isCorrect ? ' is-card-ok' : ' is-card-bad') : '') + '" id="crQuestion_' + idx + '">' +
         '<div class="cr-q-card-head">' +
-          '<span class="cr-q-num">Câu ' + q.num + '/20</span>' +
+          '<span class="cr-q-num">Câu ' + q.num + '/' + totalQ + '</span>' +
           '<span class="cr-q-type">' + esc(q.typeBadge) + '</span>' +
           '<span class="cr-q-source">' + esc(q.lessonLabel) + '</span>' +
         '</div>' +
@@ -1316,15 +1349,22 @@
      ========================================================================== */
   function renderExamScreen() {
     var qs = state.questions;
+    var totalQ = qs.length || 20;
+    var maxScore = totalQ * 5;
+    var curLevel = levelConfig(state.level);
     var answeredCount = qs.filter(function (q) { return q.checked; }).length;
     var correctCount = qs.filter(function (q) { return q.checked && q.isCorrect; }).length;
 
-    // Nhóm câu hỏi theo 3 phần trên bản đồ câu hỏi
-    var sectionsMeta = [
-      { id: 'part1', short: 'Phần I · Từ vựng (1–9)', range: [0, 8] },
-      { id: 'part2', short: 'Phần II · Điền từ & Ngữ pháp (10–17)', range: [9, 16] },
-      { id: 'part3', short: 'Phần III · Nghe chép (18–20)', range: [17, 19] }
-    ];
+    // Nhóm câu hỏi theo 3 phần trên bản đồ câu hỏi (phạm vi tính từ đề thật)
+    var sectionsMeta = [];
+    ['part1', 'part2', 'part3'].forEach(function (sid) {
+      var idxs = [];
+      qs.forEach(function (q, i) { if (q.sectionId === sid) idxs.push(i); });
+      if (!idxs.length) return;
+      var lo = qs[idxs[0]].num, hi = qs[idxs[idxs.length - 1]].num;
+      var label = sid === 'part1' ? 'Phần I · Từ vựng' : (sid === 'part2' ? 'Phần II · Điền từ & Ngữ pháp' : 'Phần III · Nghe chép');
+      sectionsMeta.push({ id: sid, short: label + ' (' + lo + '–' + hi + ')', range: [idxs[0], idxs[idxs.length - 1]] });
+    });
 
     var qmapHtml = sectionsMeta.map(function (sec) {
       var dots = '';
@@ -1362,7 +1402,7 @@
           '</div>' +
         '</div>';
     } else {
-      // Chế độ hiển thị toàn bộ tờ đề 20 câu chia 3 phần
+      // Chế độ hiển thị toàn bộ tờ đề chia 3 phần
       var lastSec = '';
       var allCardsHtml = qs.map(function (q, idx) {
         var headerBanner = '';
@@ -1381,7 +1421,7 @@
         '<div class="cr-sheet-stage">' +
           allCardsHtml +
           '<div class="cr-sheet-footer">' +
-            '<button type="button" class="cr-btn-submit is-lg" id="crFinishBtnSheet">Nộp bài &amp; Xem bảng điểm tổng kết (20 câu)</button>' +
+            '<button type="button" class="cr-btn-submit is-lg" id="crFinishBtnSheet">Nộp bài &amp; Xem bảng điểm tổng kết (' + totalQ + ' câu)</button>' +
           '</div>' +
         '</div>';
     }
@@ -1391,26 +1431,26 @@
         /* Thanh Header Đề Thi */
         '<div class="srs-panel cr-exam-topbar">' +
           '<div class="cr-exam-info">' +
-            '<span class="cr-scope-pill">Đề ngẫu nhiên chuẩn · 20 câu</span>' +
+            '<span class="cr-scope-pill">Đề ngẫu nhiên chuẩn · ' + esc(curLevel.label) + ' ' + totalQ + ' câu</span>' +
             '<h2 class="cr-exam-scope-title">' + esc(state.activeScopeTitle) + '</h2>' +
           '</div>' +
           '<div class="cr-exam-metrics">' +
             '<div class="cr-metric-chip"><span>⏱ Thời gian</span><strong id="crTimerVal">' + formatDuration(state.elapsedSec) + '</strong></div>' +
-            '<div class="cr-metric-chip"><span>Đã làm</span><strong>' + answeredCount + '/20</strong></div>' +
-            '<div class="cr-metric-chip is-score"><span>Điểm hiện tại</span><strong>' + (correctCount * 5) + '/100</strong></div>' +
+            '<div class="cr-metric-chip"><span>Đã làm</span><strong>' + answeredCount + '/' + totalQ + '</strong></div>' +
+            '<div class="cr-metric-chip is-score"><span>Điểm hiện tại</span><strong>' + (correctCount * 5) + '/' + maxScore + '</strong></div>' +
           '</div>' +
           '<div class="cr-exam-actions">' +
             '<div class="cr-layout-switch" role="group" aria-label="Chế độ xem đề">' +
               '<button type="button" class="cr-layout-btn' + (state.examLayout === 'single' ? ' active' : '') + '" data-exam-layout="single">Từng câu</button>' +
               '<button type="button" class="cr-layout-btn' + (state.examLayout === 'sheet' ? ' active' : '') + '" data-exam-layout="sheet">Toàn bộ đề</button>' +
             '</div>' +
-            '<button type="button" class="cr-btn-ghost" id="crRerollBtn" title="Random một đề 20 câu mới từ cùng các bài đã chọn">🎲 Đổi đề mới</button>' +
+            '<button type="button" class="cr-btn-ghost" id="crRerollBtn" title="Random một đề ' + totalQ + ' câu mới từ cùng các bài đã chọn">🎲 Đổi đề mới</button>' +
             '<button type="button" class="cr-btn-ghost" id="crBackSetupBtn">Đổi bài ôn</button>' +
             '<button type="button" class="cr-btn-submit" id="crSubmitExamBtn">Nộp bài</button>' +
           '</div>' +
         '</div>' +
 
-        /* Bản đồ 20 câu theo 3 phần */
+        /* Bản đồ câu hỏi theo 3 phần */
         '<div class="srs-panel cr-qmap-panel">' + qmapHtml + '</div>' +
 
         /* Nội dung câu hỏi */
@@ -1426,19 +1466,21 @@
     var qs = state.questions;
     var total = qs.length || 20;
     var correct = qs.filter(function (q) { return q.isCorrect; }).length;
-    var score100 = correct * 5;
+    var score = correct * 5;
+    var maxScore = total * 5;
+    var pct = total ? correct / total : 0;
 
     var rankTitle = 'Cần củng cố thêm';
     var rankComment = 'Bạn hãy xem lại lời giải chi tiết các câu sai bên dưới và bấm “Làm đề ngẫu nhiên mới” để luyện lại nhóm bài này nhé!';
-    if (score100 >= 90) {
+    if (pct >= 0.9) {
       rankTitle = 'Xuất sắc · Nắm rất chắc bài!';
       rankComment = 'Tuyệt vời! Bạn đã làm chủ cả từ vựng, ngữ pháp, bài khóa và nghe chép của nhóm bài này.';
-    } else if (score100 >= 75) {
+    } else if (pct >= 0.75) {
       rankTitle = 'Khá giỏi · Nền tảng vững vàng';
       rankComment = 'Kết quả rất khả quan! Chỉ còn một vài chi tiết nhỏ cần lưu ý thêm.';
-    } else if (score100 >= 55) {
+    } else if (pct >= 0.55) {
       rankTitle = 'Đạt yêu cầu · Tiếp tục rèn luyện';
-      rankComment = 'Bạn đã nắm được ý chính của các bài, hãy thử random thêm một đề nữa để đạt trên 80 điểm nhé.';
+      rankComment = 'Bạn đã nắm được ý chính của các bài, hãy thử random thêm một đề nữa để đạt trên 80% số câu đúng nhé.';
     }
 
     // Thống kê theo 3 Phần
@@ -1483,7 +1525,7 @@
       );
     }).join('');
 
-    // Toàn bộ 20 câu kèm đáp án & lời giải để đối chiếu
+    // Toàn bộ câu kèm đáp án & lời giải để đối chiếu
     var reviewCardsHtml = qs.map(function (q, idx) {
       return renderQuestionCard(q, idx, true);
     }).join('');
@@ -1493,8 +1535,8 @@
         '<section class="srs-block srs-panel cr-summary-card">' +
           '<div class="cr-summary-hero">' +
             '<div class="cr-score-circle">' +
-              '<span class="cr-score-num">' + score100 + '</span>' +
-              '<span class="cr-score-den">/ 100 điểm</span>' +
+              '<span class="cr-score-num">' + score + '</span>' +
+              '<span class="cr-score-den">/ ' + maxScore + ' điểm</span>' +
             '</div>' +
             '<div class="cr-summary-text">' +
               '<span class="cr-scope-pill">' + esc(state.activeScopeTitle) + '</span>' +
@@ -1526,7 +1568,7 @@
         '</section>' +
 
         '<section class="srs-block">' +
-          '<h2 class="cr-review-heading">Chi tiết đáp án &amp; lời giải 20 câu</h2>' +
+          '<h2 class="cr-review-heading">Chi tiết đáp án &amp; lời giải ' + total + ' câu</h2>' +
           '<div class="cr-sheet-stage">' + reviewCardsHtml + '</div>' +
         '</section>' +
       '</div>'
@@ -1611,6 +1653,18 @@
         return;
       }
 
+      // [SETUP] Chọn cấp độ đề (简单 / 中等 / 困难)
+      var levelBtn = target.closest('[data-exam-level]');
+      if (levelBtn) {
+        var lvId = levelBtn.getAttribute('data-exam-level');
+        if (LEVELS[lvId]) {
+          state.level = lvId;
+          persistSelected();
+          render();
+        }
+        return;
+      }
+
       // [SETUP] Chọn mẫu preset nhanh (VD: Bài 12, 13, 14)
       var presetBtn = target.closest('[data-preset]');
       if (presetBtn) {
@@ -1686,7 +1740,7 @@
         return;
       }
 
-      // [EXAM] Nhảy tới câu bất kỳ trên thanh bản đồ 20 câu
+      // [EXAM] Nhảy tới câu bất kỳ trên thanh bản đồ câu hỏi
       var jumpBtn = target.closest('[data-jump-q]');
       if (jumpBtn) {
         var qIdx = parseInt(jumpBtn.getAttribute('data-jump-q'), 10);
