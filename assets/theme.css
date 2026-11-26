@@ -4076,8 +4076,8 @@ body.hide-pinyin .kk-char rt{visibility:hidden}
 .wb-item-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .wb-item-no{font-weight:800;color:var(--ink)}
 .wb-play{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 10px;cursor:pointer;font:inherit}
-.wb-printed{font-family:var(--font-han);font-size:1.25rem;font-weight:700}
-.wb-text{font-family:var(--font-han);font-size:1.25rem;font-weight:700}
+.wb-printed{font-family:var(--font-han-sans);font-size:1.25rem;font-weight:700}
+.wb-text{font-family:var(--font-han-sans);font-size:1.25rem;font-weight:700}
 .wb-fill-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
 .wb-input{flex:1;min-width:160px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:var(--surface)}
 .wb-input:disabled{background:var(--selected)}
@@ -4089,7 +4089,8 @@ body.hide-pinyin .kk-char rt{visibility:hidden}
 .wb-opt:disabled{cursor:default}
 .wb-pic{margin-top:10px}
 .wb-pic img{max-width:100%;border-radius:12px;border:1px solid var(--line)}
-.wb-passage{font-family:var(--font-han);font-size:1.15rem;margin:8px 0}
+.wb-passage{font-family:var(--font-han-sans);font-size:1.15rem;margin:8px 0}
+.wb-ex .grammar-title{font-family:var(--font-han-sans)}
 .wb-question{margin:8px 0}
 .wb-picdesc{color:var(--muted);font-size:.95rem;margin:6px 0}
 .wb-note{color:var(--muted);font-size:.95rem;margin:6px 0}

@@ -7,8 +7,8 @@ var workbook1 = {
       {
         "no": 1,
         "type": "read-aloud",
-        "title": "听录音，朗读音节。",
-        "titleVi": "Nghe ghi âm, đọc to âm tiết.",
+        "title": "听录音，读音节。",
+        "titleVi": "Nghe ghi âm, đọc âm tiết.",
         "audioRange": [
           10.29,
           107.27
@@ -307,8 +307,8 @@ var workbook1 = {
       {
         "no": 2,
         "type": "fill-initial",
-        "title": "听录音，写出听到的声母并大声朗读。",
-        "titleVi": "Nghe ghi âm, viết ra thanh mẫu nghe được và đọc to.",
+        "title": "听录音，写出听到的声母。",
+        "titleVi": "Nghe ghi âm, viết ra thanh mẫu nghe được.",
         "instructionRange": [
           111.99,
           117.63
@@ -469,8 +469,8 @@ var workbook1 = {
       {
         "no": 3,
         "type": "fill-final",
-        "title": "听录音，写出听到的韵母并大声朗读。",
-        "titleVi": "Nghe ghi âm, viết ra vận mẫu nghe được và đọc to.",
+        "title": "听录音，写出听到的韵母。",
+        "titleVi": "Nghe ghi âm, viết ra vận mẫu nghe được.",
         "instructionRange": [
           193.37,
           199.0
@@ -631,8 +631,8 @@ var workbook1 = {
       {
         "no": 4,
         "type": "fill-tone",
-        "title": "听录音，写出听到的声调并大声朗读。",
-        "titleVi": "Nghe ghi âm, viết ra thanh điệu nghe được và đọc to.",
+        "title": "听录音，写出听到的声调。",
+        "titleVi": "Nghe ghi âm, viết ra thanh điệu nghe được.",
         "instructionRange": [
           275.1,
           280.73
@@ -836,8 +836,8 @@ var workbook1 = {
       {
         "no": 1,
         "type": "fill-initial",
-        "title": "听录音，写出听到的声母并大声朗读。",
-        "titleVi": "Nghe ghi âm, viết ra thanh mẫu nghe được và đọc to.",
+        "title": "听录音，写出听到的声母。",
+        "titleVi": "Nghe ghi âm, viết ra thanh mẫu nghe được.",
         "instructionRange": [
           5.09,
           10.95
@@ -938,8 +938,8 @@ var workbook1 = {
       {
         "no": 2,
         "type": "fill-final",
-        "title": "听录音，写出听到的韵母并大声朗读。",
-        "titleVi": "Nghe ghi âm, viết ra vận mẫu nghe được và đọc to.",
+        "title": "听录音，写出听到的韵母。",
+        "titleVi": "Nghe ghi âm, viết ra vận mẫu nghe được.",
         "instructionRange": [
           57.85,
           63.66
@@ -1100,8 +1100,8 @@ var workbook1 = {
       {
         "no": 3,
         "type": "fill-tone",
-        "title": "听录音，写出听到的声调并大声朗读。",
-        "titleVi": "Nghe ghi âm, viết ra thanh điệu nghe được và đọc to.",
+        "title": "听录音，写出听到的声调。",
+        "titleVi": "Nghe ghi âm, viết ra thanh điệu nghe được.",
         "instructionRange": [
           142.18,
           148.27
@@ -1319,8 +1319,8 @@ var workbook1 = {
       {
         "no": 1,
         "type": "fill-initial",
-        "title": "听录音，写出听到的声母并大声朗读。",
-        "titleVi": "Nghe ghi âm, viết ra thanh mẫu nghe được và đọc to.",
+        "title": "听录音，写出听到的声母。",
+        "titleVi": "Nghe ghi âm, viết ra thanh mẫu nghe được.",
         "instructionRange": [
           5.2,
           11.23
@@ -1451,8 +1451,8 @@ var workbook1 = {
       {
         "no": 2,
         "type": "fill-final",
-        "title": "听录音，写出听到的韵母并大声朗读。",
-        "titleVi": "Nghe ghi âm, viết ra vận mẫu nghe được và đọc to.",
+        "title": "听录音，写出听到的韵母。",
+        "titleVi": "Nghe ghi âm, viết ra vận mẫu nghe được.",
         "instructionRange": [
           72.69,
           78.72
@@ -1613,8 +1613,8 @@ var workbook1 = {
       {
         "no": 3,
         "type": "fill-tone",
-        "title": "听录音，写出听到的声调并大声朗读。",
-        "titleVi": "Nghe ghi âm, viết ra thanh điệu nghe được và đọc to.",
+        "title": "听录音，写出听到的声调。",
+        "titleVi": "Nghe ghi âm, viết ra thanh điệu nghe được.",
         "instructionRange": [
           150.07,
           155.96
@@ -1865,8 +1865,8 @@ var workbook1 = {
       {
         "no": 1,
         "type": "choose-syllable",
-        "title": "听录音，选择听到的音节并大声朗读。",
-        "titleVi": "Nghe ghi âm, chọn âm tiết nghe được và đọc to.",
+        "title": "听录音，选择听到的音节。",
+        "titleVi": "Nghe ghi âm, chọn âm tiết nghe được.",
         "instructionRange": [
           4.83,
           10.69
@@ -1981,8 +1981,8 @@ var workbook1 = {
       {
         "no": 2,
         "type": "read-aloud",
-        "title": "听录音，先跟读，再大声朗读。注意三声变调。",
-        "titleVi": "Nghe ghi âm, nhắc lại rồi đọc to. Chú ý biến điệu của thanh 3.",
+        "title": "听录音，先跟读。注意三声变调。",
+        "titleVi": "Nghe ghi âm, nhắc lại. Chú ý biến điệu của thanh 3.",
         "audioRange": [
           70.8,
           137.95
@@ -2101,8 +2101,8 @@ var workbook1 = {
       {
         "no": 3,
         "type": "read-aloud",
-        "title": "听录音，先跟读，再大声朗读。注意轻声发音。",
-        "titleVi": "Nghe ghi âm, nhắc lại rồi đọc to. Chú ý cách phát âm thanh nhẹ.",
+        "title": "听录音，先跟读。注意轻声发音。",
+        "titleVi": "Nghe ghi âm, nhắc lại. Chú ý cách phát âm thanh nhẹ.",
         "audioRange": [
           151.25,
           186.28
@@ -2185,8 +2185,8 @@ var workbook1 = {
       {
         "no": 4,
         "type": "distinguish",
-        "title": "听录音，分辨轻声与非轻声，再跟读、朗读。",
-        "titleVi": "Nghe ghi âm, phân biệt thanh nhẹ và thanh điệu khác, sau đó nhắc lại và đọc to.",
+        "title": "听录音，分辨轻声与非轻声，再跟读。",
+        "titleVi": "Nghe ghi âm, phân biệt thanh nhẹ và thanh điệu khác, sau đó nhắc lại.",
         "instructionRange": [
           189.87,
           197.66
@@ -2271,8 +2271,8 @@ var workbook1 = {
       {
         "no": 1,
         "type": "choose-syllable",
-        "title": "听录音，选择听到的音节并大声朗读。",
-        "titleVi": "Nghe ghi âm, chọn âm tiết nghe được và đọc to.",
+        "title": "听录音，选择听到的音节。",
+        "titleVi": "Nghe ghi âm, chọn âm tiết nghe được.",
         "instructionRange": [
           5.57,
           11.75
@@ -2387,8 +2387,8 @@ var workbook1 = {
       {
         "no": 2,
         "type": "read-aloud",
-        "title": "听录音，先跟读，再大声朗读。注意“不”的变调。",
-        "titleVi": "Nghe ghi âm, nhắc lại rồi đọc to. Chú ý biến điệu của “不”.",
+        "title": "听录音，先跟读。注意“不”的变调。",
+        "titleVi": "Nghe ghi âm, nhắc lại. Chú ý biến điệu của “不”.",
         "audioRange": [
           73.25,
           124.07
@@ -2471,8 +2471,8 @@ var workbook1 = {
       {
         "no": 3,
         "type": "read-aloud",
-        "title": "听录音，先跟读，再大声朗读。注意“一”的变调。",
-        "titleVi": "Nghe ghi âm, nhắc lại rồi đọc to. Chú ý biến điệu của “一”.",
+        "title": "听录音，先跟读。注意“一”的变调。",
+        "titleVi": "Nghe ghi âm, nhắc lại. Chú ý biến điệu của “一”.",
         "audioRange": [
           139.91,
           180.57
@@ -2562,8 +2562,8 @@ var workbook1 = {
       {
         "no": 1,
         "type": "choose-word",
-        "title": "听录音，选择听到的双音节并大声朗读。",
-        "titleVi": "Nghe ghi âm, chọn từ hai âm tiết nghe được và đọc to.",
+        "title": "听录音，选择听到的双音节。",
+        "titleVi": "Nghe ghi âm, chọn từ hai âm tiết nghe được.",
         "instructionRange": [
           5.39,
           11.78
@@ -2652,8 +2652,8 @@ var workbook1 = {
       {
         "no": 2,
         "type": "distinguish",
-        "title": "听录音，分辨儿化与非儿化发音的不同，再跟读、朗读。",
-        "titleVi": "Nghe ghi âm, phân biệt sự khác nhau giữa phát âm 儿化 và không 儿化, sau đó nhắc lại và đọc to.",
+        "title": "听录音，分辨儿化与非儿化发音的不同，再跟读。",
+        "titleVi": "Nghe ghi âm, phân biệt sự khác nhau giữa phát âm 儿化 và không 儿化, sau đó nhắc lại.",
         "instructionRange": [
           52.6,
           61.14
