@@ -321,6 +321,22 @@ a.home-back{text-decoration:none}
 .gr-sum-bar{height:7px;background:var(--selected);border-radius:999px;overflow:hidden}
 .gr-sum-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--ok),#3ca38b);border-radius:999px;transition:width .35s ease}
 .gr-practice-box{margin-top:16px;padding-top:14px;border-top:1.5px dashed var(--line)}
+
+/* ---------- Ngữ âm (HSK1, tab Ngữ âm/pháp): bảng, thẻ từ, bài tập nghe ---------- */
+.phon-table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-control);overflow:hidden;margin:12px 0}
+.phon-table th,.phon-table td{border:1px solid var(--line);padding:8px 10px;text-align:center;font-size:.95rem}
+.phon-table th{background:var(--selected);color:var(--ink);font-weight:800}
+.phon-table .th-vi{display:block;font-size:.75rem;color:var(--muted);font-weight:600}
+.phon-words{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.phon-word{display:inline-flex;flex-direction:column;align-items:center;padding:8px 13px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-family:var(--font-han)}
+.phon-word .han{font-size:1.05rem;color:var(--ink);font-weight:700}
+.phon-word .pinyin{font-size:.75rem;color:var(--muted)}
+.phon-word .vi{font-size:.8rem;color:var(--body)}
+.phon-track{display:inline-block;margin:0 0 4px;padding:4px 10px;border-radius:999px;background:var(--selected);color:var(--muted);font-size:.8rem;font-weight:700}
+.phon-exercise{margin-top:12px;padding-top:12px;border-top:1.5px dashed var(--line)}
+.phon-items{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.phon-item{padding:6px 12px;border-radius:999px;background:var(--selected);border:1px solid var(--line);font-family:var(--font-han);font-size:.95rem;color:var(--ink)}
+
 .gr-pr-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
 .gr-pr-title{font-weight:800;font-size:.94rem;color:var(--ink)}
 .gr-pr-badge{font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--selected);color:var(--ink);border:1px solid var(--line)}
