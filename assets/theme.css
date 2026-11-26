@@ -4066,3 +4066,38 @@ body.hide-pinyin .kk-char rt{visibility:hidden}
 @media (max-width:680px){
   .py-detail-img-box{width:100%;max-width:260px;margin:0 auto}
 }
+
+/* Sách bài tập (workbook) */
+.wb-score{margin:10px 0 14px}
+.wb-score .quiz-progress{margin-top:6px}
+.wb-ex{margin-bottom:14px}
+.wb-item{padding:12px 0;border-top:1px solid var(--line)}
+.wb-item:first-child{border-top:0}
+.wb-item-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wb-item-no{font-weight:800;color:var(--ink)}
+.wb-play{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 10px;cursor:pointer;font:inherit}
+.wb-printed{font-family:var(--font-han);font-size:1.25rem;font-weight:700}
+.wb-text{font-family:var(--font-han);font-size:1.25rem;font-weight:700}
+.wb-fill-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.wb-input{flex:1;min-width:160px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:var(--surface)}
+.wb-input:disabled{background:var(--selected)}
+.wb-tone-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.wb-tone-btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 14px;cursor:pointer;font:inherit;font-weight:700}
+.wb-opts{display:grid;gap:8px;margin-top:10px}
+.wb-opt{display:flex;align-items:center;gap:10px;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 12px;cursor:pointer;font:inherit}
+.wb-opt .ans-num{font-weight:800;color:var(--muted)}
+.wb-opt:disabled{cursor:default}
+.wb-pic{margin-top:10px}
+.wb-pic img{max-width:100%;border-radius:12px;border:1px solid var(--line)}
+.wb-passage{font-family:var(--font-han);font-size:1.15rem;margin:8px 0}
+.wb-question{margin:8px 0}
+.wb-picdesc{color:var(--muted);font-size:.95rem;margin:6px 0}
+.wb-note{color:var(--muted);font-size:.95rem;margin:6px 0}
+.wb-feedback{margin-top:8px;min-height:1.2em}
+.wb-ok{color:var(--ok);font-weight:700}
+.wb-bad{color:var(--verm);font-weight:700}
+.wb-correct{border-left:3px solid var(--ok);padding-left:10px}
+.wb-wrong{border-left:3px solid var(--verm);padding-left:10px}
+.wb-chosen-ok{border-color:var(--ok)!important;background:var(--selected)!important}
+.wb-chosen-bad{border-color:var(--verm)!important}
+.wb-submit-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
