@@ -1021,14 +1021,9 @@
 
     var canStart = selectedLessons.length >= 2;
     var curLevel = levelConfig(state.level);
-    var levelPickerHtml = Object.keys(LEVELS).map(function (lid) {
+    var levelSelectHtml = Object.keys(LEVELS).map(function (lid) {
       var lv = LEVELS[lid];
-      return (
-        '<button type="button" class="cr-level-btn' + (state.level === lid ? ' active' : '') + '" data-exam-level="' + lid + '" aria-pressed="' + (state.level === lid ? 'true' : 'false') + '">' +
-          '<span class="cr-level-han han">' + esc(lv.label) + '</span>' +
-          '<span class="cr-level-meta">' + esc(lv.py) + ' · ' + lv.total + ' câu · ' + (lv.total * 5) + ' điểm</span>' +
-        '</button>'
-      );
+      return '<option value="' + lid + '"' + (state.level === lid ? ' selected' : '') + '>' + esc(lv.label) + ' · ' + lv.total + ' câu · ' + (lv.total * 5) + ' điểm</option>';
     }).join('');
 
     // Nút làm nhanh cả khóa đang xem
@@ -1065,17 +1060,15 @@
 
           '<div class="cr-lesson-pill-grid">' + lessonsGridHtml + '</div>' +
 
-          '<div class="cr-level-row" role="group" aria-label="Chọn cấp độ đề">' +
-            '<span class="cr-level-label">Cấp độ đề:</span>' +
-            levelPickerHtml +
-          '</div>' +
-
           '<div class="cr-launch-box' + (canStart ? ' is-ready' : ' is-warn') + '">' +
             '<div class="cr-launch-info">' +
               '<div class="cr-launch-title">' +
                 '<strong>Đã chọn: ' + selectedLessons.length + ' bài</strong>' +
                 (canStart
-                  ? '<span class="cr-pool-badge">Đề ' + esc(curLevel.label) + ' gồm ' + curLevel.total + ' câu trắc nghiệm, điền từ &amp; nghe chép</span>'
+                  ? '<span class="cr-level-select-wrap">' +
+                      '<label for="crLevelSelect">Cấp độ đề:</label>' +
+                      '<select id="crLevelSelect" class="cr-level-select">' + levelSelectHtml + '</select>' +
+                    '</span>'
                   : '<span class="cr-warn-badge">⚠️ Chọn ít nhất 2 bài để bắt đầu</span>') +
               '</div>' +
               '<div class="cr-sel-chips">' + selectedChipsHtml + '</div>' +
@@ -1653,18 +1646,6 @@
         return;
       }
 
-      // [SETUP] Chọn cấp độ đề (简单 / 中等 / 困难)
-      var levelBtn = target.closest('[data-exam-level]');
-      if (levelBtn) {
-        var lvId = levelBtn.getAttribute('data-exam-level');
-        if (LEVELS[lvId]) {
-          state.level = lvId;
-          persistSelected();
-          render();
-        }
-        return;
-      }
-
       // [SETUP] Chọn mẫu preset nhanh (VD: Bài 12, 13, 14)
       var presetBtn = target.closest('[data-preset]');
       if (presetBtn) {
@@ -1875,6 +1856,19 @@
       if (target.closest('#crSubmitExamBtn') || target.closest('#crFinishBtnBottom') || target.closest('#crFinishBtnSheet')) {
         submitFullExam();
         return;
+      }
+    });
+
+    // Đổi cấp độ đề qua dropdown (简单 / 中等 / 困难)
+    view.addEventListener('change', function (e) {
+      var t = e.target;
+      if (t && t.id === 'crLevelSelect') {
+        var lvId = t.value;
+        if (LEVELS[lvId]) {
+          state.level = lvId;
+          persistSelected();
+          render();
+        }
       }
     });
 

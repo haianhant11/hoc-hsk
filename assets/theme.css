@@ -2791,52 +2791,30 @@ body:has(.site-mnav) .app{padding-bottom:84px}
   background:rgba(165,68,50,.06);
 }
 
-/* Nút chọn cấp độ đề (简单 / 中等 / 困难) */
-.cr-level-row{
-  display:flex;
+/* Dropdown chọn cấp độ đề (简单 / 中等 / 困难) trong ô "Đã chọn" */
+.cr-level-select-wrap{
+  display:inline-flex;
   align-items:center;
-  gap:8px;
-  flex-wrap:wrap;
-  margin:14px 0 4px;
-}
-.cr-level-label{
+  gap:6px;
   font-size:.85rem;
   font-weight:700;
   color:var(--ink);
+  margin-left:10px;
 }
-.cr-level-btn{
-  display:inline-flex;
-  flex-direction:column;
-  align-items:center;
-  gap:1px;
-  border:1.5px solid var(--line);
-  background:var(--surface);
-  color:var(--ink);
-  border-radius:12px;
-  padding:8px 16px;
+.cr-level-select{
   font:inherit;
-  cursor:pointer;
-  transition:border-color .15s ease,background-color .15s ease,color .15s ease;
-}
-.cr-level-btn:hover{
-  border-color:var(--ok);
-}
-.cr-level-btn.active{
-  background:var(--ink);
-  border-color:var(--ink);
-  color:var(--surface);
-}
-.cr-level-btn.active .cr-level-meta{
-  color:rgba(255,255,255,.82);
-}
-.cr-level-han{
-  font-size:1.15rem;
+  font-size:.85rem;
   font-weight:700;
-  line-height:1.2;
+  color:var(--ink);
+  background:var(--surface);
+  border:1.5px solid var(--ok);
+  border-radius:8px;
+  padding:5px 8px;
+  cursor:pointer;
 }
-.cr-level-meta{
-  font-size:.72rem;
-  color:var(--muted);
+.cr-level-select:focus{
+  outline:2px solid var(--ok);
+  outline-offset:1px;
 }
 
 .cr-lesson-grid{
