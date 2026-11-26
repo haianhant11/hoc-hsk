@@ -4099,6 +4099,7 @@ body.hide-pinyin .kk-char rt{visibility:hidden}
 .wb-bad{color:var(--verm);font-weight:700}
 .wb-correct{border-left:3px solid var(--ok);padding-left:10px}
 .wb-wrong{border-left:3px solid var(--verm);padding-left:10px}
+.wb-chosen{border-color:var(--ink)!important;background:var(--selected)!important}
 .wb-chosen-ok{border-color:var(--ok)!important;background:var(--selected)!important}
 .wb-chosen-bad{border-color:var(--verm)!important}
 .wb-submit-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}

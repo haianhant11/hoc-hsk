@@ -768,17 +768,38 @@ function wbFindItem(d,key){
   }
   return null;
 }
+function wbNick(){
+  try{
+    var p=JSON.parse(localStorage.getItem('hoc-hsk-lb-v1')||'null');
+    if(p&&p.name)return String(p.name).trim();
+  }catch(e){}
+  return '';
+}
+function wbAnswered(d){return wbScorableItems(d).filter(function(x){return wbState&&wbState.answers[x.key];}).length;}
+function wbOptClass(ans,v){
+  if(!ans||ans.given!==v)return '';
+  if(!wbState.checked)return ' wb-chosen';
+  return ans.correct?' wb-chosen-ok':' wb-chosen-bad';
+}
 function wbUpdateScore(){
   const el=document.getElementById('wbScore');
   if(!el||!wbState)return;
   const d=wbLessonData();
   if(!d)return;
-  const total=wbTotal(d),correct=wbCorrect(d);
-  el.textContent='Đúng '+correct+'/'+total+' câu';
+  const total=wbTotal(d),correct=wbCorrect(d),answered=wbAnswered(d);
+  el.textContent=wbState.checked?('Đúng '+correct+'/'+total+' câu'):('Đã làm '+answered+'/'+total+' câu');
   const bar=document.getElementById('wbScoreBar');
-  if(bar)bar.style.width=(total?Math.round(correct/total*100):0)+'%';
+  if(bar)bar.style.width=(total?Math.round((wbState.checked?correct:answered)/total*100):0)+'%';
   const sub=document.getElementById('wbScoreLine');
-  if(sub)sub.innerHTML='Điểm của bạn: <strong>'+correct+'/'+total+'</strong>';
+  if(sub)sub.innerHTML=wbState.checked?('Điểm của bạn: <strong>'+correct+'/'+total+'</strong>'):('Đã làm <strong>'+answered+'/'+total+'</strong> câu. Bấm Kiểm tra đáp án để xem điểm nhé.');
+}
+function wbMarkAnswered(btn,key){
+  const box=document.querySelector('[data-wb-item="'+key+'"]');
+  if(box){
+    box.querySelectorAll('button[data-wb-opt],button[data-wb-tone],button[data-wb-check]').forEach(function(b){b.disabled=true;});
+    const inp=box.querySelector('input.wb-input');if(inp)inp.disabled=true;
+  }
+  if(btn)btn.classList.add('wb-chosen');
 }
 function wbMarkItem(btn,key,correct,correctAnswer){
   const box=document.querySelector('[data-wb-item="'+key+'"]');
@@ -797,7 +818,7 @@ function wbAnswerOpt(btn,key,val){
   const found=wbFindItem(d,key);if(!found)return;
   const correct=val===found.answer;
   wbState.answers[key]={given:val,correct:correct,correctAnswer:found.display};
-  wbMarkItem(btn,key,correct,found.display);
+  wbMarkAnswered(btn,key);
   wbUpdateScore();
 }
 function wbAnswerTone(btn,key,val){
@@ -806,7 +827,7 @@ function wbAnswerTone(btn,key,val){
   const found=wbFindItem(d,key);if(!found)return;
   const correct=String(val)===String(found.answer);
   wbState.answers[key]={given:'Thanh '+val,correct:correct,correctAnswer:'Thanh '+found.answer};
-  wbMarkItem(btn,key,correct,'Thanh '+found.answer);
+  wbMarkAnswered(btn,key);
   wbUpdateScore();
 }
 function wbCheckFill(key){
@@ -820,26 +841,44 @@ function wbCheckFill(key){
   if(found.type==='fill-initial'){correct=val.toLowerCase()===String(found.answer).toLowerCase();}
   else{correct=wbPinyinEqual(val,found.answer);}
   wbState.answers[key]={given:val,correct:correct,correctAnswer:found.display};
-  wbMarkItem(null,key,correct,found.display);
+  wbMarkAnswered(null,key);
   wbUpdateScore();
 }
+function wbCheckAll(){
+  if(!wbState||wbState.checked)return;
+  const d=wbLessonData();if(!d)return;
+  wbScorableItems(d).forEach(function(x){
+    if(!wbState.answers[x.key]){
+      const found=wbFindItem(d,x.key);
+      wbState.answers[x.key]={given:'',correct:false,correctAnswer:found?found.display:''};
+    }
+  });
+  wbState.checked=true;
+  wbScorableItems(d).forEach(function(x){
+    const a=wbState.answers[x.key];
+    wbMarkItem(null,x.key,a.correct,a.correctAnswer);
+  });
+  wbUpdateScore();
+  const b=document.getElementById('wbCheck');if(b)b.disabled=true;
+  const msg=document.getElementById('wbSubmitMsg');
+  if(msg)msg.textContent='Bạn làm đúng '+wbCorrect(d)+'/'+wbTotal(d)+' câu!';
+}
 function wbSubmit(){
-  const nameEl=document.getElementById('wbName');
-  const name=nameEl?nameEl.value.trim():'';
   const msgEl=document.getElementById('wbSubmitMsg');
-  if(!name){if(msgEl)msgEl.textContent='Nhập họ tên trước khi gửi nhé.';if(nameEl)nameEl.focus();return;}
+  const nick=wbNick();
+  if(!nick){if(msgEl)msgEl.innerHTML='Bạn chưa có tên nick. Vào <a href="/bang-xep-hang">Bảng xếp hạng</a> để đặt tên nick rồi quay lại nộp nhé.';return;}
   const d=wbLessonData();if(!d)return;
   const total=wbTotal(d),correct=wbCorrect(d);
   const mins=Math.max(1,Math.round((Date.now()-wbState.startTs)/60000));
   const score=correct+'/'+total;
   if(msgEl)msgEl.textContent='Đang gửi…';
-  fetch(WB_SUBMIT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({name:name,lesson:'Bài '+wbState.lesson,time:mins+' phút',score:score})})
+  fetch(WB_SUBMIT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({name:nick,lesson:'Bài '+wbState.lesson,time:mins+' phút',score:score})})
   .then(function(){wbState.submitted=true;wbState.submitMsg='Đã gửi kết quả cho giáo viên. Cảm ơn bạn!';if(msgEl)msgEl.textContent=wbState.submitMsg;const b=document.getElementById('wbSubmit');if(b)b.disabled=true;})
   .catch(function(){if(msgEl)msgEl.textContent='Gửi chưa được, kiểm tra mạng rồi bấm gửi lại nhé.';});
 }
 function wbReset(){
   if(!wbState)return;
-  wbState.answers={};wbState.startTs=Date.now();wbState.submitted=false;wbState.submitMsg='';
+  wbState.answers={};wbState.startTs=Date.now();wbState.submitted=false;wbState.submitMsg='';wbState.checked=false;
   renderWorkbook();
 }
 function wbItemHTML(d,ex,it){
@@ -858,19 +897,19 @@ function wbItemHTML(d,ex,it){
   }
   h+='</div>';
   if(ex.type==='fill-initial'||ex.type==='fill-final'){
-    h+='<div class="wb-fill-row"><input id="wb-in-'+key+'" class="wb-input" placeholder="'+(ex.type==='fill-initial'?'Gõ thanh mẫu…':'Gõ vận mẫu (có dấu thanh, ví dụ: ā hoặc a1)…')+'" autocomplete="off"'+(ans?' disabled value="'+esc(ans.given)+'"':'')+'><button class="action wb-check" data-wb-check="'+key+'"'+(ans?' disabled':'')+'>Kiểm tra</button></div>';
+    h+='<div class="wb-fill-row"><input id="wb-in-'+key+'" class="wb-input" placeholder="'+(ex.type==='fill-initial'?'Gõ thanh mẫu…':'Gõ vận mẫu (có dấu thanh, ví dụ: ā hoặc a1)…')+'" autocomplete="off"'+(ans?' disabled value="'+esc(ans.given)+'"':'')+'><button class="action wb-check" data-wb-check="'+key+'"'+(ans?' disabled':'')+'>Xong</button></div>';
   }else if(ex.type==='fill-tone'){
-    h+='<div class="wb-tone-row">'+[1,2,3,4].map(function(t){return '<button class="wb-tone-btn" data-wb-tone="'+key+'" data-val="'+t+'"'+(ans?' disabled':'')+'>Thanh '+t+'</button>';}).join('')+'</div>';
+    h+='<div class="wb-tone-row">'+[1,2,3,4].map(function(t){return '<button class="wb-tone-btn'+wbOptClass(ans,'Thanh '+t)+'" data-wb-tone="'+key+'" data-val="'+t+'"'+(ans?' disabled':'')+'>Thanh '+t+'</button>';}).join('')+'</div>';
   }else if(ex.type==='choose-syllable'||ex.type==='choose-word'){
-    h+='<div class="wb-opts">'+it.options.map(function(o,i){return '<button class="wb-opt" data-wb-opt="'+key+'" data-val="'+esc(o)+'"'+(ans?' disabled':'')+'><span class="ans-num">'+String.fromCharCode(65+i)+'</span><span>'+esc(o)+'</span></button>';}).join('')+'</div>';
+    h+='<div class="wb-opts">'+it.options.map(function(o,i){return '<button class="wb-opt'+wbOptClass(ans,o)+'" data-wb-opt="'+key+'" data-val="'+esc(o)+'"'+(ans?' disabled':'')+'><span class="ans-num">'+String.fromCharCode(65+i)+'</span><span>'+esc(o)+'</span></button>';}).join('')+'</div>';
   }else if(ex.type==='picture-mcq'){
     const pic='assets/workbook-photos/wb-l'+wbState.lesson+'-'+ex.no+'-'+it.no+'.jpg';
     h+='<div class="wb-pic"><img src="'+pic+'" alt="Hình minh họa câu '+it.no+'" loading="lazy"></div>';
-    h+='<div class="wb-opts">'+it.options.map(function(o,i){return '<button class="wb-opt" data-wb-opt="'+key+'" data-val="'+esc(o)+'"'+(ans?' disabled':'')+'><span class="ans-num">'+String.fromCharCode(65+i)+'</span><span>'+esc(o)+'</span></button>';}).join('')+'</div>';
+    h+='<div class="wb-opts">'+it.options.map(function(o,i){return '<button class="wb-opt'+wbOptClass(ans,o)+'" data-wb-opt="'+key+'" data-val="'+esc(o)+'"'+(ans?' disabled':'')+'><span class="ans-num">'+String.fromCharCode(65+i)+'</span><span>'+esc(o)+'</span></button>';}).join('')+'</div>';
   }else if(ex.type==='read-aloud'||ex.type==='distinguish'){
     h+='<p class="wb-note">Nghe rồi đọc to theo, không tính điểm.</p>';
   }
-  h+='<div class="wb-feedback">'+(ans?(ans.correct?'<span class="wb-ok">✓ Đúng rồi!</span>':'<span class="wb-bad">✗ Chưa đúng. Đáp án: <strong>'+esc(ans.correctAnswer)+'</strong></span>'):'')+'</div>';
+  h+='<div class="wb-feedback">'+(ans&&wbState.checked?(ans.correct?'<span class="wb-ok">✓ Đúng rồi!</span>':'<span class="wb-bad">✗ Chưa đúng. Đáp án: <strong>'+esc(ans.correctAnswer)+'</strong></span>'):'')+'</div>';
   h+='</div>';
   return h;
 }
@@ -882,8 +921,8 @@ function wbMoniListenHTML(d,it){
   h+='<div class="wb-item-head"><span class="wb-item-no">'+it.no+'.</span><button class="wb-play" data-wb-play data-src="'+src+'" data-start="'+it.audioRange[0]+'" data-end="'+it.audioRange[1]+'">▶ Nghe</button></div>';
   h+='<p class="wb-question">'+esc(it.question)+'</p>';
   if(it.pictureDesc)h+='<p class="wb-picdesc">'+esc(it.pictureDesc)+'</p>';
-  h+='<div class="wb-opts">'+it.options.map(function(o,i){return '<button class="wb-opt" data-wb-opt="'+key+'" data-val="'+esc(o)+'"'+(ans?' disabled':'')+'><span class="ans-num">'+String.fromCharCode(65+i)+'</span><span>'+esc(o)+'</span></button>';}).join('')+'</div>';
-  h+='<div class="wb-feedback">'+(ans?(ans.correct?'<span class="wb-ok">✓ Đúng rồi!</span>':'<span class="wb-bad">✗ Chưa đúng. Đáp án: <strong>'+esc(ans.correctAnswer)+'</strong></span>'):'')+'</div>';
+  h+='<div class="wb-opts">'+it.options.map(function(o,i){return '<button class="wb-opt'+wbOptClass(ans,o)+'" data-wb-opt="'+key+'" data-val="'+esc(o)+'"'+(ans?' disabled':'')+'><span class="ans-num">'+String.fromCharCode(65+i)+'</span><span>'+esc(o)+'</span></button>';}).join('')+'</div>';
+  h+='<div class="wb-feedback">'+(ans&&wbState.checked?(ans.correct?'<span class="wb-ok">✓ Đúng rồi!</span>':'<span class="wb-bad">✗ Chưa đúng. Đáp án: <strong>'+esc(ans.correctAnswer)+'</strong></span>'):'')+'</div>';
   h+='</div>';
   return h;
 }
@@ -895,18 +934,20 @@ function wbMoniReadHTML(d,it){
   if(it.passage)h+='<p class="wb-passage">'+esc(it.passage)+'</p>';
   if(it.question)h+='<p class="wb-question">'+esc(it.question)+'</p>';
   if(it.optionsDesc)h+='<p class="wb-picdesc">'+esc(it.optionsDesc)+'</p>';
-  h+='<div class="wb-opts">'+it.options.map(function(o,i){return '<button class="wb-opt" data-wb-opt="'+key+'" data-val="'+esc(o)+'"'+(ans?' disabled':'')+'><span class="ans-num">'+String.fromCharCode(65+i)+'</span><span>'+esc(o)+'</span></button>';}).join('')+'</div>';
-  h+='<div class="wb-feedback">'+(ans?(ans.correct?'<span class="wb-ok">✓ Đúng rồi!</span>':'<span class="wb-bad">✗ Chưa đúng. Đáp án: <strong>'+esc(ans.correctAnswer)+'</strong></span>'):'')+'</div>';
+  h+='<div class="wb-opts">'+it.options.map(function(o,i){return '<button class="wb-opt'+wbOptClass(ans,o)+'" data-wb-opt="'+key+'" data-val="'+esc(o)+'"'+(ans?' disabled':'')+'><span class="ans-num">'+String.fromCharCode(65+i)+'</span><span>'+esc(o)+'</span></button>';}).join('')+'</div>';
+  h+='<div class="wb-feedback">'+(ans&&wbState.checked?(ans.correct?'<span class="wb-ok">✓ Đúng rồi!</span>':'<span class="wb-bad">✗ Chưa đúng. Đáp án: <strong>'+esc(ans.correctAnswer)+'</strong></span>'):'')+'</div>';
   h+='</div>';
   return h;
 }
 function wbSubmitHTML(l,d){
-  const total=wbTotal(d),correct=wbCorrect(d);
-  return '<article class="grammar-card wb-submit"><div class="grammar-title">Gửi kết quả cho giáo viên</div><div class="grammar-body">'
-  +'<p id="wbScoreLine">Điểm của bạn: <strong>'+correct+'/'+total+'</strong></p>'
-  +'<label for="wbName"><strong>Họ và tên</strong></label>'
-  +'<input id="wbName" class="wb-input" autocomplete="off" placeholder="Nhập họ tên của bạn…">'
-  +'<div class="wb-submit-row"><button class="action" id="wbSubmit"'+(wbState.submitted?' disabled':'')+'>Gửi kết quả</button><button class="game-other" id="wbRetry">Làm lại</button></div>'
+  const total=wbTotal(d),correct=wbCorrect(d),answered=wbAnswered(d);
+  const nick=wbNick();
+  const line=wbState.checked?('Điểm của bạn: <strong>'+correct+'/'+total+'</strong>'):('Đã làm <strong>'+answered+'/'+total+'</strong> câu. Bấm Kiểm tra đáp án để xem điểm nhé.');
+  const nickLine=nick?('Tên nick sẽ nộp: <strong>'+esc(nick)+'</strong>'):('Chưa có tên nick. Vào <a href="/bang-xep-hang">Bảng xếp hạng</a> để đặt tên nick trước khi nộp nhé.');
+  return '<article class="grammar-card wb-submit"><div class="grammar-title">Kiểm tra và nộp bài</div><div class="grammar-body">'
+  +'<p id="wbScoreLine">'+line+'</p>'
+  +'<p class="wb-note">'+nickLine+'</p>'
+  +'<div class="wb-submit-row"><button class="action" id="wbCheck"'+(wbState.checked?' disabled':'')+'>Kiểm tra đáp án</button><button class="action" id="wbSubmit"'+(wbState.submitted?' disabled':'')+'>Nộp cho giáo viên</button><button class="game-other" id="wbRetry">Làm lại</button></div>'
   +'<p id="wbSubmitMsg">'+esc(wbState.submitMsg||'')+'</p>'
   +'</div></article>';
 }
@@ -915,7 +956,8 @@ function wbPanelHTML(l,d){
   let h='<button class="back-to-zone" data-tab="practice">← Tất cả dạng luyện tập</button>';
   h+='<div class="dictation-shell">';
   h+='<div class="gz-head"><span class="level-badge">Sách bài tập</span><h3 class="game-title">Sách bài tập · Bài '+l.num+'</h3><p class="gz-sub">'+esc(d.section)+' · '+esc(d.sectionVi)+' · '+total+' câu chấm điểm</p></div>';
-  h+='<div class="wb-score"><span id="wbScore">Đúng '+correct+'/'+total+' câu</span><div class="quiz-progress"><i id="wbScoreBar" style="width:'+(total?Math.round(correct/total*100):0)+'%"></i></div></div>';
+  const answered=wbAnswered(d);
+  h+='<div class="wb-score"><span id="wbScore">'+(wbState.checked?('Đúng '+correct+'/'+total+' câu'):('Đã làm '+answered+'/'+total+' câu'))+'</span><div class="quiz-progress"><i id="wbScoreBar" style="width:'+(total?Math.round((wbState.checked?correct:answered)/total*100):0)+'%"></i></div></div>';
   h+=origAudioHTML(wbAudioSrc(),'Nghe toàn bài · '+d.audio);
   if(d.exercises){
     d.exercises.forEach(function(ex){
@@ -952,7 +994,7 @@ function renderWorkbook(){
     return;
   }
   if(!wbState||wbState.lesson!==l.num){
-    wbState={lesson:l.num,startTs:Date.now(),answers:{},submitted:false,submitMsg:''};
+    wbState={lesson:l.num,startTs:Date.now(),answers:{},submitted:false,submitMsg:'',checked:false};
   }
   panel.innerHTML=wbPanelHTML(l,d);
 }
@@ -966,6 +1008,7 @@ document.addEventListener('click',e=>{
   if(tn&&!tn.disabled){wbAnswerTone(tn,tn.dataset.wbTone,tn.dataset.val);return;}
   const ck=e.target.closest('[data-wb-check]');
   if(ck&&!ck.disabled){wbCheckFill(ck.dataset.wbCheck);return;}
+  if(e.target.id==='wbCheck'){wbCheckAll();return;}
   if(e.target.id==='wbSubmit'){wbSubmit();return;}
   if(e.target.id==='wbRetry'){wbReset();return;}
 });
