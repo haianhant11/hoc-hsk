@@ -57,6 +57,103 @@
     } catch (e) {}
   }
 
+  /* Audio that chuan HSK1 (phat theo moc thoi gian trong file 语音.mp3 goc).
+     Nguon: audio-timestamps.json — tach bang silence detection + mapping theo thu tu sach.
+     Neu khong co clip (mixer/tone) thi dung giong trinh duyet nhu cu. */
+  const PY_AUDIO = {
+    init: {
+      'b': ['h1-phon-1.mp3', 98.62, 98.92],
+      'c': ['h1-phon-3.mp3', 74.43, 75.03],
+      'ch': ['h1-phon-3.mp3', 65.49, 66.13],
+      'd': ['h1-phon-1.mp3', 105.51, 105.86],
+      'f': ['h1-phon-1.mp3', 103.68, 104.19],
+      'g': ['h1-phon-1.mp3', 112.33, 112.81],
+      'h': ['h1-phon-1.mp3', 115.65, 116.21],
+      'j': ['h1-phon-2.mp3', 62.51, 62.95],
+      'k': ['h1-phon-1.mp3', 113.97, 114.44],
+      'l': ['h1-phon-1.mp3', 110.6, 111.05],
+      'm': ['h1-phon-1.mp3', 101.95, 102.47],
+      'n': ['h1-phon-1.mp3', 108.93, 109.42],
+      'p': ['h1-phon-1.mp3', 100.21, 100.65],
+      'q': ['h1-phon-2.mp3', 64.7, 65.28],
+      'r': ['h1-phon-3.mp3', 70.07, 70.61],
+      's': ['h1-phon-3.mp3', 76.69, 77.33],
+      'sh': ['h1-phon-3.mp3', 67.84, 68.44],
+      't': ['h1-phon-1.mp3', 107.14, 107.69],
+      'x': ['h1-phon-2.mp3', 67.05, 67.65],
+      'z': ['h1-phon-3.mp3', 72.22, 72.7],
+      'zh': ['h1-phon-3.mp3', 63.14, 63.61],
+    },
+    final: {
+      'a': ['h1-phon-1.mp3', 119.53, 120.03],
+      'ai': ['h1-phon-1.mp3', 130.44, 130.98],
+      'an': ['h1-phon-1.mp3', 137.51, 138.1],
+      'ang': ['h1-phon-1.mp3', 141.02, 141.67],
+      'ao': ['h1-phon-1.mp3', 133.98, 134.5],
+      'e': ['h1-phon-1.mp3', 123.05, 123.6],
+      'ei': ['h1-phon-1.mp3', 132.21, 132.78],
+      'en': ['h1-phon-1.mp3', 139.2, 139.86],
+      'eng': ['h1-phon-1.mp3', 142.89, 143.62],
+      'er': ['h1-phon-1.mp3', 128.54, 129.05],
+      'i': ['h1-phon-1.mp3', 124.86, 125.37],
+      'ia': ['h1-phon-2.mp3', 76.52, 77.02],
+      'ian': ['h1-phon-2.mp3', 86.33, 87.03],
+      'iang': ['h1-phon-2.mp3', 91.17, 91.9],
+      'iao': ['h1-phon-2.mp3', 81.42, 82.08],
+      'ie': ['h1-phon-2.mp3', 79.11, 79.65],
+      'in': ['h1-phon-2.mp3', 88.76, 89.41],
+      'ing': ['h1-phon-2.mp3', 93.73, 94.44],
+      'iong': ['h1-phon-2.mp3', 96.13, 96.92],
+      'iu': ['h1-phon-2.mp3', 83.82, 84.51],
+      'o': ['h1-phon-1.mp3', 121.26, 121.74],
+      'ong': ['h1-phon-1.mp3', 144.91, 145.61],
+      'ou': ['h1-phon-1.mp3', 135.78, 136.36],
+      'u': ['h1-phon-1.mp3', 126.85, 127.39],
+      'ua': ['h1-phon-3.mp3', 109.49, 110.17],
+      'uai': ['h1-phon-3.mp3', 114.11, 114.71],
+      'uan': ['h1-phon-3.mp3', 118.89, 119.5],
+      'uang': ['h1-phon-3.mp3', 123.66, 124.35],
+      'ueng': ['h1-phon-3.mp3', 126.04, 126.79],
+      'ui': ['h1-phon-3.mp3', 116.48, 117.1],
+      'un': ['h1-phon-3.mp3', 121.33, 122.0],
+      'uo': ['h1-phon-3.mp3', 111.74, 112.29],
+      'ü': ['h1-phon-2.mp3', 74.21, 74.75],
+      'üan': ['h1-phon-2.mp3', 100.9, 101.67],
+      'üe': ['h1-phon-2.mp3', 98.61, 99.21],
+      'ün': ['h1-phon-2.mp3', 103.44, 104.13],
+    }
+  };
+  let pyAudioEl = null;
+  function playRealAudio(sym, kind, fallbackHan) {
+    const m = (PY_AUDIO[kind] || {})[sym];
+    if (!m) return false;
+    try {
+      if (!pyAudioEl) { pyAudioEl = new Audio(); pyAudioEl.preload = 'auto'; }
+      const file = m[0], start = m[1], end = m[2];
+      const src = 'assets/audio/h1/' + file;
+      const stopAt = end + 0.10;
+      if (pyAudioEl._pyStop) pyAudioEl.removeEventListener('timeupdate', pyAudioEl._pyStop);
+      pyAudioEl._pyStop = function () {
+        if (pyAudioEl.currentTime >= stopAt) { pyAudioEl.pause(); pyAudioEl.removeEventListener('timeupdate', pyAudioEl._pyStop); }
+      };
+      pyAudioEl.addEventListener('timeupdate', pyAudioEl._pyStop);
+      pyAudioEl.onerror = function () { if (fallbackHan) speakZh(fallbackHan, 0.72); };
+      const playFrom = function () {
+        try { pyAudioEl.currentTime = Math.max(0, start - 0.05); } catch (e) {}
+        pyAudioEl.play().catch(function () { if (fallbackHan) speakZh(fallbackHan, 0.72); });
+      };
+      if (pyAudioEl.getAttribute('src') !== src) {
+        pyAudioEl.src = src;
+        pyAudioEl.addEventListener('loadedmetadata', playFrom, { once: true });
+        pyAudioEl.load();
+      } else {
+        playFrom();
+      }
+      if (typeof Streak !== 'undefined' && typeof Streak.qualify === 'function') Streak.qualify();
+      return true;
+    } catch (e) { return false; }
+  }
+
   function findInitial(sym) {
     for (const g of (window.PINYIN_INITIALS || [])) {
       const it = g.items.find(x => x.sym === sym);
@@ -98,6 +195,16 @@
     const it = cur.item;
 
     return `<div class="section-intro"><h3>Bảng Thanh mẫu chuẩn HSK (21 âm)</h3><span class="count">Bấm vào ô để nghe</span></div>
+      <article class="info-card py-ref-diagram">
+        <h3>Sơ đồ tham khảo: các bộ phận phát âm</h3>
+        <p>Học thuộc sơ đồ này trước, rồi nhìn 7 sơ đồ bên dưới sẽ hiểu ngay lưỡi đặt ở đâu. Ảnh có nhãn tiếng Anh, chú thích tiếng Việt ở dưới.</p>
+        <div class="py-ref-img-box">
+          <img src="https://wstyler.ucsd.edu/talks/phonmedia/sagittal_labeled.png" alt="Sơ đồ mặt cắt các bộ phận phát âm có nhãn: môi, răng, lưỡi, ngạc" loading="lazy" onerror="this.onerror=null;this.src='assets/pinyin-diagrams/bilabial.png';var c=this.parentElement.querySelector('.py-ref-fallback-note');if(c)c.hidden=false;">
+          <p class="py-ref-fallback-note" hidden>Ảnh tham khảo không tải được, đang hiển thị sơ đồ hiện tại.</p>
+        </div>
+        <p class="py-ref-legend"><strong>Chú thích:</strong> lip = môi · teeth = răng · tongue tip = đầu lưỡi · tongue (raised) = lưỡi nâng lên · tongue (rest position) = lưỡi lúc nghỉ · alveolar ridge = lợi (nướu) trên · palate = ngạc cứng · velum = ngạc mềm · uvula = lưỡi gà · epiglottis = nắp thanh quản · larynx = thanh quản · glottis = khe thanh môn · trachea = khí quản · nasal cavity = khoang mũi</p>
+        <p class="py-ref-source">Nguồn ảnh: UCSD Phonetics Lab (sagittal_labeled.png). Nhãn gốc tiếng Anh.</p>
+      </article>
       <div class="py-matrix-wrap">
         <table class="py-matrix" aria-label="Bảng phân loại thanh mẫu tiếng Trung">
           <thead>
@@ -130,7 +237,7 @@
           <div class="py-detail-head">
             <span class="py-sym">${esc(it.sym)}</span>
             <span class="py-air-tag">${esc(it.air)}</span>
-            <button type="button" class="action py-listen-btn" data-py-han="${esc(it.han)}">🔊 Nghe (${esc(it.han)} · ${esc(it.read)})</button>
+            <button type="button" class="action py-listen-btn" data-py-han="${esc(it.han)}" data-py-sym="${esc(it.sym)}" data-py-kind="init">🔊 Nghe (${esc(it.han)} · ${esc(it.read)})</button>
           </div>
           <p class="py-detail-line"><strong>Nhóm:</strong> ${esc(g.name)} — <em>${esc(g.tip)}</em></p>
           <p class="py-detail-line"><strong>Cách phát âm:</strong> ${esc(it.mouth)}</p>
@@ -166,7 +273,7 @@
             <div class="py-detail-head">
               <span class="py-sym">${esc(it.sym)}</span>
               <span class="py-ex-han han">${esc(it.han)}</span>
-              <button type="button" class="action py-listen-btn" data-py-han="${esc(it.han)}">🔊 Nghe (${esc(it.han)} · ${esc(it.read)})</button>
+              <button type="button" class="action py-listen-btn" data-py-han="${esc(it.han)}" data-py-sym="${esc(it.sym)}" data-py-kind="final">🔊 Nghe (${esc(it.han)} · ${esc(it.read)})</button>
             </div>
             <p class="py-detail-line"><strong>Khẩu hình:</strong> ${esc(it.mouth)}</p>
             <p class="py-detail-line"><strong>Mẹo nhớ:</strong> ${esc(it.tip)}</p>
@@ -375,7 +482,7 @@
       activeInit = gi.dataset.pickGuideInit;
       const han = gi.dataset.pyHan;
       render();
-      if (han) speakZh(han, 0.72);
+      if (!playRealAudio(activeInit, 'init', han) && han) speakZh(han, 0.72);
       return;
     }
 
@@ -384,12 +491,16 @@
       activeFinal = gf.dataset.pickGuideFinal;
       const han = gf.dataset.pyHan;
       render();
-      if (han) speakZh(han, 0.72);
+      if (!playRealAudio(activeFinal, 'final', han) && han) speakZh(han, 0.72);
       return;
     }
 
     const spk = e.target.closest('[data-py-han]');
-    if (spk) { speakZh(spk.dataset.pyHan, 0.72); return; }
+    if (spk) {
+      const sym = spk.dataset.pySym, kind = spk.dataset.pyKind;
+      if (sym && kind && playRealAudio(sym, kind, spk.dataset.pyHan)) return;
+      speakZh(spk.dataset.pyHan, 0.72); return;
+    }
 
     const pi = e.target.closest('[data-pick-init]');
     if (pi) {
