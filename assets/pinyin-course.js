@@ -195,13 +195,14 @@
   /* Sơ đồ theo từng thanh mẫu (không theo nhóm): AccentHero có ảnh riêng cho
      hầu hết các âm; khác nhau ở dây thanh (đỏ = hữu thanh, xám = vô thanh) và
      mũi tên xanh chỉ luồng hơi mũi ở m, n. Các âm không có ảnh riêng
-     (h, j, q, x, c) dùng chung ảnh của nhóm vị trí. */
+     (h, j, q, x, c) dùng chung ảnh của nhóm vị trí. Riêng ch dùng chung ảnh
+     sh vì file CH.svg của AccentHero là ảnh 2 khung giống hệt nhau. */
   const PY_INIT_DIAGRAM = {
     b: 'B', p: 'P', m: 'M', f: 'F',
     d: 'D', t: 'T', n: 'N', l: 'L',
     g: 'G', k: 'K', h: 'G',
     j: 'Y', q: 'Y', x: 'Y',
-    zh: 'ZH', ch: 'CH', sh: 'SH', r: 'R',
+    zh: 'ZH', ch: 'SH', sh: 'SH', r: 'R',
     z: 'Z', c: 'Z', s: 'S'
   };
   const PY_INIT_DIAGRAM_URL = sym => 'https://accenthero.com/app/assets/phonemes/' + (PY_INIT_DIAGRAM[sym] || 'B') + '.svg';
