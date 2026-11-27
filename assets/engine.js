@@ -688,20 +688,45 @@ function gameCardsHTML(){const l=lessons[activeLesson];return `<div class="dicta
 /* ===== SÁCH BÀI TẬP (workbook) — HSK1 听读练 + 模拟测练 ===== */
 const WB_SUBMIT_URL='https://script.google.com/macros/s/AKfycbxzlnGx2Vn8FSw4YMF9zt9kick_-pLQzY2JxXUYz5hyzoxtedXkhpp7fUPINXpb6GDn/exec';
 let wbState=null;
-let wbAudioEl=null;
+var WB_TONE_MARKS=['','ˉ','ˊ','ˇ','ˋ'];
+let wbTopStop=null;
+let wbTopArmed=false;
 function wbLessonData(){try{if(typeof workbook1==='undefined')return null;return workbook1[String(lessons[activeLesson].num)]||null;}catch(e){return null;}}
 function wbHasData(){return !!wbLessonData();}
 function wbAudioSrc(){const d=wbLessonData();return d?('assets/audio/h1/'+d.audio):'';}
+function wbTopAudio(){try{var p=document.getElementById('workbookPanel');return p?p.querySelector('audio.orig-audio'):null;}catch(e){return null;}}
+function wbWireTopAudio(){
+  var a=wbTopAudio();
+  if(!a||a._wbWired)return;
+  a._wbWired=true;
+  a.addEventListener('timeupdate',function(){
+    if(wbTopStop!==null&&a.currentTime>=wbTopStop){wbTopStop=null;try{a.pause();}catch(e){}}
+  });
+  a.addEventListener('seeking',function(){
+    if(wbTopArmed){wbTopArmed=false;return;}
+    wbTopStop=null;
+  });
+}
 function wbPlaySegment(src,start,end){
   try{
-    if(!wbAudioEl){wbAudioEl=new Audio();wbAudioEl.preload='auto';}
-    const stopAt=end+0.10;
-    if(wbAudioEl._wbStop)wbAudioEl.removeEventListener('timeupdate',wbAudioEl._wbStop);
-    wbAudioEl._wbStop=function(){if(wbAudioEl.currentTime>=stopAt){wbAudioEl.pause();wbAudioEl.removeEventListener('timeupdate',wbAudioEl._wbStop);}};
-    wbAudioEl.addEventListener('timeupdate',wbAudioEl._wbStop);
-    const playFrom=function(){try{wbAudioEl.currentTime=Math.max(0,start-0.05);}catch(e){}wbAudioEl.play().catch(function(){});};
-    if(wbAudioEl.getAttribute('src')!==src){wbAudioEl.src=src;wbAudioEl.addEventListener('loadedmetadata',playFrom,{once:true});wbAudioEl.load();}
-    else{playFrom();}
+    var a=wbTopAudio();
+    if(!a)return;
+    wbTopStop=end+0.10;
+    var playFrom=function(){
+      if(wbTopAudio()!==a)return;
+      try{a.currentTime=Math.max(0,start-0.05);}catch(e){}
+      wbTopArmed=true;
+      var pr=null;
+      try{pr=a.play();}catch(e){}
+      if(pr&&pr.catch)pr.catch(function(){});
+    };
+    if(a.getAttribute('src')!==src){
+      a.src=src;
+      a.addEventListener('loadedmetadata',playFrom,{once:true});
+      try{a.load();}catch(e){}
+    }else if(a.readyState<1){
+      a.addEventListener('loadedmetadata',playFrom,{once:true});
+    }else{playFrom();}
   }catch(e){}
 }
 /* WB_TONE_MAP moved to assets/tone-tools.js (FIX 1). */
@@ -745,7 +770,7 @@ function wbFindItem(d,key){
     if(!ex)return null;
     const it=ex.items.find(function(x){return x.no===+m[2];});
     if(!it)return null;
-    if(ex.type==='fill-tone')return{answer:it.answer,display:'Thanh '+it.answer,type:ex.type};
+    if(ex.type==='fill-tone')return{answer:it.answer,display:WB_TONE_MARKS[it.answer],type:ex.type};
     if(ex.type==='fill-initial'||ex.type==='fill-final')return{answer:it.answer,display:it.full||it.answer,type:ex.type};
     if(it.options&&/^[A-D]$/.test(String(it.answer))){
       const idx='ABCD'.indexOf(it.answer);
@@ -825,7 +850,7 @@ function wbAnswerTone(btn,key,val){
   const d=wbLessonData();if(!d)return;
   const found=wbFindItem(d,key);if(!found)return;
   const correct=String(val)===String(found.answer);
-  wbState.answers[key]={given:'Thanh '+val,correct:correct,correctAnswer:'Thanh '+found.answer};
+  wbState.answers[key]={given:WB_TONE_MARKS[val],correct:correct,correctAnswer:WB_TONE_MARKS[found.answer]};
   wbMarkAnswered(btn,key);
   wbUpdateScore();
 }
@@ -923,7 +948,7 @@ function wbItemHTML(d,ex,it,row){
     body='<div class="wb-fill-row"><input id="wb-in-'+key+'" class="wb-input" placeholder="'+(ex.type==='fill-initial'?'thanh mẫu':'vận mẫu')+'" autocomplete="off"'+(ans?' disabled value="'+esc(ans.given)+'"':'')+'><button class="action wb-check wb-check-mini" data-wb-check="'+key+'" aria-label="Xong"'+(ans?' disabled':'')+'>✓</button></div>';
   }else if(ex.type==='fill-tone'){
     head+='<span class="wb-printed">'+esc(it.printed)+'</span></div>';
-    body='<div class="wb-tone-row">'+[1,2,3,4].map(function(t){return '<button class="wb-tone-btn'+wbOptClass(ans,'Thanh '+t)+'" data-wb-tone="'+key+'" data-val="'+t+'"'+(ans?' disabled':'')+'>Thanh '+t+'</button>';}).join('')+'</div>';
+    body='<div class="wb-tone-row">'+[1,2,3,4].map(function(t){return '<button class="wb-tone-btn'+wbOptClass(ans,WB_TONE_MARKS[t])+'" data-wb-tone="'+key+'" data-val="'+t+'" title="Thanh '+t+'"'+(ans?' disabled':'')+'>'+WB_TONE_MARKS[t]+'</button>';}).join('')+'</div>';
   }else if(ex.type==='choose-syllable'||ex.type==='choose-word'){
     head+='</div>';
     body=wbOptsHTML(key,ans,it.options);
@@ -1005,7 +1030,7 @@ function wbSubmitHTML(l,d){
   return '<article class="grammar-card wb-submit"><div class="grammar-title">Kiểm tra và nộp bài</div><div class="grammar-body">'
   +'<p id="wbScoreLine">'+line+'</p>'
   +'<p class="wb-note">'+nickLine+'</p>'
-  +'<div class="wb-submit-row"><button class="action" id="wbCheck"'+(wbState.checked?' disabled':'')+'>Kiểm tra đáp án</button><button class="action" id="wbSubmit"'+(wbState.submitted?' disabled':'')+'>Nộp cho giáo viên</button><button class="game-other" id="wbRetry">Làm lại</button></div>'
+  +'<div class="wb-submit-row"><button class="py-mixer-listen is-primary" id="wbCheck"'+(wbState.checked?' disabled':'')+'>Kiểm tra đáp án</button><button class="py-mixer-listen" id="wbSubmit"'+(wbState.submitted?' disabled':'')+'>Nộp cho giáo viên</button><button class="py-mixer-listen" id="wbRetry">Làm lại</button></div>'
   +'<p id="wbSubmitMsg">'+esc(wbState.submitMsg||'')+'</p>'
   +'</div></article>';
 }
@@ -1024,8 +1049,8 @@ function wbPanelHTML(l,d){
       if(ex.type==='read-aloud'||ex.type==='distinguish'){
         h+='<p class="wb-note">Nghe rồi đọc to theo, không tính điểm.</p>';
       }
-      if(ex.instructionRange)h+='<button class="wb-play" data-wb-play data-src="'+wbAudioSrc()+'" data-start="'+ex.instructionRange[0]+'" data-end="'+ex.instructionRange[1]+'">▶ Nghe hướng dẫn</button>';
-      else if(ex.audioRange)h+='<button class="wb-play" data-wb-play data-src="'+wbAudioSrc()+'" data-start="'+ex.audioRange[0]+'" data-end="'+ex.audioRange[1]+'">▶ Nghe toàn bài tập</button>';
+      if(ex.instructionRange)h+='<button class="py-mixer-listen is-primary" data-wb-play data-src="'+wbAudioSrc()+'" data-start="'+ex.instructionRange[0]+'" data-end="'+ex.instructionRange[1]+'">▶ Nghe hướng dẫn</button>';
+      else if(ex.audioRange)h+='<button class="py-mixer-listen is-primary" data-wb-play data-src="'+wbAudioSrc()+'" data-start="'+ex.audioRange[0]+'" data-end="'+ex.audioRange[1]+'">▶ Nghe toàn bài tập</button>';
       h+=wbExerciseItemsHTML(d,ex);
       h+='</div></article>';
     });
@@ -1039,7 +1064,7 @@ function wbPanelHTML(l,d){
       const sharedPic=items.length>0&&items.every(function(it){return it.pictureDesc&&it.pictureDesc===items[0].pictureDesc;});
       h+='<div class="wb-part"><div class="wb-part-head"><div class="wb-part-ord">'+esc(wbPartOrd(part.partNo))+'</div><div class="wb-part-title">'+esc(part.instruction)+'</div><p class="wb-note">'+esc(part.instructionVi)+'</p>';
       if(sharedPic)h+='<p class="wb-picdesc">'+esc(items[0].pictureDesc)+'</p>';
-      h+='<button class="wb-play" data-wb-play data-src="'+wbAudioSrc()+'" data-start="'+part.audioRange[0]+'" data-end="'+part.audioRange[1]+'">▶ Nghe (Câu '+lo+'-'+hi+')</button></div>';
+      h+='<button class="py-mixer-listen is-primary" data-wb-play data-src="'+wbAudioSrc()+'" data-start="'+part.audioRange[0]+'" data-end="'+part.audioRange[1]+'">▶ Nghe (Câu '+lo+'-'+hi+')</button></div>';
       h+=wbExampleHTML(part.example);
       items.forEach(function(it){h+=wbMoniListenHTML(d,it,!sharedPic);});
       h+='</div>';
@@ -1078,7 +1103,10 @@ function renderWorkbook(){
   if(!wbState||wbState.lesson!==l.num){
     wbState={lesson:l.num,startTs:Date.now(),answers:{},submitted:false,submitMsg:'',checked:false};
   }
+  wbTopStop=null;
+  wbTopArmed=false;
   panel.innerHTML=wbPanelHTML(l,d);
+  wbWireTopAudio();
 }
 function workbookArtSVG(){return `<svg viewBox="0 0 120 84" role="img" aria-label="Sách bài tập"><rect width="120" height="84" fill="#f3ead8"/><rect x="30" y="12" width="60" height="60" rx="4" fill="#ffffff" stroke="#173f63" stroke-width="2"/><rect x="30" y="12" width="9" height="60" fill="#d9a441"/><rect x="46" y="22" width="34" height="4" rx="2" fill="#173f63"/><rect x="46" y="32" width="34" height="4" rx="2" fill="#9aa8b5"/><rect x="46" y="42" width="22" height="4" rx="2" fill="#9aa8b5"/><rect x="46" y="54" width="28" height="4" rx="2" fill="#c8452c"/></svg>`}
 document.addEventListener('click',e=>{
