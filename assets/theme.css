@@ -4002,7 +4002,7 @@ body.hide-pinyin .kk-char rt{visibility:hidden}
 }
 
 /* ===== Khóa Phát âm chuẩn Pinyin (phat-am.html) ===== */
-.level-card.art-pinyin{background:linear-gradient(155deg,#FAFBF7 0%,#EEF4F0 100%)}
+.level-card.art-pinyin{background-image:linear-gradient(90deg,var(--surface) 0%,var(--surface) 55%,color-mix(in srgb,var(--surface) 25%,transparent) 80%,transparent 100%),url(card-pinyin.jpg)}
 .py-lead{margin:0 0 14px;color:var(--muted);font-size:.94rem;line-height:1.5}
 .py-group-card{display:flex;flex-direction:column;gap:12px}
 .py-group-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
