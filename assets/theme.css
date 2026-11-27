@@ -425,7 +425,7 @@ a.home-back{text-decoration:none}
 .audio-top{display:flex;align-items:center;gap:13px}
 .audio-embed{margin-top:12px}
 .audio-embed iframe{display:block;width:100%;height:150px;border:0;border-radius:var(--r-control);background:#202124}
-.orig-audio-box{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:12px}
+.orig-audio-box{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:12px;margin-bottom:14px}
 .vocab-group .orig-audio-box{margin-bottom:16px}
 .orig-audio-label{font-weight:700;color:var(--ink);font-size:.9rem;margin-bottom:8px;white-space:normal}
 .orig-audio-box audio,.orig-audio{width:100%}
@@ -4096,7 +4096,6 @@ body.hide-pinyin .kk-char rt{visibility:hidden}
 .wb-score{margin:10px 0 14px}
 .wb-score .quiz-progress{margin-top:6px}
 .wb-ex{margin-bottom:14px}
-#workbookPanel .orig-audio-box{margin-bottom:14px}
 .wb-item{padding:12px 0;border-top:1px solid var(--line)}
 .wb-item:first-child{border-top:0}
 .wb-item-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -4108,7 +4107,7 @@ body.hide-pinyin .kk-char rt{visibility:hidden}
 .wb-input{flex:1;min-width:160px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:var(--surface)}
 .wb-input:disabled{background:var(--selected)}
 .wb-tone-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.wb-tone-btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 14px;cursor:pointer;font:inherit;font-weight:700}
+.wb-tone-btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 12px;cursor:pointer;font:inherit;font-size:1.5rem;line-height:1.2;font-weight:700;min-width:48px;text-align:center}
 .wb-opts{display:grid;gap:8px;margin-top:10px}
 .wb-opt{display:flex;align-items:center;gap:10px;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 12px;cursor:pointer;font:inherit}
 .wb-opt .ans-num{font-weight:800;color:var(--muted)}

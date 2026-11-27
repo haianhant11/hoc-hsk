@@ -632,7 +632,7 @@ function gameCardsHTML(){const l=lessons[activeLesson];return `<div class="dicta
 /* ===== SÁCH BÀI TẬP (workbook) — HSK1 听读练 + 模拟测练 ===== */
 const WB_SUBMIT_URL='https://script.google.com/macros/s/AKfycbxzlnGx2Vn8FSw4YMF9zt9kick_-pLQzY2JxXUYz5hyzoxtedXkhpp7fUPINXpb6GDn/exec';
 let wbState=null;
-var WB_TONE_MARKS=['','ˉ','ˊ','ˇ','ˋ'];
+var WB_TONE_MARKS=['','ā','á','ǎ','à'];
 let wbTopStop=null;
 let wbTopArmed=false;
 function wbLessonData(){try{if(typeof workbook1==='undefined')return null;return workbook1[String(lessons[activeLesson].num)]||null;}catch(e){return null;}}
