@@ -332,7 +332,7 @@
           <div class="py-tone-demo-row">
             ${tones.map(t => `<button type="button" class="py-tone-pill" data-py-han="${esc(t.han)}" data-py-sym="${esc(t.ex)}" data-py-kind="tone"><strong>${esc(t.ex)}</strong> <span>${esc(t.han)} (${esc(t.vi)})</span> 🔊</button>`).join('')}
           </div>
-          <p class="hy-tip-inline" style="margin:10px 0 0">Lưu ý: mẫu "ma" dùng giọng đọc của trình duyệt, nghe để tham khảo thôi nhé. Muốn nghe giọng gốc nhà xuất bản thì bấm các âm ở mục bài tập bên dưới.</p>
+          <p class="hy-tip-inline" style="margin:10px 0 0">Lưu ý: mẫu "ma" dùng giọng đọc của trình duyệt, nghe để tham khảo</p>
         </div>
       </article>
       <article class="info-card" style="margin-top:14px">
