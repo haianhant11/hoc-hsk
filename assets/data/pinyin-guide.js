@@ -7,7 +7,7 @@ window.PINYIN_INITIALS = [
     tip: 'Hai môi khép kín hoàn toàn để chặn hơi, sau đó mở nhanh.',
     items: [
       { sym: 'b', read: 'bō', han: '波', vi: 'pua / bô (không bật hơi)', air: 'Không bật hơi', mouth: 'Hai môi mím chặt, rồi mở nhẹ cho hơi thoát ra tự nhiên, dây thanh không rung (gần như chữ "p" không bật hơi, nhẹ hơn chữ "b" tiếng Việt).', mistake: 'Hay đọc rung dây thanh như "bờ" tiếng Việt.' },
-      { sym: 'p', read: 'pō', han: '坡', vi: 'phua / pô (bật hơi mạnh)', air: 'Bật hơi mạnh', mouth: 'Hai môi mím chặt tích hơi, sau đó bật bung ra thật mạnh (đặt tờ giấy trước miệng sẽ thấy giấy bay rõ).', mistake: 'Hay bật hơi quá nhẹ giống âm "b".' },
+      { sym: 'p', read: 'pō', han: '坡', vi: 'pua / pô (bật hơi mạnh)', air: 'Bật hơi mạnh', mouth: 'Hai môi mím chặt tích hơi, sau đó bật bung ra thật mạnh (đặt tờ giấy trước miệng sẽ thấy giấy bay rõ).', mistake: 'Hay bật hơi quá nhẹ giống âm "b".' },
       { sym: 'm', read: 'mō', han: '摸', vi: 'mua / mô (âm mũi)', air: 'Ra khoang mũi', mouth: 'Hai môi khép kín, ngạc mềm hạ xuống để luồng hơi đi qua khoang mũi, dây thanh rung.', mistake: 'Gần giống chữ "m" tiếng Việt, cần giữ môi khép trọn lúc đầu.' }
     ]
   },
