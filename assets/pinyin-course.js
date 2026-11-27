@@ -444,6 +444,7 @@
     }).filter(Boolean);
 
     return `<div class="section-intro"><h3>Ghép Thanh mẫu + Vận mẫu &amp; Nghe Audio</h3><span class="count">Đọc theo chữ Hán chuẩn zh-CN</span></div>
+      <p class="hy-tip-inline" style="margin:0 0 12px">Lưu ý: phần ghép âm dùng giọng đọc của trình duyệt, nghe để tham khảo thôi nhé. Muốn nghe giọng gốc nhà xuất bản thì sang tab Thanh mẫu / Vận mẫu.</p>
       <article class="info-card py-mixer-stage">
         <div class="py-mixer-result ${res.valid ? 'is-ok' : 'is-bad'}">
           <div class="py-res-main">
