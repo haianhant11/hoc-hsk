@@ -121,6 +121,30 @@
       'üan': ['h1-phon-2.mp3', 100.9, 101.75],
       'üe': ['h1-phon-2.mp3', 98.61, 99.3],
       'ün': ['h1-phon-2.mp3', 103.44, 104.32],
+    },
+    /* Ví dụ thanh điệu thật trong h1-phon-1.mp3 (bài tập 声调 Bài 1, đoạn 50-68).
+       Map 27/11/2026: F0 + Whisper + khoảng lặng nhóm (3.1s giữa nhóm, 0.7-1.2s trong nhóm).
+       Không có bā/bá/bǎ/bà hay mā/má/mǎ/mà riêng trong file này; dùng a/e/er/da/ke. */
+    tone: {
+      'ā': ['h1-phon-1.mp3', 156.1, 157.16],
+      'á': ['h1-phon-1.mp3', 158.07, 159.1],
+      'ǎ': ['h1-phon-1.mp3', 160.13, 161.46],
+      'à': ['h1-phon-1.mp3', 162.21, 162.97],
+      'ē': ['h1-phon-1.mp3', 166.17, 167.14],
+      'é': ['h1-phon-1.mp3', 168.12, 169.21],
+      'ě': ['h1-phon-1.mp3', 170.19, 171.34],
+      'è': ['h1-phon-1.mp3', 172.29, 173.28],
+      'ér': ['h1-phon-1.mp3', 176.39, 177.62],
+      'ěr': ['h1-phon-1.mp3', 178.67, 179.82],
+      'èr': ['h1-phon-1.mp3', 180.58, 182.12],
+      'dā': ['h1-phon-1.mp3', 185.21, 186.11],
+      'dá': ['h1-phon-1.mp3', 187.33, 188.38],
+      'dǎ': ['h1-phon-1.mp3', 189.47, 190.75],
+      'dà': ['h1-phon-1.mp3', 191.43, 192.96],
+      'kē': ['h1-phon-1.mp3', 196.14, 197.41],
+      'ké': ['h1-phon-1.mp3', 198.54, 199.76],
+      'kě': ['h1-phon-1.mp3', 200.96, 202.43],
+      'kè': ['h1-phon-1.mp3', 203.63, 204.81],
     }
   };
   let pyAudioEl = null;
@@ -323,10 +347,10 @@
       <article class="info-card py-tone-hero">
         <div class="py-tone-chart">${toneChartSVG()}</div>
         <div class="py-tone-guide">
-          <h3>Bấm vào từng thanh để nghe mẫu (ma)</h3>
+          <h3>Bấm vào từng thanh để nghe mẫu (a, giọng gốc nhà xuất bản)</h3>
           <p>Tiếng Trung chia cao độ giọng nói thành <strong>5 bậc</strong>. Đổi thanh điệu sẽ đổi hoàn toàn nghĩa của từ.</p>
           <div class="py-tone-demo-row">
-            ${tones.map(t => `<button type="button" class="py-tone-pill" data-py-han="${esc(t.han)}"><strong>${esc(t.ex)}</strong> <span>${esc(t.han)} (${esc(t.vi)})</span> 🔊</button>`).join('')}
+            ${tones.map(t => `<button type="button" class="py-tone-pill" data-py-han="${esc(t.han)}" data-py-sym="${esc(t.ex)}" data-py-kind="tone"><strong>${esc(t.ex)}</strong> <span>${esc(t.han)} (${esc(t.vi)})</span> 🔊</button>`).join('')}
           </div>
         </div>
       </article>
@@ -336,7 +360,7 @@
           <div class="grammar-body">
             <div class="py-tone-card-ex">
               <span>Ví dụ: <strong class="py-sym-sm">${esc(t.ex)}</strong> (${esc(t.han)} - ${esc(t.vi)})</span>
-              <button type="button" class="speak" data-py-han="${esc(t.han)}" aria-label="Nghe ${esc(t.ex)}">▶</button>
+              <button type="button" class="speak" data-py-han="${esc(t.han)}" data-py-sym="${esc(t.ex)}" data-py-kind="tone" aria-label="Nghe ${esc(t.ex)}">▶</button>
             </div>
             <p>${esc(t.desc)}</p>
             <p class="hy-tip-inline"><span class="label">💡 Mẹo tập:</span> ${esc(t.tip)}</p>
@@ -392,12 +416,12 @@
     return syllable.slice(0, pos) + (T[ch] ? T[ch][tIdx] : ch) + syllable.slice(pos + 1);
   }
 
-  /* Lấy chữ Hán chuẩn để speechSynthesis zh-CN đọc đúng âm tiết + thanh điệu */
+  /* Lấy chữ Hán chuẩn để speechSynthesis zh-CN đọc đúng âm tiết + thanh điệu.
+     CHỈ trả chữ đúng thanh đã chọn; không fallback sang thanh khác vì sẽ đọc sai thanh
+     (vd gou thanh 1 mà đọc 狗 gǒu thanh 3). Không có chữ thì trả rỗng để UI báo rõ. */
   function hanForSyllableTone(base, tone) {
     const map = (window.PINYIN_TONE_HAN && window.PINYIN_TONE_HAN[base]) || {};
     if (map[tone]) return { han: map[tone], exact: true };
-    const anyKey = Object.keys(map)[0];
-    if (anyKey !== undefined) return { han: map[anyKey], exact: false, fallbackTone: Number(anyKey) };
     return { han: '', exact: false };
   }
 
@@ -415,6 +439,7 @@
       const c = combinePinyin(selInit, f);
       if (!c.valid) return null;
       const th = hanForSyllableTone(c.base, selTone);
+      if (!th.han) return null;
       return { f, syl: applyTone(c.base, selTone), ex: c.ex, han: th.han };
     }).filter(Boolean);
 
@@ -426,8 +451,8 @@
             <div class="py-res-syl">${esc(toned)} ${ttsInfo.han ? `<span class="han py-res-han">${esc(ttsInfo.han)}</span>` : ''}</div>
             <div class="py-res-meta">${res.valid
               ? (ttsInfo.exact
-                  ? `Ví dụ từ HSK: <strong class="han">${esc(res.ex)}</strong>`
-                  : `Âm ghép hợp lệ (<strong class="han">${esc(res.ex)}</strong>). Loa đọc theo chữ đại diện <strong class="han">${esc(ttsInfo.han)}</strong>.`)
+                  ? `Âm ghép hợp lệ, ví dụ chữ <strong class="han">${esc(ttsInfo.han)}</strong>.`
+                  : `Âm ghép hợp lệ, nhưng thanh ${selTone === 0 ? 'nhẹ' : selTone} của âm này không có chữ Hán thường dùng nên chưa nghe được bằng loa.`)
               : 'Tổ hợp này không tồn tại trong tiếng Trung phổ thông — chọn ô sáng bên dưới.'}</div>
           </div>
           <div class="py-res-actions">
@@ -463,7 +488,7 @@
         <div class="py-picker-block">
           <h4>Bảng âm ghép nhanh của "${esc(selInit === '∅' ? 'Không thanh mẫu' : selInit)}" (${quickRow.length} âm — bấm để nghe)</h4>
           <div class="py-quick-syl-grid">
-            ${quickRow.map(q => `<button type="button" class="py-qsyl-btn" data-py-han="${esc(q.han)}"><strong>${esc(q.syl)}</strong><span>${esc(q.han)} · ${esc(q.ex)}</span></button>`).join('')}
+            ${quickRow.map(q => `<button type="button" class="py-qsyl-btn" data-py-han="${esc(q.han)}"><strong>${esc(q.syl)}</strong><span>${esc(q.han)}</span></button>`).join('')}
           </div>
         </div>
       </article>`;
