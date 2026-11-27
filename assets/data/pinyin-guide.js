@@ -137,27 +137,27 @@ window.PINYIN_FINALS = [
 
 window.PINYIN_TONES = [
   {
-    num: 1, name: 'Thanh 1 (Âm bình)', mark: 'ˉ', pitch: '55', ex: 'ā', han: '阿', vi: 'a (như 阿姨 āyí)',
+    num: 1, name: 'Thanh 1 (Âm bình)', mark: 'ˉ', pitch: '55', ex: 'mā', han: '妈', vi: 'mẹ',
     desc: 'Đọc cao, bằng phẳng và đều đặn từ đầu đến cuối (mức 5 -> 5). Không lên giọng, không tụt giọng.',
     tip: 'Tưởng tượng bạn đang ngân một nốt cao ổn định khi luyện thanh.'
   },
   {
-    num: 2, name: 'Thanh 2 (Dương bình)', mark: 'ˊ', pitch: '35', ex: 'á', han: '啊', vi: 'à (ngạc nhiên)',
+    num: 2, name: 'Thanh 2 (Dương bình)', mark: 'ˊ', pitch: '35', ex: 'má', han: '麻', vi: 'tê, gai',
     desc: 'Đi từ mức trung bình vút thẳng lên mức cao nhất (mức 3 -> 5), nghe giống như đang ngạc nhiên hỏi "Hả?".',
     tip: 'Không đọc võng xuống trước rồi mới lên; phải đi lên dứt khoát như dấu sắc nhưng nhẹ đầu hơn.'
   },
   {
-    num: 3, name: 'Thanh 3 (Thượng thanh)', mark: 'ˇ', pitch: '214', ex: 'ǎ', han: '啊', vi: 'à (ngạc nhiên)',
+    num: 3, name: 'Thanh 3 (Thượng thanh)', mark: 'ˇ', pitch: '214', ex: 'mǎ', han: '马', vi: 'ngựa',
     desc: 'Xuống thấp chạm đáy rồi mới uốn nhẹ lên (mức 2 -> 1 -> 4). Trong giao tiếp thực tế, thường chỉ đọc nửa thanh 3 (xuống thấp trầm 2 -> 1).',
     tip: 'Mẹo: hạ giọng trầm xuống đáy cổ họng; khi đứng một mình hoặc cuối câu mới lượn nhẹ lên.'
   },
   {
-    num: 4, name: 'Thanh 4 (Khứ thanh)', mark: 'ˋ', pitch: '51', ex: 'à', han: '啊', vi: 'à (ngạc nhiên)',
+    num: 4, name: 'Thanh 4 (Khứ thanh)', mark: 'ˋ', pitch: '51', ex: 'mà', han: '骂', vi: 'mắng',
     desc: 'Rơi nhanh, mạnh và dứt khoát từ đỉnh cao nhất xuống đáy thấp nhất (mức 5 -> 1).',
     tip: 'Ngắn gọn, dứt khoát như tiếng chặt hoặc câu khẳng định mạnh.'
   },
   {
-    num: 0, name: 'Thanh nhẹ (轻声)', mark: '·', pitch: 'ngắn', ex: 'a', han: '啊', vi: 'à (trợ từ, đọc nhẹ)',
+    num: 0, name: 'Thanh nhẹ (轻声)', mark: '·', pitch: 'ngắn', ex: 'ma', han: '吗', vi: 'trợ từ hỏi',
     desc: 'Không có dấu thanh trên chữ. Đọc thật nhẹ, ngắn và lướt nhanh, độ cao phụ thuộc vào thanh điệu đứng ngay trước nó.',
     tip: 'Hay gặp ở trợ từ (吗, 呢, 的, 了) và chữ thứ 2 của từ láy (妈妈 māma, 谢谢 xièxie).'
   }

@@ -310,18 +310,35 @@
     </svg>`;
   }
 
+  /* Bài tập thanh điệu trong sách Bài 1 (giọng gốc nhà xuất bản, h1-phon-1.mp3).
+     5 nhóm, 19 âm: a (ā á ǎ à), e (ē é ě è), er (ér ěr èr), da (dā dá dǎ dà), ke (kē ké kě kè).
+     Chữ Hán chỉ để dự phòng khi audio gốc lỗi (TTS đọc theo chữ). */
+  const TONE_EXERCISE_GROUPS = [
+    { label: 'a', items: [['ā', '阿'], ['á', '啊'], ['ǎ', '啊'], ['à', '啊']] },
+    { label: 'e', items: [['ē', '婀'], ['é', '鹅'], ['ě', '恶'], ['è', '恶']] },
+    { label: 'er', items: [['ér', '儿'], ['ěr', '耳'], ['èr', '二']] },
+    { label: 'da', items: [['dā', '搭'], ['dá', '答'], ['dǎ', '打'], ['dà', '大']] },
+    { label: 'ke', items: [['kē', '科'], ['ké', '咳'], ['kě', '可'], ['kè', '课']] }
+  ];
+
   function renderTones() {
     const tones = window.PINYIN_TONES || [];
     return `<div class="section-intro"><h3>4 Thanh điệu &amp; Thanh nhẹ (声调)</h3><span class="count">Cao độ 1 → 5</span></div>
       <article class="info-card py-tone-hero">
         <div class="py-tone-chart">${toneChartSVG()}</div>
         <div class="py-tone-guide">
-          <h3>Bấm vào từng thanh để nghe mẫu (a, giọng gốc nhà xuất bản)</h3>
+          <h3>Bấm vào từng thanh để nghe mẫu (ma, giọng trình duyệt)</h3>
           <p>Tiếng Trung chia cao độ giọng nói thành <strong>5 bậc</strong>. Đổi thanh điệu sẽ đổi hoàn toàn nghĩa của từ.</p>
           <div class="py-tone-demo-row">
             ${tones.map(t => `<button type="button" class="py-tone-pill" data-py-han="${esc(t.han)}" data-py-sym="${esc(t.ex)}" data-py-kind="tone"><strong>${esc(t.ex)}</strong> <span>${esc(t.han)} (${esc(t.vi)})</span> 🔊</button>`).join('')}
           </div>
+          <p class="hy-tip-inline" style="margin:10px 0 0">Lưu ý: mẫu "ma" dùng giọng đọc của trình duyệt, nghe để tham khảo thôi nhé. Muốn nghe giọng gốc nhà xuất bản thì bấm các âm ở mục bài tập bên dưới.</p>
         </div>
+      </article>
+      <article class="info-card" style="margin-top:14px">
+        <h3>Bài tập thanh điệu trong sách (giọng gốc nhà xuất bản)</h3>
+        <p style="margin:0 0 10px;font-size:.9rem;color:var(--muted)">Bài 1, phần 声调: nghe và phân biệt cao độ của từng nhóm âm.</p>
+        ${TONE_EXERCISE_GROUPS.map(g => `<div class="py-tone-ex-row"><span class="py-tone-ex-label">${esc(g.label)}</span><div class="py-tone-demo-row">${g.items.map(([syl, han]) => `<button type="button" class="py-tone-pill" data-py-han="${esc(han)}" data-py-sym="${esc(syl)}" data-py-kind="tone"><strong>${esc(syl)}</strong> <span>${esc(han)}</span> 🔊</button>`).join('')}</div></div>`).join('')}
       </article>
       <div class="grammar-grid" style="margin-top:14px">${tones.map(t => `
         <article class="grammar-card">

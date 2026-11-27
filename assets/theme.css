@@ -4027,6 +4027,9 @@ body.hide-pinyin .kk-char rt{visibility:hidden}
 .py-tone-demo-row{display:flex;gap:8px;flex-wrap:wrap}
 .py-tone-pill{border:1px solid var(--line-2);background:var(--bg);border-radius:10px;padding:6px 10px;font:inherit;font-size:.84rem;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
 .py-tone-pill:hover{border-color:var(--ok);background:var(--selected)}
+.py-tone-ex-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.py-tone-ex-row:last-child{margin-bottom:0}
+.py-tone-ex-label{flex:none;width:26px;font-weight:800;color:var(--ok);font-size:1rem}
 .py-tone-card-ex{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:6px;border-bottom:1px dashed var(--line)}
 .py-sym-sm{font-size:1.1rem;font-weight:800;color:var(--ok)}
 .py-mixer-stage{display:flex;flex-direction:column;gap:16px}
