@@ -889,14 +889,16 @@ function wbCheckAll(){
 }
 function wbSubmit(){
   const msgEl=document.getElementById('wbSubmitMsg');
-  const nick=wbNick();
-  if(!nick){if(msgEl)msgEl.innerHTML='Bạn chưa có tên nick. Vào <a href="/bang-xep-hang">Bảng xếp hạng</a> để đặt tên nick rồi quay lại nộp nhé.';return;}
+  const nameEl=document.getElementById('wbName');
+  const name=nameEl?String(nameEl.value||'').trim():'';
+  if(!name){if(msgEl)msgEl.textContent='Bạn nhập họ và tên rồi bấm nộp nhé.';if(nameEl)nameEl.focus();return;}
   const d=wbLessonData();if(!d)return;
   const total=wbTotal(d),correct=wbCorrect(d);
   const mins=Math.max(1,Math.round((Date.now()-wbState.startTs)/60000));
   const score=correct+'/'+total;
+  try{localStorage.setItem('hoc-hsk-wb-name',name);}catch(e){}
   if(msgEl)msgEl.textContent='Đang gửi…';
-  fetch(WB_SUBMIT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({name:nick,lesson:'Bài '+wbState.lesson,time:mins+' phút',score:score})})
+  fetch(WB_SUBMIT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({name:name,lesson:'Bài '+wbState.lesson,time:mins+' phút',score:score})})
   .then(function(){wbState.submitted=true;wbState.submitMsg='Đã gửi kết quả cho giáo viên. Cảm ơn bạn!';if(msgEl)msgEl.textContent=wbState.submitMsg;const b=document.getElementById('wbSubmit');if(b)b.disabled=true;})
   .catch(function(){if(msgEl)msgEl.textContent='Gửi chưa được, kiểm tra mạng rồi bấm gửi lại nhé.';});
 }
@@ -1024,12 +1026,12 @@ function wbMoniReadHTML(d,it,groupBody,showOptionsDesc){
 }
 function wbSubmitHTML(l,d){
   const total=wbTotal(d),correct=wbCorrect(d),answered=wbAnswered(d);
-  const nick=wbNick();
+  let savedName='';
+  try{savedName=localStorage.getItem('hoc-hsk-wb-name')||'';}catch(e){}
   const line=wbState.checked?('Điểm của bạn: <strong>'+correct+'/'+total+'</strong>'):('Đã làm <strong>'+answered+'/'+total+'</strong> câu. Bấm Kiểm tra đáp án để xem điểm nhé.');
-  const nickLine=nick?('Tên nick sẽ nộp: <strong>'+esc(nick)+'</strong>'):('Chưa có tên nick. Vào <a href="/bang-xep-hang">Bảng xếp hạng</a> để đặt tên nick trước khi nộp nhé.');
   return '<article class="grammar-card wb-submit"><div class="grammar-title">Kiểm tra và nộp bài</div><div class="grammar-body">'
   +'<p id="wbScoreLine">'+line+'</p>'
-  +'<p class="wb-note">'+nickLine+'</p>'
+  +'<div class="wb-fill-row"><input id="wbName" class="wb-input" placeholder="Họ và tên của bạn" autocomplete="off" value="'+esc(savedName)+'"></div>'
   +'<div class="wb-submit-row"><button class="py-mixer-listen is-primary" id="wbCheck"'+(wbState.checked?' disabled':'')+'>Kiểm tra đáp án</button><button class="py-mixer-listen" id="wbSubmit"'+(wbState.submitted?' disabled':'')+'>Nộp cho giáo viên</button><button class="py-mixer-listen" id="wbRetry">Làm lại</button></div>'
   +'<p id="wbSubmitMsg">'+esc(wbState.submitMsg||'')+'</p>'
   +'</div></article>';
