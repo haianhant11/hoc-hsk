@@ -633,6 +633,10 @@ function gameCardsHTML(){const l=lessons[activeLesson];return `<div class="dicta
 const WB_SUBMIT_URL='https://script.google.com/macros/s/AKfycbxzlnGx2Vn8FSw4YMF9zt9kick_-pLQzY2JxXUYz5hyzoxtedXkhpp7fUPINXpb6GDn/exec';
 let wbState=null;
 var WB_TONE_MARKS=['','ā','á','ǎ','à'];
+function wbToneSVG(t){
+  const paths={1:'<line x1="4" y1="12" x2="20" y2="12"/>',2:'<line x1="5" y1="18" x2="19" y2="6"/>',3:'<path d="M4 7 L12 18 L20 7"/>',4:'<line x1="5" y1="6" x2="19" y2="18"/>'};
+  return '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'+paths[t]+'</svg>';
+}
 let wbTopStop=null;
 let wbTopArmed=false;
 function wbLessonData(){try{if(typeof workbook1==='undefined')return null;return workbook1[String(lessons[activeLesson].num)]||null;}catch(e){return null;}}
@@ -902,7 +906,7 @@ function wbItemHTML(d,ex,it,row){
     body='<div class="wb-fill-row"><input id="wb-in-'+key+'" class="wb-input" placeholder="'+(ex.type==='fill-initial'?'thanh mẫu':'vận mẫu')+'" autocomplete="off"'+(ans?' disabled value="'+esc(ans.given)+'"':'')+'><button class="action wb-check wb-check-mini" data-wb-check="'+key+'" aria-label="Xong"'+(ans?' disabled':'')+'>✓</button></div>';
   }else if(ex.type==='fill-tone'){
     head+='<span class="wb-printed">'+esc(it.printed)+'</span></div>';
-    body='<div class="wb-tone-row">'+[1,2,3,4].map(function(t){return '<button class="wb-tone-btn'+wbOptClass(ans,WB_TONE_MARKS[t])+'" data-wb-tone="'+key+'" data-val="'+t+'" title="Thanh '+t+'"'+(ans?' disabled':'')+'>'+WB_TONE_MARKS[t]+'</button>';}).join('')+'</div>';
+    body='<div class="wb-tone-row">'+[1,2,3,4].map(function(t){return '<button class="wb-tone-btn'+wbOptClass(ans,WB_TONE_MARKS[t])+'" data-wb-tone="'+key+'" data-val="'+t+'" title="Thanh '+t+'"'+(ans?' disabled':'')+'>'+wbToneSVG(t)+'</button>';}).join('')+'</div>';
   }else if(ex.type==='choose-syllable'||ex.type==='choose-word'){
     head+='</div>';
     body=wbOptsHTML(key,ans,it.options);
