@@ -208,11 +208,31 @@
     return `<td><button type="button" class="py-matrix-btn${isAct ? ' active' : ''}" data-pick-guide-init="${esc(sym)}" data-py-han="${esc(han)}"><strong>${esc(sym)}</strong><span class="han">${esc(han)}</span></button></td>`;
   }
 
-  function renderInitials() {
+  /* Nội dung thẻ chi tiết của 1 thanh mẫu. Tách riêng để khi bấm đổi chữ cái chỉ
+     cần thay innerHTML của thẻ này (cùng nút đang chọn), không innerHTML cả panel,
+     nên thẻ <audio> ở trên không bị xóa đi vẽ lại (hết chớp, đang phát không bị ngắt). */
+  function renderInitDetail() {
     const cur = findInitial(activeInit) || findInitial('b');
     const g = cur.group;
     const it = cur.item;
+    return `<div class="py-detail-left">
+          <div class="py-detail-head">
+            <span class="py-sym">${esc(it.sym)}</span>
+            <span class="py-air-tag">${esc(it.air)}</span>
+            <button type="button" class="action py-listen-btn" data-py-han="${esc(it.han)}" data-py-sym="${esc(it.sym)}" data-py-kind="init">🔊 Nghe (${esc(it.han)} · ${esc(it.read)})</button>
+          </div>
+          <p class="py-detail-line"><strong>Nhóm:</strong> ${esc(g.name)} — <em>${esc(g.tip)}</em></p>
+          <p class="py-detail-line"><strong>Cách phát âm:</strong> ${esc(it.mouth)}</p>
+          <p class="py-detail-line"><strong>Âm gần giống tiếng Việt:</strong> ${esc(it.vi)}</p>
+          <p class="py-sound-warn"><strong>Lỗi hay gặp:</strong> ${esc(it.mistake)}</p>
+        </div>
+        <div class="py-detail-img-box">
+          <img src="${PY_INIT_DIAGRAM_URL(it.sym)}" alt="Sơ đồ mặt cắt vị trí lưỡi cho ${esc(g.name)}" loading="lazy" onerror="this.onerror=null;this.src='assets/pinyin-diagrams/${esc(g.diagram)}.png';">
+          <span class="py-img-cap">Phần tô đỏ là bộ phận phát âm chính · Sơ đồ: AccentHero</span>
+        </div>`;
+  }
 
+  function renderInitials() {
     return `<div class="section-intro"><h3>Bảng Thanh mẫu chuẩn HSK (21 âm)</h3><span class="count">Bấm vào ô để nghe</span></div>
       <div class="orig-audio-box"><div class="orig-audio-label">Nghe cả bảng thanh mẫu (21 âm, giọng gốc nhà xuất bản)</div><audio class="orig-audio" controls preload="metadata" src="assets/audio/h1/h1-phon-initials-all.mp3"></audio></div>
       <div class="py-matrix-wrap">
@@ -243,21 +263,7 @@
       </div>
 
       <article class="info-card py-detail-card">
-        <div class="py-detail-left">
-          <div class="py-detail-head">
-            <span class="py-sym">${esc(it.sym)}</span>
-            <span class="py-air-tag">${esc(it.air)}</span>
-            <button type="button" class="action py-listen-btn" data-py-han="${esc(it.han)}" data-py-sym="${esc(it.sym)}" data-py-kind="init">🔊 Nghe (${esc(it.han)} · ${esc(it.read)})</button>
-          </div>
-          <p class="py-detail-line"><strong>Nhóm:</strong> ${esc(g.name)} — <em>${esc(g.tip)}</em></p>
-          <p class="py-detail-line"><strong>Cách phát âm:</strong> ${esc(it.mouth)}</p>
-          <p class="py-detail-line"><strong>Âm gần giống tiếng Việt:</strong> ${esc(it.vi)}</p>
-          <p class="py-sound-warn"><strong>Lỗi hay gặp:</strong> ${esc(it.mistake)}</p>
-        </div>
-        <div class="py-detail-img-box">
-          <img src="${PY_INIT_DIAGRAM_URL(it.sym)}" alt="Sơ đồ mặt cắt vị trí lưỡi cho ${esc(g.name)}" loading="lazy" onerror="this.onerror=null;this.src='assets/pinyin-diagrams/${esc(g.diagram)}.png';">
-          <span class="py-img-cap">Phần tô đỏ là bộ phận phát âm chính · Sơ đồ: AccentHero</span>
-        </div>
+        ${renderInitDetail()}
       </article>`;
   }
 
@@ -510,7 +516,12 @@
     if (gi) {
       activeInit = gi.dataset.pickGuideInit;
       const han = gi.dataset.pyHan;
-      render();
+      // Cập nhật phẫu thuật: chỉ đổi nút đang chọn + thẻ chi tiết, KHÔNG render()
+      // lại cả panel, để thẻ <audio> ở trên không bị xóa đi vẽ lại (hết chớp,
+      // đang phát cũng không bị ngắt).
+      document.querySelectorAll('.py-matrix-btn').forEach(b => b.classList.toggle('active', b.dataset.pickGuideInit === activeInit));
+      const card = document.querySelector('.py-detail-card');
+      if (card) card.innerHTML = renderInitDetail();
       if (!playRealAudio(activeInit, 'init', han) && han) speakZh(han, 0.72);
       return;
     }
