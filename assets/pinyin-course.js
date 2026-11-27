@@ -426,8 +426,8 @@
               : 'Tổ hợp này không tồn tại trong tiếng Trung phổ thông — chọn ô sáng bên dưới.'}</div>
           </div>
           <div class="py-res-actions">
-            <button type="button" class="action" id="pyPlayBtn" ${ttsInfo.han ? '' : 'disabled'}>🔊 Nghe phát âm</button>
-            <button type="button" class="game-other" id="pyPlaySlowBtn" ${ttsInfo.han ? '' : 'disabled'}>🐢 Nghe chậm</button>
+            <button type="button" class="py-mixer-listen is-primary" id="pyPlayBtn" ${ttsInfo.han ? '' : 'disabled'}>Nghe phát âm</button>
+            <button type="button" class="py-mixer-listen" id="pyPlaySlowBtn" ${ttsInfo.han ? '' : 'disabled'}>Nghe chậm</button>
           </div>
         </div>
 
@@ -524,9 +524,6 @@
         if (firstOk) selFinal = firstOk;
       }
       render();
-      const r = combinePinyin(selInit, selFinal);
-      const t = r.valid ? hanForSyllableTone(r.base, selTone) : null;
-      if (t && t.han) speakZh(t.han, 0.72);
       return;
     }
 
@@ -534,9 +531,6 @@
     if (pf) {
       selFinal = pf.dataset.pickFinal;
       render();
-      const r = combinePinyin(selInit, selFinal);
-      const t = r.valid ? hanForSyllableTone(r.base, selTone) : null;
-      if (t && t.han) speakZh(t.han, 0.72);
       return;
     }
 
@@ -544,9 +538,6 @@
     if (pt) {
       selTone = parseInt(pt.dataset.pickTone, 10);
       render();
-      const r = combinePinyin(selInit, selFinal);
-      const t = r.valid ? hanForSyllableTone(r.base, selTone) : null;
-      if (t && t.han) speakZh(t.han, 0.72);
       return;
     }
 

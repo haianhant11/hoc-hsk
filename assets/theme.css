@@ -4036,6 +4036,10 @@ body.hide-pinyin .kk-char rt{visibility:hidden}
 .py-res-syl{font-size:2.3rem;font-weight:900;color:var(--ink);line-height:1.15;margin:4px 0}
 .py-res-meta{font-size:.9rem;color:var(--ink)}
 .py-res-actions{display:flex;gap:8px;flex-wrap:wrap}
+.py-mixer-listen{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:7px 14px;font:inherit;font-size:.85rem;font-weight:700;cursor:pointer;transition:background-color .15s ease,color .15s ease,border-color .15s ease}
+.py-mixer-listen:hover{border-color:var(--ink)}
+.py-mixer-listen.is-primary{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.py-mixer-listen[disabled]{opacity:.45;cursor:default}
 .py-picker-block h4{margin:0 0 8px;font-size:.92rem;color:var(--ink)}
 .py-picker-block h4 small{font-weight:500;color:var(--muted)}
 .py-chip-grid{display:flex;gap:6px;flex-wrap:wrap}
