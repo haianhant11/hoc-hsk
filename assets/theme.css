@@ -4096,6 +4096,7 @@ body.hide-pinyin .kk-char rt{visibility:hidden}
 .wb-score{margin:10px 0 14px}
 .wb-score .quiz-progress{margin-top:6px}
 .wb-ex{margin-bottom:14px}
+#workbookPanel .orig-audio-box{margin-bottom:14px}
 .wb-item{padding:12px 0;border-top:1px solid var(--line)}
 .wb-item:first-child{border-top:0}
 .wb-item-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -4115,7 +4116,9 @@ body.hide-pinyin .kk-char rt{visibility:hidden}
 .wb-pic{margin-top:10px}
 .wb-pic img{max-width:100%;border-radius:12px;border:1px solid var(--line)}
 .wb-passage{font-family:var(--font-han-sans);font-size:1.15rem;margin:8px 0}
-.wb-ex .grammar-title{font-family:var(--font-han-sans)}
+.wb-ex .grammar-title{font-family:var(--font-han-sans);padding-bottom:0}
+.wb-ex .grammar-body{padding-top:6px}
+.wb-ex .grammar-body>p:first-child{margin-top:0}
 .wb-question{margin:8px 0}
 .wb-picdesc{color:var(--muted);font-size:.95rem;margin:6px 0}
 .wb-note{color:var(--muted);font-size:.95rem;margin:6px 0}

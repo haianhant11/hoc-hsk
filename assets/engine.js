@@ -707,11 +707,21 @@ function wbWireTopAudio(){
     wbTopStop=null;
   });
 }
+function wbExerciseRange(d,ex){
+  const start=(ex.instructionRange||ex.audioRange)[0];
+  if(ex.audioRange)return [start,ex.audioRange[1]];
+  let end=null;
+  d.exercises.forEach(function(e){
+    if(e.instructionRange&&e.instructionRange[0]>start&&(end===null||e.instructionRange[0]<end))end=e.instructionRange[0];
+    if(e.audioRange&&e.audioRange[0]>start&&(end===null||e.audioRange[0]<end))end=e.audioRange[0];
+  });
+  return [start,end];
+}
 function wbPlaySegment(src,start,end){
   try{
     var a=wbTopAudio();
     if(!a)return;
-    wbTopStop=end+0.10;
+    wbTopStop=(end===null||end===undefined||isNaN(end))?null:end+0.10;
     var playFrom=function(){
       if(wbTopAudio()!==a)return;
       try{a.currentTime=Math.max(0,start-0.05);}catch(e){}
@@ -1049,8 +1059,8 @@ function wbPanelHTML(l,d){
       if(ex.type==='read-aloud'||ex.type==='distinguish'){
         h+='<p class="wb-note">Nghe rồi đọc to theo, không tính điểm.</p>';
       }
-      if(ex.instructionRange)h+='<button class="py-mixer-listen is-primary" data-wb-play data-src="'+wbAudioSrc()+'" data-start="'+ex.instructionRange[0]+'" data-end="'+ex.instructionRange[1]+'">▶ Nghe hướng dẫn</button>';
-      else if(ex.audioRange)h+='<button class="py-mixer-listen is-primary" data-wb-play data-src="'+wbAudioSrc()+'" data-start="'+ex.audioRange[0]+'" data-end="'+ex.audioRange[1]+'">▶ Nghe toàn bài tập</button>';
+      const rng=wbExerciseRange(d,ex);
+      h+='<button class="py-mixer-listen is-primary" data-wb-play data-src="'+wbAudioSrc()+'" data-start="'+rng[0]+'"'+(rng[1]===null?'':' data-end="'+rng[1]+'"')+'>▶ Nghe toàn bài tập</button>';
       h+=wbExerciseItemsHTML(d,ex);
       h+='</div></article>';
     });
@@ -1111,7 +1121,7 @@ function renderWorkbook(){
 function workbookArtSVG(){return `<svg viewBox="0 0 120 84" role="img" aria-label="Sách bài tập"><rect width="120" height="84" fill="#f3ead8"/><rect x="30" y="12" width="60" height="60" rx="4" fill="#ffffff" stroke="#173f63" stroke-width="2"/><rect x="30" y="12" width="9" height="60" fill="#d9a441"/><rect x="46" y="22" width="34" height="4" rx="2" fill="#173f63"/><rect x="46" y="32" width="34" height="4" rx="2" fill="#9aa8b5"/><rect x="46" y="42" width="22" height="4" rx="2" fill="#9aa8b5"/><rect x="46" y="54" width="28" height="4" rx="2" fill="#c8452c"/></svg>`}
 document.addEventListener('click',e=>{
   const pl=e.target.closest('[data-wb-play]');
-  if(pl){wbPlaySegment(pl.dataset.src,+pl.dataset.start,+pl.dataset.end);return;}
+  if(pl){wbPlaySegment(pl.dataset.src,+pl.dataset.start,pl.dataset.end?+pl.dataset.end:null);return;}
   const opt=e.target.closest('[data-wb-opt]');
   if(opt&&!opt.disabled){wbAnswerOpt(opt,opt.dataset.wbOpt,opt.dataset.val);return;}
   const tn=e.target.closest('[data-wb-tone]');
