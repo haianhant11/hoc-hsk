@@ -272,7 +272,7 @@
     const cur = findFinal(activeFinal) || findFinal('a');
     const it = cur.item;
 
-    return `<div class="section-intro"><h3>Bảng Vận mẫu chuẩn HSK (35 âm)</h3><span class="count">Bấm vào ô để nghe</span></div>
+    return `<div class="section-intro"><h3>Bảng Vận mẫu chuẩn HSK (36 âm)</h3><span class="count">Bấm vào ô để nghe</span></div>
       <div class="stack">
         ${groups.map(g => `
           <article class="info-card py-final-group">
@@ -375,7 +375,7 @@
     if (!i) {
       const stand = {
         i: 'yi', in: 'yin', ing: 'ying', ia: 'ya', ie: 'ye', iao: 'yao', iu: 'you', ian: 'yan', iang: 'yang', iong: 'yong',
-        u: 'wu', ua: 'wa', uo: 'wo', uai: 'wai', ui: 'wei', uan: 'wan', un: 'wen', uang: 'wang',
+        u: 'wu', ua: 'wa', uo: 'wo', uai: 'wai', ui: 'wei', uan: 'wan', un: 'wen', uang: 'wang', ueng: 'weng',
         ü: 'yu', üe: 'yue', üan: 'yuan', ün: 'yun'
       };
       const base = stand[f] || f;
