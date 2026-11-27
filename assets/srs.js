@@ -18,11 +18,10 @@
   var seq = 0;
   var seenTurns = {};
 
-  /* --- Chuẩn hóa pinyin: loose bỏ thanh (khớp normPinyin của engine), tone giữ thanh --- */
-  var TONE_MAP = { 'ā': 'a', 'á': 'a', 'ǎ': 'a', 'à': 'a', 'ē': 'e', 'é': 'e', 'ě': 'e', 'è': 'e', 'ī': 'i', 'í': 'i', 'ǐ': 'i', 'ì': 'i', 'ō': 'o', 'ó': 'o', 'ǒ': 'o', 'ò': 'o', 'ū': 'u', 'ú': 'u', 'ǔ': 'u', 'ù': 'u', 'ǖ': 'u', 'ǘ': 'u', 'ǚ': 'u', 'ǜ': 'u', 'ü': 'u', 'Ā': 'a', 'Á': 'a', 'Ǎ': 'a', 'À': 'a', 'Ē': 'e', 'É': 'e', 'Ě': 'e', 'È': 'e', 'Ī': 'i', 'Í': 'i', 'Ǐ': 'i', 'Ì': 'i', 'Ō': 'o', 'Ó': 'o', 'Ǒ': 'o', 'Ò': 'o', 'Ū': 'u', 'Ú': 'u', 'Ǔ': 'u', 'Ù': 'u', 'Ǖ': 'u', 'Ǘ': 'u', 'Ǚ': 'u', 'Ǜ': 'u', 'Ü': 'u' };
+  /* --- Chuẩn hóa pinyin: loose bỏ thanh (ToneTools.stripMarksLoose), tone giữ thanh --- */
+  /* TONE_MAP moved to assets/tone-tools.js (FIX 1): normLoose delegates to ToneTools.stripMarksLoose. */
   function normLoose(p) {
-    return String(p || '').split('').map(function (c) { return TONE_MAP[c] || c; }).join('')
-      .toLowerCase().replace(/[\s'’·.,!?]/g, '').replace(/v/g, 'u');
+    return window.ToneTools.stripMarksLoose(p);
   }
   function normTone(p) {
     return String(p || '').toLowerCase().trim().replace(/\s+/g, ' ').replace(/v/g, 'ü').replace(/u:/g, 'ü');

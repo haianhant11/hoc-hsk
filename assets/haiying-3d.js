@@ -66,12 +66,28 @@
     ["Ôn tập SRS", "Những từ bạn làm sai trong bài tập sẽ tự động vào mục <strong>Ôn tập</strong> để nhắc lại đúng thời điểm!", "teach"]
   ];
 
-  var LEADERBOARD_TIPS = [
+  /* Điểm hiển thị lấy từ LB.POLICY (leaderboard.js, khớp server api/_policy.js);
+     nếu LB chưa nạp thì dùng đúng các chuỗi cứng cũ để avatar không bao giờ vỡ.
+     "+1 đến +3 điểm/từ" giữ nguyên dạng cứng: điểm tập viết là giá trị thô
+     truyền qua LB.award('practice', 'write:...', writePts, 30), không phải mức trần POLICY. */
+  var LEADERBOARD_TIPS_FALLBACK = [
     ["Điểm học bài", "Nghe chép, Điền từ, Trắc nghiệm mỗi bài được tối đa <strong>+30 điểm</strong> (tính theo lần cao nhất). Đặt câu ngữ pháp được <strong>+20 điểm/câu</strong>!", "teach"],
     ["Điểm chơi game", "Mỗi ván game cộng tối đa <strong>+20 điểm</strong> theo tỉ lệ đúng (điểm trong ván chỉ để đua combo). Mỗi game tối đa <strong>200 điểm/ngày</strong>!", "cheer"],
     ["Ôn tập &amp; Tập viết", "Hoàn thành phiên <strong>Ôn tập</strong> được tối đa <strong>+30 điểm/ngày</strong>. Tập viết đúng nét còn được cộng thêm <strong>+1 đến +3 điểm/từ</strong>!", "teach"],
     ["Bí kíp leo Top", "Điểm được lưu tự động và xếp hạng công bằng. Giữ chuỗi học mỗi ngày để sớm lên <strong>Bục Vinh Danh</strong> nhé! 加油!", "wave"]
   ];
+
+  function leaderboardTips() {
+    var P = (typeof window !== 'undefined' && window.LB && window.LB.POLICY) || null;
+    if (!P || !P.practice || !P.grammar || !P.game || !P.srs) return LEADERBOARD_TIPS_FALLBACK;
+    return [
+      ["Điểm học bài", "Nghe chép, Điền từ, Trắc nghiệm mỗi bài được tối đa <strong>+" + P.practice.max + " điểm</strong> (tính theo lần cao nhất). Đặt câu ngữ pháp được <strong>+" + P.grammar.max + " điểm/câu</strong>!", "teach"],
+      ["Điểm chơi game", "Mỗi ván game cộng tối đa <strong>+" + P.game.max + " điểm</strong> theo tỉ lệ đúng (điểm trong ván chỉ để đua combo). Mỗi game tối đa <strong>" + P.game.dailyCap + " điểm/ngày</strong>!", "cheer"],
+      ["Ôn tập &amp; Tập viết", "Hoàn thành phiên <strong>Ôn tập</strong> được tối đa <strong>+" + P.srs.max + " điểm/ngày</strong>. Tập viết đúng nét còn được cộng thêm <strong>+1 đến +3 điểm/từ</strong>!", "teach"],
+      ["Bí kíp leo Top", "Điểm được lưu tự động và xếp hạng công bằng. Giữ chuỗi học mỗi ngày để sớm lên <strong>Bục Vinh Danh</strong> nhé! 加油!", "wave"]
+    ];
+  }
+  var LEADERBOARD_TIPS = leaderboardTips();
 
   function isLeaderboardPage() {
     var loc = (window.location && window.location.pathname) || "";

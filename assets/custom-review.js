@@ -13,6 +13,9 @@
   'use strict';
 
   var STORAGE_KEY = 'hsk.customReview.v1';
+  var EXAM_KEY = 'hsk.customReview.exam.v1';
+  var EXAM_VERSION = 1;
+  var EXAM_TTL_MS = 24 * 60 * 60 * 1000;
 
   function $(sel, root) { return (root || document).querySelector(sel); }
   function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
@@ -56,43 +59,16 @@
   }
 
   /* ---------- Bộ sinh biến thể Pinyin / Thanh điệu ---------- */
-  var TONES = {
-    a: ['a', 'ā', 'á', 'ǎ', 'à'],
-    e: ['e', 'ē', 'é', 'ě', 'è'],
-    i: ['i', 'ī', 'í', 'ǐ', 'ì'],
-    o: ['o', 'ō', 'ó', 'ǒ', 'ò'],
-    u: ['u', 'ū', 'ú', 'ǔ', 'ù'],
-    'ü': ['ü', 'ǖ', 'ǘ', 'ǚ', 'ǜ']
-  };
-  var MARKED = {};
-  Object.keys(TONES).forEach(function (base) {
-    TONES[base].forEach(function (ch, toneIdx) {
-      if (toneIdx > 0) MARKED[ch] = { base: base, tone: toneIdx };
-    });
-  });
-
+  /* TONES/MARKED moved to assets/tone-tools.js (FIX 1): sylTone/setSylTone delegate to ToneTools. */
   function sylTone(syl) {
     for (var i = 0; i < syl.length; i++) {
-      if (MARKED[syl[i]]) return MARKED[syl[i]].tone;
+      var t = ToneTools.toneNumber(syl[i]);
+      if (t) return t;
     }
     return 0;
   }
 
-  function setSylTone(syl, tone) {
-    var base = syl.split('').map(function (c) { return MARKED[c] ? MARKED[c].base : c; }).join('');
-    if (tone === 0) return base;
-    var idx = -1;
-    if (base.indexOf('a') >= 0) idx = base.indexOf('a');
-    else if (base.indexOf('e') >= 0) idx = base.indexOf('e');
-    else if (base.indexOf('ou') >= 0) idx = base.indexOf('ou');
-    else {
-      for (var i = base.length - 1; i >= 0; i--) {
-        if ('iouü'.indexOf(base[i]) >= 0) { idx = i; break; }
-      }
-    }
-    if (idx < 0 || !TONES[base[idx]]) return syl;
-    return base.slice(0, idx) + TONES[base[idx]][tone] + base.slice(idx + 1);
-  }
+  function setSylTone(syl, tone) { return ToneTools.applyTone(syl, tone); }
 
   function makePinyinOptions(correctPy, poolPinyins) {
     var clean = String(correctPy || '').trim();
@@ -292,6 +268,157 @@
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
     } catch (e) {}
+  }
+
+  /* ---------- Lưu / khôi phục bài thi đang làm dở (FIX 2) ----------
+     Snapshot riêng dưới key 'hsk.customReview.exam.v1', tách khỏi key prefs
+     nên lựa chọn bài + cấp độ vẫn giữ nguyên. Chỉ lưu trường vô hướng
+     (scalar / mảng scalar); vocabRef KHÔNG được lưu (đó là tham chiếu tới
+     object từ vựng trong CATALOG) mà chỉ lưu vocabWord (chữ Hán của từ),
+     khi khôi phục sẽ tra lại bằng lessonKey + vocabWord. Nếu tra không thấy
+     (dữ liệu đổi giữa các phiên bản), dựng object tối thiểu từ các trường
+     prompt đã lưu để hiển thị và chấm SRS vẫn chạy được. */
+  var EXAM_FIELDS = ['num', 'sectionId', 'sectionTitle', 'kind', 'subKind', 'typeBadge', 'lessonKey', 'lessonLabel', 'courseId', 'lessonNum', 'promptTag', 'hanPrompt', 'pyPrompt', 'posPrompt', 'contextZh', 'contextPy', 'contextVi', 'viPrompt', 'audioText', 'options', 'answer', 'userChoice', 'userText', 'checked', 'isCorrect', 'explain', 'sentence', 'hintVi', 'fullSentence', 'fullPinyin', 'optionPinyins', 'isHanOptions', 'correctWord', 'grammarPoint', 'required', 'minLength', 'model', 'modelPinyin', 'inputMode', 'feedbackMsg', 'targetZh', 'targetVi', 'focusPoints', 'pyArr', 'tiles', 'usedTileIds', 'showViHint'];
+
+  function copyScalarArray(arr) {
+    if (!Array.isArray(arr)) return arr;
+    return arr.map(function (v) {
+      if (v && typeof v === 'object') {
+        var o = {};
+        Object.keys(v).forEach(function (k) { o[k] = v[k]; });
+        return o;
+      }
+      return v;
+    });
+  }
+
+  function serializeQuestion(q) {
+    var out = {};
+    EXAM_FIELDS.forEach(function (f) {
+      if (Object.prototype.hasOwnProperty.call(q, f) && q[f] !== undefined) {
+        out[f] = Array.isArray(q[f]) ? copyScalarArray(q[f]) : q[f];
+      }
+    });
+    out.vocabWord = (q.vocabRef && q.vocabRef.word) ? q.vocabRef.word : null;
+    return out;
+  }
+
+  function lookupVocab(lessonKey, vocabWord) {
+    var lesson = CATALOG.byKey[lessonKey];
+    if (!lesson || !vocabWord) return null;
+    var found = (lesson.vocab || []).filter(function (v) { return v.word === vocabWord; });
+    return found.length ? found[0] : null;
+  }
+
+  function deserializeQuestion(sq) {
+    var q = {};
+    EXAM_FIELDS.forEach(function (f) {
+      if (Object.prototype.hasOwnProperty.call(sq, f) && sq[f] !== undefined) {
+        q[f] = Array.isArray(sq[f]) ? copyScalarArray(sq[f]) : sq[f];
+      }
+    });
+    if (q.userChoice === undefined) q.userChoice = null;
+    if (q.userText === undefined) q.userText = '';
+    if (q.checked === undefined) q.checked = false;
+    if (q.isCorrect === undefined) q.isCorrect = false;
+    if (q.kind === 'fill_grammar' && q.inputMode === undefined) q.inputMode = 'choice';
+    if (q.kind === 'dictation') {
+      if (!Array.isArray(q.tiles)) q.tiles = [];
+      if (!Array.isArray(q.usedTileIds)) q.usedTileIds = [];
+      if (q.showViHint === undefined) q.showViHint = false;
+    }
+    var vocabWord = sq.vocabWord || null;
+    if (vocabWord) {
+      q.vocabRef = lookupVocab(q.lessonKey, vocabWord) || {
+        word: vocabWord,
+        pinyin: q.pyPrompt || '',
+        meaning: q.viPrompt || '',
+        pos: q.posPrompt || '',
+        example: q.contextZh || '',
+        examplePinyin: q.contextPy || '',
+        exampleVi: q.contextVi || ''
+      };
+    } else {
+      q.vocabRef = null;
+    }
+    return q;
+  }
+
+  function snapshotExam() {
+    if (!state || state.screen !== 'exam' || state.submitted || !state.questions.length) return null;
+    return {
+      version: EXAM_VERSION,
+      level: state.level,
+      selectedKeys: (state.selectedKeys || []).slice(),
+      scopeTitle: state.activeScopeTitle || '',
+      startedAt: state.startedAt,
+      elapsedSec: state.elapsedSec,
+      currentIndex: state.currentIndex,
+      examLayout: state.examLayout,
+      questions: state.questions.map(serializeQuestion)
+    };
+  }
+
+  function saveExamSnapshot() {
+    try {
+      var snap = snapshotExam();
+      if (!snap) return;
+      localStorage.setItem(EXAM_KEY, JSON.stringify(snap));
+    } catch (e) {}
+  }
+
+  function clearExamSnapshot() {
+    try { localStorage.removeItem(EXAM_KEY); } catch (e) {}
+  }
+
+  function isValidExamSnapshot(snap) {
+    if (!snap || typeof snap !== 'object') return false;
+    if (snap.version !== EXAM_VERSION) return false;
+    if (!LEVELS[snap.level]) return false;
+    if (!Array.isArray(snap.selectedKeys) || !snap.selectedKeys.length) return false;
+    for (var s = 0; s < snap.selectedKeys.length; s++) {
+      if (typeof snap.selectedKeys[s] !== 'string' || !CATALOG.byKey[snap.selectedKeys[s]]) return false;
+    }
+    if (!Array.isArray(snap.questions) || !snap.questions.length) return false;
+    if (typeof snap.startedAt !== 'number' || !isFinite(snap.startedAt)) return false;
+    if (typeof snap.elapsedSec !== 'number' || !isFinite(snap.elapsedSec) || snap.elapsedSec < 0) return false;
+    if (typeof snap.currentIndex !== 'number' || !isFinite(snap.currentIndex)) return false;
+    var age = Date.now() - snap.startedAt;
+    if (age > EXAM_TTL_MS || age < -60 * 1000) return false;
+    for (var i = 0; i < snap.questions.length; i++) {
+      var q = snap.questions[i];
+      if (!q || typeof q !== 'object') return false;
+      if (typeof q.num !== 'number' || typeof q.kind !== 'string' || !q.kind) return false;
+      if (typeof q.lessonKey !== 'string' || !CATALOG.byKey[q.lessonKey]) return false;
+    }
+    return true;
+  }
+
+  /* Đọc snapshot, bỏ lặng nếu hết hạn (quá 24h) hoặc dữ liệu đã đổi
+     (lessonKey không còn trong CATALOG): xóa key và trả null để về màn
+     hình thiết lập bình thường, không báo lỗi. */
+  function loadValidExamSnapshot() {
+    var raw = null;
+    try { raw = localStorage.getItem(EXAM_KEY); } catch (e) { return null; }
+    if (!raw) return null;
+    var snap = null;
+    try { snap = JSON.parse(raw); } catch (e) { snap = null; }
+    if (!isValidExamSnapshot(snap)) {
+      clearExamSnapshot();
+      return null;
+    }
+    return snap;
+  }
+
+  function formatResumeElapsed(sec) {
+    var s = Math.max(0, Math.floor(sec || 0));
+    var h = Math.floor(s / 3600);
+    var m = Math.floor((s % 3600) / 60);
+    return (h < 10 ? '0' + h : String(h)) + ':' + (m < 10 ? '0' + m : String(m));
+  }
+
+  function resumeAnsweredCount(snap) {
+    return (snap.questions || []).filter(function (q) { return !!q.checked; }).length;
   }
 
   /* ---------- Thuật toán lấy mẫu phân tầng (Stratified Sampling) ----------
@@ -750,7 +877,8 @@
     elapsedSec: 0,
     timerId: null,
     submitted: false,
-    awardedExam: false
+    awardedExam: false,
+    pendingResume: null           // snapshot bài thi dở (FIX 2), null khi không có
   };
 
   function persistSelected() {
@@ -781,9 +909,13 @@
   }
 
   function startTimer() {
+    startTimerWith(Date.now(), 0);
+  }
+
+  function startTimerWith(startedAt, elapsedSec) {
     stopTimer();
-    state.startedAt = Date.now();
-    state.elapsedSec = 0;
+    state.startedAt = startedAt;
+    state.elapsedSec = elapsedSec;
     state.timerId = setInterval(function () {
       if (state.screen !== 'exam' || state.submitted) return;
       state.elapsedSec = Math.floor((Date.now() - state.startedAt) / 1000);
@@ -849,6 +981,8 @@
   function startNewExam(customScopeTitle) {
     var selected = getSelectedLessons();
     if (selected.length < 2) return;
+    clearExamSnapshot();
+    state.pendingResume = null;
     persistSelected();
     state.activeScopeTitle = customScopeTitle || computeScopeSummary(selected);
     state.questions = generateExam(selected, state.level);
@@ -857,6 +991,28 @@
     state.awardedExam = false;
     state.screen = 'exam';
     startTimer();
+    render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ---------- Tiếp tục bài thi đang làm dở từ snapshot (FIX 2) ----------
+     Khôi phục đúng đề đã sinh (không random lại), vị trí, đáp án và trạng
+     thái đã chấm; đồng hồ chạy tiếp từ startedAt gốc nên thời gian đã trôi
+     trong lúc rời trang vẫn được tính. */
+  function resumeExam(snap) {
+    state.level = snap.level;
+    state.selectedKeys = snap.selectedKeys.slice();
+    state.activeScopeTitle = snap.scopeTitle || computeScopeSummary(getSelectedLessons());
+    state.examLayout = (snap.examLayout === 'sheet') ? 'sheet' : 'single';
+    state.questions = snap.questions.map(deserializeQuestion);
+    state.currentIndex = Math.min(Math.max(0, Math.floor(snap.currentIndex) || 0), state.questions.length - 1);
+    state.submitted = false;
+    state.awardedExam = false;
+    state.screen = 'exam';
+    state.pendingResume = null;
+    var elapsed = Math.max(Math.floor((Date.now() - snap.startedAt) / 1000), snap.elapsedSec || 0, 0);
+    startTimerWith(Date.now() - elapsed * 1000, elapsed);
+    persistSelected();
     render();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -909,6 +1065,7 @@
       } catch (e) {}
     }
 
+    saveExamSnapshot();
     return true;
   }
 
@@ -945,6 +1102,8 @@
 
     state.submitted = true;
     state.screen = 'result';
+    state.pendingResume = null;
+    clearExamSnapshot();
 
     // Cộng điểm Bảng xếp hạng & Streak nếu có câu đúng
     var correctCount = state.questions.filter(function (q) { return q.isCorrect; }).length;
@@ -1032,8 +1191,26 @@
       ? '<button class="cr-btn-ghost cr-quick-course-btn" type="button" data-quick-course="' + esc(curCourseMeta.id) + '">⚡ Thi cả ' + esc(curCourseMeta.shortTitle) + '</button>'
       : '';
 
+    // Banner tiếp tục bài thi đang làm dở (FIX 2): chỉ hiện khi có snapshot chưa nộp
+    var resumeHtml = '';
+    if (state.pendingResume) {
+      var rs = state.pendingResume;
+      var rsAnswered = resumeAnsweredCount(rs);
+      var rsTotal = (rs.questions || []).length;
+      var rsElapsed = formatResumeElapsed(Math.max(Math.floor((Date.now() - rs.startedAt) / 1000), rs.elapsedSec || 0));
+      resumeHtml =
+        '<section class="srs-block srs-panel cr-panel cr-resume-box" role="status">' +
+          '<p class="cr-resume-text">Bạn có bài thi đang làm dở (' + rsAnswered + '/' + rsTotal + ' câu, ' + rsElapsed + '), Tiếp tục / Bỏ bài</p>' +
+          '<div class="cr-resume-actions">' +
+            '<button type="button" class="cr-btn-primary" data-resume-exam>Tiếp tục</button>' +
+            '<button type="button" class="cr-btn-ghost" data-discard-exam>Bỏ bài</button>' +
+          '</div>' +
+        '</section>';
+    }
+
     return (
       '<div class="cr-setup">' +
+        resumeHtml +
         '<section class="srs-block srs-panel cr-panel" id="crCustomGroupSection">' +
           '<div class="cr-setup-head">' +
             '<div>' +
@@ -1611,6 +1788,20 @@
         return;
       }
 
+      // [SETUP] Tiếp tục / Bỏ bài thi đang làm dở (FIX 2)
+      var resumeBtn = target.closest('[data-resume-exam]');
+      if (resumeBtn) {
+        if (state.pendingResume) resumeExam(state.pendingResume);
+        return;
+      }
+      var discardBtn = target.closest('[data-discard-exam]');
+      if (discardBtn) {
+        clearExamSnapshot();
+        state.pendingResume = null;
+        render();
+        return;
+      }
+
       // [SETUP] Bấm "Làm đề khóa này" (1 chạm tạo đề ngay cho cả khóa)
       var quickCourseBtn = target.closest('[data-quick-course]');
       if (quickCourseBtn) {
@@ -1717,6 +1908,7 @@
       var layoutBtn = target.closest('[data-exam-layout]');
       if (layoutBtn) {
         state.examLayout = layoutBtn.getAttribute('data-exam-layout') || 'single';
+        saveExamSnapshot();
         render();
         return;
       }
@@ -1727,6 +1919,7 @@
         var qIdx = parseInt(jumpBtn.getAttribute('data-jump-q'), 10);
         if (!isNaN(qIdx) && qIdx >= 0 && qIdx < state.questions.length) {
           state.currentIndex = qIdx;
+          saveExamSnapshot();
           if (state.examLayout === 'single') {
             render();
           } else {
@@ -1758,6 +1951,7 @@
         var gMode = gModeBtn.getAttribute('data-gmode');
         if (state.questions[gQi] && !state.questions[gQi].checked) {
           state.questions[gQi].inputMode = gMode;
+          saveExamSnapshot();
           render();
         }
         return;
@@ -1791,6 +1985,7 @@
               dQ.usedTileIds.push(tileId);
               dQ.userText = (dQ.userText || '') + tileObj.text;
             }
+            saveExamSnapshot();
             render();
           }
         }
@@ -1804,6 +1999,7 @@
         if (state.questions[cQi] && !state.questions[cQi].checked) {
           state.questions[cQi].userText = '';
           state.questions[cQi].usedTileIds = [];
+          saveExamSnapshot();
           render();
         }
         return;
@@ -1825,6 +2021,7 @@
       if (target.closest('#crPrevQBtn')) {
         if (state.currentIndex > 0) {
           state.currentIndex--;
+          saveExamSnapshot();
           render();
         }
         return;
@@ -1832,6 +2029,7 @@
       if (target.closest('#crNextQBtn')) {
         if (state.currentIndex < state.questions.length - 1) {
           state.currentIndex++;
+          saveExamSnapshot();
           render();
         }
         return;
@@ -1882,6 +2080,7 @@
         var di = parseInt(t.getAttribute('data-dict-input'), 10);
         if (state.questions[di]) state.questions[di].userText = t.value;
       }
+      saveExamSnapshot();
     });
 
     // Nhấn Enter trong ô input để kiểm tra ngay câu đó
@@ -1908,6 +2107,7 @@
 
   /* ---------- Khởi tạo ---------- */
   function init() {
+    state.pendingResume = loadValidExamSnapshot();
     bindEvents();
     var hash = (window.location.hash || '').toLowerCase();
     var search = (window.location.search || '').toLowerCase();

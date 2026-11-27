@@ -9,6 +9,16 @@
   var CACHE_TOP = 'hoc-hsk-lb-cache-top';
   var CACHE_ME = 'hoc-hsk-lb-cache-me';
 
+  /* Điểm tối đa theo loại hoạt động: nguồn duy nhất, khớp server api/_policy.js
+     (không còn rule 'write': điểm tập viết đi qua 'practice', xem engine.js). */
+  var POLICY = {
+    practice: { max: 30, mode: 'best' },
+    quiz: { max: 30, mode: 'best' },
+    srs: { max: 30, mode: 'best' },
+    grammar: { max: 20, mode: 'best', dbType: 'practice' },
+    game: { max: 20, mode: 'capped', dailyCap: 200 }
+  };
+
   var SEED_PLAYERS = [
     { id: 'seed-1', name: 'Lâm Minh Châu', points: 380 },
     { id: 'seed-2', name: 'Trần Hoàng Nam', points: 345 },
@@ -42,10 +52,25 @@
     return null;
   }
 
+  /* Lưu hồ sơ vào localStorage. Token (FIX 3) chỉ ghi khi có giá trị thật:
+     join trả token: null cho hồ sơ đã có (claim-by-name) theo thiết kế, nên
+     KHÔNG được ghi đè token đã lưu bằng null; chỉ giữ token cũ khi id khớp
+     (tránh gắn token của người chơi A sang hồ sơ B). */
   function saveProfile(p) {
     try {
-      if (p) localStorage.setItem(KEY, JSON.stringify({ id: p.id, name: p.name }));
-      else localStorage.removeItem(KEY);
+      if (p) {
+        var toStore = { id: p.id, name: p.name };
+        if (typeof p.token === 'string' && p.token) {
+          toStore.token = p.token;
+        } else {
+          var prev = null;
+          try { prev = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e2) {}
+          if (prev && prev.id === p.id && typeof prev.token === 'string' && prev.token) {
+            toStore.token = prev.token;
+          }
+        }
+        localStorage.setItem(KEY, JSON.stringify(toStore));
+      } else localStorage.removeItem(KEY);
     } catch (e) {}
   }
 
@@ -131,8 +156,8 @@
   function localAward(activityType, activityId, correct, total) {
     var p = profile();
     if (!p) return;
-    var maxMap = { practice: 30, quiz: 30, srs: 30, write: 3, grammar: 20, game: 20 };
-    var maxPts = maxMap[activityType];
+    var rule = POLICY[activityType];
+    var maxPts = rule && rule.max;
     if (!maxPts || total < 1 || correct < 0 || correct > total) return;
     var pts = Math.round(maxPts * correct / total);
     if (pts <= 0) return;
@@ -151,7 +176,7 @@
     if (activityType === 'game') {
       var dKey = p.id + ':' + activityId + ':' + todayKey();
       var used = db.daily[dKey] || 0;
-      delta = Math.max(0, Math.min(pts, 200 - used));
+      delta = Math.max(0, Math.min(pts, POLICY.game.dailyCap - used));
       db.daily[dKey] = used + delta;
     } else {
       var bKey = p.id + ':' + activityId;
@@ -236,7 +261,8 @@
         activityType: activityType,
         activityId: activityId,
         correct: correct,
-        total: total
+        total: total,
+        token: p.token
       })
     }).then(function (r) {
       if (r.ok) refreshMe();
@@ -291,7 +317,7 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: clean })
     }).then(function (r) {
-      saveProfile({ id: r.id, name: r.name });
+      saveProfile({ id: r.id, name: r.name, token: r.token });
       var meData = { id: r.id, name: r.name, points: r.points, rank: r.rank, totalPlayers: r.totalPlayers };
       setCachedMe(meData);
       syncNameInTopCache(meData.id, meData.name);
@@ -348,7 +374,7 @@
     fetch('/api/rename', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ playerId: p.id, name: clean })
+      body: JSON.stringify({ playerId: p.id, name: clean, token: p.token })
     }).then(function (r) {
       if (r.status === 409) throw new Error('Tên này đã có người dùng, hãy chọn tên khác nhé!');
       if (r.status === 400) throw new Error('Tên không hợp lệ (2–40 ký tự).');
@@ -590,6 +616,8 @@
   }
 
   window.LB = {
+    KEY: KEY,
+    POLICY: POLICY,
     profile: profile,
     award: award,
     todayKey: todayKey,
@@ -689,7 +717,7 @@
     // Cập nhật tên & điểm số của Top 3
     for (var i = 0; i < 3; i++) {
       var p = top3[i];
-      var isMe = meProfile && meProfile.id === p.id;
+      var isMe = meProfile && meProfile.name && p.name && meProfile.name.trim().toLowerCase() === p.name.trim().toLowerCase();
       var nameEl = sec.querySelector('[data-lb3d-name="' + i + '"]');
       var ptsEl = sec.querySelector('[data-lb3d-pts="' + i + '"]');
       if (nameEl) {
@@ -876,7 +904,7 @@
       var MEDALS = { 1: { han: '状', title: 'Trạng nguyên' }, 2: { han: '榜', title: 'Bảng nhãn' }, 3: { han: '探', title: 'Thám hoa' } };
       var head = state.top.length >= 3 ? '<li class="lb-top3-head"><span class="han">金榜</span> · Bảng tổng sắp Top 10 Học Sĩ</li>' : '';
       listEl.innerHTML = head + state.top.map(function (p) {
-        var mine = me && me.id === p.id;
+        var mine = me && me.name && p.name && me.name.trim().toLowerCase() === p.name.trim().toLowerCase();
         var medal = MEDALS[p.rank];
         var badge = medal
           ? '<span class="lb-rank lb-medal lb-medal-' + p.rank + '" role="img" aria-label="Hạng ' + p.rank + '" title="Hạng ' + p.rank + ' · ' + medal.title + '">' + medal.han + '</span>'
@@ -1069,10 +1097,11 @@
 
     window.addEventListener('hoc-hsk:user-updated', function (e) {
       if (e.detail) {
+        var oldName = state.me && state.me.name;
         state.me = e.detail;
-        if (e.detail.id && e.detail.name && Array.isArray(state.top)) {
+        if (e.detail.name && oldName && Array.isArray(state.top)) {
           for (var i = 0; i < state.top.length; i++) {
-            if (state.top[i] && state.top[i].id === e.detail.id) {
+            if (state.top[i] && state.top[i].name && state.top[i].name.trim().toLowerCase() === String(oldName).trim().toLowerCase()) {
               state.top[i].name = e.detail.name;
             }
           }

@@ -1,15 +1,25 @@
-/* POST /api/rename {playerId, name} — đổi tên hiển thị của hồ sơ hiện tại trong database.
-   Giữ nguyên UUID và toàn bộ điểm hiện có; từ chối (409) nếu tên mới đã thuộc về người chơi khác. */
+/* POST /api/rename {playerId, name[, token]}, đổi tên hiển thị của hồ sơ hiện tại trong database.
+   Giữ nguyên UUID và toàn bộ điểm hiện có; từ chối (409) nếu tên mới đã thuộc về người chơi khác.
+   FIX 3 (iv): khi LB_TOKEN_ENFORCE=1, người chơi có dấu token_created_at phải
+   gửi đúng token HMAC (thiếu: 401 missing_token, sai: 403 invalid_token);
+   người chơi cũ không có dấu được grandfathered và vẫn đổi tên bình thường. */
 'use strict';
 const { rpc, rest, patch, send, guard } = require('./_supabase');
 const { normalizeName, UUID_RE } = require('./_policy');
+const { checkToken } = require('./_token');
+const { checkRateLimit } = require('./_ratelimit');
+
+const TOKEN_STATUS = { missing_token: 401, invalid_token: 403, not_found: 404, token_check_unavailable: 503 };
 
 module.exports = async function handler(req, res) {
   if (!guard(req, res, 'POST')) return;
+  if (!(await checkRateLimit(req, res, 'rename'))) return;
   const b = req.body || {};
   if (!UUID_RE.test(b.playerId || '')) { send(res, 400, { error: 'invalid_player' }); return; }
   const nm = normalizeName(b.name);
   if (!nm) { send(res, 400, { error: 'invalid_name' }); return; }
+  const tokenErr = await checkToken(b.playerId, b.token);
+  if (tokenErr) { send(res, TOKEN_STATUS[tokenErr] || 503, { error: tokenErr }); return; }
 
   try {
     const existing = await rest('players?id=eq.' + encodeURIComponent(b.playerId) + '&select=*&limit=1');

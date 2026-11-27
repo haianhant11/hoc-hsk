@@ -54,7 +54,7 @@
         renderBanner(top.slice(0, 3));
       }
       var prof = null;
-      try { prof = JSON.parse(localStorage.getItem('hoc-hsk-lb-v1') || 'null'); } catch (e) { prof = null; }
+      try { prof = JSON.parse(localStorage.getItem((window.LB && window.LB.KEY) || 'hoc-hsk-lb-v1') || 'null'); } catch (e) { prof = null; }
       if (prof && prof.id) {
         api('/api/me?id=' + encodeURIComponent(prof.id)).then(function (m) {
           var pl = (m && m.player) ? m.player : m;

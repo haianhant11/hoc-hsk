@@ -37,21 +37,9 @@
   }
 
   /* ---------- Sinh phương án thanh điệu ---------- */
-  var TONES = { a: ['a', 'ā', 'á', 'ǎ', 'à'], e: ['e', 'ē', 'é', 'ě', 'è'], i: ['i', 'ī', 'í', 'ǐ', 'ì'], o: ['o', 'ō', 'ó', 'ǒ', 'ò'], u: ['u', 'ū', 'ú', 'ǔ', 'ù'], 'ü': ['ü', 'ǖ', 'ǘ', 'ǚ', 'ǜ'] };
-  var MARKED = {};
-  Object.keys(TONES).forEach(function (b) { TONES[b].forEach(function (c, t) { if (t > 0) MARKED[c] = { base: b, tone: t }; }); });
-  function sylTone(syl) { for (var i = 0; i < syl.length; i++) if (MARKED[syl[i]]) return MARKED[syl[i]].tone; return 0; }
-  function setSylTone(syl, tone) {
-    var base = syl.split('').map(function (c) { return MARKED[c] ? MARKED[c].base : c; }).join('');
-    if (tone === 0) return base;
-    var idx = -1;
-    if (base.indexOf('a') >= 0) idx = base.indexOf('a');
-    else if (base.indexOf('e') >= 0) idx = base.indexOf('e');
-    else if (base.indexOf('ou') >= 0) idx = base.indexOf('ou');
-    else for (var i = base.length - 1; i >= 0; i--) if ('iouü'.indexOf(base[i]) >= 0) { idx = i; break; }
-    if (idx < 0) return syl;
-    return base.slice(0, idx) + TONES[base[idx]][tone] + base.slice(idx + 1);
-  }
+  /* TONES/MARKED moved to assets/tone-tools.js (FIX 1): sylTone/setSylTone delegate to ToneTools. */
+  function sylTone(syl) { for (var i = 0; i < syl.length; i++) { var t = ToneTools.toneNumber(syl[i]); if (t) return t; } return 0; }
+  function setSylTone(syl, tone) { return ToneTools.applyTone(syl, tone); }
   function toneVariants(pinyin) {
     var syls = String(pinyin || '').trim().split(/\s+/).filter(Boolean);
     if (!syls.length) return [];

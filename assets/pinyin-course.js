@@ -389,23 +389,9 @@
     return { base, valid: !!ex, ex: ex || '' };
   }
 
+  /* Tone map + placement rules moved to assets/tone-tools.js (FIX 1). */
   function applyTone(syllable, tone) {
-    if (!tone || tone === 0) return syllable;
-    const T = {
-      a: ['ā', 'á', 'ǎ', 'à'], o: ['ō', 'ó', 'ǒ', 'ò'], e: ['ē', 'é', 'ě', 'è'],
-      i: ['ī', 'í', 'ǐ', 'ì'], u: ['ū', 'ú', 'ǔ', 'ù'], ü: ['ǖ', 'ǘ', 'ǚ', 'ǜ']
-    };
-    const tIdx = tone - 1;
-    let pos = -1;
-    for (const ch of ['a', 'o', 'e']) { pos = syllable.indexOf(ch); if (pos >= 0) break; }
-    if (pos < 0) {
-      if (syllable.includes('iu')) pos = syllable.indexOf('u');
-      else if (syllable.includes('ui')) pos = syllable.indexOf('i');
-      else { for (const ch of ['i', 'u', 'ü']) { pos = syllable.indexOf(ch); if (pos >= 0) break; } }
-    }
-    if (pos < 0) return syllable;
-    const ch = syllable[pos];
-    return syllable.slice(0, pos) + (T[ch] ? T[ch][tIdx] : ch) + syllable.slice(pos + 1);
+    return ToneTools.applyTone(syllable, tone);
   }
 
   /* Lấy chữ Hán chuẩn để speechSynthesis zh-CN đọc đúng âm tiết + thanh điệu.

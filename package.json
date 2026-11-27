@@ -1,0 +1,1 @@
+{"dependencies":{"@upstash/ratelimit":"2.2.3","@upstash/redis":"1.41.1"},"description":"HSK learning site. First package.json: only the Upstash rate-limit dependencies for the leaderboard API.","name":"hoc-hsk","private":true,"version":"1.0.0"}

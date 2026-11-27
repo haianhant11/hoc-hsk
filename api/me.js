@@ -3,9 +3,11 @@
 'use strict';
 const { rpc, rest, send, guard } = require('./_supabase');
 const { UUID_RE } = require('./_policy');
+const { checkRateLimit } = require('./_ratelimit');
 
 module.exports = async function handler(req, res) {
   if (!guard(req, res, 'GET')) return;
+  if (!(await checkRateLimit(req, res, 'me'))) return;
   const id = (req.query && req.query.id) || '';
   if (!UUID_RE.test(id)) { send(res, 400, { error: 'invalid_id' }); return; }
   try {
