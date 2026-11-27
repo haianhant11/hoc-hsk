@@ -880,61 +880,120 @@ function wbReset(){
   wbState.answers={};wbState.startTs=Date.now();wbState.submitted=false;wbState.submitMsg='';wbState.checked=false;
   renderWorkbook();
 }
-function wbItemHTML(d,ex,it){
+function wbStripPartPrefix(s){
+  return String(s||'').replace(/^第[^：]+：/,'');
+}
+function wbCols(ex,fallback){
+  return ex.cols||fallback;
+}
+var WB_PART_ORD=['第一部分','第二部分','第三部分','第四部分'];
+function wbPartOrd(n){
+  return WB_PART_ORD[n-1]+' · Phần '+n;
+}
+function wbExampleHTML(ex){
+  if(!ex)return '';
+  let h='<div class="wb-example"><div class="wb-example-q">例如：'+esc(ex.question)+'</div>';
+  if(ex.pinyin)h+='<div class="wb-example-py">'+esc(ex.pinyin)+'</div>';
+  h+='<div class="wb-example-opts">'+ex.options.map(function(o,i){
+    const L='ABCD'[i];
+    return '<span class="wb-example-opt"><span class="ans-num">'+L+'.</span> '+esc(o)+(ex.answer===L?'<span class="wb-ok"> ✓</span>':'')+'</span>';
+  }).join('')+'</div></div>';
+  return h;
+}
+function wbFeedbackHTML(ans){
+  if(!(ans&&wbState.checked))return '';
+  return ans.correct?'<span class="wb-ok">✓ Đúng rồi!</span>':'<span class="wb-bad">✗ Chưa đúng. Đáp án: <strong>'+esc(ans.correctAnswer)+'</strong></span>';
+}
+function wbOptsHTML(key,ans,options){
+  return '<div class="wb-opts">'+options.map(function(o,i){return '<button class="wb-opt'+wbOptClass(ans,o)+'" data-wb-opt="'+key+'" data-val="'+esc(o)+'"'+(ans?' disabled':'')+'><span class="ans-num">'+String.fromCharCode(65+i)+'</span><span>'+esc(o)+'</span></button>';}).join('')+'</div>';
+}
+function wbItemHTML(d,ex,it,row){
   const key='ex'+ex.no+'-'+it.no;
   const ans=wbState.answers[key];
-  const src=wbAudioSrc();
-  const playBtn=it.audioRange?'<button class="wb-play" data-wb-play data-src="'+src+'" data-start="'+it.audioRange[0]+'" data-end="'+it.audioRange[1]+'">▶ Nghe</button>':'';
-  let h='<div class="wb-item" data-wb-item="'+key+'">';
-  h+='<div class="wb-item-head"><span class="wb-item-no">'+it.no+'.</span>'+playBtn;
-  if(ex.type==='fill-initial'||ex.type==='fill-final'||ex.type==='fill-tone'){
-    h+='<span class="wb-printed">'+esc(it.printed)+'</span>';
-  }else if(ex.type==='read-aloud'){
-    h+='<span class="wb-text">'+esc(it.text)+'</span>';
-  }else if(ex.type==='distinguish'){
-    h+='<span class="wb-text">'+esc(it.pair[0])+' / '+esc(it.pair[1])+'</span>';
+  if(ex.type==='read-aloud'){
+    return '<div class="wb-cell"><span class="wb-item-no">'+it.no+'.</span> <span class="wb-text">'+esc(it.text)+'</span></div>';
   }
-  h+='</div>';
+  if(ex.type==='distinguish'){
+    return '<div class="wb-cell"><span class="wb-item-no">'+it.no+'.</span> <span class="wb-text">'+esc(it.pair[0])+' / '+esc(it.pair[1])+'</span>'+(it.note?'<p class="wb-note">'+esc(it.note)+'</p>':'')+'</div>';
+  }
+  let head='<div class="wb-item-head"><span class="wb-item-no">'+it.no+'.</span>';
+  let body='';
   if(ex.type==='fill-initial'||ex.type==='fill-final'){
-    h+='<div class="wb-fill-row"><input id="wb-in-'+key+'" class="wb-input" placeholder="'+(ex.type==='fill-initial'?'Gõ thanh mẫu…':'Gõ vận mẫu (có dấu thanh, ví dụ: ā hoặc a1)…')+'" autocomplete="off"'+(ans?' disabled value="'+esc(ans.given)+'"':'')+'><button class="action wb-check" data-wb-check="'+key+'"'+(ans?' disabled':'')+'>Xong</button></div>';
+    head+='<span class="wb-printed">'+esc(it.printed)+'</span></div>';
+    body='<div class="wb-fill-row"><input id="wb-in-'+key+'" class="wb-input" placeholder="'+(ex.type==='fill-initial'?'thanh mẫu':'vận mẫu')+'" autocomplete="off"'+(ans?' disabled value="'+esc(ans.given)+'"':'')+'><button class="action wb-check wb-check-mini" data-wb-check="'+key+'" aria-label="Xong"'+(ans?' disabled':'')+'>✓</button></div>';
   }else if(ex.type==='fill-tone'){
-    h+='<div class="wb-tone-row">'+[1,2,3,4].map(function(t){return '<button class="wb-tone-btn'+wbOptClass(ans,'Thanh '+t)+'" data-wb-tone="'+key+'" data-val="'+t+'"'+(ans?' disabled':'')+'>Thanh '+t+'</button>';}).join('')+'</div>';
+    head+='<span class="wb-printed">'+esc(it.printed)+'</span></div>';
+    body='<div class="wb-tone-row">'+[1,2,3,4].map(function(t){return '<button class="wb-tone-btn'+wbOptClass(ans,'Thanh '+t)+'" data-wb-tone="'+key+'" data-val="'+t+'"'+(ans?' disabled':'')+'>Thanh '+t+'</button>';}).join('')+'</div>';
   }else if(ex.type==='choose-syllable'||ex.type==='choose-word'){
-    h+='<div class="wb-opts">'+it.options.map(function(o,i){return '<button class="wb-opt'+wbOptClass(ans,o)+'" data-wb-opt="'+key+'" data-val="'+esc(o)+'"'+(ans?' disabled':'')+'><span class="ans-num">'+String.fromCharCode(65+i)+'</span><span>'+esc(o)+'</span></button>';}).join('')+'</div>';
+    head+='</div>';
+    body=wbOptsHTML(key,ans,it.options);
   }else if(ex.type==='picture-mcq'){
+    head+='</div>';
     const pic='assets/workbook-photos/wb-l'+wbState.lesson+'-'+ex.no+'-'+it.no+'.jpg';
-    h+='<div class="wb-pic"><img src="'+pic+'" alt="Hình minh họa câu '+it.no+'" loading="lazy"></div>';
-    h+='<div class="wb-opts">'+it.options.map(function(o,i){return '<button class="wb-opt'+wbOptClass(ans,o)+'" data-wb-opt="'+key+'" data-val="'+esc(o)+'"'+(ans?' disabled':'')+'><span class="ans-num">'+String.fromCharCode(65+i)+'</span><span>'+esc(o)+'</span></button>';}).join('')+'</div>';
-  }else if(ex.type==='read-aloud'||ex.type==='distinguish'){
-    h+='<p class="wb-note">Nghe rồi đọc to theo, không tính điểm.</p>';
+    body='<div class="wb-pic"><img src="'+pic+'" alt="Hình minh họa câu '+it.no+'" loading="lazy"></div>'+wbOptsHTML(key,ans,it.options);
+  }else{
+    head+='</div>';
   }
-  h+='<div class="wb-feedback">'+(ans&&wbState.checked?(ans.correct?'<span class="wb-ok">✓ Đúng rồi!</span>':'<span class="wb-bad">✗ Chưa đúng. Đáp án: <strong>'+esc(ans.correctAnswer)+'</strong></span>'):'')+'</div>';
-  h+='</div>';
-  return h;
+  const wrap=row?'wb-item':'wb-cell wb-item';
+  return '<div class="'+wrap+'" data-wb-item="'+key+'">'+head+body+'<div class="wb-feedback">'+wbFeedbackHTML(ans)+'</div></div>';
 }
-function wbMoniListenHTML(d,it){
+function wbExerciseItemsHTML(d,ex){
+  const items=ex.items||[];
+  if(ex.layout==='list'){
+    return '<div class="wb-list" data-layout="list">'+items.map(function(it){return '<div class="wb-list-item"><span class="wb-item-no">('+it.no+')</span> <span class="wb-text">'+esc(it.text)+'</span></div>';}).join('')+'</div>';
+  }
+  if(ex.type==='read-aloud'){
+    const cols=wbCols(ex,4);
+    if(items.length>16){
+      let h='';
+      for(let i=0;i<items.length;i+=16){
+        h+='<div class="wb-box"><div class="wb-grid wb-grid-read" data-cols="'+cols+'">'+items.slice(i,i+16).map(function(it){return wbItemHTML(d,ex,it);}).join('')+'</div></div>';
+      }
+      return h;
+    }
+    return '<div class="wb-grid wb-grid-read" data-cols="'+cols+'">'+items.map(function(it){return wbItemHTML(d,ex,it);}).join('')+'</div>';
+  }
+  if(ex.type==='distinguish'){
+    return '<div class="wb-grid wb-grid-dist" data-cols="'+wbCols(ex,2)+'">'+items.map(function(it){return wbItemHTML(d,ex,it);}).join('')+'</div>';
+  }
+  if(ex.type==='fill-initial'||ex.type==='fill-final'){
+    return '<div class="wb-grid wb-grid-fill" data-cols="'+wbCols(ex,5)+'">'+items.map(function(it){return wbItemHTML(d,ex,it);}).join('')+'</div>';
+  }
+  if(ex.type==='fill-tone'){
+    return '<div class="wb-grid wb-grid-tone" data-cols="'+wbCols(ex,4)+'">'+items.map(function(it){return wbItemHTML(d,ex,it);}).join('')+'</div>';
+  }
+  if(ex.type==='choose-syllable'||ex.type==='choose-word'){
+    return '<div class="wb-grid wb-grid-choose" data-cols="'+wbCols(ex,2)+'">'+items.map(function(it){return wbItemHTML(d,ex,it);}).join('')+'</div>';
+  }
+  if(ex.type==='picture-mcq'){
+    if(ex.layout==='picture-row'){
+      return '<div class="wb-grid wb-grid-picrow" data-cols="'+wbCols(ex,3)+'" data-layout="picture-row">'+items.map(function(it){return wbItemHTML(d,ex,it);}).join('')+'</div>';
+    }
+    return items.map(function(it){return wbItemHTML(d,ex,it,true);}).join('');
+  }
+  return items.map(function(it){return wbItemHTML(d,ex,it,true);}).join('');
+}
+function wbMoniListenHTML(d,it,showPicDesc){
   const key='lis-'+it.no;
   const ans=wbState.answers[key];
-  const src=wbAudioSrc();
   let h='<div class="wb-item" data-wb-item="'+key+'">';
-  h+='<div class="wb-item-head"><span class="wb-item-no">'+it.no+'.</span><button class="wb-play" data-wb-play data-src="'+src+'" data-start="'+it.audioRange[0]+'" data-end="'+it.audioRange[1]+'">▶ Nghe</button></div>';
-  h+='<p class="wb-question">'+esc(it.question)+'</p>';
-  if(it.pictureDesc)h+='<p class="wb-picdesc">'+esc(it.pictureDesc)+'</p>';
-  h+='<div class="wb-opts">'+it.options.map(function(o,i){return '<button class="wb-opt'+wbOptClass(ans,o)+'" data-wb-opt="'+key+'" data-val="'+esc(o)+'"'+(ans?' disabled':'')+'><span class="ans-num">'+String.fromCharCode(65+i)+'</span><span>'+esc(o)+'</span></button>';}).join('')+'</div>';
-  h+='<div class="wb-feedback">'+(ans&&wbState.checked?(ans.correct?'<span class="wb-ok">✓ Đúng rồi!</span>':'<span class="wb-bad">✗ Chưa đúng. Đáp án: <strong>'+esc(ans.correctAnswer)+'</strong></span>'):'')+'</div>';
+  h+='<div class="wb-item-head"><span class="wb-item-no">'+it.no+'.</span></div>';
+  if(showPicDesc&&it.pictureDesc)h+='<p class="wb-picdesc">'+esc(it.pictureDesc)+'</p>';
+  h+=wbOptsHTML(key,ans,it.options);
+  h+='<div class="wb-feedback">'+wbFeedbackHTML(ans)+'</div>';
   h+='</div>';
   return h;
 }
-function wbMoniReadHTML(d,it){
+function wbMoniReadHTML(d,it,groupBody,showOptionsDesc){
   const key='read-'+it.no;
   const ans=wbState.answers[key];
   let h='<div class="wb-item" data-wb-item="'+key+'">';
   h+='<div class="wb-item-head"><span class="wb-item-no">'+it.no+'.</span></div>';
   if(it.passage)h+='<p class="wb-passage">'+esc(it.passage)+'</p>';
-  if(it.question)h+='<p class="wb-question">'+esc(it.question)+'</p>';
-  if(it.optionsDesc)h+='<p class="wb-picdesc">'+esc(it.optionsDesc)+'</p>';
-  h+='<div class="wb-opts">'+it.options.map(function(o,i){return '<button class="wb-opt'+wbOptClass(ans,o)+'" data-wb-opt="'+key+'" data-val="'+esc(o)+'"'+(ans?' disabled':'')+'><span class="ans-num">'+String.fromCharCode(65+i)+'</span><span>'+esc(o)+'</span></button>';}).join('')+'</div>';
-  h+='<div class="wb-feedback">'+(ans&&wbState.checked?(ans.correct?'<span class="wb-ok">✓ Đúng rồi!</span>':'<span class="wb-bad">✗ Chưa đúng. Đáp án: <strong>'+esc(ans.correctAnswer)+'</strong></span>'):'')+'</div>';
+  if(it.question&&it.question!==groupBody)h+='<p class="wb-question">'+esc(it.question)+'</p>';
+  if(showOptionsDesc&&it.optionsDesc)h+='<p class="wb-picdesc">'+esc(it.optionsDesc)+'</p>';
+  h+=wbOptsHTML(key,ans,it.options);
+  h+='<div class="wb-feedback">'+wbFeedbackHTML(ans)+'</div>';
   h+='</div>';
   return h;
 }
@@ -954,7 +1013,7 @@ function wbPanelHTML(l,d){
   const total=wbTotal(d),correct=wbCorrect(d);
   let h='<button class="back-to-zone" data-tab="practice">← Tất cả dạng luyện tập</button>';
   h+='<div class="dictation-shell">';
-  h+='<div class="gz-head"><span class="level-badge">Sách bài tập</span><h3 class="game-title">Sách bài tập · Bài '+l.num+'</h3><p class="gz-sub">'+esc(d.section)+' · '+esc(d.sectionVi)+' · '+total+' câu chấm điểm</p></div>';
+  h+='<div class="gz-head"><span class="level-badge">Sách bài tập</span><h3 class="game-title">Sách bài tập · Bài '+l.num+'</h3><p class="gz-sub">'+esc(d.section)+' · '+esc(d.sectionVi)+(d.track?' · ♪ '+esc(d.track):'')+' · '+total+' câu chấm điểm</p></div>';
   const answered=wbAnswered(d);
   h+='<div class="wb-score"><span id="wbScore">'+(wbState.checked?('Đúng '+correct+'/'+total+' câu'):('Đã làm '+answered+'/'+total+' câu'))+'</span><div class="quiz-progress"><i id="wbScoreBar" style="width:'+(total?Math.round((wbState.checked?correct:answered)/total*100):0)+'%"></i></div></div>';
   h+=origAudioHTML(wbAudioSrc(),'Nghe toàn bài · '+d.audio);
@@ -962,20 +1021,44 @@ function wbPanelHTML(l,d){
     d.exercises.forEach(function(ex){
       h+='<article class="grammar-card wb-ex"><div class="grammar-title"><span class="g-num">'+ex.no+'.</span> '+esc(ex.title)+'</div><div class="grammar-body">';
       h+='<p>'+esc(ex.titleVi)+'</p>';
+      if(ex.type==='read-aloud'||ex.type==='distinguish'){
+        h+='<p class="wb-note">Nghe rồi đọc to theo, không tính điểm.</p>';
+      }
       if(ex.instructionRange)h+='<button class="wb-play" data-wb-play data-src="'+wbAudioSrc()+'" data-start="'+ex.instructionRange[0]+'" data-end="'+ex.instructionRange[1]+'">▶ Nghe hướng dẫn</button>';
       else if(ex.audioRange)h+='<button class="wb-play" data-wb-play data-src="'+wbAudioSrc()+'" data-start="'+ex.audioRange[0]+'" data-end="'+ex.audioRange[1]+'">▶ Nghe toàn bài tập</button>';
-      ex.items.forEach(function(it){h+=wbItemHTML(d,ex,it);});
+      h+=wbExerciseItemsHTML(d,ex);
       h+='</div></article>';
     });
   }
   if(d.listening){
-    h+='<article class="grammar-card wb-ex"><div class="grammar-title">一、听力 <span style="font-weight:600;color:var(--muted);font-size:.95rem">(Phần nghe)</span></div><div class="grammar-body">';
-    d.listening.items.forEach(function(it){h+=wbMoniListenHTML(d,it);});
+    h+='<article class="grammar-card wb-ex"><div class="grammar-title">'+esc(d.listening.part)+' <span style="font-weight:600;color:var(--muted);font-size:.95rem">('+esc(d.listening.partVi)+')</span>'+(d.listening.track?' <span style="font-weight:600;color:var(--muted);font-size:.95rem">♪ '+esc(d.listening.track)+'</span>':'')+'</div><div class="grammar-body">';
+    d.listening.parts.forEach(function(part){
+      const items=d.listening.items.filter(function(it){return it.partNo===part.partNo;});
+      const nos=items.map(function(it){return it.no;});
+      const lo=Math.min.apply(null,nos),hi=Math.max.apply(null,nos);
+      const sharedPic=items.length>0&&items.every(function(it){return it.pictureDesc&&it.pictureDesc===items[0].pictureDesc;});
+      h+='<div class="wb-part"><div class="wb-part-head"><div class="wb-part-ord">'+esc(wbPartOrd(part.partNo))+'</div><div class="wb-part-title">'+esc(part.instruction)+'</div><p class="wb-note">'+esc(part.instructionVi)+'</p>';
+      if(sharedPic)h+='<p class="wb-picdesc">'+esc(items[0].pictureDesc)+'</p>';
+      h+='<button class="wb-play" data-wb-play data-src="'+wbAudioSrc()+'" data-start="'+part.audioRange[0]+'" data-end="'+part.audioRange[1]+'">▶ Nghe (Câu '+lo+'-'+hi+')</button></div>';
+      h+=wbExampleHTML(part.example);
+      items.forEach(function(it){h+=wbMoniListenHTML(d,it,!sharedPic);});
+      h+='</div>';
+    });
     h+='</div></article>';
   }
   if(d.reading){
-    h+='<article class="grammar-card wb-ex"><div class="grammar-title">二、阅读 <span style="font-weight:600;color:var(--muted);font-size:.95rem">(Phần đọc)</span></div><div class="grammar-body">';
-    d.reading.items.forEach(function(it){h+=wbMoniReadHTML(d,it);});
+    h+='<article class="grammar-card wb-ex"><div class="grammar-title">'+esc(d.reading.part)+' <span style="font-weight:600;color:var(--muted);font-size:.95rem">('+esc(d.reading.partVi)+')</span></div><div class="grammar-body">';
+    d.reading.parts.forEach(function(part){
+      const items=d.reading.items.filter(function(it){return it.partNo===part.partNo;});
+      const groupBody=wbStripPartPrefix(part.instruction);
+      const sharedDesc=items.length>0&&items.every(function(it){return it.optionsDesc&&it.optionsDesc===items[0].optionsDesc;});
+      h+='<div class="wb-part"><div class="wb-part-head"><div class="wb-part-ord">'+esc(wbPartOrd(part.partNo))+'</div><div class="wb-part-title">'+esc(part.instruction)+'</div><p class="wb-note">'+esc(part.instructionVi)+'</p>';
+      if(sharedDesc)h+='<p class="wb-picdesc">'+esc(items[0].optionsDesc)+'</p>';
+      h+='</div>';
+      h+=wbExampleHTML(part.example);
+      items.forEach(function(it){h+=wbMoniReadHTML(d,it,groupBody,!sharedDesc);});
+      h+='</div>';
+    });
     h+='</div></article>';
   }
   h+=wbSubmitHTML(l,d);

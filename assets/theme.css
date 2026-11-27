@@ -4128,3 +4128,38 @@ body.hide-pinyin .kk-char rt{visibility:hidden}
 .wb-chosen-ok{border-color:var(--ok)!important;background:var(--selected)!important}
 .wb-chosen-bad{border-color:var(--verm)!important}
 .wb-submit-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+
+.wb-grid{display:grid;gap:8px;margin-top:10px}
+.wb-grid[data-cols="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.wb-grid[data-cols="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.wb-grid[data-cols="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.wb-grid[data-cols="5"]{grid-template-columns:repeat(5,minmax(0,1fr))}
+.wb-cell{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:8px 10px}
+.wb-box{background:var(--selected);border:1px solid var(--line);border-radius:12px;padding:10px;margin-top:10px}
+.wb-part{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.wb-part:first-child{margin-top:0;padding-top:0;border-top:0}
+.wb-part-head{margin-bottom:4px}
+.wb-part-title{font-family:var(--font-han-sans);font-weight:800;font-size:1.1rem;color:var(--ink)}
+.wb-part-head .wb-note{margin:4px 0}
+.wb-part-head .wb-play{margin-top:6px}
+.wb-part-ord{text-align:center;font-family:var(--font-han-sans);font-weight:800;font-size:1.05rem;color:var(--ink);margin-bottom:2px}
+.wb-example{margin:8px 0;padding:10px 12px;border:1px dashed var(--line);border-radius:10px;background:var(--surface)}
+.wb-example-q{font-family:var(--font-han-sans);font-weight:700;font-size:1.1rem}
+.wb-example-py{color:var(--muted);margin-top:2px}
+.wb-example-opts{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:6px}
+.wb-example-opt{font-family:var(--font-han-sans)}
+.wb-example-opt .ans-num{font-weight:800;color:var(--muted)}
+.wb-check-mini{padding:6px 10px;border-radius:8px;flex:none}
+.wb-grid .wb-input{min-width:0}
+.wb-grid-choose .wb-opts{grid-template-columns:repeat(2,minmax(0,1fr))}
+.wb-list{margin-top:10px;display:grid;gap:6px}
+.wb-list-item{display:flex;gap:8px;align-items:baseline}
+.wb-pic{margin-top:6px}
+.wb-grid .wb-feedback{min-height:0}
+@media(max-width:720px){
+  .wb-grid.wb-grid-fill{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .wb-grid.wb-grid-tone{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .wb-grid.wb-grid-read{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .wb-grid.wb-grid-choose,.wb-grid.wb-grid-dist{grid-template-columns:minmax(0,1fr)}
+  .wb-grid.wb-grid-picrow{grid-template-columns:minmax(0,1fr)}
+}

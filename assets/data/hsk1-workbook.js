@@ -3,12 +3,14 @@ var workbook1 = {
     "section": "听读练",
     "sectionVi": "Nghe, đọc và luyện tập",
     "audio": "h1-td-1.mp3",
+    "track": "1-2",
     "exercises": [
       {
         "no": 1,
         "type": "read-aloud",
         "title": "听录音，读音节。",
         "titleVi": "Nghe ghi âm, đọc âm tiết.",
+        "cols": 4,
         "audioRange": [
           10.29,
           107.27
@@ -16,291 +18,131 @@ var workbook1 = {
         "items": [
           {
             "no": 1,
-            "text": "mō",
-            "audioRange": [
-              10.29,
-              13.32
-            ],
-            "audioRangeEstimated": true
+            "text": "mō"
           },
           {
             "no": 2,
-            "text": "mó",
-            "audioRange": [
-              13.32,
-              16.35
-            ],
-            "audioRangeEstimated": true
+            "text": "mó"
           },
           {
             "no": 3,
-            "text": "mǒ",
-            "audioRange": [
-              16.35,
-              19.38
-            ],
-            "audioRangeEstimated": true
+            "text": "mǒ"
           },
           {
             "no": 4,
-            "text": "mò",
-            "audioRange": [
-              19.38,
-              22.41
-            ],
-            "audioRangeEstimated": true
+            "text": "mò"
           },
           {
             "no": 5,
-            "text": "fū",
-            "audioRange": [
-              22.41,
-              25.44
-            ],
-            "audioRangeEstimated": true
+            "text": "fū"
           },
           {
             "no": 6,
-            "text": "fú",
-            "audioRange": [
-              25.44,
-              28.47
-            ],
-            "audioRangeEstimated": true
+            "text": "fú"
           },
           {
             "no": 7,
-            "text": "fǔ",
-            "audioRange": [
-              28.47,
-              31.5
-            ],
-            "audioRangeEstimated": true
+            "text": "fǔ"
           },
           {
             "no": 8,
-            "text": "fù",
-            "audioRange": [
-              31.5,
-              34.53
-            ],
-            "audioRangeEstimated": true
+            "text": "fù"
           },
           {
             "no": 9,
-            "text": "dī",
-            "audioRange": [
-              34.53,
-              37.57
-            ],
-            "audioRangeEstimated": true
+            "text": "dī"
           },
           {
             "no": 10,
-            "text": "dí",
-            "audioRange": [
-              37.57,
-              40.6
-            ],
-            "audioRangeEstimated": true
+            "text": "dí"
           },
           {
             "no": 11,
-            "text": "dǐ",
-            "audioRange": [
-              40.6,
-              43.63
-            ],
-            "audioRangeEstimated": true
+            "text": "dǐ"
           },
           {
             "no": 12,
-            "text": "dì",
-            "audioRange": [
-              43.63,
-              46.66
-            ],
-            "audioRangeEstimated": true
+            "text": "dì"
           },
           {
             "no": 13,
-            "text": "tāo",
-            "audioRange": [
-              46.66,
-              49.69
-            ],
-            "audioRangeEstimated": true
+            "text": "tāo"
           },
           {
             "no": 14,
-            "text": "táo",
-            "audioRange": [
-              49.69,
-              52.72
-            ],
-            "audioRangeEstimated": true
+            "text": "táo"
           },
           {
             "no": 15,
-            "text": "tǎo",
-            "audioRange": [
-              52.72,
-              55.75
-            ],
-            "audioRangeEstimated": true
+            "text": "tǎo"
           },
           {
             "no": 16,
-            "text": "tào",
-            "audioRange": [
-              55.75,
-              58.78
-            ],
-            "audioRangeEstimated": true
+            "text": "tào"
           },
           {
             "no": 17,
-            "text": "lōu",
-            "audioRange": [
-              58.78,
-              61.81
-            ],
-            "audioRangeEstimated": true
+            "text": "lōu"
           },
           {
             "no": 18,
-            "text": "lóu",
-            "audioRange": [
-              61.81,
-              64.84
-            ],
-            "audioRangeEstimated": true
+            "text": "lóu"
           },
           {
             "no": 19,
-            "text": "lǒu",
-            "audioRange": [
-              64.84,
-              67.87
-            ],
-            "audioRangeEstimated": true
+            "text": "lǒu"
           },
           {
             "no": 20,
-            "text": "lòu",
-            "audioRange": [
-              67.87,
-              70.9
-            ],
-            "audioRangeEstimated": true
+            "text": "lòu"
           },
           {
             "no": 21,
-            "text": "hān",
-            "audioRange": [
-              70.9,
-              73.93
-            ],
-            "audioRangeEstimated": true
+            "text": "hān"
           },
           {
             "no": 22,
-            "text": "hán",
-            "audioRange": [
-              73.93,
-              76.96
-            ],
-            "audioRangeEstimated": true
+            "text": "hán"
           },
           {
             "no": 23,
-            "text": "hǎn",
-            "audioRange": [
-              76.96,
-              79.99
-            ],
-            "audioRangeEstimated": true
+            "text": "hǎn"
           },
           {
             "no": 24,
-            "text": "hàn",
-            "audioRange": [
-              79.99,
-              83.02
-            ],
-            "audioRangeEstimated": true
+            "text": "hàn"
           },
           {
             "no": 25,
-            "text": "pāng",
-            "audioRange": [
-              83.02,
-              86.06
-            ],
-            "audioRangeEstimated": true
+            "text": "pāng"
           },
           {
             "no": 26,
-            "text": "páng",
-            "audioRange": [
-              86.06,
-              89.09
-            ],
-            "audioRangeEstimated": true
+            "text": "páng"
           },
           {
             "no": 27,
-            "text": "pǎng",
-            "audioRange": [
-              89.09,
-              92.12
-            ],
-            "audioRangeEstimated": true
+            "text": "pǎng"
           },
           {
             "no": 28,
-            "text": "pàng",
-            "audioRange": [
-              92.12,
-              95.15
-            ],
-            "audioRangeEstimated": true
+            "text": "pàng"
           },
           {
             "no": 29,
-            "text": "gēn",
-            "audioRange": [
-              95.15,
-              98.18
-            ],
-            "audioRangeEstimated": true
+            "text": "gēn"
           },
           {
             "no": 30,
-            "text": "gén",
-            "audioRange": [
-              98.18,
-              101.21
-            ],
-            "audioRangeEstimated": true
+            "text": "gén"
           },
           {
             "no": 31,
-            "text": "gěn",
-            "audioRange": [
-              101.21,
-              104.24
-            ],
-            "audioRangeEstimated": true
+            "text": "gěn"
           },
           {
             "no": 32,
-            "text": "gèn",
-            "audioRange": [
-              104.24,
-              107.27
-            ],
-            "audioRangeEstimated": true
+            "text": "gèn"
           }
         ]
       },
@@ -309,6 +151,7 @@ var workbook1 = {
         "type": "fill-initial",
         "title": "听录音，写出听到的声母。",
         "titleVi": "Nghe ghi âm, viết ra thanh mẫu nghe được.",
+        "cols": 5,
         "instructionRange": [
           111.99,
           117.63
@@ -317,150 +160,90 @@ var workbook1 = {
           {
             "no": 1,
             "answer": "b",
-            "audioRange": [
-              119.48,
-              119.87
-            ],
             "confidence": "low",
             "printed": "__à"
           },
           {
             "no": 2,
             "answer": "g",
-            "audioRange": [
-              124.21,
-              124.85
-            ],
             "confidence": "medium",
             "printed": "__ěi"
           },
           {
             "no": 3,
             "answer": "p",
-            "audioRange": [
-              129.08,
-              129.73
-            ],
             "confidence": "high",
             "printed": "__án"
           },
           {
             "no": 4,
             "answer": "b",
-            "audioRange": [
-              133.98,
-              134.51
-            ],
             "confidence": "high",
             "printed": "__ù"
           },
           {
             "no": 5,
             "answer": "m",
-            "audioRange": [
-              138.75,
-              139.51
-            ],
             "confidence": "high",
             "printed": "__ǎi"
           },
           {
             "no": 6,
             "answer": "l",
-            "audioRange": [
-              143.62,
-              144.32
-            ],
             "confidence": "high",
             "printed": "__ěng"
           },
           {
             "no": 7,
             "answer": "f",
-            "audioRange": [
-              148.41,
-              149.08
-            ],
             "confidence": "high",
             "printed": "__ó"
           },
           {
             "no": 8,
             "answer": "h",
-            "audioRange": [
-              153.4,
-              154.25
-            ],
             "confidence": "high",
             "printed": "__ǎo"
           },
           {
             "no": 9,
             "answer": "t",
-            "audioRange": [
-              158.31,
-              158.95
-            ],
             "confidence": "high",
             "printed": "__óng"
           },
           {
             "no": 10,
             "answer": "h",
-            "audioRange": [
-              163.06,
-              163.85
-            ],
             "confidence": "high",
             "printed": "__ěn"
           },
           {
             "no": 11,
             "answer": "b",
-            "audioRange": [
-              168.03,
-              168.52
-            ],
             "confidence": "medium",
             "printed": "__ān"
           },
           {
             "no": 12,
             "answer": "d",
-            "audioRange": [
-              172.86,
-              173.36
-            ],
             "confidence": "medium",
             "printed": "__ōu"
           },
           {
             "no": 13,
             "answer": "k",
-            "audioRange": [
-              177.47,
-              178.16
-            ],
             "confidence": "high",
             "printed": "__è"
           },
           {
             "no": 14,
             "answer": "n",
-            "audioRange": [
-              182.27,
-              183.06
-            ],
             "confidence": "high",
             "printed": "__ǐ"
           },
           {
             "no": 15,
             "answer": "m",
-            "audioRange": [
-              187.03,
-              187.63
-            ],
             "confidence": "medium",
             "printed": "__áng"
           }
@@ -471,6 +254,7 @@ var workbook1 = {
         "type": "fill-final",
         "title": "听录音，写出听到的韵母。",
         "titleVi": "Nghe ghi âm, viết ra vận mẫu nghe được.",
+        "cols": 5,
         "instructionRange": [
           193.37,
           199.0
@@ -479,150 +263,90 @@ var workbook1 = {
           {
             "no": 1,
             "answer": "ā",
-            "audioRange": [
-              201.13,
-              201.65
-            ],
             "confidence": "high",
             "printed": "t___"
           },
           {
             "no": 2,
             "answer": "ǎn",
-            "audioRange": [
-              205.82,
-              206.68
-            ],
             "confidence": "medium",
             "printed": "h___"
           },
           {
             "no": 3,
             "answer": "āo",
-            "audioRange": [
-              210.84,
-              211.43
-            ],
             "confidence": "high",
             "printed": "m___"
           },
           {
             "no": 4,
             "answer": "ì",
-            "audioRange": [
-              215.58,
-              216.02
-            ],
             "confidence": "medium",
             "printed": "d___"
           },
           {
             "no": 5,
             "answer": "áng",
-            "audioRange": [
-              220.17,
-              220.81
-            ],
             "confidence": "high",
             "printed": "f___"
           },
           {
             "no": 6,
             "answer": "ōng",
-            "audioRange": [
-              225.06,
-              225.69
-            ],
             "confidence": "medium",
             "printed": "d___"
           },
           {
             "no": 7,
             "answer": "āng",
-            "audioRange": [
-              229.78,
-              230.4
-            ],
             "confidence": "low",
             "printed": "h___"
           },
           {
             "no": 8,
             "answer": "ǒu",
-            "audioRange": [
-              234.47,
-              235.17
-            ],
             "confidence": "high",
             "printed": "g___"
           },
           {
             "no": 9,
             "answer": "áng",
-            "audioRange": [
-              239.51,
-              240.26
-            ],
             "confidence": "medium",
             "printed": "p___"
           },
           {
             "no": 10,
             "answer": "ū",
-            "audioRange": [
-              244.48,
-              245.07
-            ],
             "confidence": "medium",
             "printed": "g___"
           },
           {
             "no": 11,
             "answer": "āi",
-            "audioRange": [
-              249.31,
-              249.97
-            ],
             "confidence": "high",
             "printed": "k___"
           },
           {
             "no": 12,
             "answer": "ēi",
-            "audioRange": [
-              254.13,
-              254.69
-            ],
             "confidence": "medium",
             "printed": "f___"
           },
           {
             "no": 13,
             "answer": "ù",
-            "audioRange": [
-              258.97,
-              259.72
-            ],
             "confidence": "medium",
             "printed": "n___"
           },
           {
             "no": 14,
             "answer": "ěng",
-            "audioRange": [
-              263.84,
-              264.75
-            ],
             "confidence": "medium",
             "printed": "l___"
           },
           {
             "no": 15,
             "answer": "ō",
-            "audioRange": [
-              269.03,
-              269.57
-            ],
             "confidence": "high",
             "printed": "b___"
           }
@@ -633,6 +357,7 @@ var workbook1 = {
         "type": "fill-tone",
         "title": "听录音，写出听到的声调。",
         "titleVi": "Nghe ghi âm, viết ra thanh điệu nghe được.",
+        "cols": 4,
         "instructionRange": [
           275.1,
           280.73
@@ -641,10 +366,6 @@ var workbook1 = {
           {
             "no": 1,
             "answer": "3",
-            "audioRange": [
-              282.86,
-              283.77
-            ],
             "confidence": "high",
             "printed": "lao",
             "full": "lǎo"
@@ -652,10 +373,6 @@ var workbook1 = {
           {
             "no": 2,
             "answer": "2",
-            "audioRange": [
-              287.97,
-              288.82
-            ],
             "confidence": "high",
             "printed": "neng",
             "full": "néng"
@@ -663,10 +380,6 @@ var workbook1 = {
           {
             "no": 3,
             "answer": "1",
-            "audioRange": [
-              293.11,
-              293.75
-            ],
             "confidence": "medium",
             "printed": "ge",
             "full": "gē"
@@ -674,10 +387,6 @@ var workbook1 = {
           {
             "no": 4,
             "answer": "1",
-            "audioRange": [
-              297.96,
-              298.62
-            ],
             "confidence": "medium",
             "printed": "ba",
             "full": "bā"
@@ -685,10 +394,6 @@ var workbook1 = {
           {
             "no": 5,
             "answer": "1",
-            "audioRange": [
-              302.87,
-              303.75
-            ],
             "confidence": "medium",
             "printed": "fen",
             "full": "fēn"
@@ -696,10 +401,6 @@ var workbook1 = {
           {
             "no": 6,
             "answer": "4",
-            "audioRange": [
-              308.0,
-              308.67
-            ],
             "confidence": "high",
             "printed": "kan",
             "full": "kàn"
@@ -707,10 +408,6 @@ var workbook1 = {
           {
             "no": 7,
             "answer": "1",
-            "audioRange": [
-              312.74,
-              313.58
-            ],
             "confidence": "medium",
             "printed": "bai",
             "full": "bāi"
@@ -718,10 +415,6 @@ var workbook1 = {
           {
             "no": 8,
             "answer": "3",
-            "audioRange": [
-              317.79,
-              318.74
-            ],
             "confidence": "medium",
             "printed": "li",
             "full": "lǐ"
@@ -729,10 +422,6 @@ var workbook1 = {
           {
             "no": 9,
             "answer": "1",
-            "audioRange": [
-              322.96,
-              323.76
-            ],
             "confidence": "medium",
             "printed": "gong",
             "full": "gōng"
@@ -740,10 +429,6 @@ var workbook1 = {
           {
             "no": 10,
             "answer": "2",
-            "audioRange": [
-              327.94,
-              328.83
-            ],
             "confidence": "high",
             "printed": "mang",
             "full": "máng"
@@ -751,10 +436,6 @@ var workbook1 = {
           {
             "no": 11,
             "answer": "3",
-            "audioRange": [
-              333.12,
-              334.13
-            ],
             "confidence": "high",
             "printed": "gou",
             "full": "gǒu"
@@ -762,10 +443,6 @@ var workbook1 = {
           {
             "no": 12,
             "answer": "4",
-            "audioRange": [
-              338.31,
-              338.99
-            ],
             "confidence": "high",
             "printed": "hou",
             "full": "hòu"
@@ -777,6 +454,8 @@ var workbook1 = {
         "type": "picture-mcq",
         "title": "看图片，选择正确的对话。",
         "titleVi": "Nhìn hình, chọn hội thoại đúng.",
+        "layout": "picture-row",
+        "cols": 3,
         "instructionRange": [
           345.01,
           348.76
@@ -790,10 +469,6 @@ var workbook1 = {
               "你们好！"
             ],
             "answer": "A",
-            "audioRange": [
-              351.99,
-              355.01
-            ],
             "confidence": "high"
           },
           {
@@ -804,10 +479,6 @@ var workbook1 = {
               "你们好！"
             ],
             "answer": "B",
-            "audioRange": [
-              360.53,
-              364.02
-            ],
             "confidence": "high"
           },
           {
@@ -818,10 +489,6 @@ var workbook1 = {
               "不客气！"
             ],
             "answer": "A",
-            "audioRange": [
-              369.36,
-              371.96
-            ],
             "confidence": "high"
           }
         ]
@@ -832,12 +499,14 @@ var workbook1 = {
     "section": "听读练",
     "sectionVi": "Nghe, đọc và luyện tập",
     "audio": "h1-td-2.mp3",
+    "track": "2-2",
     "exercises": [
       {
         "no": 1,
         "type": "fill-initial",
         "title": "听录音，写出听到的声母。",
         "titleVi": "Nghe ghi âm, viết ra thanh mẫu nghe được.",
+        "cols": 3,
         "instructionRange": [
           5.09,
           10.95
@@ -846,90 +515,54 @@ var workbook1 = {
           {
             "no": 1,
             "answer": "q",
-            "audioRange": [
-              12.65,
-              13.45
-            ],
             "confidence": "high",
             "printed": "__ián"
           },
           {
             "no": 2,
             "answer": "j",
-            "audioRange": [
-              17.57,
-              18.19
-            ],
             "confidence": "high",
             "printed": "__īn"
           },
           {
             "no": 3,
             "answer": "x",
-            "audioRange": [
-              22.51,
-              23.46
-            ],
             "confidence": "medium",
             "printed": "__iǎng"
           },
           {
             "no": 4,
             "answer": "j",
-            "audioRange": [
-              27.69,
-              28.21
-            ],
             "confidence": "medium",
             "printed": "__iào"
           },
           {
             "no": 5,
             "answer": "x",
-            "audioRange": [
-              32.32,
-              32.99
-            ],
             "confidence": "medium",
             "printed": "__iè"
           },
           {
             "no": 6,
             "answer": "q",
-            "audioRange": [
-              37.22,
-              38.15
-            ],
             "confidence": "high",
             "printed": "__ǐng"
           },
           {
             "no": 7,
             "answer": "j",
-            "audioRange": [
-              42.38,
-              43.19
-            ],
             "confidence": "medium",
             "printed": "__ǐ"
           },
           {
             "no": 8,
             "answer": "q",
-            "audioRange": [
-              47.25,
-              47.83
-            ],
             "confidence": "medium",
             "printed": "__ù"
           },
           {
             "no": 9,
             "answer": "x",
-            "audioRange": [
-              52.08,
-              52.65
-            ],
             "confidence": "medium",
             "printed": "__ià"
           }
@@ -940,6 +573,7 @@ var workbook1 = {
         "type": "fill-final",
         "title": "听录音，写出听到的韵母。",
         "titleVi": "Nghe ghi âm, viết ra vận mẫu nghe được.",
+        "cols": 5,
         "instructionRange": [
           57.85,
           63.66
@@ -948,150 +582,90 @@ var workbook1 = {
           {
             "no": 1,
             "answer": "iàn",
-            "audioRange": [
-              64.73,
-              65.34
-            ],
             "confidence": "medium",
             "printed": "j___"
           },
           {
             "no": 2,
             "answer": "iě",
-            "audioRange": [
-              69.39,
-              70.38
-            ],
             "confidence": "medium",
             "printed": "x___"
           },
           {
             "no": 3,
             "answer": "ù",
-            "audioRange": [
-              74.6,
-              75.29
-            ],
             "confidence": "medium",
             "printed": "q___"
           },
           {
             "no": 4,
             "answer": "iào",
-            "audioRange": [
-              79.59,
-              80.28
-            ],
             "confidence": "medium",
             "printed": "j___"
           },
           {
             "no": 5,
             "answer": "ǐng",
-            "audioRange": [
-              84.21,
-              85.29
-            ],
             "confidence": "high",
             "printed": "q___"
           },
           {
             "no": 6,
             "answer": "ué",
-            "audioRange": [
-              89.53,
-              90.54
-            ],
             "confidence": "high",
             "printed": "x___"
           },
           {
             "no": 7,
             "answer": "iào",
-            "audioRange": [
-              94.64,
-              95.62
-            ],
             "confidence": "medium",
             "printed": "j___"
           },
           {
             "no": 8,
             "answer": "īng",
-            "audioRange": [
-              99.69,
-              100.43
-            ],
             "confidence": "medium",
             "printed": "x___"
           },
           {
             "no": 9,
             "answer": "iě",
-            "audioRange": [
-              104.81,
-              105.72
-            ],
             "confidence": "high",
             "printed": "j___"
           },
           {
             "no": 10,
             "answer": "ián",
-            "audioRange": [
-              109.87,
-              110.78
-            ],
             "confidence": "high",
             "printed": "q___"
           },
           {
             "no": 11,
             "answer": "iàn",
-            "audioRange": [
-              115.25,
-              116.01
-            ],
             "confidence": "high",
             "printed": "x___"
           },
           {
             "no": 12,
             "answer": "ǐ",
-            "audioRange": [
-              120.12,
-              121.18
-            ],
             "confidence": "medium",
             "printed": "q___"
           },
           {
             "no": 13,
             "answer": "iā",
-            "audioRange": [
-              125.54,
-              126.18
-            ],
             "confidence": "medium",
             "printed": "j___"
           },
           {
             "no": 14,
             "answer": "iù",
-            "audioRange": [
-              130.42,
-              131.17
-            ],
             "confidence": "medium",
             "printed": "x___"
           },
           {
             "no": 15,
             "answer": "uán",
-            "audioRange": [
-              135.42,
-              136.35
-            ],
             "confidence": "medium",
             "printed": "q___"
           }
@@ -1102,6 +676,7 @@ var workbook1 = {
         "type": "fill-tone",
         "title": "听录音，写出听到的声调。",
         "titleVi": "Nghe ghi âm, viết ra thanh điệu nghe được.",
+        "cols": 4,
         "instructionRange": [
           142.18,
           148.27
@@ -1110,10 +685,6 @@ var workbook1 = {
           {
             "no": 1,
             "answer": "2",
-            "audioRange": [
-              149.54,
-              150.25
-            ],
             "confidence": "high",
             "printed": "xue",
             "full": "xué"
@@ -1121,10 +692,6 @@ var workbook1 = {
           {
             "no": 2,
             "answer": "4",
-            "audioRange": [
-              154.6,
-              155.2
-            ],
             "confidence": "high",
             "printed": "jiao",
             "full": "jiào"
@@ -1132,10 +699,6 @@ var workbook1 = {
           {
             "no": 3,
             "answer": "2",
-            "audioRange": [
-              159.43,
-              160.15
-            ],
             "confidence": "high",
             "printed": "qun",
             "full": "qún"
@@ -1143,10 +706,6 @@ var workbook1 = {
           {
             "no": 4,
             "answer": "3",
-            "audioRange": [
-              164.27,
-              165.08
-            ],
             "confidence": "high",
             "printed": "jiu",
             "full": "jiǔ"
@@ -1154,10 +713,6 @@ var workbook1 = {
           {
             "no": 5,
             "answer": "1",
-            "audioRange": [
-              169.22,
-              169.87
-            ],
             "confidence": "high",
             "printed": "xin",
             "full": "xīn"
@@ -1165,10 +720,6 @@ var workbook1 = {
           {
             "no": 6,
             "answer": "3",
-            "audioRange": [
-              174.08,
-              174.94
-            ],
             "confidence": "high",
             "printed": "qing",
             "full": "qǐng"
@@ -1176,10 +727,6 @@ var workbook1 = {
           {
             "no": 7,
             "answer": "4",
-            "audioRange": [
-              179.12,
-              179.78
-            ],
             "confidence": "high",
             "printed": "xia",
             "full": "xià"
@@ -1187,10 +734,6 @@ var workbook1 = {
           {
             "no": 8,
             "answer": "1",
-            "audioRange": [
-              183.99,
-              184.63
-            ],
             "confidence": "high",
             "printed": "jia",
             "full": "jiā"
@@ -1198,10 +741,6 @@ var workbook1 = {
           {
             "no": 9,
             "answer": "4",
-            "audioRange": [
-              188.95,
-              189.6
-            ],
             "confidence": "high",
             "printed": "qu",
             "full": "qù"
@@ -1209,10 +748,6 @@ var workbook1 = {
           {
             "no": 10,
             "answer": "1",
-            "audioRange": [
-              193.67,
-              194.33
-            ],
             "confidence": "medium",
             "printed": "ji",
             "full": "jī"
@@ -1220,10 +755,6 @@ var workbook1 = {
           {
             "no": 11,
             "answer": "3",
-            "audioRange": [
-              198.56,
-              199.48
-            ],
             "confidence": "high",
             "printed": "xiao",
             "full": "xiǎo"
@@ -1231,10 +762,6 @@ var workbook1 = {
           {
             "no": 12,
             "answer": "3",
-            "audioRange": [
-              203.72,
-              204.55
-            ],
             "confidence": "high",
             "printed": "jie",
             "full": "jiě"
@@ -1246,6 +773,8 @@ var workbook1 = {
         "type": "picture-mcq",
         "title": "看图片，选择正确的对话。",
         "titleVi": "Nhìn hình, chọn hội thoại đúng.",
+        "layout": "picture-row",
+        "cols": 4,
         "instructionRange": [
           210.11,
           213.95
@@ -1259,10 +788,6 @@ var workbook1 = {
               "再见！"
             ],
             "answer": "A",
-            "audioRange": [
-              214.7,
-              218.06
-            ],
             "confidence": "medium"
           },
           {
@@ -1273,10 +798,6 @@ var workbook1 = {
               "没关系。"
             ],
             "answer": "A",
-            "audioRange": [
-              223.09,
-              227.31
-            ],
             "confidence": "low"
           },
           {
@@ -1287,10 +808,6 @@ var workbook1 = {
               "认识你我也很高兴。"
             ],
             "answer": "A",
-            "audioRange": [
-              232.0,
-              237.36
-            ],
             "confidence": "medium"
           },
           {
@@ -1301,10 +818,6 @@ var workbook1 = {
               "白家月，你好。"
             ],
             "answer": "B",
-            "audioRange": [
-              241.18,
-              249.9
-            ],
             "confidence": "medium"
           }
         ]
@@ -1315,12 +828,14 @@ var workbook1 = {
     "section": "听读练",
     "sectionVi": "Nghe, đọc và luyện tập",
     "audio": "h1-td-3.mp3",
+    "track": "3-2",
     "exercises": [
       {
         "no": 1,
         "type": "fill-initial",
         "title": "听录音，写出听到的声母。",
         "titleVi": "Nghe ghi âm, viết ra thanh mẫu nghe được.",
+        "cols": 4,
         "instructionRange": [
           5.2,
           11.23
@@ -1329,120 +844,72 @@ var workbook1 = {
           {
             "no": 1,
             "answer": "s",
-            "audioRange": [
-              12.95,
-              13.61
-            ],
             "confidence": "medium",
             "printed": "__ān"
           },
           {
             "no": 2,
             "answer": "ch",
-            "audioRange": [
-              17.82,
-              18.45
-            ],
             "confidence": "medium",
             "printed": "__ī"
           },
           {
             "no": 3,
             "answer": "z",
-            "audioRange": [
-              22.85,
-              23.57
-            ],
             "confidence": "high",
             "printed": "__ǒu"
           },
           {
             "no": 4,
             "answer": "zh",
-            "audioRange": [
-              27.74,
-              28.22
-            ],
             "confidence": "medium",
             "printed": "__èng"
           },
           {
             "no": 5,
             "answer": "z",
-            "audioRange": [
-              32.55,
-              33.07
-            ],
             "confidence": "medium",
             "printed": "__ì"
           },
           {
             "no": 6,
             "answer": "ch",
-            "audioRange": [
-              37.33,
-              37.95
-            ],
             "confidence": "high",
             "printed": "__àng"
           },
           {
             "no": 7,
             "answer": "r",
-            "audioRange": [
-              42.1,
-              42.76
-            ],
             "confidence": "medium",
             "printed": "__én"
           },
           {
             "no": 8,
             "answer": "sh",
-            "audioRange": [
-              46.88,
-              47.53
-            ],
             "confidence": "medium",
             "printed": "__uì"
           },
           {
             "no": 9,
             "answer": "c",
-            "audioRange": [
-              51.76,
-              52.34
-            ],
             "confidence": "medium",
             "printed": "__ài"
           },
           {
             "no": 10,
             "answer": "sh",
-            "audioRange": [
-              56.82,
-              57.71
-            ],
             "confidence": "medium",
             "printed": "__uǐ"
           },
           {
             "no": 11,
             "answer": "r",
-            "audioRange": [
-              62.1,
-              62.69
-            ],
             "confidence": "medium",
             "printed": "__ì"
           },
           {
             "no": 12,
             "answer": "zh",
-            "audioRange": [
-              66.89,
-              67.52
-            ],
             "confidence": "medium",
             "printed": "__ōng"
           }
@@ -1453,6 +920,7 @@ var workbook1 = {
         "type": "fill-final",
         "title": "听录音，写出听到的韵母。",
         "titleVi": "Nghe ghi âm, viết ra vận mẫu nghe được.",
+        "cols": 5,
         "instructionRange": [
           72.69,
           78.72
@@ -1461,150 +929,90 @@ var workbook1 = {
           {
             "no": 1,
             "answer": "ǔ",
-            "audioRange": [
-              80.05,
-              80.66
-            ],
             "confidence": "high",
             "printed": "z___"
           },
           {
             "no": 2,
             "answer": "ī",
-            "audioRange": [
-              82.74,
-              83.4
-            ],
             "confidence": "medium",
             "printed": "zh___"
           },
           {
             "no": 3,
             "answer": "ài",
-            "audioRange": [
-              84.91,
-              85.59
-            ],
             "confidence": "medium",
             "printed": "c___"
           },
           {
             "no": 4,
             "answer": "ì",
-            "audioRange": [
-              89.67,
-              90.25
-            ],
             "confidence": "medium",
             "printed": "z___"
           },
           {
             "no": 5,
             "answer": "āo",
-            "audioRange": [
-              94.44,
-              95.21
-            ],
             "confidence": "high",
             "printed": "ch___"
           },
           {
             "no": 6,
             "answer": "én",
-            "audioRange": [
-              99.32,
-              99.96
-            ],
             "confidence": "medium",
             "printed": "r___"
           },
           {
             "no": 7,
             "answer": "àng",
-            "audioRange": [
-              104.07,
-              104.85
-            ],
             "confidence": "high",
             "printed": "sh___"
           },
           {
             "no": 8,
             "answer": "ěn",
-            "audioRange": [
-              109.05,
-              109.99
-            ],
             "confidence": "medium",
             "printed": "z___"
           },
           {
             "no": 9,
             "answer": "ì",
-            "audioRange": [
-              114.29,
-              114.91
-            ],
             "confidence": "medium",
             "printed": "r___"
           },
           {
             "no": 10,
             "answer": "ān",
-            "audioRange": [
-              118.92,
-              119.62
-            ],
             "confidence": "medium",
             "printed": "s___"
           },
           {
             "no": 11,
             "answer": "uān",
-            "audioRange": [
-              123.8,
-              124.59
-            ],
             "confidence": "high",
             "printed": "ch___"
           },
           {
             "no": 12,
             "answer": "è",
-            "audioRange": [
-              128.75,
-              129.42
-            ],
             "confidence": "high",
             "printed": "r___"
           },
           {
             "no": 13,
             "answer": "uō",
-            "audioRange": [
-              133.64,
-              134.34
-            ],
             "confidence": "medium",
             "printed": "zh___"
           },
           {
             "no": 14,
             "answer": "óng",
-            "audioRange": [
-              138.34,
-              139.32
-            ],
             "confidence": "medium",
             "printed": "c___"
           },
           {
             "no": 15,
             "answer": "éi",
-            "audioRange": [
-              143.72,
-              144.72
-            ],
             "confidence": "high",
             "printed": "sh___"
           }
@@ -1615,6 +1023,7 @@ var workbook1 = {
         "type": "fill-tone",
         "title": "听录音，写出听到的声调。",
         "titleVi": "Nghe ghi âm, viết ra thanh điệu nghe được.",
+        "cols": 5,
         "instructionRange": [
           150.07,
           155.96
@@ -1623,10 +1032,6 @@ var workbook1 = {
           {
             "no": 1,
             "answer": "1",
-            "audioRange": [
-              158.3,
-              158.94
-            ],
             "confidence": "high",
             "printed": "che",
             "full": "chē"
@@ -1634,10 +1039,6 @@ var workbook1 = {
           {
             "no": 2,
             "answer": "2",
-            "audioRange": [
-              163.1,
-              163.76
-            ],
             "confidence": "high",
             "printed": "ren",
             "full": "rén"
@@ -1645,10 +1046,6 @@ var workbook1 = {
           {
             "no": 3,
             "answer": "4",
-            "audioRange": [
-              168.09,
-              168.65
-            ],
             "confidence": "high",
             "printed": "chang",
             "full": "chàng"
@@ -1656,10 +1053,6 @@ var workbook1 = {
           {
             "no": 4,
             "answer": "3",
-            "audioRange": [
-              172.82,
-              173.61
-            ],
             "confidence": "high",
             "printed": "zao",
             "full": "zǎo"
@@ -1667,10 +1060,6 @@ var workbook1 = {
           {
             "no": 5,
             "answer": "3",
-            "audioRange": [
-              177.81,
-              178.7
-            ],
             "confidence": "high",
             "printed": "shou",
             "full": "shǒu"
@@ -1678,10 +1067,6 @@ var workbook1 = {
           {
             "no": 6,
             "answer": "1",
-            "audioRange": [
-              183.0,
-              183.62
-            ],
             "confidence": "medium",
             "printed": "zhen",
             "full": "zhēn"
@@ -1689,10 +1074,6 @@ var workbook1 = {
           {
             "no": 7,
             "answer": "4",
-            "audioRange": [
-              187.89,
-              188.52
-            ],
             "confidence": "medium",
             "printed": "sui",
             "full": "suì"
@@ -1700,10 +1081,6 @@ var workbook1 = {
           {
             "no": 8,
             "answer": "1",
-            "audioRange": [
-              192.61,
-              193.39
-            ],
             "confidence": "high",
             "printed": "sheng",
             "full": "shēng"
@@ -1711,10 +1088,6 @@ var workbook1 = {
           {
             "no": 9,
             "answer": "4",
-            "audioRange": [
-              197.67,
-              198.24
-            ],
             "confidence": "medium",
             "printed": "ri",
             "full": "rì"
@@ -1722,10 +1095,6 @@ var workbook1 = {
           {
             "no": 10,
             "answer": "1",
-            "audioRange": [
-              202.46,
-              203.11
-            ],
             "confidence": "high",
             "printed": "zhong",
             "full": "zhōng"
@@ -1733,10 +1102,6 @@ var workbook1 = {
           {
             "no": 11,
             "answer": "3",
-            "audioRange": [
-              207.33,
-              208.23
-            ],
             "confidence": "high",
             "printed": "shui",
             "full": "shuǐ"
@@ -1744,10 +1109,6 @@ var workbook1 = {
           {
             "no": 12,
             "answer": "4",
-            "audioRange": [
-              212.53,
-              213.25
-            ],
             "confidence": "high",
             "printed": "zuo",
             "full": "zuò"
@@ -1755,10 +1116,6 @@ var workbook1 = {
           {
             "no": 13,
             "answer": "2",
-            "audioRange": [
-              217.55,
-              218.34
-            ],
             "confidence": "high",
             "printed": "chuang",
             "full": "chuáng"
@@ -1766,10 +1123,6 @@ var workbook1 = {
           {
             "no": 14,
             "answer": "1",
-            "audioRange": [
-              222.58,
-              223.34
-            ],
             "confidence": "high",
             "printed": "shu",
             "full": "shū"
@@ -1777,10 +1130,6 @@ var workbook1 = {
           {
             "no": 15,
             "answer": "4",
-            "audioRange": [
-              227.78,
-              228.44
-            ],
             "confidence": "high",
             "printed": "si",
             "full": "sì"
@@ -1792,6 +1141,8 @@ var workbook1 = {
         "type": "picture-mcq",
         "title": "看图片，选择正确的对话。",
         "titleVi": "Nhìn hình, chọn hội thoại đúng.",
+        "layout": "picture-row",
+        "cols": 4,
         "instructionRange": [
           233.98,
           237.69
@@ -1805,10 +1156,6 @@ var workbook1 = {
               "我也是法国人。"
             ],
             "answer": "A",
-            "audioRange": [
-              239.07,
-              246.16
-            ],
             "confidence": "medium"
           },
           {
@@ -1819,10 +1166,6 @@ var workbook1 = {
               "你好，很高兴认识你。"
             ],
             "answer": "A",
-            "audioRange": [
-              251.55,
-              257.55
-            ],
             "confidence": "medium"
           },
           {
@@ -1833,10 +1176,6 @@ var workbook1 = {
               "是的。"
             ],
             "answer": "A",
-            "audioRange": [
-              263.19,
-              268.03
-            ],
             "confidence": "medium"
           },
           {
@@ -1847,10 +1186,6 @@ var workbook1 = {
               "我工作不忙。"
             ],
             "answer": "A",
-            "audioRange": [
-              273.24,
-              279.23
-            ],
             "confidence": "medium"
           }
         ]
@@ -1861,12 +1196,14 @@ var workbook1 = {
     "section": "听读练",
     "sectionVi": "Nghe, đọc và luyện tập",
     "audio": "h1-td-4.mp3",
+    "track": "4-2",
     "exercises": [
       {
         "no": 1,
         "type": "choose-syllable",
         "title": "听录音，选择听到的音节。",
         "titleVi": "Nghe ghi âm, chọn âm tiết nghe được.",
+        "cols": 4,
         "instructionRange": [
           4.83,
           10.69
@@ -1875,10 +1212,6 @@ var workbook1 = {
           {
             "no": 1,
             "answer": "pā",
-            "audioRange": [
-              12.27,
-              14.68
-            ],
             "confidence": "medium",
             "options": [
               "pā",
@@ -1888,10 +1221,6 @@ var workbook1 = {
           {
             "no": 2,
             "answer": "cì",
-            "audioRange": [
-              18.2,
-              20.27
-            ],
             "confidence": "low",
             "options": [
               "zì",
@@ -1901,10 +1230,6 @@ var workbook1 = {
           {
             "no": 3,
             "answer": "láng",
-            "audioRange": [
-              23.51,
-              25.8
-            ],
             "confidence": "high",
             "options": [
               "náng",
@@ -1914,10 +1239,6 @@ var workbook1 = {
           {
             "no": 4,
             "answer": "jǔ",
-            "audioRange": [
-              29.13,
-              32.05
-            ],
             "confidence": "medium",
             "options": [
               "jǔ",
@@ -1927,10 +1248,6 @@ var workbook1 = {
           {
             "no": 5,
             "answer": "mén",
-            "audioRange": [
-              35.64,
-              38.28
-            ],
             "confidence": "medium",
             "options": [
               "mén",
@@ -1940,10 +1257,6 @@ var workbook1 = {
           {
             "no": 6,
             "answer": "rù",
-            "audioRange": [
-              41.8,
-              44.3
-            ],
             "confidence": "medium",
             "options": [
               "rù",
@@ -1953,10 +1266,6 @@ var workbook1 = {
           {
             "no": 7,
             "answer": "kè",
-            "audioRange": [
-              47.7,
-              50.33
-            ],
             "confidence": "medium",
             "options": [
               "kè",
@@ -1966,10 +1275,6 @@ var workbook1 = {
           {
             "no": 8,
             "answer": "qǐng",
-            "audioRange": [
-              53.93,
-              56.42
-            ],
             "confidence": "medium",
             "options": [
               "qǐn",
@@ -1983,6 +1288,7 @@ var workbook1 = {
         "type": "read-aloud",
         "title": "听录音，先跟读。注意三声变调。",
         "titleVi": "Nghe ghi âm, nhắc lại. Chú ý biến điệu của thanh 3.",
+        "cols": 4,
         "audioRange": [
           70.8,
           137.95
@@ -1990,111 +1296,51 @@ var workbook1 = {
         "items": [
           {
             "no": 1,
-            "text": "nǐ hǎo",
-            "audioRange": [
-              70.8,
-              76.4
-            ],
-            "audioRangeEstimated": true
+            "text": "nǐ hǎo"
           },
           {
             "no": 2,
-            "text": "kěyǐ",
-            "audioRange": [
-              76.4,
-              81.99
-            ],
-            "audioRangeEstimated": true
+            "text": "kěyǐ"
           },
           {
             "no": 3,
-            "text": "nǎlǐ",
-            "audioRange": [
-              81.99,
-              87.59
-            ],
-            "audioRangeEstimated": true
+            "text": "nǎlǐ"
           },
           {
             "no": 4,
-            "text": "shuǐguǒ",
-            "audioRange": [
-              87.59,
-              93.18
-            ],
-            "audioRangeEstimated": true
+            "text": "shuǐguǒ"
           },
           {
             "no": 5,
-            "text": "shǒubiǎo",
-            "audioRange": [
-              93.18,
-              98.78
-            ],
-            "audioRangeEstimated": true
+            "text": "shǒubiǎo"
           },
           {
             "no": 6,
-            "text": "suǒyǐ",
-            "audioRange": [
-              98.78,
-              104.38
-            ],
-            "audioRangeEstimated": true
+            "text": "suǒyǐ"
           },
           {
             "no": 7,
-            "text": "pěngchǎng",
-            "audioRange": [
-              104.38,
-              109.97
-            ],
-            "audioRangeEstimated": true
+            "text": "pěngchǎng"
           },
           {
             "no": 8,
-            "text": "hǎojiǔ",
-            "audioRange": [
-              109.97,
-              115.57
-            ],
-            "audioRangeEstimated": true
+            "text": "hǎojiǔ"
           },
           {
             "no": 9,
-            "text": "wǎndiǎn",
-            "audioRange": [
-              115.57,
-              121.16
-            ],
-            "audioRangeEstimated": true
+            "text": "wǎndiǎn"
           },
           {
             "no": 10,
-            "text": "liǎojiě",
-            "audioRange": [
-              121.16,
-              126.76
-            ],
-            "audioRangeEstimated": true
+            "text": "liǎojiě"
           },
           {
             "no": 11,
-            "text": "xǐzǎo",
-            "audioRange": [
-              126.76,
-              132.35
-            ],
-            "audioRangeEstimated": true
+            "text": "xǐzǎo"
           },
           {
             "no": 12,
-            "text": "zhǐyǒu",
-            "audioRange": [
-              132.35,
-              137.95
-            ],
-            "audioRangeEstimated": true
+            "text": "zhǐyǒu"
           }
         ]
       },
@@ -2103,6 +1349,7 @@ var workbook1 = {
         "type": "read-aloud",
         "title": "听录音，先跟读。注意轻声发音。",
         "titleVi": "Nghe ghi âm, nhắc lại. Chú ý cách phát âm thanh nhẹ.",
+        "cols": 4,
         "audioRange": [
           151.25,
           186.28
@@ -2110,75 +1357,35 @@ var workbook1 = {
         "items": [
           {
             "no": 1,
-            "text": "bāozi",
-            "audioRange": [
-              151.25,
-              155.63
-            ],
-            "audioRangeEstimated": true
+            "text": "bāozi"
           },
           {
             "no": 2,
-            "text": "xièxie",
-            "audioRange": [
-              155.63,
-              160.01
-            ],
-            "audioRangeEstimated": true
+            "text": "xièxie"
           },
           {
             "no": 3,
-            "text": "piányi",
-            "audioRange": [
-              160.01,
-              164.39
-            ],
-            "audioRangeEstimated": true
+            "text": "piányi"
           },
           {
             "no": 4,
-            "text": "dìdi",
-            "audioRange": [
-              164.39,
-              168.76
-            ],
-            "audioRangeEstimated": true
+            "text": "dìdi"
           },
           {
             "no": 5,
-            "text": "piàoliang",
-            "audioRange": [
-              168.76,
-              173.14
-            ],
-            "audioRangeEstimated": true
+            "text": "piàoliang"
           },
           {
             "no": 6,
-            "text": "méi guānxi",
-            "audioRange": [
-              173.14,
-              177.52
-            ],
-            "audioRangeEstimated": true
+            "text": "méi guānxi"
           },
           {
             "no": 7,
-            "text": "duìbuqǐ",
-            "audioRange": [
-              177.52,
-              181.9
-            ],
-            "audioRangeEstimated": true
+            "text": "duìbuqǐ"
           },
           {
             "no": 8,
-            "text": "rènshi",
-            "audioRange": [
-              181.9,
-              186.28
-            ],
-            "audioRangeEstimated": true
+            "text": "rènshi"
           }
         ]
       },
@@ -2187,6 +1394,7 @@ var workbook1 = {
         "type": "distinguish",
         "title": "听录音，分辨轻声与非轻声，再跟读。",
         "titleVi": "Nghe ghi âm, phân biệt thanh nhẹ và thanh điệu khác, sau đó nhắc lại.",
+        "cols": 3,
         "instructionRange": [
           189.87,
           197.66
@@ -2197,10 +1405,6 @@ var workbook1 = {
             "pair": [
               "Sūnzǐ",
               "sūnzi"
-            ],
-            "audioRange": [
-              199.38,
-              204.49
             ]
           },
           {
@@ -2208,10 +1412,6 @@ var workbook1 = {
             "pair": [
               "dōngxī",
               "dōngxi"
-            ],
-            "audioRange": [
-              207.83,
-              212.7
             ]
           },
           {
@@ -2219,10 +1419,6 @@ var workbook1 = {
             "pair": [
               "yùnqì",
               "yùnqi"
-            ],
-            "audioRange": [
-              216.43,
-              221.72
             ]
           },
           {
@@ -2230,10 +1426,6 @@ var workbook1 = {
             "pair": [
               "Lǎozǐ",
               "lǎozi"
-            ],
-            "audioRange": [
-              225.37,
-              230.68
             ]
           },
           {
@@ -2242,10 +1434,6 @@ var workbook1 = {
               "dìfāng",
               "dìfang"
             ],
-            "audioRange": [
-              234.15,
-              239.06
-            ],
             "note": "Sách in cả hai đều là dìfang; chỉ khác nhau ở thanh điệu (fāng đủ thanh rồi đến fang thanh nhẹ)."
           },
           {
@@ -2253,10 +1441,6 @@ var workbook1 = {
             "pair": [
               "mǎmǎhūhū",
               "mǎhu"
-            ],
-            "audioRange": [
-              242.3,
-              249.06
             ]
           }
         ]
@@ -2267,12 +1451,14 @@ var workbook1 = {
     "section": "听读练",
     "sectionVi": "Nghe, đọc và luyện tập",
     "audio": "h1-td-5.mp3",
+    "track": "5-2",
     "exercises": [
       {
         "no": 1,
         "type": "choose-syllable",
         "title": "听录音，选择听到的音节。",
         "titleVi": "Nghe ghi âm, chọn âm tiết nghe được.",
+        "cols": 4,
         "instructionRange": [
           5.57,
           11.75
@@ -2281,10 +1467,6 @@ var workbook1 = {
           {
             "no": 1,
             "answer": "gē",
-            "audioRange": [
-              13.86,
-              16.16
-            ],
             "confidence": "medium",
             "options": [
               "gē",
@@ -2294,10 +1476,6 @@ var workbook1 = {
           {
             "no": 2,
             "answer": "qiāng",
-            "audioRange": [
-              19.62,
-              22.18
-            ],
             "confidence": "high",
             "options": [
               "jiāng",
@@ -2307,10 +1485,6 @@ var workbook1 = {
           {
             "no": 3,
             "answer": "sóng",
-            "audioRange": [
-              25.74,
-              28.34
-            ],
             "confidence": "high",
             "options": [
               "cóng",
@@ -2320,10 +1494,6 @@ var workbook1 = {
           {
             "no": 4,
             "answer": "nìng",
-            "audioRange": [
-              31.54,
-              34.12
-            ],
             "confidence": "medium",
             "options": [
               "nìng",
@@ -2333,10 +1503,6 @@ var workbook1 = {
           {
             "no": 5,
             "answer": "jiǎ",
-            "audioRange": [
-              37.62,
-              40.2
-            ],
             "confidence": "medium",
             "options": [
               "jiǎ",
@@ -2346,10 +1512,6 @@ var workbook1 = {
           {
             "no": 6,
             "answer": "cuàn",
-            "audioRange": [
-              43.83,
-              46.63
-            ],
             "confidence": "low",
             "options": [
               "zuàn",
@@ -2359,10 +1521,6 @@ var workbook1 = {
           {
             "no": 7,
             "answer": "tōu",
-            "audioRange": [
-              50.32,
-              52.91
-            ],
             "confidence": "high",
             "options": [
               "tōu",
@@ -2372,10 +1530,6 @@ var workbook1 = {
           {
             "no": 8,
             "answer": "shí",
-            "audioRange": [
-              56.32,
-              58.55
-            ],
             "confidence": "medium",
             "options": [
               "zhí",
@@ -2389,6 +1543,7 @@ var workbook1 = {
         "type": "read-aloud",
         "title": "听录音，先跟读。注意“不”的变调。",
         "titleVi": "Nghe ghi âm, nhắc lại. Chú ý biến điệu của “不”.",
+        "cols": 4,
         "audioRange": [
           73.25,
           124.07
@@ -2396,75 +1551,35 @@ var workbook1 = {
         "items": [
           {
             "no": 1,
-            "text": "búyào",
-            "audioRange": [
-              73.25,
-              79.6
-            ],
-            "audioRangeEstimated": true
+            "text": "búyào"
           },
           {
             "no": 2,
-            "text": "bú kèqi",
-            "audioRange": [
-              79.6,
-              85.95
-            ],
-            "audioRangeEstimated": true
+            "text": "bú kèqi"
           },
           {
             "no": 3,
-            "text": "bù hē",
-            "audioRange": [
-              85.95,
-              92.31
-            ],
-            "audioRangeEstimated": true
+            "text": "bù hē"
           },
           {
             "no": 4,
-            "text": "bù lái",
-            "audioRange": [
-              92.31,
-              98.66
-            ],
-            "audioRangeEstimated": true
+            "text": "bù lái"
           },
           {
             "no": 5,
-            "text": "bù lèng",
-            "audioRange": [
-              98.66,
-              105.01
-            ],
-            "audioRangeEstimated": true
+            "text": "bù lèng"
           },
           {
             "no": 6,
-            "text": "bù zhīdào",
-            "audioRange": [
-              105.01,
-              111.36
-            ],
-            "audioRangeEstimated": true
+            "text": "bù zhīdào"
           },
           {
             "no": 7,
-            "text": "bù xuéxí",
-            "audioRange": [
-              111.36,
-              117.72
-            ],
-            "audioRangeEstimated": true
+            "text": "bù xuéxí"
           },
           {
             "no": 8,
-            "text": "bù hǎotīng",
-            "audioRange": [
-              117.72,
-              124.07
-            ],
-            "audioRangeEstimated": true
+            "text": "bù hǎotīng"
           }
         ]
       },
@@ -2473,6 +1588,7 @@ var workbook1 = {
         "type": "read-aloud",
         "title": "听录音，先跟读。注意“一”的变调。",
         "titleVi": "Nghe ghi âm, nhắc lại. Chú ý biến điệu của “一”.",
+        "cols": 4,
         "audioRange": [
           139.91,
           180.57
@@ -2480,75 +1596,35 @@ var workbook1 = {
         "items": [
           {
             "no": 1,
-            "text": "yìtiān",
-            "audioRange": [
-              139.91,
-              144.99
-            ],
-            "audioRangeEstimated": true
+            "text": "yìtiān"
           },
           {
             "no": 2,
-            "text": "yí yuàn",
-            "audioRange": [
-              144.99,
-              150.07
-            ],
-            "audioRangeEstimated": true
+            "text": "yí yuàn"
           },
           {
             "no": 3,
-            "text": "yìdiǎnr",
-            "audioRange": [
-              150.07,
-              155.16
-            ],
-            "audioRangeEstimated": true
+            "text": "yìdiǎnr"
           },
           {
             "no": 4,
-            "text": "yíbàn",
-            "audioRange": [
-              155.16,
-              160.24
-            ],
-            "audioRangeEstimated": true
+            "text": "yíbàn"
           },
           {
             "no": 5,
-            "text": "yì chē",
-            "audioRange": [
-              160.24,
-              165.32
-            ],
-            "audioRangeEstimated": true
+            "text": "yì chē"
           },
           {
             "no": 6,
-            "text": "yí rén",
-            "audioRange": [
-              165.32,
-              170.41
-            ],
-            "audioRangeEstimated": true
+            "text": "yí rén"
           },
           {
             "no": 7,
-            "text": "yí wàn",
-            "audioRange": [
-              170.41,
-              175.49
-            ],
-            "audioRangeEstimated": true
+            "text": "yí wàn"
           },
           {
             "no": 8,
-            "text": "yíxià",
-            "audioRange": [
-              175.49,
-              180.57
-            ],
-            "audioRangeEstimated": true
+            "text": "yíxià"
           }
         ]
       }
@@ -2558,12 +1634,14 @@ var workbook1 = {
     "section": "听读练",
     "sectionVi": "Nghe, đọc và luyện tập",
     "audio": "h1-td-6.mp3",
+    "track": "6-2",
     "exercises": [
       {
         "no": 1,
         "type": "choose-word",
         "title": "听录音，选择听到的双音节。",
         "titleVi": "Nghe ghi âm, chọn từ hai âm tiết nghe được.",
+        "cols": 3,
         "instructionRange": [
           5.39,
           11.78
@@ -2572,10 +1650,6 @@ var workbook1 = {
           {
             "no": 1,
             "answer": "nàbiān",
-            "audioRange": [
-              13.06,
-              16.39
-            ],
             "confidence": "high",
             "options": [
               "nà piàn",
@@ -2585,10 +1659,6 @@ var workbook1 = {
           {
             "no": 2,
             "answer": "dōngxi",
-            "audioRange": [
-              19.86,
-              22.31
-            ],
             "confidence": "medium",
             "options": [
               "dōngxi",
@@ -2598,10 +1668,6 @@ var workbook1 = {
           {
             "no": 3,
             "answer": "chāoshì",
-            "audioRange": [
-              25.71,
-              28.63
-            ],
             "confidence": "high",
             "options": [
               "chāoshì",
@@ -2611,10 +1677,6 @@ var workbook1 = {
           {
             "no": 4,
             "answer": "wǎnfàn",
-            "audioRange": [
-              31.97,
-              35.05
-            ],
             "confidence": "medium",
             "options": [
               "wǎnfàn",
@@ -2624,10 +1686,6 @@ var workbook1 = {
           {
             "no": 5,
             "answer": "shǒujī",
-            "audioRange": [
-              38.58,
-              41.83
-            ],
             "confidence": "medium",
             "options": [
               "shǒujī",
@@ -2637,10 +1695,6 @@ var workbook1 = {
           {
             "no": 6,
             "answer": "diànhuà",
-            "audioRange": [
-              45.07,
-              47.71
-            ],
             "confidence": "high",
             "options": [
               "diànhuà",
@@ -2654,6 +1708,7 @@ var workbook1 = {
         "type": "distinguish",
         "title": "听录音，分辨儿化与非儿化发音的不同，再跟读。",
         "titleVi": "Nghe ghi âm, phân biệt sự khác nhau giữa phát âm 儿化 và không 儿化, sau đó nhắc lại.",
+        "cols": 3,
         "instructionRange": [
           52.6,
           61.14
@@ -2664,10 +1719,6 @@ var workbook1 = {
             "pair": [
               "nà",
               "nàr"
-            ],
-            "audioRange": [
-              63.09,
-              67.66
             ]
           },
           {
@@ -2675,10 +1726,6 @@ var workbook1 = {
             "pair": [
               "cí",
               "cír"
-            ],
-            "audioRange": [
-              70.99,
-              75.37
             ]
           },
           {
@@ -2686,10 +1733,6 @@ var workbook1 = {
             "pair": [
               "huàr",
               "huà"
-            ],
-            "audioRange": [
-              78.83,
-              82.47
             ]
           },
           {
@@ -2697,10 +1740,6 @@ var workbook1 = {
             "pair": [
               "yíkuàir",
               "yí kuài"
-            ],
-            "audioRange": [
-              85.96,
-              91.49
             ]
           },
           {
@@ -2708,10 +1747,6 @@ var workbook1 = {
             "pair": [
               "jiàyóu",
               "jiàyóur"
-            ],
-            "audioRange": [
-              94.95,
-              100.59
             ]
           },
           {
@@ -2719,10 +1754,6 @@ var workbook1 = {
             "pair": [
               "chàng gēr",
               "chàng gē"
-            ],
-            "audioRange": [
-              104.19,
-              109.96
             ]
           }
         ]
@@ -2736,6 +1767,86 @@ var workbook1 = {
     "listening": {
       "part": "一、听力",
       "partVi": "Phần nghe",
+      "track": "7-2",
+      "parts": [
+        {
+          "partNo": 1,
+          "instruction": "第1—3题：听短语，选择正确图片。每题听两次。",
+          "instructionVi": "Câu 1-3: Nghe và chọn hình ảnh phù hợp với nội dung nghe được. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            44.38,
+            86.45
+          ],
+          "example": {
+            "question": "三个苹果",
+            "pinyin": "sān gè píngguǒ",
+            "options": [
+              "一摞书",
+              "笔记本电脑",
+              "三个苹果"
+            ],
+            "answer": "C"
+          }
+        },
+        {
+          "partNo": 2,
+          "instruction": "第4—5题：听问题，选择正确回答。每题听两次。",
+          "instructionVi": "Câu 4-5: Nghe câu hỏi, chọn câu trả lời đúng. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            145.14,
+            176.74
+          ],
+          "example": {
+            "question": "今天天气怎么样？",
+            "pinyin": "Jīntiān tiānqì zěnmeyàng?",
+            "options": [
+              "非常热",
+              "很好听",
+              "在喝水"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 3,
+          "instruction": "第6—8题：听对话，选择最匹配的图片。每题听两次。",
+          "instructionVi": "Câu 6-8: Nghe và chọn hình ảnh phù hợp nhất với hội thoại nghe được. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            246.02,
+            326.53
+          ],
+          "example": {
+            "question": "女：你好！男：你好！很高兴认识你。",
+            "pinyin": "Nǚ: Nǐ hǎo! Nán: Nǐ hǎo! Hěn gāoxìng rènshi nǐ.",
+            "options": [
+              "握手",
+              "书和闹钟",
+              "包子",
+              "出租车"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 4,
+          "instruction": "第9—10题：听句子和问题，选择正确答案。每题听两次。",
+          "instructionVi": "Câu 9-10: Nghe và chọn đáp án đúng. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            407.29,
+            464.05
+          ],
+          "example": {
+            "question": "下午我去超市，我想买一些水果。问：说话人下午去哪里？",
+            "pinyin": "Xiàwǔ wǒ qù chāoshì, wǒ xiǎng mǎi yìxiē shuǐguǒ. Shuōhuàrén xiàwǔ qù nǎlǐ?",
+            "options": [
+              "超市",
+              "医院",
+              "学校"
+            ],
+            "answer": "A"
+          }
+        }
+      ],
       "items": [
         {
           "no": 1,
@@ -2747,10 +1858,6 @@ var workbook1 = {
             "黑色闹钟"
           ],
           "answer": "C",
-          "audioRange": [
-            44.38,
-            50.5
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: một bàn tay đang cầm đồng hồ báo thức; B: đồng hồ treo tường viền xanh; C: đồng hồ báo thức màu đen trên nền trắng"
@@ -2765,10 +1872,6 @@ var workbook1 = {
             "在办公室工作"
           ],
           "answer": "A",
-          "audioRange": [
-            62.8,
-            69.27
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: lớp học, thầy giáo đứng trước bảng, học sinh giơ tay; B: trận bóng đá, cầu thủ đang sút bóng; C: người đàn ông làm việc ở bàn với máy tính trong văn phòng"
@@ -2783,10 +1886,6 @@ var workbook1 = {
             "买菜"
           ],
           "answer": "C",
-          "audioRange": [
-            81.9,
-            86.45
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: nghệ sĩ đường phố vừa hát vừa chơi ghi-ta; B: trẻ em đang vẽ ở bàn; C: phụ nữ đang mua cà chua ở chợ"
@@ -2801,10 +1900,6 @@ var workbook1 = {
             "12号"
           ],
           "answer": "B",
-          "audioRange": [
-            145.14,
-            153.03
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -2819,10 +1914,6 @@ var workbook1 = {
             "7:10"
           ],
           "answer": "C",
-          "audioRange": [
-            170.81,
-            176.74
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -2838,10 +1929,6 @@ var workbook1 = {
             "出租车"
           ],
           "answer": "C",
-          "audioRange": [
-            246.02,
-            266.52
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: sách mở và đồng hồ báo thức trên bàn; C: xửng tre đựng bánh bao; D: taxi màu vàng trên cầu trong thành phố"
@@ -2857,10 +1944,6 @@ var workbook1 = {
             "出租车"
           ],
           "answer": "D",
-          "audioRange": [
-            284.46,
-            296.41
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: sách mở và đồng hồ báo thức trên bàn; C: xửng tre đựng bánh bao; D: taxi màu vàng trên cầu trong thành phố"
@@ -2876,10 +1959,6 @@ var workbook1 = {
             "出租车"
           ],
           "answer": "B",
-          "audioRange": [
-            313.54,
-            326.53
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: sách mở và đồng hồ báo thức trên bàn; C: xửng tre đựng bánh bao; D: taxi màu vàng trên cầu trong thành phố"
@@ -2894,10 +1973,6 @@ var workbook1 = {
             "看电影"
           ],
           "answer": "A",
-          "audioRange": [
-            407.29,
-            427.02
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -2912,10 +1987,6 @@ var workbook1 = {
             "超市"
           ],
           "answer": "C",
-          "audioRange": [
-            445.08,
-            464.05
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -2925,6 +1996,70 @@ var workbook1 = {
     "reading": {
       "part": "二、阅读",
       "partVi": "Phần đọc",
+      "parts": [
+        {
+          "partNo": 1,
+          "instruction": "第11—13题：选择与句子最匹配的图片。",
+          "instructionVi": "Câu 11-13: Chọn hình ảnh phù hợp nhất với câu.",
+          "example": {
+            "question": "我很喜欢这本书。",
+            "pinyin": "Wǒ hěn xǐhuan zhè běn shū.",
+            "options": [
+              "读书",
+              "买东西",
+              "闹钟",
+              "上课"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 2,
+          "instruction": "第14—16题：匹配句子。",
+          "instructionVi": "Câu 14-16: Nối câu.",
+          "example": {
+            "question": "你喝水吗？",
+            "pinyin": "Nǐ hē shuǐ ma?",
+            "options": [
+              "早上七点半。",
+              "对不起，我有课。",
+              "电影院。",
+              "好的，谢谢！"
+            ],
+            "answer": "D"
+          }
+        },
+        {
+          "partNo": 3,
+          "instruction": "第17—18题：选词填空。",
+          "instructionVi": "Câu 17-18: Chọn từ thích hợp điền vào chỗ trống.",
+          "example": {
+            "question": "你叫什么（ ）？",
+            "pinyin": "Nǐ jiào shénme ( )?",
+            "options": [
+              "医院",
+              "中午",
+              "名字"
+            ],
+            "answer": "C"
+          }
+        },
+        {
+          "partNo": 4,
+          "instruction": "第19—20题：选择正确答案。",
+          "instructionVi": "Câu 19-20: Chọn đáp án đúng.",
+          "example": {
+            "question": "请问现在几点了？★说话人想知道什么？",
+            "pinyin": "Qǐngwèn xiànzài jǐ diǎn le? Shuōhuàrén xiǎng zhīdào shénme?",
+            "options": [
+              "时间",
+              "名字",
+              "房间号"
+            ],
+            "answer": "A"
+          }
+        }
+      ],
       "items": [
         {
           "no": 11,
@@ -3080,6 +2215,86 @@ var workbook1 = {
     "listening": {
       "part": "一、听力",
       "partVi": "Phần nghe",
+      "track": "8-2",
+      "parts": [
+        {
+          "partNo": 1,
+          "instruction": "第1—3题：听短语，选择正确图片。每题听两次。",
+          "instructionVi": "Câu 1-3: Nghe và chọn hình ảnh phù hợp với nội dung nghe được. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            43.78,
+            85.78
+          ],
+          "example": {
+            "question": "三个苹果",
+            "pinyin": "sān gè píngguǒ",
+            "options": [
+              "一摞书",
+              "笔记本电脑",
+              "三个苹果"
+            ],
+            "answer": "C"
+          }
+        },
+        {
+          "partNo": 2,
+          "instruction": "第4—5题：听问题，选择正确回答。每题听两次。",
+          "instructionVi": "Câu 4-5: Nghe câu hỏi, chọn câu trả lời đúng. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            142.37,
+            175.29
+          ],
+          "example": {
+            "question": "今天天气怎么样？",
+            "pinyin": "Jīntiān tiānqì zěnmeyàng?",
+            "options": [
+              "非常热",
+              "很好听",
+              "在喝水"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 3,
+          "instruction": "第6—8题：听对话，选择最匹配的图片。每题听两次。",
+          "instructionVi": "Câu 6-8: Nghe và chọn hình ảnh phù hợp nhất với hội thoại nghe được. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            243.86,
+            322.93
+          ],
+          "example": {
+            "question": "女：你好！男：你好！很高兴认识你。",
+            "pinyin": "Nǚ: Nǐ hǎo! Nán: Nǐ hǎo! Hěn gāoxìng rènshi nǐ.",
+            "options": [
+              "握手",
+              "超市",
+              "吃饭",
+              "工作"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 4,
+          "instruction": "第9—10题：听句子和问题，选择正确答案。每题听两次。",
+          "instructionVi": "Câu 9-10: Nghe và chọn đáp án đúng. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            401.66,
+            468.22
+          ],
+          "example": {
+            "question": "下午我去超市，我想买一些水果。问：说话人下午去哪里？",
+            "pinyin": "Xiàwǔ wǒ qù chāoshì, wǒ xiǎng mǎi yìxiē shuǐguǒ. Shuōhuàrén xiàwǔ qù nǎlǐ?",
+            "options": [
+              "超市",
+              "医院",
+              "学校"
+            ],
+            "answer": "A"
+          }
+        }
+      ],
       "items": [
         {
           "no": 1,
@@ -3091,10 +2306,6 @@ var workbook1 = {
             "书店"
           ],
           "answer": "C",
-          "audioRange": [
-            43.78,
-            48.37
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: cô giáo cùng hai học sinh ngồi học ở bàn; B: sạp rau ở chợ; C: bên trong hiệu sách"
@@ -3109,10 +2320,6 @@ var workbook1 = {
             "猫在椅子上"
           ],
           "answer": "B",
-          "audioRange": [
-            60.84,
-            67.49
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: mèo vàng ngồi trên bàn trong phòng; B: mèo vàng trắng nằm dưới ghế; C: mèo vàng ngồi trên ghế cạnh bàn tròn"
@@ -3127,10 +2334,6 @@ var workbook1 = {
             "睡觉"
           ],
           "answer": "A",
-          "audioRange": [
-            80.14,
-            85.78
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: phụ nữ làm việc ở bàn với máy tính; B: hai cha con đá bóng trên bãi cỏ; C: người đang ngủ trên giường"
@@ -3145,10 +2348,6 @@ var workbook1 = {
             "在吃东西"
           ],
           "answer": "B",
-          "audioRange": [
-            142.37,
-            148.38
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -3163,10 +2362,6 @@ var workbook1 = {
             "我不能工作"
           ],
           "answer": "A",
-          "audioRange": [
-            165.98,
-            175.29
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -3182,10 +2377,6 @@ var workbook1 = {
             "工作"
           ],
           "answer": "D",
-          "audioRange": [
-            243.86,
-            254.04
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: lối đi trong siêu thị; C: học sinh ăn cơm cùng nhau ở căng-tin; D: người đàn ông làm việc với máy tính ở bàn"
@@ -3201,10 +2392,6 @@ var workbook1 = {
             "工作"
           ],
           "answer": "C",
-          "audioRange": [
-            272.65,
-            289.21
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: lối đi trong siêu thị; C: học sinh ăn cơm cùng nhau ở căng-tin; D: người đàn ông làm việc với máy tính ở bàn"
@@ -3220,10 +2407,6 @@ var workbook1 = {
             "工作"
           ],
           "answer": "B",
-          "audioRange": [
-            306.84,
-            322.93
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: lối đi trong siêu thị; C: học sinh ăn cơm cùng nhau ở căng-tin; D: người đàn ông làm việc với máy tính ở bàn"
@@ -3238,10 +2421,6 @@ var workbook1 = {
             "学校书店"
           ],
           "answer": "C",
-          "audioRange": [
-            401.66,
-            426.76
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -3256,10 +2435,6 @@ var workbook1 = {
             "去上班"
           ],
           "answer": "B",
-          "audioRange": [
-            444.74,
-            468.22
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -3269,6 +2444,70 @@ var workbook1 = {
     "reading": {
       "part": "二、阅读",
       "partVi": "Phần đọc",
+      "parts": [
+        {
+          "partNo": 1,
+          "instruction": "第11—13题：选择与句子最匹配的图片。",
+          "instructionVi": "Câu 11-13: Chọn hình ảnh phù hợp nhất với câu.",
+          "example": {
+            "question": "我很喜欢这本书。",
+            "pinyin": "Wǒ hěn xǐhuan zhè běn shū.",
+            "options": [
+              "读书",
+              "手机",
+              "医院",
+              "吃饭"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 2,
+          "instruction": "第14—16题：匹配句子。",
+          "instructionVi": "Câu 14-16: Nối câu.",
+          "example": {
+            "question": "你喝水吗？",
+            "pinyin": "Nǐ hē shuǐ ma?",
+            "options": [
+              "医院。",
+              "我老师。",
+              "饺子和面条儿。",
+              "好的，谢谢！"
+            ],
+            "answer": "D"
+          }
+        },
+        {
+          "partNo": 3,
+          "instruction": "第17—18题：选词填空。",
+          "instructionVi": "Câu 17-18: Chọn từ thích hợp điền vào chỗ trống.",
+          "example": {
+            "question": "你叫什么（ ）？",
+            "pinyin": "Nǐ jiào shénme ( )?",
+            "options": [
+              "能",
+              "有",
+              "名字"
+            ],
+            "answer": "C"
+          }
+        },
+        {
+          "partNo": 4,
+          "instruction": "第19—20题：选择正确答案。",
+          "instructionVi": "Câu 19-20: Chọn đáp án đúng.",
+          "example": {
+            "question": "请问现在几点了？★说话人想知道什么？",
+            "pinyin": "Qǐngwèn xiànzài jǐ diǎn le? Shuōhuàrén xiǎng zhīdào shénme?",
+            "options": [
+              "时间",
+              "名字",
+              "房间号"
+            ],
+            "answer": "A"
+          }
+        }
+      ],
       "items": [
         {
           "no": 11,
@@ -3424,6 +2663,86 @@ var workbook1 = {
     "listening": {
       "part": "一、听力",
       "partVi": "Phần nghe",
+      "track": "9-2",
+      "parts": [
+        {
+          "partNo": 1,
+          "instruction": "第1—3题：听短语，选择正确图片。每题听两次。",
+          "instructionVi": "Câu 1-3: Nghe và chọn hình ảnh phù hợp với nội dung nghe được. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            42.91,
+            84.04
+          ],
+          "example": {
+            "question": "三个苹果",
+            "pinyin": "sān gè píngguǒ",
+            "options": [
+              "一摞书",
+              "笔记本电脑",
+              "三个苹果"
+            ],
+            "answer": "C"
+          }
+        },
+        {
+          "partNo": 2,
+          "instruction": "第4—5题：听问题，选择正确回答。每题听两次。",
+          "instructionVi": "Câu 4-5: Nghe câu hỏi, chọn câu trả lời đúng. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            140.12,
+            172.38
+          ],
+          "example": {
+            "question": "今天天气怎么样？",
+            "pinyin": "Jīntiān tiānqì zěnmeyàng?",
+            "options": [
+              "非常热",
+              "很好听",
+              "在喝水"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 3,
+          "instruction": "第6—8题：听对话，选择最匹配的图片。每题听两次。",
+          "instructionVi": "Câu 6-8: Nghe và chọn hình ảnh phù hợp nhất với hội thoại nghe được. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            239.2,
+            320.08
+          ],
+          "example": {
+            "question": "女：你好！男：你好！很高兴认识你。",
+            "pinyin": "Nǚ: Nǐ hǎo! Nán: Nǐ hǎo! Hěn gāoxìng rènshi nǐ.",
+            "options": [
+              "握手",
+              "看书",
+              "买菜",
+              "小狗"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 4,
+          "instruction": "第9—10题：听句子和问题，选择正确答案。每题听两次。",
+          "instructionVi": "Câu 9-10: Nghe và chọn đáp án đúng. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            397.12,
+            465.03
+          ],
+          "example": {
+            "question": "下午我去超市，我想买一些水果。问：说话人下午去哪里？",
+            "pinyin": "Xiàwǔ wǒ qù chāoshì, wǒ xiǎng mǎi yìxiē shuǐguǒ. Shuōhuàrén xiàwǔ qù nǎlǐ?",
+            "options": [
+              "超市",
+              "医院",
+              "学校"
+            ],
+            "answer": "A"
+          }
+        }
+      ],
       "items": [
         {
           "no": 1,
@@ -3435,10 +2754,6 @@ var workbook1 = {
             "看电影"
           ],
           "answer": "B",
-          "audioRange": [
-            42.91,
-            47.69
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: mọi người đá bóng trên sân cỏ; B: gia đình xem ti-vi trong phòng khách; C: khán giả ngồi xem phim trong rạp (ghế đỏ)"
@@ -3453,10 +2768,6 @@ var workbook1 = {
             "书"
           ],
           "answer": "C",
-          "audioRange": [
-            59.94,
-            66.28
-          ],
           "confidence": "medium",
           "hasPicture": true,
           "pictureDesc": "A: hai quyển sách xếp chồng; B: điện thoại bàn màu trắng; C: một quyển sách đang mở"
@@ -3471,10 +2782,6 @@ var workbook1 = {
             "唱歌"
           ],
           "answer": "A",
-          "audioRange": [
-            78.66,
-            84.04
-          ],
           "confidence": "medium",
           "hasPicture": true,
           "pictureDesc": "A: phụ nữ đọc sách ở bàn; B: doanh nhân đang gọi điện thoại di động; C: phụ nữ đang hát với micro"
@@ -3489,10 +2796,6 @@ var workbook1 = {
             "他的电脑"
           ],
           "answer": "B",
-          "audioRange": [
-            140.12,
-            146.37
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -3507,10 +2810,6 @@ var workbook1 = {
             "去外边唱歌"
           ],
           "answer": "C",
-          "audioRange": [
-            164.14,
-            172.38
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -3526,10 +2825,6 @@ var workbook1 = {
             "小狗"
           ],
           "answer": "D",
-          "audioRange": [
-            239.2,
-            251.37
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: chàng trai đọc sách trong thư viện; C: bố và con mua rau trong siêu thị; D: chó con màu trắng ngồi trước cửa"
@@ -3545,10 +2840,6 @@ var workbook1 = {
             "小狗"
           ],
           "answer": "C",
-          "audioRange": [
-            268.99,
-            284.53
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: chàng trai đọc sách trong thư viện; C: bố và con mua rau trong siêu thị; D: chó con màu trắng ngồi trước cửa"
@@ -3564,10 +2855,6 @@ var workbook1 = {
             "小狗"
           ],
           "answer": "B",
-          "audioRange": [
-            302.03,
-            320.08
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: chàng trai đọc sách trong thư viện; C: bố và con mua rau trong siêu thị; D: chó con màu trắng ngồi trước cửa"
@@ -3582,10 +2869,6 @@ var workbook1 = {
             "晚上8:00"
           ],
           "answer": "A",
-          "audioRange": [
-            397.12,
-            424.37
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -3600,10 +2883,6 @@ var workbook1 = {
             "超市"
           ],
           "answer": "B",
-          "audioRange": [
-            442.12,
-            465.03
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -3613,6 +2892,70 @@ var workbook1 = {
     "reading": {
       "part": "二、阅读",
       "partVi": "Phần đọc",
+      "parts": [
+        {
+          "partNo": 1,
+          "instruction": "第11—13题：选择与句子最匹配的图片。",
+          "instructionVi": "Câu 11-13: Chọn hình ảnh phù hợp nhất với câu.",
+          "example": {
+            "question": "我很喜欢这本书。",
+            "pinyin": "Wǒ hěn xǐhuan zhè běn shū.",
+            "options": [
+              "读书",
+              "电脑",
+              "小猫",
+              "小狗"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 2,
+          "instruction": "第14—16题：匹配句子。",
+          "instructionVi": "Câu 14-16: Nối câu.",
+          "example": {
+            "question": "你喝水吗？",
+            "pinyin": "Nǐ hē shuǐ ma?",
+            "options": [
+              "在家里。",
+              "我女朋友。",
+              "一只小猫。",
+              "好的，谢谢！"
+            ],
+            "answer": "D"
+          }
+        },
+        {
+          "partNo": 3,
+          "instruction": "第17—18题：选词填空。",
+          "instructionVi": "Câu 17-18: Chọn từ thích hợp điền vào chỗ trống.",
+          "example": {
+            "question": "你叫什么（ ）？",
+            "pinyin": "Nǐ jiào shénme ( )?",
+            "options": [
+              "2:00",
+              "上课",
+              "名字"
+            ],
+            "answer": "C"
+          }
+        },
+        {
+          "partNo": 4,
+          "instruction": "第19—20题：选择正确答案。",
+          "instructionVi": "Câu 19-20: Chọn đáp án đúng.",
+          "example": {
+            "question": "请问现在几点了？★说话人想知道什么？",
+            "pinyin": "Qǐngwèn xiànzài jǐ diǎn le? Shuōhuàrén xiǎng zhīdào shénme?",
+            "options": [
+              "时间",
+              "名字",
+              "房间号"
+            ],
+            "answer": "A"
+          }
+        }
+      ],
       "items": [
         {
           "no": 11,
@@ -3768,6 +3111,86 @@ var workbook1 = {
     "listening": {
       "part": "一、听力",
       "partVi": "Phần nghe",
+      "track": "10-2",
+      "parts": [
+        {
+          "partNo": 1,
+          "instruction": "第1—3题：听短语，选择正确图片。每题听两次。",
+          "instructionVi": "Câu 1-3: Nghe và chọn hình ảnh phù hợp với nội dung nghe được. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            45.21,
+            87.11
+          ],
+          "example": {
+            "question": "三个苹果",
+            "pinyin": "sān gè píngguǒ",
+            "options": [
+              "一摞书",
+              "笔记本电脑",
+              "三个苹果"
+            ],
+            "answer": "C"
+          }
+        },
+        {
+          "partNo": 2,
+          "instruction": "第4—5题：听问题，选择正确回答。每题听两次。",
+          "instructionVi": "Câu 4-5: Nghe câu hỏi, chọn câu trả lời đúng. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            143.05,
+            175.92
+          ],
+          "example": {
+            "question": "今天天气怎么样？",
+            "pinyin": "Jīntiān tiānqì zěnmeyàng?",
+            "options": [
+              "非常热",
+              "很好听",
+              "在喝水"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 3,
+          "instruction": "第6—8题：听对话，选择最匹配的图片。每题听两次。",
+          "instructionVi": "Câu 6-8: Nghe và chọn hình ảnh phù hợp nhất với hội thoại nghe được. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            244.76,
+            324.76
+          ],
+          "example": {
+            "question": "女：你好！男：你好！很高兴认识你。",
+            "pinyin": "Nǚ: Nǐ hǎo! Nán: Nǐ hǎo! Hěn gāoxìng rènshi nǐ.",
+            "options": [
+              "握手",
+              "苹果",
+              "杯子",
+              "买东西"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 4,
+          "instruction": "第9—10题：听句子和问题，选择正确答案。每题听两次。",
+          "instructionVi": "Câu 9-10: Nghe và chọn đáp án đúng. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            404.44,
+            468.09
+          ],
+          "example": {
+            "question": "下午我去超市，我想买一些水果。问：说话人下午去哪里？",
+            "pinyin": "Xiàwǔ wǒ qù chāoshì, wǒ xiǎng mǎi yìxiē shuǐguǒ. Shuōhuàrén xiàwǔ qù nǎlǐ?",
+            "options": [
+              "超市",
+              "医院",
+              "学校"
+            ],
+            "answer": "A"
+          }
+        }
+      ],
       "items": [
         {
           "no": 1,
@@ -3779,10 +3202,6 @@ var workbook1 = {
             "面包"
           ],
           "answer": "B",
-          "audioRange": [
-            45.21,
-            51.06
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: một cây cải thảo; B: sạp hoa quả ở chợ; C: hai ổ bánh mì"
@@ -3797,10 +3216,6 @@ var workbook1 = {
             "衣服"
           ],
           "answer": "C",
-          "audioRange": [
-            63.7,
-            69.57
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: đôi giày thể thao màu trắng; B: chồng sách buộc nơ; C: quần áo phơi trên dây"
@@ -3815,10 +3230,6 @@ var workbook1 = {
             "被子"
           ],
           "answer": "B",
-          "audioRange": [
-            82.53,
-            87.11
-          ],
           "confidence": "medium",
           "hasPicture": true,
           "pictureDesc": "A: bát sa-lát rau; B: phụ nữ mua hàng trong cửa hàng; C: chăn gấp màu trắng"
@@ -3833,10 +3244,6 @@ var workbook1 = {
             "十本书"
           ],
           "answer": "B",
-          "audioRange": [
-            143.05,
-            150.21
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -3851,10 +3258,6 @@ var workbook1 = {
             "120元"
           ],
           "answer": "B",
-          "audioRange": [
-            168.04,
-            175.92
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -3870,10 +3273,6 @@ var workbook1 = {
             "买东西"
           ],
           "answer": "C",
-          "audioRange": [
-            244.76,
-            259.24
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: bốn quả táo trong khay giấy; C: ba chiếc cốc màu đỏ, vàng, xanh; D: phụ nữ mua sắm trong cửa hàng"
@@ -3889,10 +3288,6 @@ var workbook1 = {
             "买东西"
           ],
           "answer": "D",
-          "audioRange": [
-            277.26,
-            292.56
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: bốn quả táo trong khay giấy; C: ba chiếc cốc màu đỏ, vàng, xanh; D: phụ nữ mua sắm trong cửa hàng"
@@ -3908,10 +3303,6 @@ var workbook1 = {
             "买东西"
           ],
           "answer": "B",
-          "audioRange": [
-            310.03,
-            324.76
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: bốn quả táo trong khay giấy; C: ba chiếc cốc màu đỏ, vàng, xanh; D: phụ nữ mua sắm trong cửa hàng"
@@ -3926,10 +3317,6 @@ var workbook1 = {
             "不好看"
           ],
           "answer": "A",
-          "audioRange": [
-            404.44,
-            428.35
-          ],
           "confidence": "medium",
           "hasPicture": false,
           "pictureDesc": ""
@@ -3944,10 +3331,6 @@ var workbook1 = {
             "很漂亮"
           ],
           "answer": "B",
-          "audioRange": [
-            446.25,
-            468.09
-          ],
           "confidence": "medium",
           "hasPicture": false,
           "pictureDesc": ""
@@ -3957,6 +3340,70 @@ var workbook1 = {
     "reading": {
       "part": "二、阅读",
       "partVi": "Phần đọc",
+      "parts": [
+        {
+          "partNo": 1,
+          "instruction": "第11—13题：选择与句子最匹配的图片。",
+          "instructionVi": "Câu 11-13: Chọn hình ảnh phù hợp nhất với câu.",
+          "example": {
+            "question": "我很喜欢这本书。",
+            "pinyin": "Wǒ hěn xǐhuan zhè běn shū.",
+            "options": [
+              "读书",
+              "苹果",
+              "包子",
+              "衣服"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 2,
+          "instruction": "第14—16题：匹配句子。",
+          "instructionVi": "Câu 14-16: Nối câu.",
+          "example": {
+            "question": "你喝水吗？",
+            "pinyin": "Nǐ hē shuǐ ma?",
+            "options": [
+              "十块钱。",
+              "对不起，没有。",
+              "在那边。",
+              "好的，谢谢！"
+            ],
+            "answer": "D"
+          }
+        },
+        {
+          "partNo": 3,
+          "instruction": "第17—18题：选词填空。",
+          "instructionVi": "Câu 17-18: Chọn từ thích hợp điền vào chỗ trống.",
+          "example": {
+            "question": "你叫什么（ ）？",
+            "pinyin": "Nǐ jiào shénme ( )?",
+            "options": [
+              "穿",
+              "块",
+              "名字"
+            ],
+            "answer": "C"
+          }
+        },
+        {
+          "partNo": 4,
+          "instruction": "第19—20题：选择正确答案。",
+          "instructionVi": "Câu 19-20: Chọn đáp án đúng.",
+          "example": {
+            "question": "请问现在几点了？★说话人想知道什么？",
+            "pinyin": "Qǐngwèn xiànzài jǐ diǎn le? Shuōhuàrén xiǎng zhīdào shénme?",
+            "options": [
+              "时间",
+              "名字",
+              "房间号"
+            ],
+            "answer": "A"
+          }
+        }
+      ],
       "items": [
         {
           "no": 11,
@@ -4112,6 +3559,86 @@ var workbook1 = {
     "listening": {
       "part": "一、听力",
       "partVi": "Phần nghe",
+      "track": "11-2",
+      "parts": [
+        {
+          "partNo": 1,
+          "instruction": "第1—3题：听短语，选择正确图片。每题听两次。",
+          "instructionVi": "Câu 1-3: Nghe và chọn hình ảnh phù hợp với nội dung nghe được. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            44.2,
+            83.84
+          ],
+          "example": {
+            "question": "三个苹果",
+            "pinyin": "sān gè píngguǒ",
+            "options": [
+              "一摞书",
+              "笔记本电脑",
+              "三个苹果"
+            ],
+            "answer": "C"
+          }
+        },
+        {
+          "partNo": 2,
+          "instruction": "第4—5题：听问题，选择正确回答。每题听两次。",
+          "instructionVi": "Câu 4-5: Nghe câu hỏi, chọn câu trả lời đúng. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            141.89,
+            179.15
+          ],
+          "example": {
+            "question": "今天天气怎么样？",
+            "pinyin": "Jīntiān tiānqì zěnmeyàng?",
+            "options": [
+              "非常热",
+              "很好听",
+              "在喝水"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 3,
+          "instruction": "第6—8题：听对话，选择最匹配的图片。每题听两次。",
+          "instructionVi": "Câu 6-8: Nghe và chọn hình ảnh phù hợp nhất với hội thoại nghe được. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            246.68,
+            333.4
+          ],
+          "example": {
+            "question": "女：你好！男：你好！很高兴认识你。",
+            "pinyin": "Nǚ: Nǐ hǎo! Nán: Nǐ hǎo! Hěn gāoxìng rènshi nǐ.",
+            "options": [
+              "握手",
+              "睡觉",
+              "学生",
+              "商店"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 4,
+          "instruction": "第9—10题：听句子和问题，选择正确答案。每题听两次。",
+          "instructionVi": "Câu 9-10: Nghe và chọn đáp án đúng. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            412.28,
+            469.75
+          ],
+          "example": {
+            "question": "下午我去超市，我想买一些水果。问：说话人下午去哪里？",
+            "pinyin": "Xiàwǔ wǒ qù chāoshì, wǒ xiǎng mǎi yìxiē shuǐguǒ. Shuōhuàrén xiàwǔ qù nǎlǐ?",
+            "options": [
+              "超市",
+              "医院",
+              "学校"
+            ],
+            "answer": "A"
+          }
+        }
+      ],
       "items": [
         {
           "no": 1,
@@ -4123,10 +3650,6 @@ var workbook1 = {
             "开车"
           ],
           "answer": "C",
-          "audioRange": [
-            44.2,
-            49.02
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: phụ nữ ngồi ghế phụ đọc sách trong xe; B: phụ nữ ngồi ghế sau nhìn ra ngoài cửa xe; C: đàn ông đang lái xe"
@@ -4141,10 +3664,6 @@ var workbook1 = {
             "生气"
           ],
           "answer": "B",
-          "audioRange": [
-            61.49,
-            66.24
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: đàn ông ôm đầu tỏ vẻ buồn bực; B: hai bé trai đang cười vui; C: phụ nữ đứng chống nạnh tỏ vẻ giận"
@@ -4159,10 +3678,6 @@ var workbook1 = {
             "学习"
           ],
           "answer": "C",
-          "audioRange": [
-            78.88,
-            83.84
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: hai trẻ em vẽ ở bàn; B: mẹ và con dùng máy tính; C: sinh viên học cùng nhau trong thư viện"
@@ -4177,10 +3692,6 @@ var workbook1 = {
             "水果便宜"
           ],
           "answer": "B",
-          "audioRange": [
-            141.89,
-            152.05
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -4195,10 +3706,6 @@ var workbook1 = {
             "没到呢"
           ],
           "answer": "C",
-          "audioRange": [
-            171.4,
-            179.15
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -4214,10 +3721,6 @@ var workbook1 = {
             "商店"
           ],
           "answer": "D",
-          "audioRange": [
-            246.68,
-            268.4
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: em bé đang ngủ; C: nam sinh viên đứng ngoài trời đeo túi; D: bên trong cửa hàng quần áo"
@@ -4233,10 +3736,6 @@ var workbook1 = {
             "商店"
           ],
           "answer": "C",
-          "audioRange": [
-            288.18,
-            304.09
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: em bé đang ngủ; C: nam sinh viên đứng ngoài trời đeo túi; D: bên trong cửa hàng quần áo"
@@ -4252,10 +3751,6 @@ var workbook1 = {
             "商店"
           ],
           "answer": "B",
-          "audioRange": [
-            321.74,
-            333.4
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: em bé đang ngủ; C: nam sinh viên đứng ngoài trời đeo túi; D: bên trong cửa hàng quần áo"
@@ -4270,10 +3765,6 @@ var workbook1 = {
             "房间里"
           ],
           "answer": "B",
-          "audioRange": [
-            412.28,
-            434.41
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -4288,10 +3779,6 @@ var workbook1 = {
             "超市后边"
           ],
           "answer": "C",
-          "audioRange": [
-            452.26,
-            469.75
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -4301,6 +3788,70 @@ var workbook1 = {
     "reading": {
       "part": "二、阅读",
       "partVi": "Phần đọc",
+      "parts": [
+        {
+          "partNo": 1,
+          "instruction": "第11—13题：选择与句子最匹配的图片。",
+          "instructionVi": "Câu 11-13: Chọn hình ảnh phù hợp nhất với câu.",
+          "example": {
+            "question": "我很喜欢这本书。",
+            "pinyin": "Wǒ hěn xǐhuan zhè běn shū.",
+            "options": [
+              "读书",
+              "谈话",
+              "做饭",
+              "玩"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 2,
+          "instruction": "第14—16题：匹配句子。",
+          "instructionVi": "Câu 14-16: Nối câu.",
+          "example": {
+            "question": "你喝水吗？",
+            "pinyin": "Nǐ hē shuǐ ma?",
+            "options": [
+              "不，我坐出租车。",
+              "非常忙。",
+              "没有，我在开车呢。",
+              "好的，谢谢！"
+            ],
+            "answer": "D"
+          }
+        },
+        {
+          "partNo": 3,
+          "instruction": "第17—18题：选词填空。",
+          "instructionVi": "Câu 17-18: Chọn từ thích hợp điền vào chỗ trống.",
+          "example": {
+            "question": "你叫什么（ ）？",
+            "pinyin": "Nǐ jiào shénme ( )?",
+            "options": [
+              "找",
+              "睡觉",
+              "名字"
+            ],
+            "answer": "C"
+          }
+        },
+        {
+          "partNo": 4,
+          "instruction": "第19—20题：选择正确答案。",
+          "instructionVi": "Câu 19-20: Chọn đáp án đúng.",
+          "example": {
+            "question": "请问现在几点了？★说话人想知道什么？",
+            "pinyin": "Qǐngwèn xiànzài jǐ diǎn le? Shuōhuàrén xiǎng zhīdào shénme?",
+            "options": [
+              "时间",
+              "名字",
+              "房间号"
+            ],
+            "answer": "A"
+          }
+        }
+      ],
       "items": [
         {
           "no": 11,
@@ -4456,6 +4007,86 @@ var workbook1 = {
     "listening": {
       "part": "一、听力",
       "partVi": "Phần nghe",
+      "track": "12-2",
+      "parts": [
+        {
+          "partNo": 1,
+          "instruction": "第1—3题：听短语，选择正确图片。每题听两次。",
+          "instructionVi": "Câu 1-3: Nghe và chọn hình ảnh phù hợp với nội dung nghe được. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            43.37,
+            83.58
+          ],
+          "example": {
+            "question": "三个苹果",
+            "pinyin": "sān gè píngguǒ",
+            "options": [
+              "一摞书",
+              "笔记本电脑",
+              "三个苹果"
+            ],
+            "answer": "C"
+          }
+        },
+        {
+          "partNo": 2,
+          "instruction": "第4—5题：听问题，选择正确回答。每题听两次。",
+          "instructionVi": "Câu 4-5: Nghe câu hỏi, chọn câu trả lời đúng. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            139.78,
+            170.09
+          ],
+          "example": {
+            "question": "今天天气怎么样？",
+            "pinyin": "Jīntiān tiānqì zěnmeyàng?",
+            "options": [
+              "非常热",
+              "很好听",
+              "在喝水"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 3,
+          "instruction": "第6—8题：听对话，选择最匹配的图片。每题听两次。",
+          "instructionVi": "Câu 6-8: Nghe và chọn hình ảnh phù hợp nhất với hội thoại nghe được. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            238.03,
+            322.39
+          ],
+          "example": {
+            "question": "女：你好！男：你好！很高兴认识你。",
+            "pinyin": "Nǚ: Nǐ hǎo! Nán: Nǐ hǎo! Hěn gāoxìng rènshi nǐ.",
+            "options": [
+              "握手",
+              "冷",
+              "下雨",
+              "看医生"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 4,
+          "instruction": "第9—10题：听句子和问题，选择正确答案。每题听两次。",
+          "instructionVi": "Câu 9-10: Nghe và chọn đáp án đúng. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            402.33,
+            477.48
+          ],
+          "example": {
+            "question": "下午我去超市，我想买一些水果。问：说话人下午去哪里？",
+            "pinyin": "Xiàwǔ wǒ qù chāoshì, wǒ xiǎng mǎi yìxiē shuǐguǒ. Shuōhuàrén xiàwǔ qù nǎlǐ?",
+            "options": [
+              "超市",
+              "医院",
+              "学校"
+            ],
+            "answer": "A"
+          }
+        }
+      ],
       "items": [
         {
           "no": 1,
@@ -4467,10 +4098,6 @@ var workbook1 = {
             "房间"
           ],
           "answer": "A",
-          "audioRange": [
-            43.37,
-            48.21
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: bãi biển nắng đẹp, trời xanh; B: thành phố bên sông trời nhiều mây u ám; C: phòng khách với ghế sofa đỏ"
@@ -4485,10 +4112,6 @@ var workbook1 = {
             "雪"
           ],
           "answer": "C",
-          "audioRange": [
-            60.82,
-            66.27
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: núi có sương mù; B: cánh đồng hoa vàng với con đường; C: cảnh mùa đông tuyết phủ trắng"
@@ -4503,10 +4126,6 @@ var workbook1 = {
             "休息"
           ],
           "answer": "B",
-          "audioRange": [
-            78.96,
-            83.58
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: phụ nữ uống nước, lau mồ hôi vì nóng; B: phụ nữ mặc áo ấm đứng trong tuyết; C: đàn ông nằm võng nghỉ ngơi ngoài vườn"
@@ -4521,10 +4140,6 @@ var workbook1 = {
             "不太好"
           ],
           "answer": "C",
-          "audioRange": [
-            139.78,
-            147.11
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -4539,10 +4154,6 @@ var workbook1 = {
             "不喝水"
           ],
           "answer": "B",
-          "audioRange": [
-            164.91,
-            170.09
-          ],
           "confidence": "medium",
           "hasPicture": false,
           "pictureDesc": ""
@@ -4558,10 +4169,6 @@ var workbook1 = {
             "看医生"
           ],
           "answer": "D",
-          "audioRange": [
-            238.03,
-            255.9
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: đàn ông ôm người run vì lạnh; C: mưa trong công viên; D: bác sĩ nói chuyện với bệnh nhân"
@@ -4577,10 +4184,6 @@ var workbook1 = {
             "看医生"
           ],
           "answer": "C",
-          "audioRange": [
-            273.68,
-            286.16
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: đàn ông ôm người run vì lạnh; C: mưa trong công viên; D: bác sĩ nói chuyện với bệnh nhân"
@@ -4596,10 +4199,6 @@ var workbook1 = {
             "看医生"
           ],
           "answer": "B",
-          "audioRange": [
-            303.48,
-            322.39
-          ],
           "confidence": "medium",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: đàn ông ôm người run vì lạnh; C: mưa trong công viên; D: bác sĩ nói chuyện với bệnh nhân"
@@ -4614,10 +4213,6 @@ var workbook1 = {
             "看病人"
           ],
           "answer": "A",
-          "audioRange": [
-            402.33,
-            431.31
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -4632,10 +4227,6 @@ var workbook1 = {
             "读书"
           ],
           "answer": "B",
-          "audioRange": [
-            449.46,
-            477.48
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -4645,6 +4236,70 @@ var workbook1 = {
     "reading": {
       "part": "二、阅读",
       "partVi": "Phần đọc",
+      "parts": [
+        {
+          "partNo": 1,
+          "instruction": "第11—13题：选择与句子最匹配的图片。",
+          "instructionVi": "Câu 11-13: Chọn hình ảnh phù hợp nhất với câu.",
+          "example": {
+            "question": "我很喜欢这本书。",
+            "pinyin": "Wǒ hěn xǐhuan zhè běn shū.",
+            "options": [
+              "读书",
+              "下雪",
+              "看电视",
+              "生病"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 2,
+          "instruction": "第14—16题：匹配句子。",
+          "instructionVi": "Câu 14-16: Nối câu.",
+          "example": {
+            "question": "你喝水吗？",
+            "pinyin": "Nǐ hē shuǐ ma?",
+            "options": [
+              "热水。",
+              "我病了。",
+              "对。",
+              "好的，谢谢！"
+            ],
+            "answer": "D"
+          }
+        },
+        {
+          "partNo": 3,
+          "instruction": "第17—18题：选词填空。",
+          "instructionVi": "Câu 17-18: Chọn từ thích hợp điền vào chỗ trống.",
+          "example": {
+            "question": "你叫什么（ ）？",
+            "pinyin": "Nǐ jiào shénme ( )?",
+            "options": [
+              "冷",
+              "生病",
+              "名字"
+            ],
+            "answer": "C"
+          }
+        },
+        {
+          "partNo": 4,
+          "instruction": "第19—20题：选择正确答案。",
+          "instructionVi": "Câu 19-20: Chọn đáp án đúng.",
+          "example": {
+            "question": "请问现在几点了？★说话人想知道什么？",
+            "pinyin": "Qǐngwèn xiànzài jǐ diǎn le? Shuōhuàrén xiǎng zhīdào shénme?",
+            "options": [
+              "时间",
+              "名字",
+              "房间号"
+            ],
+            "answer": "A"
+          }
+        }
+      ],
       "items": [
         {
           "no": 11,
@@ -4800,6 +4455,86 @@ var workbook1 = {
     "listening": {
       "part": "一、听力",
       "partVi": "Phần nghe",
+      "track": "13-2",
+      "parts": [
+        {
+          "partNo": 1,
+          "instruction": "第1—3题：听短语，选择正确图片。每题听两次。",
+          "instructionVi": "Câu 1-3: Nghe và chọn hình ảnh phù hợp với nội dung nghe được. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            43.76,
+            83.68
+          ],
+          "example": {
+            "question": "三个苹果",
+            "pinyin": "sān gè píngguǒ",
+            "options": [
+              "一摞书",
+              "笔记本电脑",
+              "三个苹果"
+            ],
+            "answer": "C"
+          }
+        },
+        {
+          "partNo": 2,
+          "instruction": "第4—5题：听问题，选择正确回答。每题听两次。",
+          "instructionVi": "Câu 4-5: Nghe câu hỏi, chọn câu trả lời đúng. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            141.25,
+            172.76
+          ],
+          "example": {
+            "question": "今天天气怎么样？",
+            "pinyin": "Jīntiān tiānqì zěnmeyàng?",
+            "options": [
+              "非常热",
+              "很好听",
+              "在喝水"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 3,
+          "instruction": "第6—8题：听对话，选择最匹配的图片。每题听两次。",
+          "instructionVi": "Câu 6-8: Nghe và chọn hình ảnh phù hợp nhất với hội thoại nghe được. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            239.26,
+            322.23
+          ],
+          "example": {
+            "question": "女：你好！男：你好！很高兴认识你。",
+            "pinyin": "Nǚ: Nǐ hǎo! Nán: Nǐ hǎo! Hěn gāoxìng rènshi nǐ.",
+            "options": [
+              "握手",
+              "饺子",
+              "面包",
+              "饭店"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 4,
+          "instruction": "第9—10题：听句子和问题，选择正确答案。每题听两次。",
+          "instructionVi": "Câu 9-10: Nghe và chọn đáp án đúng. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            402.42,
+            468.95
+          ],
+          "example": {
+            "question": "下午我去超市，我想买一些水果。问：说话人下午去哪里？",
+            "pinyin": "Xiàwǔ wǒ qù chāoshì, wǒ xiǎng mǎi yìxiē shuǐguǒ. Shuōhuàrén xiàwǔ qù nǎlǐ?",
+            "options": [
+              "超市",
+              "医院",
+              "学校"
+            ],
+            "answer": "A"
+          }
+        }
+      ],
       "items": [
         {
           "no": 1,
@@ -4811,10 +4546,6 @@ var workbook1 = {
             "饺子"
           ],
           "answer": "C",
-          "audioRange": [
-            43.76,
-            49.14
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: bát mì; B: bát cơm trắng; C: đĩa sủi cảo"
@@ -4829,10 +4560,6 @@ var workbook1 = {
             "握手"
           ],
           "answer": "A",
-          "audioRange": [
-            61.75,
-            66.27
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: đàn ông đưa đồ cho bé trai; B: rót trà vào chén; C: ba doanh nhân bắt tay"
@@ -4847,10 +4574,6 @@ var workbook1 = {
             "打电话"
           ],
           "answer": "C",
-          "audioRange": [
-            79.03,
-            83.68
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: phụ nữ cầm chậu hoa; B: hai phụ nữ đang nói chuyện; C: đàn ông gọi điện thoại trong sảnh khách sạn"
@@ -4865,10 +4588,6 @@ var workbook1 = {
             "要一杯茶"
           ],
           "answer": "C",
-          "audioRange": [
-            141.25,
-            147.83
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -4883,10 +4602,6 @@ var workbook1 = {
             "没问题"
           ],
           "answer": "C",
-          "audioRange": [
-            166.06,
-            172.76
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -4902,10 +4617,6 @@ var workbook1 = {
             "饭店"
           ],
           "answer": "C",
-          "audioRange": [
-            239.26,
-            257.88
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: đũa gắp sủi cảo từ đĩa; C: hai tay bẻ ổ bánh mì; D: nhân viên phục vụ nói chuyện với khách trong nhà hàng"
@@ -4921,10 +4632,6 @@ var workbook1 = {
             "饭店"
           ],
           "answer": "D",
-          "audioRange": [
-            275.47,
-            288.87
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: đũa gắp sủi cảo từ đĩa; C: hai tay bẻ ổ bánh mì; D: nhân viên phục vụ nói chuyện với khách trong nhà hàng"
@@ -4940,10 +4647,6 @@ var workbook1 = {
             "饭店"
           ],
           "answer": "B",
-          "audioRange": [
-            306.19,
-            322.23
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: đũa gắp sủi cảo từ đĩa; C: hai tay bẻ ổ bánh mì; D: nhân viên phục vụ nói chuyện với khách trong nhà hàng"
@@ -4958,10 +4661,6 @@ var workbook1 = {
             "看医生"
           ],
           "answer": "B",
-          "audioRange": [
-            402.42,
-            424.66
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -4976,10 +4675,6 @@ var workbook1 = {
             "朋友家"
           ],
           "answer": "A",
-          "audioRange": [
-            442.42,
-            468.95
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -4989,6 +4684,70 @@ var workbook1 = {
     "reading": {
       "part": "二、阅读",
       "partVi": "Phần đọc",
+      "parts": [
+        {
+          "partNo": 1,
+          "instruction": "第11—13题：选择与句子最匹配的图片。",
+          "instructionVi": "Câu 11-13: Chọn hình ảnh phù hợp nhất với câu.",
+          "example": {
+            "question": "我很喜欢这本书。",
+            "pinyin": "Wǒ hěn xǐhuan zhè běn shū.",
+            "options": [
+              "读书",
+              "苹果",
+              "电话",
+              "牛奶"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 2,
+          "instruction": "第14—16题：匹配句子。",
+          "instructionVi": "Câu 14-16: Nối câu.",
+          "example": {
+            "question": "你喝水吗？",
+            "pinyin": "Nǐ hē shuǐ ma?",
+            "options": [
+              "不客气。",
+              "一个面包。",
+              "不知道。",
+              "好的，谢谢！"
+            ],
+            "answer": "D"
+          }
+        },
+        {
+          "partNo": 3,
+          "instruction": "第17—18题：选词填空。",
+          "instructionVi": "Câu 17-18: Chọn từ thích hợp điền vào chỗ trống.",
+          "example": {
+            "question": "你叫什么（ ）？",
+            "pinyin": "Nǐ jiào shénme ( )?",
+            "options": [
+              "给",
+              "一下",
+              "名字"
+            ],
+            "answer": "C"
+          }
+        },
+        {
+          "partNo": 4,
+          "instruction": "第19—20题：选择正确答案。",
+          "instructionVi": "Câu 19-20: Chọn đáp án đúng.",
+          "example": {
+            "question": "请问现在几点了？★说话人想知道什么？",
+            "pinyin": "Qǐngwèn xiànzài jǐ diǎn le? Shuōhuàrén xiǎng zhīdào shénme?",
+            "options": [
+              "时间",
+              "名字",
+              "房间号"
+            ],
+            "answer": "A"
+          }
+        }
+      ],
       "items": [
         {
           "no": 11,
@@ -5144,6 +4903,86 @@ var workbook1 = {
     "listening": {
       "part": "一、听力",
       "partVi": "Phần nghe",
+      "track": "14-2",
+      "parts": [
+        {
+          "partNo": 1,
+          "instruction": "第1—3题：听短语，选择正确图片。每题听两次。",
+          "instructionVi": "Câu 1-3: Nghe và chọn hình ảnh phù hợp với nội dung nghe được. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            42.77,
+            82.88
+          ],
+          "example": {
+            "question": "三个苹果",
+            "pinyin": "sān gè píngguǒ",
+            "options": [
+              "一摞书",
+              "笔记本电脑",
+              "三个苹果"
+            ],
+            "answer": "C"
+          }
+        },
+        {
+          "partNo": 2,
+          "instruction": "第4—5题：听问题，选择正确回答。每题听两次。",
+          "instructionVi": "Câu 4-5: Nghe câu hỏi, chọn câu trả lời đúng. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            138.56,
+            171.97
+          ],
+          "example": {
+            "question": "今天天气怎么样？",
+            "pinyin": "Jīntiān tiānqì zěnmeyàng?",
+            "options": [
+              "非常热",
+              "很好听",
+              "在喝水"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 3,
+          "instruction": "第6—8题：听对话，选择最匹配的图片。每题听两次。",
+          "instructionVi": "Câu 6-8: Nghe và chọn hình ảnh phù hợp nhất với hội thoại nghe được. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            240.54,
+            329.89
+          ],
+          "example": {
+            "question": "女：你好！男：你好！很高兴认识你。",
+            "pinyin": "Nǚ: Nǐ hǎo! Nán: Nǐ hǎo! Hěn gāoxìng rènshi nǐ.",
+            "options": [
+              "握手",
+              "学习",
+              "高兴",
+              "坐车"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 4,
+          "instruction": "第9—10题：听句子和问题，选择正确答案。每题听两次。",
+          "instructionVi": "Câu 9-10: Nghe và chọn đáp án đúng. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            409.74,
+            474.79
+          ],
+          "example": {
+            "question": "下午我去超市，我想买一些水果。问：说话人下午去哪里？",
+            "pinyin": "Xiàwǔ wǒ qù chāoshì, wǒ xiǎng mǎi yìxiē shuǐguǒ. Shuōhuàrén xiàwǔ qù nǎlǐ?",
+            "options": [
+              "超市",
+              "医院",
+              "学校"
+            ],
+            "answer": "A"
+          }
+        }
+      ],
       "items": [
         {
           "no": 1,
@@ -5155,10 +4994,6 @@ var workbook1 = {
             "别说话"
           ],
           "answer": "C",
-          "audioRange": [
-            42.77,
-            48.03
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: đàn ông viết ở bàn làm việc; B: bốn người bạn trò chuyện trên ghế sofa; C: phụ nữ ra dấu “suỵt” (ngón tay lên môi)"
@@ -5173,10 +5008,6 @@ var workbook1 = {
             "写字"
           ],
           "answer": "C",
-          "audioRange": [
-            60.24,
-            65.22
-          ],
           "confidence": "medium",
           "hasPicture": true,
           "pictureDesc": "A: phụ nữ chơi ukulele trên ghế sofa; B: ba người bạn cùng xem điện thoại; C: tay viết chữ Hán trên giấy kẻ ô"
@@ -5191,10 +5022,6 @@ var workbook1 = {
             "听音乐"
           ],
           "answer": "B",
-          "audioRange": [
-            77.61,
-            82.88
-          ],
           "confidence": "medium",
           "hasPicture": true,
           "pictureDesc": "A: hai người đạp xe trên đường; B: đàn ông ngồi trên tàu gọi điện thoại; C: phụ nữ đeo tai nghe xem điện thoại trên tàu"
@@ -5209,10 +5036,6 @@ var workbook1 = {
             "都会写了"
           ],
           "answer": "C",
-          "audioRange": [
-            138.56,
-            147.46
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -5227,10 +5050,6 @@ var workbook1 = {
             "买面包"
           ],
           "answer": "B",
-          "audioRange": [
-            164.9,
-            171.97
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -5246,10 +5065,6 @@ var workbook1 = {
             "坐车"
           ],
           "answer": "D",
-          "audioRange": [
-            240.54,
-            259.98
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: đàn ông học ở bàn với máy tính; C: đàn ông đeo tai nghe giơ tay vui vẻ; D: phụ nữ đeo tai nghe ngồi trên tàu xem điện thoại"
@@ -5265,10 +5080,6 @@ var workbook1 = {
             "坐车"
           ],
           "answer": "B",
-          "audioRange": [
-            277.75,
-            295.27
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: đàn ông học ở bàn với máy tính; C: đàn ông đeo tai nghe giơ tay vui vẻ; D: phụ nữ đeo tai nghe ngồi trên tàu xem điện thoại"
@@ -5284,10 +5095,6 @@ var workbook1 = {
             "坐车"
           ],
           "answer": "C",
-          "audioRange": [
-            312.73,
-            329.89
-          ],
           "confidence": "medium",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: đàn ông học ở bàn với máy tính; C: đàn ông đeo tai nghe giơ tay vui vẻ; D: phụ nữ đeo tai nghe ngồi trên tàu xem điện thoại"
@@ -5302,10 +5109,6 @@ var workbook1 = {
             "回家后"
           ],
           "answer": "A",
-          "audioRange": [
-            409.74,
-            430.75
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -5320,10 +5123,6 @@ var workbook1 = {
             "小狗和小猫"
           ],
           "answer": "A",
-          "audioRange": [
-            448.38,
-            474.79
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -5333,6 +5132,70 @@ var workbook1 = {
     "reading": {
       "part": "二、阅读",
       "partVi": "Phần đọc",
+      "parts": [
+        {
+          "partNo": 1,
+          "instruction": "第11—13题：选择与句子最匹配的图片。",
+          "instructionVi": "Câu 11-13: Chọn hình ảnh phù hợp nhất với câu.",
+          "example": {
+            "question": "我很喜欢这本书。",
+            "pinyin": "Wǒ hěn xǐhuan zhè běn shū.",
+            "options": [
+              "读书",
+              "火车",
+              "生病",
+              "打电话"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 2,
+          "instruction": "第14—16题：匹配句子。",
+          "instructionVi": "Câu 14-16: Nối câu.",
+          "example": {
+            "question": "你喝水吗？",
+            "pinyin": "Nǐ hē shuǐ ma?",
+            "options": [
+              "是的，我睡了一觉。",
+              "我们都去了。",
+              "写字、看书、吃饭。",
+              "好的，谢谢！"
+            ],
+            "answer": "D"
+          }
+        },
+        {
+          "partNo": 3,
+          "instruction": "第17—18题：选词填空。",
+          "instructionVi": "Câu 17-18: Chọn từ thích hợp điền vào chỗ trống.",
+          "example": {
+            "question": "你叫什么（ ）？",
+            "pinyin": "Nǐ jiào shénme ( )?",
+            "options": [
+              "都",
+              "茶",
+              "名字"
+            ],
+            "answer": "C"
+          }
+        },
+        {
+          "partNo": 4,
+          "instruction": "第19—20题：选择正确答案。",
+          "instructionVi": "Câu 19-20: Chọn đáp án đúng.",
+          "example": {
+            "question": "请问现在几点了？★说话人想知道什么？",
+            "pinyin": "Qǐngwèn xiànzài jǐ diǎn le? Shuōhuàrén xiǎng zhīdào shénme?",
+            "options": [
+              "时间",
+              "名字",
+              "房间号"
+            ],
+            "answer": "A"
+          }
+        }
+      ],
       "items": [
         {
           "no": 11,
@@ -5488,6 +5351,86 @@ var workbook1 = {
     "listening": {
       "part": "一、听力",
       "partVi": "Phần nghe",
+      "track": "15-2",
+      "parts": [
+        {
+          "partNo": 1,
+          "instruction": "第1—3题：听短语，选择正确图片。每题听两次。",
+          "instructionVi": "Câu 1-3: Nghe và chọn hình ảnh phù hợp với nội dung nghe được. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            43.39,
+            82.97
+          ],
+          "example": {
+            "question": "三个苹果",
+            "pinyin": "sān gè píngguǒ",
+            "options": [
+              "一摞书",
+              "笔记本电脑",
+              "三个苹果"
+            ],
+            "answer": "C"
+          }
+        },
+        {
+          "partNo": 2,
+          "instruction": "第4—5题：听问题，选择正确回答。每题听两次。",
+          "instructionVi": "Câu 4-5: Nghe câu hỏi, chọn câu trả lời đúng. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            139.39,
+            178.0
+          ],
+          "example": {
+            "question": "今天天气怎么样？",
+            "pinyin": "Jīntiān tiānqì zěnmeyàng?",
+            "options": [
+              "非常热",
+              "很好听",
+              "在喝水"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 3,
+          "instruction": "第6—8题：听对话，选择最匹配的图片。每题听两次。",
+          "instructionVi": "Câu 6-8: Nghe và chọn hình ảnh phù hợp nhất với hội thoại nghe được. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            244.6,
+            342.1
+          ],
+          "example": {
+            "question": "女：你好！男：你好！很高兴认识你。",
+            "pinyin": "Nǚ: Nǐ hǎo! Nán: Nǐ hǎo! Hěn gāoxìng rènshi nǐ.",
+            "options": [
+              "握手",
+              "茶",
+              "北京",
+              "买衣服"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 4,
+          "instruction": "第9—10题：听句子和问题，选择正确答案。每题听两次。",
+          "instructionVi": "Câu 9-10: Nghe và chọn đáp án đúng. Mỗi câu nghe hai lần。",
+          "audioRange": [
+            421.06,
+            485.82
+          ],
+          "example": {
+            "question": "下午我去超市，我想买一些水果。问：说话人下午去哪里？",
+            "pinyin": "Xiàwǔ wǒ qù chāoshì, wǒ xiǎng mǎi yìxiē shuǐguǒ. Shuōhuàrén xiàwǔ qù nǎlǐ?",
+            "options": [
+              "超市",
+              "医院",
+              "学校"
+            ],
+            "answer": "A"
+          }
+        }
+      ],
       "items": [
         {
           "no": 1,
@@ -5499,10 +5442,6 @@ var workbook1 = {
             "咖啡"
           ],
           "answer": "A",
-          "audioRange": [
-            43.39,
-            47.74
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: ấm trà với hai chén trà; B: hai trẻ em ăn táo ngoài trời; C: cốc cà phê latte"
@@ -5517,10 +5456,6 @@ var workbook1 = {
             "坐公共汽车"
           ],
           "answer": "B",
-          "audioRange": [
-            60.09,
-            65.07
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: trẻ em lên xe ô tô; B: hành khách lên máy bay; C: phụ nữ lên xe buýt"
@@ -5535,10 +5470,6 @@ var workbook1 = {
             "吃饭"
           ],
           "answer": "C",
-          "audioRange": [
-            78.01,
-            82.97
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "A: mẹ và con cùng đọc sách; B: bốn người họp ở bàn làm việc; C: gia đình ăn cơm cùng nhau"
@@ -5553,10 +5484,6 @@ var workbook1 = {
             "不想去"
           ],
           "answer": "A",
-          "audioRange": [
-            139.39,
-            149.94
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -5571,10 +5498,6 @@ var workbook1 = {
             "也很好看"
           ],
           "answer": "C",
-          "audioRange": [
-            168.0,
-            178.0
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -5590,10 +5513,6 @@ var workbook1 = {
             "买衣服"
           ],
           "answer": "B",
-          "audioRange": [
-            244.6,
-            266.29
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: bộ ấm trà với ba chén trà; C: đường chân trời thành phố Bắc Kinh; D: đàn ông mua quần áo trong cửa hàng"
@@ -5609,10 +5528,6 @@ var workbook1 = {
             "买衣服"
           ],
           "answer": "D",
-          "audioRange": [
-            283.78,
-            305.91
-          ],
           "confidence": "medium",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: bộ ấm trà với ba chén trà; C: đường chân trời thành phố Bắc Kinh; D: đàn ông mua quần áo trong cửa hàng"
@@ -5628,10 +5543,6 @@ var workbook1 = {
             "买衣服"
           ],
           "answer": "C",
-          "audioRange": [
-            323.53,
-            342.1
-          ],
           "confidence": "high",
           "hasPicture": true,
           "pictureDesc": "Bốn hình dùng chung cho câu 6-8. A: hai doanh nhân bắt tay; B: bộ ấm trà với ba chén trà; C: đường chân trời thành phố Bắc Kinh; D: đàn ông mua quần áo trong cửa hàng"
@@ -5646,10 +5557,6 @@ var workbook1 = {
             "上海"
           ],
           "answer": "A",
-          "audioRange": [
-            421.06,
-            446.59
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -5664,10 +5571,6 @@ var workbook1 = {
             "坐出租车"
           ],
           "answer": "B",
-          "audioRange": [
-            464.31,
-            485.82
-          ],
           "confidence": "high",
           "hasPicture": false,
           "pictureDesc": ""
@@ -5677,6 +5580,70 @@ var workbook1 = {
     "reading": {
       "part": "二、阅读",
       "partVi": "Phần đọc",
+      "parts": [
+        {
+          "partNo": 1,
+          "instruction": "第11—13题：选择与句子最匹配的图片。",
+          "instructionVi": "Câu 11-13: Chọn hình ảnh phù hợp nhất với câu.",
+          "example": {
+            "question": "我很喜欢这本书。",
+            "pinyin": "Wǒ hěn xǐhuan zhè běn shū.",
+            "options": [
+              "读书",
+              "好玩儿",
+              "汉字",
+              "家"
+            ],
+            "answer": "A"
+          }
+        },
+        {
+          "partNo": 2,
+          "instruction": "第14—16题：匹配句子。",
+          "instructionVi": "Câu 14-16: Nối câu.",
+          "example": {
+            "question": "你喝水吗？",
+            "pinyin": "Nǐ hē shuǐ ma?",
+            "options": [
+              "我女儿。",
+              "十个。",
+              "苹果。",
+              "好的，谢谢！"
+            ],
+            "answer": "D"
+          }
+        },
+        {
+          "partNo": 3,
+          "instruction": "第17—18题：选词填空。",
+          "instructionVi": "Câu 17-18: Chọn từ thích hợp điền vào chỗ trống.",
+          "example": {
+            "question": "你叫什么（ ）？",
+            "pinyin": "Nǐ jiào shénme ( )?",
+            "options": [
+              "电视",
+              "北京",
+              "名字"
+            ],
+            "answer": "C"
+          }
+        },
+        {
+          "partNo": 4,
+          "instruction": "第19—20题：选择正确答案。",
+          "instructionVi": "Câu 19-20: Chọn đáp án đúng.",
+          "example": {
+            "question": "请问现在几点了？★说话人想知道什么？",
+            "pinyin": "Qǐngwèn xiànzài jǐ diǎn le? Shuōhuàrén xiǎng zhīdào shénme?",
+            "options": [
+              "时间",
+              "名字",
+              "房间号"
+            ],
+            "answer": "A"
+          }
+        }
+      ],
       "items": [
         {
           "no": 11,
