@@ -4159,9 +4159,12 @@ body.hide-pinyin .kk-char rt{visibility:hidden}
 .wb-list-item{display:flex;gap:8px;align-items:baseline}
 .wb-pic{margin-top:6px}
 .wb-grid .wb-feedback{min-height:0}
+@media(max-width:1100px){
+  .wb-grid.wb-grid-tone{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 @media(max-width:720px){
   .wb-grid.wb-grid-fill{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .wb-grid.wb-grid-tone{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .wb-grid.wb-grid-tone{grid-template-columns:minmax(0,1fr)}
   .wb-grid.wb-grid-read{grid-template-columns:repeat(3,minmax(0,1fr))}
   .wb-grid.wb-grid-choose,.wb-grid.wb-grid-dist{grid-template-columns:minmax(0,1fr)}
   .wb-grid.wb-grid-picrow{grid-template-columns:minmax(0,1fr)}
