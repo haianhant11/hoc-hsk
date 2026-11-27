@@ -20,85 +20,29 @@ function syncSceneToAudio(a){const starts=sceneSyncStarts();if(!starts)return;if
 document.addEventListener('timeupdate',e=>{const a=e.target;if(a&&a.classList&&a.classList.contains('orig-audio'))syncSceneToAudio(a)},true);
 document.addEventListener('seeked',e=>{const a=e.target;if(a&&a.classList&&a.classList.contains('orig-audio'))syncSceneToAudio(a)},true);
 document.addEventListener('play',e=>{const a=e.target;if(!a||!a.classList||!a.classList.contains('orig-audio'))return;registerOrigAudio(a);origAudios.forEach(o=>{if(o!==a&&!o.paused){try{o.pause()}catch(err){}}});document.querySelectorAll('audio.orig-audio').forEach(o=>{if(o!==a&&!o.paused){try{o.pause()}catch(err){}}});if('speechSynthesis'in window)speechSynthesis.cancel()},true);
-const sceneSpeakers={"李老师":{py:"Lǐ lǎoshī",face:"🧑"},"同学":{"py":"Tóngxué","face":"🧑"},"杨同乐":{py:"Yáng Tónglè",face:"🧑"},"王一雪":{py:"Wáng Yīxuě",face:"👩"},"同事":{py:"Tóngshì",face:"👤"},"刘明":{py:"Liú Míng",face:"👨"},"刘小明":{py:"Liú Xiǎomíng",face:"👦"},"李文":{py:"Lǐ Wén",face:"👨"},"白家月":{py:"Bái Jiāyuè",face:"👩"},"安妮":{py:"Ānnī",face:"👩"},"陈老师":{py:"Chén lǎoshī",face:"🧑‍🏫"},"王小文":{py:"Wáng Xiǎowén",face:"👧"},"李大伟":{py:"Lǐ Dàwěi",face:"👦"},"赵经理":{py:"Zhào jīnglǐ",face:"🧑‍💼"},"林小雨":{py:"Lín Xiǎoyǔ",face:"👩"},"张小强":{py:"Zhāng Xiǎoqiáng",face:"👨"},"王一飞":{py:"Wáng Yīfēi",face:"👨"},"刘小雪":{"py":"Liú Xiǎoxuě","face":"👧"},"服务员":{"py":"Fúwùyuán","face":"🧑‍🍳"},"陈天中":{"py":"Chén Tiānzhōng","face":"👨"},"张阿姨":{"py":"Zhāng āyí","face":"👩"},"李叔叔":{"py":"Lǐ shūshu","face":"👨"},"小李":{"py":"Xiǎo Lǐ","face":"🧑‍✈️"},"店员":{"py":"Diànyuán","face":"🧑"}};
-const sceneSpeakersAlt={"15":{"杨同乐":{py:"Yáng Tónglè",face:"👨"},"刘小明":{py:"Liú Xiǎomíng",face:"🧒"}}};
-Object.assign(sceneSpeakers,{"妈妈":{"py":"Māma","face":"👩"},"爸爸":{"py":"Bàba","face":"👨"},"爷爷":{"py":"Yéye","face":"👴"},"奶奶":{"py":"Nǎinai","face":"👵"},"老师":{"py":"Lǎoshī","face":"🧑‍🏫"},"教练":{"py":"Jiàoliàn","face":"🧢"},"顾客":{"py":"Gùkè","face":"🧑"},"售货员":{"py":"Shòuhuòyuán","face":"🧑‍💼"},"司机":{"py":"Sījī","face":"🧑‍✈️"},"导游":{"py":"Dǎoyóu","face":"🧑‍🦰"},"姐姐":{"py":"Jiějie","face":"👩"}});
-Object.assign(sceneSpeakers,{"房东":{py:"Fángdōng",face:"🧓"},"护士":{py:"Hùshi",face:"👩‍⚕️"},"医生":{py:"Yīshēng",face:"🧑‍⚕️"},"邻居":{py:"Línjū",face:"👵"},"路人":{py:"Lùrén",face:"🧍"},"广播":{py:"Guǎngbō",face:"📢"},"值机员":{py:"Zhíjīyuán",face:"👩‍✈️"}});
-Object.assign(sceneSpeakers,{"学生们":{py:"Xuéshengmen",face:"👥"},"小语":{py:"Xiǎoyǔ",face:"🤖"},"胡医生":{py:"Hú yīshēng",face:"🧑‍⚕️"},"刘爷爷":{py:"Liú yéye",face:"👴"},"白家月和安妮":{py:"Bái Jiāyuè hé Ānnī",face:"👭"}});
-let __avClip = 0;
-const AVATAR_CFG = {
-  '白家月': ['sang', 'dai', 'den', '#A54432', 'earrings'],
-  '陈天中': ['sang', 'ngan', 'den', '#193B39', ''],
-  '李文': ['trung', 'ngan', 'den', '#2C4A6B', ''],
-  '杨同乐': ['sang', 'spiky', 'den', '#B98A2F', ''],
-  '王一雪': ['sang', 'bob', 'den', '#A54432', 'earrings'],
-  '王一飞': ['trung', 'ngan', 'den', '#2E7D6B', ''],
-  '刘明': ['sang', 'ngan', 'den', '#69766C', 'glasses'],
-  '李老师': ['trung', 'ngan', 'den', '#193B39', 'glasses'],
-  '刘小明': ['sang', 'ngan', 'den', '#2E7D6B', ''],
-  '刘小雪': ['sang', 'dai', 'den', '#B98A2F', 'earrings'],
-  '安妮': ['sang', 'bob', 'nau-sang', '#A54432', 'earrings'],
-  '陈老师': ['trung', 'bui', 'den', '#193B39', 'glasses'],
-  '王小文': ['sang', 'bob', 'den', '#2E7D6B', ''],
-  '张小强': ['trung', 'spiky', 'den', '#2C4A6B', ''],
-  '李大伟': ['ngam', 'ngan', 'den', '#B98A2F', ''],
-  '林小雨': ['sang', 'dai', 'nau-dam', '#2E7D6B', 'earrings'],
-  '赵经理': ['trung', 'ngan', 'den', '#193B39', 'glasses'],
-  '同学': ['sang', 'ngan', 'den', '#69766C', ''],
-  '同事': ['trung', 'bob', 'den', '#A54432', ''],
-  '房东': ['ngam', 'ngan', 'xam', '#69766C', 'glasses'],
-  '护士': ['sang', 'mu-yta', 'den', '#2E7D6B', ''],
-  '路人': ['trung', 'mu-luoi-trai', 'den', '#2C4A6B', ''],
-  '邻居': ['sang', 'bob', 'xam', '#69766C', ''],
-  '张阿姨': ['trung', 'bui', 'xam', '#A54432', 'earrings'],
-  '李叔叔': ['ngam', 'ngan', 'xam', '#193B39', ''],
-  '服务员': ['sang', 'ngan', 'den', '#2C4A6B', ''],
-  '小李': ['trung', 'ngan', 'den', '#2C4A6B', ''],
-  '店员': ['sang', 'bob', 'nau-dam', '#B98A2F', ''],
-  '售货员': ['sang', 'bob', 'nau-dam', '#B98A2F', ''],
-  '妈妈': ['trung', 'bui', 'den', '#2E7D6B', ''],
-  '广播': ['sang', 'ngan', 'den', '#2C4A6B', ''],
-  '值机员': ['sang', 'bui', 'den', '#2C4A6B', ''],
-  '学生们': ['sang', 'ngan', 'den', '#69766C', ''],
-  '小语': ['sang', 'bob', 'den', '#A54432', 'earrings'],
-  '胡医生': ['trung', 'ngan', 'den', '#2E7D6B', 'glasses'],
-  '刘爷爷': ['ngam', 'ngan', 'xam', '#69766C', 'glasses'],
-  '白家月和安妮': ['sang', 'bob', 'den', '#A54432', 'earrings']
+const sceneSpeakers={"李老师":{py:"Lǐ lǎoshī"},"同学":{"py":"Tóngxué"},"杨同乐":{py:"Yáng Tónglè"},"王一雪":{py:"Wáng Yīxuě"},"同事":{py:"Tóngshì"},"刘明":{py:"Liú Míng"},"刘小明":{py:"Liú Xiǎomíng"},"李文":{py:"Lǐ Wén"},"白家月":{py:"Bái Jiāyuè"},"安妮":{py:"Ānnī"},"陈老师":{py:"Chén lǎoshī"},"王小文":{py:"Wáng Xiǎowén"},"李大伟":{py:"Lǐ Dàwěi"},"赵经理":{py:"Zhào jīnglǐ"},"林小雨":{py:"Lín Xiǎoyǔ"},"张小强":{py:"Zhāng Xiǎoqiáng"},"王一飞":{py:"Wáng Yīfēi"},"刘小雪":{"py":"Liú Xiǎoxuě"},"服务员":{"py":"Fúwùyuán"},"陈天中":{"py":"Chén Tiānzhōng"},"张阿姨":{"py":"Zhāng āyí"},"李叔叔":{"py":"Lǐ shūshu"},"小李":{"py":"Xiǎo Lǐ"},"店员":{"py":"Diànyuán"}};
+const sceneSpeakersAlt={"15":{"杨同乐":{py:"Yáng Tónglè"},"刘小明":{py:"Liú Xiǎomíng"}}};
+Object.assign(sceneSpeakers,{"妈妈":{"py":"Māma"},"爸爸":{"py":"Bàba"},"爷爷":{"py":"Yéye"},"奶奶":{"py":"Nǎinai"},"老师":{"py":"Lǎoshī"},"教练":{"py":"Jiàoliàn"},"顾客":{"py":"Gùkè"},"售货员":{"py":"Shòuhuòyuán"},"司机":{"py":"Sījī"},"导游":{"py":"Dǎoyóu"},"姐姐":{"py":"Jiějie"}});
+Object.assign(sceneSpeakers,{"房东":{py:"Fángdōng"},"护士":{py:"Hùshi"},"医生":{py:"Yīshēng"},"邻居":{py:"Línjū"},"路人":{py:"Lùrén"},"广播":{py:"Guǎngbō"},"值机员":{py:"Zhíjīyuán"}});
+Object.assign(sceneSpeakers,{"学生们":{py:"Xuéshengmen"},"小语":{py:"Xiǎoyǔ"},"胡医生":{py:"Hú yīshēng"},"刘爷爷":{py:"Liú yéye"},"白家月和安妮":{py:"Bái Jiāyuè hé Ānnī"}});
+// Avatar nhân vật bài khóa: ảnh flat vector trong assets/avatars/<tên pinyin>.webp.
+// (Hệ thống vẽ SVG cũ đã xóa theo yêu cầu chủ web 2026-11-27.)
+const AVATAR_IMG = {
+  '王一飞': 'wang-yifei', '白家月': 'bai-jiayue', '安妮': 'annie',
+  '陈天中': 'chen-tianzhong', '李文': 'li-wen', '王一雪': 'wang-yixue',
+  '刘明': 'liu-ming', '刘小雪': 'liu-xiaoxue', '刘小明': 'liu-xiaoming',
+  '杨同乐': 'yang-tongle', '小语': 'xiao-yu', '刘爷爷': 'liu-yeye',
+  '白家月和安妮': 'baijiayue-annie-duo', '李老师': 'li-laoshi', '同学': 'tongxue',
+  '同事': 'tongshi', '房东': 'fangdong', '护士': 'hushi', '路人': 'luren',
+  '邻居': 'linju', '值机员': 'zhijiyuan', '姐姐': 'jiejie', '服务员': 'fuwuyuan',
+  '店员': 'dianyuan', '售货员': 'shouhuoyuan', '小李': 'xiao-li',
+  '张阿姨': 'zhang-ayi', '李叔叔': 'li-shushu', '胡医生': 'hu-yisheng',
+  '广播': 'guangbo', '学生们': 'xueshengmen'
 };
 function avatarSVG(name) {
-  const INK = '#193B39', VERM = '#A54432', GOLD = '#B98A2F', NAVY = '#2C4A6B', BG = '#EDF1E8';
-  const SKIN = { sang: '#F6D7C4', trung: '#EFC39E', ngam: '#D9A06F' };
-  const HAIR = { den: '#232323', 'nau-dam': '#4A3226', xam: '#9AA0A6', 'nau-sang': '#C89B6A' };
-  const cfg = AVATAR_CFG[name] || ['trung', 'ngan', 'den', '#69766C', ''];
-  const skin = SKIN[cfg[0]], hc = HAIR[cfg[2]], top = cfg[3], style = cfg[1], extra = cfg[4];
-  let back = '', topHair = '';
-  if (style === 'dai') back = '<path d="M30 66 C26 20 94 20 90 66 L90 104 L30 104 Z" fill="' + hc + '"/>';
-  if (style === 'bob') back = '<path d="M30 66 C26 20 94 20 90 66 L90 88 L30 88 Z" fill="' + hc + '"/>';
-  if (style === 'ngan' || style === 'dai' || style === 'bob')
-    topHair = '<path d="M31 64 C29 28 91 28 89 64 C84 46 74 40 60 40 C46 40 36 46 31 64 Z" fill="' + hc + '"/>';
-  if (style === 'spiky')
-    topHair = '<path d="M31 62 L36 34 L44 48 L52 30 L60 46 L68 30 L76 48 L84 34 L89 62 C84 46 74 40 60 40 C46 40 36 46 31 62 Z" fill="' + hc + '"/>';
-  if (style === 'bui')
-    topHair = '<path d="M31 64 C29 28 91 28 89 64 C84 46 74 40 60 40 C46 40 36 46 31 64 Z" fill="' + hc + '"/><circle cx="60" cy="22" r="11" fill="' + hc + '"/>';
-  if (style === 'mu-yta')
-    topHair = '<path d="M31 64 C29 30 91 30 89 64 C84 48 74 42 60 42 C46 42 36 48 31 64 Z" fill="' + hc + '"/><rect x="42" y="16" width="36" height="18" rx="8" fill="#FFFEFA" stroke="#D8DCC9" stroke-width="1.5"/><path d="M60 19 v12 M54 25 h12" stroke="' + VERM + '" stroke-width="3" stroke-linecap="round"/>';
-  if (style === 'mu-luoi-trai')
-    topHair = '<path d="M31 64 C29 30 91 30 89 64 C84 48 74 42 60 42 C46 42 36 48 31 64 Z" fill="' + hc + '"/><path d="M30 44 Q60 20 90 44 L90 52 Q60 32 30 52 Z" fill="' + NAVY + '"/><ellipse cx="60" cy="52" rx="34" ry="6" fill="' + NAVY + '"/>';
-  let inner = back
-    + '<ellipse cx="60" cy="134" rx="36" ry="30" fill="' + top + '"/>'
-    + '<rect x="53" y="76" width="14" height="16" fill="' + skin + '"/>'
-    + '<circle cx="30" cy="62" r="7" fill="' + skin + '"/><circle cx="90" cy="62" r="7" fill="' + skin + '"/>'
-    + '<ellipse cx="60" cy="58" rx="27" ry="31" fill="' + skin + '"/>' + topHair;
-  if (extra === 'glasses')
-    inner += '<g stroke="' + INK + '" stroke-width="2.5" fill="none"><circle cx="49" cy="60" r="9"/><circle cx="71" cy="60" r="9"/><path d="M58 60 H62"/></g>';
-  if (extra === 'earrings')
-    inner += '<circle cx="31" cy="73" r="2.6" fill="' + GOLD + '"/><circle cx="89" cy="73" r="2.6" fill="' + GOLD + '"/>';
-  inner += '<g fill="' + INK + '"><ellipse cx="49" cy="60" rx="2.6" ry="3.2"/><ellipse cx="71" cy="60" rx="2.6" ry="3.2"/></g>'
-    + '<g stroke="' + INK + '" stroke-width="2.2" stroke-linecap="round" fill="none"><path d="M44 50 Q49 47 54 50"/><path d="M66 50 Q71 47 76 50"/><path d="M53 74 Q60 79 67 74"/></g>';
-  const id = 'avclip' + (++__avClip);
-  return '<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="' + name + '">'
-    + '<defs><clipPath id="' + id + '"><circle cx="60" cy="60" r="58"/></clipPath></defs>'
-    + '<circle cx="60" cy="60" r="58" fill="' + BG + '"/><g clip-path="url(#' + id + ')">' + inner + '</g></svg>';
+  const img = AVATAR_IMG[name];
+  if (!img) return '';
+  return '<img src="assets/avatars/' + img + '.webp" alt="' + esc(name) + '" loading="lazy">';
 }
 
 function isXia(){return currentLevel==='4x'}
