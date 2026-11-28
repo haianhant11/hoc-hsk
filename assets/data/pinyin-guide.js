@@ -17,7 +17,7 @@ window.PINYIN_INITIALS = [
     diagram: 'labiodental',
     tip: 'Răng cửa hàm trên chạm nhẹ vào mép trong môi dưới.',
     items: [
-      { sym: 'f', read: 'fō', han: '佛', vi: 'fua / phô (xát nhẹ)', air: 'Xát liên tục', mouth: 'Răng trên chạm nhẹ môi dưới, tạo khe hở nhỏ để luồng hơi xát nhẹ đi ra (giống âm "ph" tiếng Việt nhưng gọn và không bật hơi).', mistake: 'Tránh bặm hai môi giống "p".' }
+      { sym: 'f', read: 'fó', han: '佛', vi: 'fua / phô (xát nhẹ)', air: 'Xát liên tục', mouth: 'Răng trên chạm nhẹ môi dưới, tạo khe hở nhỏ để luồng hơi xát nhẹ đi ra (giống âm "ph" tiếng Việt nhưng gọn và không bật hơi).', mistake: 'Tránh bặm hai môi giống "p".' }
     ]
   },
   {
@@ -26,10 +26,10 @@ window.PINYIN_INITIALS = [
     diagram: 'alveolar',
     tip: 'Đầu lưỡi nâng lên chạm vào phần lợi (nướu) ngay sau răng cửa trên.',
     items: [
-      { sym: 'd', read: 'dē', han: '得', vi: 'tưa (không bật hơi)', air: 'Không bật hơi', mouth: 'Đầu lưỡi ấn vào lợi trên chặn hơi, rồi hạ xuống nhẹ nhàng không bật hơi mạnh (nghe gần giống "t" nhẹ trong tiếng Việt).', mistake: 'Hay đọc nặng thành "đ" tiếng Việt.' },
-      { sym: 't', read: 'tē', han: '特', vi: 'thưa (bật hơi mạnh)', air: 'Bật hơi mạnh', mouth: 'Đầu lưỡi đặt cùng vị trí như "d" (chạm lợi trên), tích hơi rồi bật mạnh ra ngoài (giống "th" tiếng Việt nhưng hơi bật dứt khoát hơn).', mistake: 'Thiếu luồng hơi bật mạnh ở đầu âm.' },
-      { sym: 'n', read: 'nē', han: '呢', vi: 'nưa (âm mũi)', air: 'Ra khoang mũi', mouth: 'Đầu lưỡi chạm lợi trên chặn đường miệng, hơi thoát hoàn toàn qua khoang mũi, dây thanh rung.', mistake: 'Hay bị ngọng sang "l" ở một số vùng.' },
-      { sym: 'l', read: 'lē', han: '乐', vi: 'lưa (âm bên)', air: 'Thoát hai bên lưỡi', mouth: 'Đầu lưỡi chạm lợi trên (nhưng hẹp hơn "n"), luồng hơi đi vòng qua hai bên rìa lưỡi thoát ra ngoài.', mistake: 'Cần giữ đầu lưỡi cố định trên lợi trước khi buông.' }
+      { sym: 'd', read: 'dé', han: '得', vi: 'tưa (không bật hơi)', air: 'Không bật hơi', mouth: 'Đầu lưỡi ấn vào lợi trên chặn hơi, rồi hạ xuống nhẹ nhàng không bật hơi mạnh (nghe gần giống "t" nhẹ trong tiếng Việt).', mistake: 'Hay đọc nặng thành "đ" tiếng Việt.' },
+      { sym: 't', read: 'tè', han: '特', vi: 'thưa (bật hơi mạnh)', air: 'Bật hơi mạnh', mouth: 'Đầu lưỡi đặt cùng vị trí như "d" (chạm lợi trên), tích hơi rồi bật mạnh ra ngoài (giống "th" tiếng Việt nhưng hơi bật dứt khoát hơn).', mistake: 'Thiếu luồng hơi bật mạnh ở đầu âm.' },
+      { sym: 'n', read: 'ne', han: '呢', vi: 'nưa (âm mũi)', air: 'Ra khoang mũi', mouth: 'Đầu lưỡi chạm lợi trên chặn đường miệng, hơi thoát hoàn toàn qua khoang mũi, dây thanh rung.', mistake: 'Hay bị ngọng sang "l" ở một số vùng.' },
+      { sym: 'l', read: 'lè', han: '乐', vi: 'lưa (âm bên)', air: 'Thoát hai bên lưỡi', mouth: 'Đầu lưỡi chạm lợi trên (nhưng hẹp hơn "n"), luồng hơi đi vòng qua hai bên rìa lưỡi thoát ra ngoài.', mistake: 'Cần giữ đầu lưỡi cố định trên lợi trước khi buông.' }
     ]
   },
   {
@@ -63,7 +63,7 @@ window.PINYIN_INITIALS = [
       { sym: 'zh', read: 'zhī', han: '知', vi: 'trư (uốn lưỡi, không bật hơi)', air: 'Không bật hơi', mouth: 'Đầu lưỡi cong lên chạm vào phía sau lợi (trước ngạc cứng), không bật hơi, hơi mở khe cho âm thoát ra.', mistake: 'Hay quên uốn lưỡi nên lẫn với "z" hoặc đọc thành "gi".' },
       { sym: 'ch', read: 'chī', han: '吃', vi: 'trư (uốn lưỡi, bật hơi mạnh)', air: 'Bật hơi mạnh', mouth: 'Đầu lưỡi uốn lên chạm cùng vị trí với "zh", tích hơi rồi bật mạnh luồng hơi ra ngoài.', mistake: 'Đọc giống "ch" tiếng Việt (không uốn lưỡi, không bật hơi).' },
       { sym: 'sh', read: 'shī', han: '诗', vi: 'sư (uốn lưỡi, xát)', air: 'Xát liên tục', mouth: 'Đầu lưỡi uốn cong lên gần phần trước ngạc cứng (không chạm hẳn), để lại khe hở cho hơi xát đều ra ngoài (gần "s" nặng miền Trung/Nam).', mistake: 'Quên uốn lưỡi nên bị lẫn sang "x" hoặc "s".' },
-      { sym: 'r', read: 'rī', han: '日', vi: 'rư (uốn lưỡi, hữu thanh)', air: 'Xát + rung thanh', mouth: 'Đầu lưỡi uốn cong như "sh", nhưng dây thanh rung nhẹ, luồng hơi đi qua khe hẹp tạo âm êm (không rung đầu lưỡi liên hồi như "r" tiếng Nga/Tây Ban Nha).', mistake: 'Đọc thành "d" hoặc "gi" miền Bắc.' }
+      { sym: 'r', read: 'rì', han: '日', vi: 'rư (uốn lưỡi, hữu thanh)', air: 'Xát + rung thanh', mouth: 'Đầu lưỡi uốn cong như "sh", nhưng dây thanh rung nhẹ, luồng hơi đi qua khe hẹp tạo âm êm (không rung đầu lưỡi liên hồi như "r" tiếng Nga/Tây Ban Nha).', mistake: 'Đọc thành "d" hoặc "gi" miền Bắc.' }
     ]
   },
   {
@@ -73,7 +73,7 @@ window.PINYIN_INITIALS = [
     tip: 'Lưỡi duỗi thẳng tự nhiên, đầu lưỡi đặt sát mặt sau răng cửa trên/dưới.',
     items: [
       { sym: 'z', read: 'zī', han: '资', vi: 'tzư (thẳng lưỡi, không bật hơi)', air: 'Không bật hơi', mouth: 'Đầu lưỡi duỗi thẳng chạm nhẹ vào mặt sau răng cửa trên, rồi hơi tách ra cho hơi thoát nhẹ (nghe như "tz" không bật hơi).', mistake: 'Hay đọc thành "d" hoặc "gi".' },
-      { sym: 'c', read: 'cī', han: '词', vi: 'txư (thẳng lưỡi, bật hơi)', air: 'Bật hơi mạnh', mouth: 'Đầu lưỡi duỗi thẳng chạm mặt sau răng cửa trên như "z", rồi bật mạnh luồng hơi xì ra qua khe răng ("ts" bật hơi).', mistake: 'Đọc thành "x" hoặc "ch" mà thiếu lực bật ở đầu.' },
+      { sym: 'c', read: 'cí', han: '词', vi: 'txư (thẳng lưỡi, bật hơi)', air: 'Bật hơi mạnh', mouth: 'Đầu lưỡi duỗi thẳng chạm mặt sau răng cửa trên như "z", rồi bật mạnh luồng hơi xì ra qua khe răng ("ts" bật hơi).', mistake: 'Đọc thành "x" hoặc "ch" mà thiếu lực bật ở đầu.' },
       { sym: 's', read: 'sī', han: '思', vi: 'xư (thẳng lưỡi, xát)', air: 'Xát liên tục', mouth: 'Đầu lưỡi duỗi thẳng đặt gần mặt sau răng cửa, luồng hơi xì nhẹ qua khe răng (giống "x" tiếng Việt, nhưng gọn hơn).', mistake: 'Hay uốn lưỡi thành "sh".' }
     ]
   }
